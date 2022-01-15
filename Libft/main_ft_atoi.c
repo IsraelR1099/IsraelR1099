@@ -22,8 +22,8 @@ int	main(void)
 	printf("\033[31;1;13mConverting 'Hello!': %d\n\033[0m", x);
 	printf("\033[32;1;13mConverting with ft_atoi '%s': %d\n\033[0m", hola2, resultado);
 
-	char	str3[] = "\t-99Hello";
-	char	hola3[] = "\t-99Hello";
+	char	str3[] = "\t+99Hello";
+	char	hola3[] = "\t+99Hello";
 
 	x = atoi(str3);
 	resultado = ft_atoi(hola3);
@@ -53,6 +53,23 @@ int	main(void)
 	printf("\033[31;1;13mConverting '12 32': %d\n\033[0m", x);
 	printf("\033[32;1;13mConverting with ft_atoi '%s': %d\n\033[0m", hola6, resultado);
 	
+	char	str7[] = "2147483647";
+	char	hola7[] = "2147483647";
+	
+	x = atoi(str7);
+	resultado = ft_atoi(hola7);
+
+	printf("\033[31;1;13mConverting INT_MAX '%s': %d\n\033[0m", str7, x);
+	printf("\033[32;1;13mConverting INT_MAX with ft_atoi '%s': %d\n\033[0m", hola7, resultado);
+
+	char	str8[] = "-2147483648";
+	char	hola8[] = "-2147483648";
+
+	x = atoi(str8);
+	resultado = ft_atoi(hola8);
+
+	printf("\033[31;1;13mConverting INT_MIN '%s': %d\n\033[0m", str8, x);
+	printf("\033[32;1;13mConverting INT_MIN with ft_atoi '%s': %d\n\033[0m", hola8, resultado);
 
 	return (0);
 }
