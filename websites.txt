@@ -7,3 +7,10 @@ atoi:
 https://www.geeksforgeeks.org/write-your-own-atoi/
 colores:
 https://qastack.mx/programming/4842424/list-of-ansi-color-escape-sequences
+
+strlcat and strlcpy:
+https://www.mkssoftware.com/docs/man3/strlcat.3.asp
+
+https://c-for-dummies.com/blog/?p=3896
+
+https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Articles/BufferOverflows.html
