@@ -1,0 +1,18 @@
+NAME = name of the executable file
+SRC = name of the source of the file, with extension
+OBJ = takes all .c files in $(SRC) and compiles them into .o files
+
+all: regla principal "all", distintas reglas que se ejecuten si no ocurre nada
+
+$NAME:
+	command of compilation and flags to be used, with out files NAME and SRC
+
+clean:
+	removes .o files
+
+fclean: executes clean
+	and clears all executables present in the folder with the name NAME // removes .o files and the binary
+
+re: fclean and remakes binary
+
+.PHONY avoids relinking
