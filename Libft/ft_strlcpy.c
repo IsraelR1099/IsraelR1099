@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/14 10:29:09 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/14 12:55:07 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/17 09:43:10 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/17 13:27:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,9 @@
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	unsigned int	position;
-	int	len_src;
+	int				len_src;
 
-	len_src = 0;
-	while (src[len_src] != '\0')
-	{
-		len_src++;
-	}
-	
+	len_src = ft_strlen((char *)src);
 	position = 0;
 	while (src[position] != '\0' && position < (size - 1))
 	{
@@ -31,6 +26,5 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 		position++;
 	}
 	dest[position] = '\0';
-
 	return (len_src);
 }

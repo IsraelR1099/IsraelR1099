@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 12:30:14 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/11 17:30:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/13 14:01:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_tolower(int c);
 char	*ft_strchr(char *str, int ch);
 char	*ft_strrchr(char *str, int ch);
 int	ft_strncmp(const char *str1, const char *str2, unsigned int number);
+void	*ft_memset(void *dest, int ch, size_t count);
+void	ft_bzero(void *s, size_t n);
 
 int	main(void)
 {
@@ -104,6 +106,25 @@ int	main(void)
 
 	printf("\nSon iguales hasta %d", ft_strncmp(str1, str3, 4));
 
+	char	hola[20] = "Como estas";
+//	int	numero[8];
+	
+	c = 's';
+	/*ft_memset(numero,-1, 32);
+	for (int i = 0; i < 8; i++)
+	{
+	printf("%d ", numero[i]);
+	}*/
 
+	memset(hola+2, c, 2);
+	printf("\nEl resultado con ft_memset es: %s", hola);
+
+	ft_memset(hola+2, c, 2);
+	printf("\nEl resultado con memset es: %s", hola);
+	
+	bzero(hola, 3);
+	printf("\nResultado con bzero: %s\n", hola);
+
+			
 	return (0);
 }

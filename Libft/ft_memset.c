@@ -6,24 +6,23 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:34:59 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/12 13:13:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/17 13:08:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 void	*ft_memset(void	*dest, int ch, size_t count)
 {
-	unsigned	int	position;
-	char	*new_dest;
+	unsigned int	position;
+	char			*new_dest;
 
 	new_dest = (char *)dest;
 	position = 0;
 	while (position < count)
 	{
 		new_dest[position] = (char)ch;
-	   position++;
+		position++;
 	}
 	return (new_dest);
-}	
-
+}

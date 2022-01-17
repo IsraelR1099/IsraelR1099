@@ -6,18 +6,20 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:29:09 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/17 12:28:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/15 11:34:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_prueba_atoi(const char *str)
 {
+//	char	*str;
 	int		position;
 	int		number;
 	int		sign;
 
+//	str = (char *)str;
 	position = 0;
 	number = 0;
 	sign = 1;

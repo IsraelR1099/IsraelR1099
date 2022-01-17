@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:10:18 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/12 12:06:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/17 12:29:18 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned	int	position;
-	char	*new_s;
+	unsigned int	position;
+	char			*new_s;
 
 	new_s = (char *)s;
 	position = 0;

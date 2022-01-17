@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 13:01:59 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/10 13:21:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/17 12:29:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_isalnum(int c)
 		return (1);
 	else if ((c >= 65) && (c <= 90))
 		return (1);
-	else if (( c >= 97) && (c <= 122))
+	else if ((c >= 97) && (c <= 122))
 		return (1);
 	else
 		return (0);

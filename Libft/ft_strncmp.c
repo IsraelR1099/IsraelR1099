@@ -6,11 +6,11 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:10:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/11 17:30:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/17 12:37:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strncmp(const char *str1, const char *str2, unsigned int number)
+int	ft_strncmp(const char *str1, const char *str2, size_t number)
 {
 	int	position_str1;
 	int	position_str2;
@@ -18,7 +18,7 @@ int	ft_strncmp(const char *str1, const char *str2, unsigned int number)
 	position_str1 = 0;
 	position_str2 = 0;
 	while (str1[position_str1] == str2[position_str2] && number)
-	{
+	{	
 		position_str1++;
 		position_str2++;
 		number--;
@@ -28,4 +28,3 @@ int	ft_strncmp(const char *str1, const char *str2, unsigned int number)
 	else
 		return (str1[position_str1] - str2[position_str2]);
 }
-

@@ -1,3 +1,3 @@
 #!/bin/bash
-gcc -Wall -Wextra -Werror *.c
+gcc -Wall -Wextra -Werror 
 ./a.out
