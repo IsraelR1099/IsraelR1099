@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 12:41:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 12:54:54 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/13 11:04:10 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/17 12:33:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include <string.h>
+
+void	*ft_memmove(void *dest, const void *src, size_t count)
 {
-	if ((c >= 48) && (c <= 57))
+	char	*new_dest;
+	char	*new_src;
+
+	new_dest = (char *)dest;
+	new_src = (char *)src;
+	if (new_dest > new_src)
 	{
-		return (1);
+		while (count--)
+		{
+			*(new_dest + count) = *(new_src + count);
+		}
 	}
 	else
-		return (0);
+	{
+		while (count--)
+		{
+		*new_dest++ = *new_src++;
+		}
+	}
+	return (dest);
 }

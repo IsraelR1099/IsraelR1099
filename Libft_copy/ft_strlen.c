@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 12:41:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 12:54:54 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/10 14:08:10 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/15 10:05:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+int	ft_strlen(char *str)
 {
-	if ((c >= 48) && (c <= 57))
+	int	position;
+
+	position = 0;
+	while (str[position] != '\0')
 	{
-		return (1);
+		position++;
 	}
-	else
-		return (0);
+	return (position);
 }

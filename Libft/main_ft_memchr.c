@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 14:05:45 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/13 14:29:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/18 13:39:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	*ft_memchr(const void *str, int ch, size_t count);
 int	main(void)
 {
 	char	ptr[] = "This is a random string";
-	char	ch = 'a';
+	char	ch = 'r';
 	char	ptr1[] = "This is a random string";
-	char	ch1 = 'a';
+	char	ch1 = 'r';
+	char	s[] = {0, 1, 2, 3, 4, 5};
+	char	number = '2';
 
 	if (memchr(ptr, ch, 15))
 			printf("%c esta presente en %s\n", ch, ptr);
@@ -30,6 +32,15 @@ int	main(void)
 		printf("%c esta presente en %s\n", ch1, ptr1);
 	else
 		printf("No esta presente %c\n", ch1);
+	if (ft_memchr(s, 2 + 256, 3))
+		printf(" esta presente en %s\n", s);
+	else
+		printf("No esta presente %c\n", number);
+	if (memchr(s, 2 + 256, 3))
+		printf(" esta presente en %s\n", s);
+	else
+		printf("No esta presente %c\n", number);
+
 
 	return (0);
 	}

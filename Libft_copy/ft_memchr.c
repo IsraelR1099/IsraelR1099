@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 12:41:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 12:54:54 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/13 14:01:19 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/18 13:38:06 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include <string.h>
+
+void	*ft_memchr(const void *str, int ch, size_t count)
 {
-	if ((c >= 48) && (c <= 57))
-	{
-		return (1);
-	}
-	else
+	const char		*new_str;
+	unsigned int	position;
+
+	new_str = (const char *)str;
+	position = 0;
+	if (count == 0)
 		return (0);
+	while (position <= count)
+	{
+		if (new_str[position] == (char)ch)
+		{
+			return ((void *)(str + position));
+		}
+		position++;
+	}
+	return (0);
 }

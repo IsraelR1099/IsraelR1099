@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 12:41:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 12:54:54 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/12 11:50:28 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/17 12:32:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include <stdlib.h>
+
+void	*ft_memcpy(void *dest, const void *src, size_t count)
 {
-	if ((c >= 48) && (c <= 57))
+	const char	*new_src;
+	char		*new_dest;
+
+	new_src = (char *)src;
+	new_dest = (char *)dest;
+	while (count--)
 	{
-		return (1);
+		*new_dest++ = *new_src++;
 	}
-	else
-		return (0);
+	return (dest);
 }

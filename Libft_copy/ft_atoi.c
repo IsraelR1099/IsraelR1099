@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/17 09:43:45 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 14:45:02 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/14 10:29:09 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/17 12:28:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
+int	ft_atoi(const char *str)
 {
-	char			*new_src;
-	unsigned int	position;
-	unsigned int	len_dest;
-	int				len_src;
+	int		position;
+	int		number;
+	int		sign;
 
-	new_src = (char *)src;
-	len_dest = ft_strlen(dest);
-	len_src = ft_strlen(new_src);
 	position = 0;
-	while (new_src[position] != '\0' && len_dest < (size - 1))
+	number = 0;
+	sign = 1;
+	while (((str[position] >= 9) && (str[position] <= 13))
+		|| (str[position] == 32))
+		position++;
+	if ((str[position] == '-') || (str[position] == '+'))
 	{
-		dest[len_dest] = new_src[position];
-		len_dest++;
+		if (str[position] == '-')
+		sign = -1;
 		position++;
 	}
-	dest[len_dest] = '\0';
-	return (len_dest + len_src - position);
+	while ((str[position] >= 48) && (str[position] <= 57))
+	{	
+		number = number * 10 + str[position] - 48;
+		position++;
+	}
+	return (sign * number);
 }

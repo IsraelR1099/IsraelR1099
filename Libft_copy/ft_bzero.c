@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 12:41:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 12:54:54 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/12 11:10:18 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/17 12:29:18 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include <stdlib.h>
+
+void	ft_bzero(void *s, size_t n)
 {
-	if ((c >= 48) && (c <= 57))
+	unsigned int	position;
+	char			*new_s;
+
+	new_s = (char *)s;
+	position = 0;
+	while (position < n)
 	{
-		return (1);
+		new_s[position] = '\0';
+		position++;
 	}
-	else
-		return (0);
 }
