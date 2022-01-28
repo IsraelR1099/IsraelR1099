@@ -3,27 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fscorcel <fscorcel@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/12 11:50:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/28 14:18:33 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/12 11:11:51 by fscorcel          #+#    #+#             */
+/*   Updated: 2022/01/14 19:58:34 by fscorcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t count)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	const char	*new_src;
-	char		*new_dest;
+	size_t	marker;
 
-	new_src = (char *)src;
-	new_dest = (char *)dest;
-	if (dest == NULL && src == NULL)
+	if (dst == NULL && src == NULL)
 		return (NULL);
-	while (count--)
+	marker = 0;
+	while (marker < n)
 	{
-		*new_dest++ = *new_src++;
+		((unsigned char *)dst)[marker] = ((unsigned char *)src)[marker];
+		marker ++;
 	}
-	return (dest);
+	return (dst);
 }

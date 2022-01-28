@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   main_ft_strrchr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 11:04:10 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 15:05:20 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/28 14:28:50 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/28 14:55:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
+#include "tc.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t count)
+int	main(void)
 {
-	char	*new_dest;
-	char	*new_src;
+	char	s[] = "tripouille";
 
-	new_dest = (char *)dest;
-	new_src = (char *)src;
-	if (new_dest > new_src)
-	{
-		while (count--)
-		{
-			*(new_dest + count) = *(new_src + count);
-		}
-	}
-	else
-	{
-		while (count--)
-		{
-		*new_dest++ = *new_src++;
-		}
-	}
-	return (dest);
+	printf("%sEncontrado %s \n%s", TC_GRN, ft_strrchr(s, 't' + 256), TC_NRM);
+
+	return (0);
 }

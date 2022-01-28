@@ -3,30 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fscorcel <fscorcel@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/17 09:43:10 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/28 14:17:07 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/13 12:04:38 by fscorcel          #+#    #+#             */
+/*   Updated: 2022/01/13 12:33:23 by fscorcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	unsigned int	position;
-	int				len_src;
+	size_t	marker;
+	size_t	count;
 
-	len_src = ft_strlen(src);
-	position = 0;
-	if (size != 0)
+	marker = 0;
+	count = 0;
+	while (src[marker] != '\0')
+		marker++;
+	if (dstsize != 0)
 	{
-		while (src[position] != '\0' && position < (size - 1))
+		while (src[count] != '\0' && count < (dstsize - 1))
 		{
-			dest[position] = src[position];
-			position++;
+			dst[count] = src[count];
+			count++;
 		}
-		dest[position] = '\0';
+		dst[count] = '\0';
 	}
-	return (len_src);
+	return (marker);
 }

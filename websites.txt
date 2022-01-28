@@ -14,3 +14,5 @@ https://www.mkssoftware.com/docs/man3/strlcat.3.asp
 https://c-for-dummies.com/blog/?p=3896
 
 https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Articles/BufferOverflows.html
+
+https://github.com/pbie42/libft42commented

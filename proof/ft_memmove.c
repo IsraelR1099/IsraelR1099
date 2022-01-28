@@ -3,35 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fscorcel <fscorcel@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 11:04:10 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 15:05:20 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/13 11:14:11 by fscorcel          #+#    #+#             */
+/*   Updated: 2022/01/14 19:55:07 by fscorcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t count)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	*new_dest;
-	char	*new_src;
+	size_t	marker;
 
-	new_dest = (char *)dest;
-	new_src = (char *)src;
-	if (new_dest > new_src)
+	if (dst == NULL && src == NULL)
+		return (NULL);
+	marker = 0;
+	if (dst <= src)
 	{
-		while (count--)
+		while (marker < len)
 		{
-			*(new_dest + count) = *(new_src + count);
+			((unsigned char *)dst)[marker] = ((unsigned char *)src)[marker];
+			marker ++;
 		}
 	}
 	else
 	{
-		while (count--)
+		while (len > 0)
 		{
-		*new_dest++ = *new_src++;
+			((unsigned char *)dst)[len - 1] = ((unsigned char *)src)[len - 1];
+			len --;
 		}
 	}
-	return (dest);
+	return (dst);
 }

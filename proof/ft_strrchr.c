@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fscorcel <fscorcel@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 14:08:10 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/28 13:34:46 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/13 16:33:36 by fscorcel          #+#    #+#             */
+/*   Updated: 2022/01/28 14:55:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
-{
-	int	position;
+#include "libft.h"
 
-	position = 0;
-	while (str[position] != '\0')
+char	*ft_strrchr(const char *s, int c)
+{
+	const char	i = c;
+	size_t		marker;
+
+	marker = ft_strlen(s) + 1;
+	while (marker > 0)
 	{
-		position++;
+		marker --;
+		if (s[marker] == i)
+		{
+			return ((char *)(s + marker));
+		}
 	}
-	return (position);
+	return (NULL);
 }
