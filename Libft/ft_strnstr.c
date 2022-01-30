@@ -6,34 +6,30 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:36:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/17 12:37:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/30 15:18:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 char	*ft_strnstr(const char *dest, const char *src, size_t count)
 {
-	int		position_dest;
-	int		position_src;
-	char	*new_src;
-	char	*new_dest;
+	unsigned int	len_src;
+	char			*new_src;
+	char			*new_dest;
 
 	new_dest = (char *)dest;
 	new_src = (char *)src;
 	if (!*new_src)
 		return (new_dest);
-	position_dest = 0;
-	while ((dest[position_dest] != '\0') && count)
+	len_src = ft_strlen(src);
+	while (*dest && count >= len_src)
 	{
-		position_src = 0;
-		while (dest[position_dest + position_src] == src[position_src])
+		if (*dest == *src && (ft_strncmp(dest, src, len_src) == 0))
 		{
-			position_src++;
-			if (src[position_src] == '\0')
-				return (&new_dest[position_dest]);
+			return ((char *)dest);
 		}
-		position_dest++;
+		dest += 1;
 		count--;
 	}
 	return (0);

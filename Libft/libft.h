@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:30:04 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/28 14:28:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/29 15:16:23 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 void	*ft_calloc(size_t num, size_t size);
 char	*ft_strdup(const char *s1);
+char	*ft_itoa(int n);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif

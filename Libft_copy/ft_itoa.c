@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irifarac <irifarac@student.42barcelona.co  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 15:31:16 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/29 15:31:22 by irifarac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 int	ft_len(int n)
@@ -26,7 +38,7 @@ char	*ft_itoa(int n)
 		nbr = nbr * (-1);
 		len++;
 	}
-	ptr = malloc(1 * (len + 1));
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
 	if (!(ptr))
 		return (NULL);
 	if (n == 0)

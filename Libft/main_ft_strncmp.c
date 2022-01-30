@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_ft_strrchr.c                                  :+:      :+:    :+:   */
+/*   main_ft_strncmp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: irifarac <irifarac@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/28 14:28:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/30 20:51:32 by irifarac         ###   ########.fr       */
+/*   Created: 2022/01/30 18:00:25 by irifarac          #+#    #+#             */
+/*   Updated: 2022/01/30 20:16:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,14 @@
 
 int	main(void)
 {
-	char	s[] = "tripouille";
+	int	result;
+	int	result2;
 
-	if (strrchr(s, 't' + 256))
-		printf("%sEncontrado \n%s", TC_RED, TC_NRM);
-	else
-		printf("%sNo encontrado \n%s", TC_RED, TC_NRM);
-	if (ft_strrchr(s, 't' + 256))
-		printf("%sEncontrado \n%s", TC_GRN, TC_NRM);
-	else
-		printf("%sNo encontrado \n%s", TC_GRN, TC_NRM);
+	result = ft_strncmp("abcdefgh", "abcdefgxyz", 4);
+	result2 = strncmp("abcdefgh", "abcdefgxyz", 4);
+
+	printf("%sEl resultado es '%d'\n%s", TC_GRN, result, TC_NRM);
+	printf("%sEl resultado es '%d'\n%s", TC_RED, result2, TC_NRM);
 
 	return (0);
 }

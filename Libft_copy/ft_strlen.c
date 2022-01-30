@@ -6,11 +6,11 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:08:10 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/15 10:05:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/28 13:34:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
+int	ft_strlen(const char *str)
 {
 	int	position;
 

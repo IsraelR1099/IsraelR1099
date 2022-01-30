@@ -6,14 +6,14 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 14:05:45 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 13:39:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/30 20:39:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+#include "tc.h"
 #include <string.h>
-#include <stdio.h>
 
-void	*ft_memchr(const void *str, int ch, size_t count);
 
 int	main(void)
 {
@@ -40,6 +40,14 @@ int	main(void)
 		printf(" esta presente en %s\n", s);
 	else
 		printf("No esta presente %c\n", number);
+	if (memchr("bonjourno", 'n', 2))
+		printf("%sCon memchr esta presente en \n%s",TC_RED, TC_NRM);
+	else
+		printf("%sNo esta presente \n%s", TC_RED, TC_NRM);
+	if (ft_memchr("bonjourno", 'n', 2))
+		printf("%sCon ft_memchr esta presente en \n%s",TC_GRN, TC_NRM);
+	else
+		printf("%sNo esta presente \n%s",TC_GRN, TC_NRM);
 
 
 	return (0);

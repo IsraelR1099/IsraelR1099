@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:10:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 12:24:00 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/30 20:21:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,15 @@
 
 int	ft_strncmp(const char *str1, const char *str2, size_t number)
 {
-	int	position_str1;
-	int	position_str2;
+	size_t	position;
 
-	position_str1 = 0;
-	position_str2 = 0;
-	while (str1[position_str1] == str2[position_str2] && number)
-	{	
-		position_str1++;
-		position_str2++;
-		number--;
-	}
+	position = 0;
 	if (!number)
 		return (0);
-	else
-		return (str1[position_str1] - str2[position_str2]);
+	while (str1[position] && (str1[position] == str2[position])
+		&& position < (number - 1))
+	{	
+		position++;
+	}
+	return ((unsigned char)str1[position] - (unsigned char)str2[position]);
 }

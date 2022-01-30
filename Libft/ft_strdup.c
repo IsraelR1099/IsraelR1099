@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 13:09:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 14:46:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/29 15:10:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ char	*ft_strdup(const char *s1)
 	dest = malloc (ft_strlen((char *)s1) + 1);
 	if (dest == NULL)
 		return (0);
-	ft_strlcpy(dest, s1, ft_strlen((char *)s1));
+	ft_strlcpy(dest, s1, ft_strlen((char *)s1) + 1);
 	return (dest);
 }

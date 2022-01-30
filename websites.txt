@@ -16,3 +16,5 @@ https://c-for-dummies.com/blog/?p=3896
 https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/Articles/BufferOverflows.html
 
 https://github.com/pbie42/libft42commented
+
+https://github.com/lattera/freebsd/blob/master/lib/libc/string/memcmp.c

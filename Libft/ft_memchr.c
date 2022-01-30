@@ -6,11 +6,11 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 14:01:19 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 13:38:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/30 20:40:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
 void	*ft_memchr(const void *str, int ch, size_t count)
 {
@@ -21,7 +21,7 @@ void	*ft_memchr(const void *str, int ch, size_t count)
 	position = 0;
 	if (count == 0)
 		return (0);
-	while (position <= count)
+	while (position < count)
 	{
 		if (new_str[position] == (char)ch)
 		{

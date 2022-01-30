@@ -6,26 +6,24 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 11:19:54 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/17 12:38:13 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/01/30 21:01:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strrchr(char *str, int ch)
+#include "libft.h"
+
+char	*ft_strrchr(const char *str, int ch)
 {
 	int	position;
 
-	position = 0;
-	while (str[position] != '\0')
+	position = ft_strlen(str) + 1;
+	while (position > 0)
 	{
-		position++;
-	}
-	while (position >= 0)
-	{
-		if (str[position] == ch)
-		{
-			return (&str[position]);
-		}
 		position--;
+		if (str[position] == (unsigned char)ch)
+		{
+			return ((char *)str + position);
+		}
 	}
 	return (0);
 }
