@@ -1,0 +1,31 @@
+[1;31marray original 'papapaHello Worldapap'
+[0m[1;32mEl resultado es: Hello World
+[0mNumero de veces 0
+[1;32mArray original   	 
+
+ 		  
+
+
+Hello 	  Please
+ Trim	me !
+	
+ 
+ 		
+  
+[0mLens1 es 51
+Lens1 es 39
+position es 14
+[1;32mArray casi original   	 
+
+ 		  
+
+
+Hello 	  Please
+ Trim	me !
+	
+ 
+ 		
+  
+[0m[1;32mEl resultado con ft_strtrim es 'Hello 	  Please
+ Trim	me !'
+[0m
