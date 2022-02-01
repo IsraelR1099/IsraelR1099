@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   main_ft_strmapi.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 17:45:37 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/01 09:48:40 by irifarac         ###   ########.fr       */
+/*   Created: 2022/02/01 12:40:49 by irifarac          #+#    #+#             */
+/*   Updated: 2022/02/01 13:05:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "tc.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	prueba(unsigned int i, char c)
 {
-	char	*ptr;
-	size_t	index;
-	size_t	counter;
+	return (i + c);
+}
 
-	ptr = (char *)malloc(sizeof(char) * len + 1);
-	if (!ptr || !s)
-		return (0);
-	index = 0;
-	counter = 0;
-	while (s[index])
-	{
-		if (index >= start && counter < len)
-		{
-			ptr[counter] = s[index];
-			counter++;
-		}
-		index++;
-	}
-	ptr[counter] = '\0';
-	return (ptr);
+int	main(void)
+{
+	char	*str;
+	int	len;
+	char *s = "1234";
+
+	str = ft_strmapi("1234",prueba);
+	len = ft_strlen(s);
+
+	printf("%sLen es '%d'\n%s", TC_GRN, len, TC_NRM);
+	printf("%sEl resultado es '%s'\n%s", TC_GRN, str, TC_NRM);
+	return (0);
 }
