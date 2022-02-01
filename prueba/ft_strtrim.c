@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 09:46:08 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/01 09:49:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:32:18 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int	beginning(const char *s1, const char *set)
 int	end(const char *s1, const char *set)
 {
 	int	lens1;
-	int	counter;
 
-	counter = 0;
 	lens1 = ft_strlen((char *)s1) - 1;
 	while (lens1 >= 0 && ft_strchr((char *)set, s1[lens1]) != NULL)
 	{
@@ -41,11 +39,9 @@ int	end(const char *s1, const char *set)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*ptr;
-	char	*new_str;
 	int		first;
 	int		last;
 
-	new_str = (char *)s1;
 	first = beginning(s1, set);
 	last = end(s1, set);
 	if (first >= last)

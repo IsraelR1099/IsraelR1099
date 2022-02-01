@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 13:46:45 by irifarac          #+#    #+#              #
-#    Updated: 2022/02/01 13:40:52 by irifarac         ###   ########.fr        #
+#    Updated: 2022/02/01 20:23:57 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRC = ft_atoi.c \
 	   ft_substr.c \
 	   ft_strtrim.c \
 	   ft_strmapi.c \
-	   ft_striteri.c
+	   ft_striteri.c \
+	   ft_putchar_fd.c
 
 OBJ = $(SRC:.c=.o)
 INCLUDE = libft.h
