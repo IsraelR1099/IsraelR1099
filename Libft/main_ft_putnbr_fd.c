@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   main_ft_putnbr_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/01 20:35:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/02 09:42:24 by irifarac         ###   ########.fr       */
+/*   Created: 2022/02/02 11:09:45 by irifarac          #+#    #+#             */
+/*   Updated: 2022/02/02 13:26:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "tc.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	main(void)
 {
-	int	position;
+	int	fd;
+	int	number = 1234;
 
-	position = 0;
-	while (s[position] != '\0')
+
+
+	fd = open("hola.tx", O_RDWR | O_CREAT, 0777);
+	if (fd == -1)
+		printf("%sError al abrir el archivo\n%s", TC_RED, TC_NRM);
+	else
 	{
-		write(fd, &s[position], 1);
-		position++;
+		ft_putnbr_fd(number, fd);
+		close(fd);
 	}
+	return (0);
 }
+

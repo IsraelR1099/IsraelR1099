@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 15:31:16 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/01 10:16:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:30:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ char	*ft_itoa(int n)
 		nbr = nbr * (-1);
 		len++;
 	}
-	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	ptr = malloc(sizeof(char) * (len + 1));
 	if (!(ptr))
 		return (NULL);
 	if (n == 0)
-		ptr[0] = 0 + 48;
-	while (len--)
+		*ptr = 0 + 48;
+	while (len-- && n != 0)
 	{
 		ptr[len] = (nbr % 10) + 48;
 		nbr /= 10;
 	}
 	if (n < 0)
-		ptr[0] = '-';
+		*ptr = '-';
 	ptr[ft_len(n) + 1] = '\0';
 	return (ptr);
 }
