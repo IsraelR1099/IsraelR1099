@@ -18,3 +18,7 @@ https://developer.apple.com/library/archive/documentation/Security/Conceptual/Se
 https://github.com/pbie42/libft42commented
 
 https://github.com/lattera/freebsd/blob/master/lib/libc/string/memcmp.c
+
+malloc
+
+https://programmerclick.com/article/5645523514/
