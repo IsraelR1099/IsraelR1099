@@ -27,6 +27,7 @@ int	main(void)
 {
 	char	str[] = "hola que tal estas todo bien";
 	char	delim = ' ';
+	int	len;
 //	char	*ptr;
 
 	printf("%sLa string completa es '%s'\n%s", TC_RED, str, TC_NRM);
@@ -38,15 +39,22 @@ int	main(void)
 	int	i = 0;
 	int	cnter = 0;
 
-	char *pch = ft_strchr(str, delim);
+	len = ft_strlen(str);
+	printf("len es '%d'\n", len);
+	while (str[i] == delim)
+		i++;
+	char *pch = ft_strchr(str + i, delim);
 	while (str[i])
 	{
-		while (pch != NULL)
+		while (str[i] == delim)
+			i++;
+		if (pch != NULL)
 		{
 			pch = ft_strchr(pch + 1, delim);
 			cnter++;
 		}
-		i++;
+		while (str[i] && (ft_strncmp(str + i, (const char *)delim, len)))
+					i++;
 	}
 		printf("Counter es %d\n", cnter);
 	i = 0;

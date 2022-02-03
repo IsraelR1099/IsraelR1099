@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:44:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/03 14:13:36 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:23:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static int	ft_counter(char const *s, char c);
 
 	i = 0;
 	counter = 0;
-	ptr = ft_strchr(s, c);
+	while (str[i] == c)
+		i++;
+	ptr = ft_strchr(s + i, c);
 	while (str[i])
 	{
 		while (ptr != NULL)
