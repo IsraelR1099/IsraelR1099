@@ -25,16 +25,56 @@
 
 int	main(void)
 {
-	char	str[] = "Needs to be called, several, times to split";
-	char	delim[] = " ";
-	char	*ptr;
+	char	str[] = "hola que tal estas todo bien";
+	char	delim = ' ';
+//	char	*ptr;
 
 	printf("%sLa string completa es '%s'\n%s", TC_RED, str, TC_NRM);
-	ptr = ft_strnstr(str, delim, 20);
-	while (ptr != NULL)
+/*	while (ptr != NULL)
 	{
 		printf("%sFound at %ld\n%s", TC_GRN, ptr - str + 1, TC_NRM);
 		ptr = ft_strnstr(ptr + 1, delim, 20);
+	}*/
+	int	i = 0;
+	int	cnter = 0;
+
+	char *pch = ft_strchr(str, delim);
+	while (str[i])
+	{
+		while (pch != NULL)
+		{
+			pch = ft_strchr(pch + 1, delim);
+			cnter++;
+		}
+		i++;
 	}
+		printf("Counter es %d\n", cnter);
+	i = 0;
+	cnter = 0;
+	while (str[i])
+	{
+		while (str[i] == delim)
+			i++;
+		if (str[i] != '\0')
+			cnter++;
+		while (str[i] && str[i] != delim)
+			i++;
+		printf("Counter es %d\n", cnter);
+	}
+	i = 0;
+	int num_words = 0;
+
+	if (str[0] != delim)
+	{
+		num_words = 1;
+		i++;
+	}
+	while (str[i] != '\0')
+	{
+		if (str[i] != delim && str[i - 1] == delim)
+			num_words++;
+		i++;
+	}
+		printf("Num words es %d\n", num_words);
 	return (0);
 }

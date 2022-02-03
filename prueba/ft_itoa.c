@@ -6,13 +6,13 @@
 /*   By: irifarac <irifarac@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 15:31:16 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/02 14:30:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:59:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_len(int n)
+static int	ft_len(int n)
 {
 	int	len;
 
