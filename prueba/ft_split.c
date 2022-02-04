@@ -6,42 +6,93 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:44:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/03 20:23:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/04 14:08:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_counter(char const *s, char c);
+/*static char	*ft_new_string(char const *s, char (*f)(char *, const char *, size_t), char c)
 {
-	unsigned int	i;
-	unsigned int	counter;
-	char	*ptr;
+	char	new_str;
+	int		position;
+
+	position = 0;
+	while (s[position] != '\0')
+	{
+		if (s + position != c)
+		{
+			ft_strlcpy(new_str, s + position, );
+		}
+		position++;
+	}
+	return
+}
+
+static int	ft_len(char const *s, char c)
+{
+	int i;
 
 	i = 0;
-	counter = 0;
-	while (str[i] == c)
-		i++;
-	ptr = ft_strchr(s + i, c);
-	while (str[i])
+	while (*s != c)
 	{
-		while (ptr != NULL)
-		{
-			ptr = ft_strchr(s, c);
-			counter++;
-		}
-		i++;
+*/
+char	*ft_strtok(char *s, char c)
+{
+	static char	*buffer = NULL;
+	char	*token;
+	char	*ptr;
+	
+	if (!buffer)
+		buffer = s;
+	token = buffer;
+	if (!*buffer)
+		return (0);
+	while (*buffer && *buffer != c)
+		buffer += 1;
+	if (*buffer)
+	{
+		*buffer = 0;
+		buffer += 1;
 	}
-	return (counter + 1);
+	ptr = malloc(ft_strlen(token) + 1);
+	return (token);
+}
 
+static int	ft_counter(char const *s, char c)
+{
+	unsigned int	counter;
+	char	*buffer;
+
+	counter = 0;
+	buffer = (char *)s;
+	while (*buffer)
+	{
+		while (*buffer == c)
+			buffer += 1;
+		if (*buffer)
+			counter++;
+		while (*buffer & !(*buffer == c))
+			buffer += 1;
+	}
+	return (counter);
+}
 
 char	**ft_split(char const *s, char c)
 {
 	int	position;
 	char	**ptr;
-	int	start;
+	char	*token;
 
 	ptr = malloc(sizeof(char *) * (ft_counter(s, c) + 1));
-
+	token = ft_strtok((char *)s, c);
+	position = 0;
+	if (!ptr)
+		return (0);
+	while (position < ft_counter(s, c))
+	{
+		ptr[position] = ft_strtok(NULL, c);
+		position++;
+	}
 	return (ptr);
 }

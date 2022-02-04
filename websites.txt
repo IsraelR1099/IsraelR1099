@@ -22,3 +22,7 @@ https://github.com/lattera/freebsd/blob/master/lib/libc/string/memcmp.c
 malloc
 
 https://programmerclick.com/article/5645523514/
+
+valgrind(testear memoria)
+
+https://www.it.uc3m.es/pbasanta/asng/course_notes/memory_profiler_es.html

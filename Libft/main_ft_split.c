@@ -25,38 +25,33 @@
 
 int	main(void)
 {
-	char	str[] = "hola que tal estas todo bien";
+	char	str[] = "hola que tal estas";
 	char	delim = ' ';
 	int	len;
-//	char	*ptr;
+	char	**tab;
 
 	printf("%sLa string completa es '%s'\n%s", TC_RED, str, TC_NRM);
-/*	while (ptr != NULL)
-	{
-		printf("%sFound at %ld\n%s", TC_GRN, ptr - str + 1, TC_NRM);
-		ptr = ft_strnstr(ptr + 1, delim, 20);
-	}*/
 	int	i = 0;
 	int	cnter = 0;
+	tab = ft_split(str, delim);
+	printf("La nueva string es %s\n", (char *)tab);
 
 	len = ft_strlen(str);
 	printf("len es '%d'\n", len);
-	while (str[i] == delim)
-		i++;
-	char *pch = ft_strchr(str + i, delim);
-	while (str[i])
+	char *buffer;
+	buffer = str;
+	while (*buffer)
 	{
-		while (str[i] == delim)
-			i++;
-		if (pch != NULL)
+		while (*buffer == delim)
+			buffer += 1;
+		if (*buffer)
 		{
-			pch = ft_strchr(pch + 1, delim);
 			cnter++;
 		}
-		while (str[i] && (ft_strncmp(str + i, (const char *)delim, len)))
-					i++;
+		while (*buffer && !(*buffer == delim))
+					buffer += 1;
 	}
-		printf("Counter es %d\n", cnter);
+		printf("%sCounter 1 es %d\n%s", TC_GRN, cnter, TC_NRM);
 	i = 0;
 	cnter = 0;
 	while (str[i])
@@ -67,8 +62,8 @@ int	main(void)
 			cnter++;
 		while (str[i] && str[i] != delim)
 			i++;
-		printf("Counter es %d\n", cnter);
 	}
+		printf("%sCounter 2 es %d\n%s", TC_GRN, cnter, TC_NRM);
 	i = 0;
 	int num_words = 0;
 

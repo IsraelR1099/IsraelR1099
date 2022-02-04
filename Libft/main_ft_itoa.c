@@ -17,6 +17,19 @@ void	ft_print_result(char const *s)
 	write(1, s, len);
 }
 
+int	ft_len(int n)
+{
+	int	len;
+
+	len = 0;
+	while (n)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
+
 int	main(void)
 {
 	int	number;
@@ -24,24 +37,26 @@ int	main(void)
 	char	*result;
 	char	*res;
 	char	*realit;
-	char	*ptr = NULL;
+//	char	*ptr = NULL;
 	void	*p2;
 	size_t	lenreal;
-	int	comp;
+//	int	comp;
 
-	number = 10;
+	number = 14;
 	lenreal = 2 + 1;
 	p2 = malloc(lenreal);
 
 
-	result = ft_itoa(number);
+	len = ft_len(number);
+	printf("El len es '%d'\n", len);	
+	result = ft_itoa(-14);
 	res = ft_itoa(2147483647);
 	realit = i_to_a(2147483647);
-	comp = 	strcmp(realit, res);
-	printf("%scomp es igual a '%d'\n%s", TC_RED, comp, TC_NRM);
+//	comp = 	strcmp(realit, res);
+//	printf("%scomp es igual a '%d'\n%s", TC_RED, comp, TC_NRM);
 	printf("%sEl resultado de result es '%s'\n%s", TC_GRN, result, TC_NRM);
 	printf("%sEl resultado de res es '%s'\n%s", TC_GRN, res, TC_NRM);
-	ft_print_result(res);
+//	ft_print_result(res);
 	
 /*	printf("sizeof(result) = %zu\n", malloc_size(result));
 	printf("sizeof(p2) = %zu\n", malloc_size(p2));
