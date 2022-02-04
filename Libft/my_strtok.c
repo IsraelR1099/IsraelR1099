@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 13:42:51 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/04 14:10:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/04 21:10:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*ft_strtok(char *s, char c)
 {
 	static char	*buffer = NULL;
 	char	*token;
-	char	*ptr;
 
 	if (!buffer)
 		buffer = s;
@@ -38,14 +37,30 @@ int	main(void)
 {
 	char	str[] = "hola como estas";
 	char	delim = ' ';
-	char	*token;
+	char	*token[3];
+	char	**ptr[3];
+//	int	position;
 
-	token = ft_strtok(str, delim);
-	while (token)
+//	position = 0;
+	token[0] = ft_strtok(str, delim);
+	ptr[0] = token[0];
+	printf("token es %s\n", (char *)token[0]);
+	printf("ptr 0 es %s\n", (char *)ptr[0]);
+	token[1] = ft_strtok(str, delim);
+//	ptr[1] = &token;
+	printf("token es %s\n", (char *)token[1]);
+//	printf("ptr 1 es %s\n", (char *)ptr);
+	token[2] = ft_strtok(str, delim);
+	printf("token es %s\n", (char *)token[2]);
+/*	while (token)
 	{
+		ptr[position] = ft_strtok(NULL, delim);
+		position++;
+		printf("ptr es %s\n", ptr);
 		printf("%s\n", token);
 		token = ft_strtok(NULL, delim);
 	}
+		printf("ptr es %s\n", ptr);*/
 	return (0);
 }
 

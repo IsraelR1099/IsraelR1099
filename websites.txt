@@ -26,3 +26,8 @@ https://programmerclick.com/article/5645523514/
 valgrind(testear memoria)
 
 https://www.it.uc3m.es/pbasanta/asng/course_notes/memory_profiler_es.html
+
+punteros 
+
+https://stackoverflow.com/questions/50738225/how-to-print-a-double-pointer-value-in-c
+https://stackoverflow.com/questions/37098194/why-this-pointer-to-pointer-to-char-is-current
