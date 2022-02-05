@@ -32,7 +32,7 @@ int	main(void)
 	test = ft_split(str, delim);
 
 
-	printf("el resultado es %s\n", test[0]);
+//	printf("el resultado es %s\n", test[0]);
 
 	return (0);
 }
