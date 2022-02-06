@@ -6,13 +6,14 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 13:42:51 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/05 14:48:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/06 22:55:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "libft.h"
 
 char	*ft_strtok(char *s, char c)
 {
@@ -27,7 +28,7 @@ char	*ft_strtok(char *s, char c)
 		return (0);
 	while (*buffer  && *buffer != c)
 		buffer += 1;
-	if (*buffer)
+	if (*buffer && buffer)
 	{
 		*buffer = 0;
 		buffer += 1;
@@ -38,18 +39,18 @@ char	*ft_strtok(char *s, char c)
 static int	ft_counter(char const *s, char c)
 {
 	unsigned int	counter;
-	char	*buffer;
+	char	*buffer1;
 
 	counter = 0;
-	buffer = (char *)s;
-	while (*buffer)
+	buffer1 = (char *)s;
+	while (*buffer1)
 	{
-		while (*buffer == c)
-			buffer += 1;
-		if (*buffer)
+		while (*buffer1 == c)
+			buffer1 += 1;
+		if (*buffer1)
 			counter++;
-		while (*buffer && !(*buffer == c))
-			buffer += 1;
+		while (*buffer1 && !(*buffer1 == c))
+			buffer1 += 1;
 	}
 	return (counter);
 }
@@ -60,26 +61,31 @@ int	main(void)
 	char	**ptr;
 	char	*token;
 	int	n_times;
-	char	s[] = "hola como estas";
+	char	*s = "  hola como estas todo   bien";
 	char	c = ' ';
+	char	dup[ft_strlen(s) + 1];
 
 	n_times = ft_counter(s, c);
 	printf("n times es %d\n", n_times);
 	position = 0;
+	ft_strlcpy(dup, (char *)s, ft_strlen(s) + 1);
 	ptr = (char **)malloc(sizeof(char *) * (n_times + 1));
 	if (!ptr)
 		return (0);
-	token = ft_strtok((char *)s, c);
+	token = ft_strtok(dup, c);
 	printf("el resultado de token es %s\n", token);
 	while (position < n_times)
 	{
 		ptr[position] = token; 
-		token = ft_strtok(NULL, c);
+		token = ft_strtok("a", c);
 		position++;
 	}
 	printf("el resultado es %s\n", ptr[0]);
 	printf("el resultado es %s\n", ptr[1]);
 	printf("el resultado es %s\n", ptr[2]);
+	printf("el resultado es %s\n", ptr[3]);
+	printf("el resultado es %s\n", ptr[4]);
+	free(ptr);
 
 /*	char	str[] = "hola como estas";
 	char	delim = ' ';
