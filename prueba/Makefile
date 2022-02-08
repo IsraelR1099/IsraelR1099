@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 13:46:45 by irifarac          #+#    #+#              #
-#    Updated: 2022/02/08 13:41:04 by irifarac         ###   ########.fr        #
+#    Updated: 2022/02/08 20:49:38 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,24 +48,27 @@ SRC = ft_atoi.c \
 	   ft_putnbr_fd.c \
 	   ft_split.c
 
-BONUS = ft_lstnew.c
+BONUS_SRC = ft_lstnew.c \
+	    ft_lstadd_front.c \
+	    ft_lstsize.c
 
-BONUS_OBJ = $(BONUS:.c=.o)
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
 OBJ = $(SRC:.c=.o)
 INCLUDE = libft.h
-
-all: $(NAME)
-
-$(NAME): $(OBJ) $(INCLUDE)
-	$(CREATION_LIB) $(NAME) $(OBJ)
-	@echo "Compiling"
-
-bonus: $(NAME) $(BONUS_OBJ)
-	$(CREATION_LIB) $(NAME) $(BONUS_OBJ)
 
 %.o: %.c
 	@echo "Compilando"
 	gcc $(CFLAGS) -c $< -o $@
+
+$(NAME): $(OBJ) $(INCLUDE)
+	$(CREATION_LIB) $(NAME) $(OBJ)
+	@echo "Compiling"
+	
+all: $(NAME)
+
+bonus : $(NAME) $(BONUS_OBJ)
+	$(CREATION_LIB) $(NAME) $(BONUS_OBJ)
+	@echo "Compilando bonus"
 
 clean:
 	rm -f $(OBJ) $(BONUS_OBJ)
