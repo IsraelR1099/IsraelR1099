@@ -1,44 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_ft_split.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/07 10:06:34 by irifarac          #+#    #+#             */
+/*   Updated: 2022/02/07 13:51:22 by irifarac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "tc.h"
 
-/*char	*foo(char *str, char *c)
-{
-	static char	*buffer;
-	char		*token;
-
-	*buffer = NULL;
-	if (!c)
-		return NULL;
-	if (!buffer)
-		buffer = str;
-	if (!*buffer)
-		return NULL;
-	*token = buffer;
-	while (*buffer && *buffer != c)
-	{
-		buffer += 1;
-	}
-
-	return (token);
-
-}*/
 
 int	main(void)
 {
-	char	*str = " hola que tal estas";
-//	char	delim = ' ';
+	char	*str = "hello!";
 	char	**ptr;
 
-	ptr = &str;
-//	printf("ptr es %s\n", *ptr);
-	ptr = ft_split("   hola como estas todo bien", ' ');
+	ptr = ft_split(str, ' ');
 
-//	printf("el resultado es %s\n", test[0]);
 	printf("%sresultado ptr 0 es '%s'\n%s", TC_GRN, ptr[0], TC_NRM);
 	printf("%sresultado ptr 1 es '%s'\n%s", TC_GRN, ptr[1], TC_NRM);
 	printf("%sresultado ptr 2 es '%s'\n%s", TC_GRN, ptr[2], TC_NRM);
 	printf("%sresultado ptr 3 es '%s'\n%s", TC_GRN, ptr[3], TC_NRM);
 	printf("%sresultado ptr 4 es '%s'\n%s", TC_GRN, ptr[4], TC_NRM);
+	printf("%sresultado ptr 5 es '%s'\n%s", TC_GRN, ptr[5], TC_NRM);
+//	printf("%sresultado ptr 6 es '%s'\n%s", TC_GRN, ptr[6], TC_NRM);
+	free(ptr);
 
 	return (0);
 }

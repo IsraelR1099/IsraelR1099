@@ -6,63 +6,43 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:44:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/04 14:08:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/08 10:51:00 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-/*static char	*ft_new_string(char const *s, char (*f)(char *, const char *, size_t), char c)
-{
-	char	new_str;
-	int		position;
-
-	position = 0;
-	while (s[position] != '\0')
-	{
-		if (s + position != c)
-		{
-			ft_strlcpy(new_str, s + position, );
-		}
-		position++;
-	}
-	return
-}
-
-static int	ft_len(char const *s, char c)
-{
-	int i;
-
-	i = 0;
-	while (*s != c)
-	{
-*/
 char	*ft_strtok(char *s, char c)
 {
 	static char	*buffer = NULL;
-	char	*token;
-	char	*ptr;
-	
+	char		*token;
+	char		*dup_token;
+
 	if (!buffer)
 		buffer = s;
 	token = buffer;
 	if (!*buffer)
 		return (0);
+	while (*buffer == c)
+		buffer += 1;
 	while (*buffer && *buffer != c)
 		buffer += 1;
 	if (*buffer)
 	{
-		*buffer = 0;
-		buffer += 1;
+			*buffer = 0;
+			buffer += 1;
 	}
-	ptr = malloc(ft_strlen(token) + 1);
-	return (token);
+	while (*token == c)
+		token += 1;
+	dup_token = ft_strdup(token);
+	return (dup_token);
 }
 
-static int	ft_counter(char const *s, char c)
+int	ft_counter(char const *s, char c)
 {
 	unsigned int	counter;
-	char	*buffer;
+	char			*buffer;
 
 	counter = 0;
 	buffer = (char *)s;
@@ -72,27 +52,32 @@ static int	ft_counter(char const *s, char c)
 			buffer += 1;
 		if (*buffer)
 			counter++;
-		while (*buffer & !(*buffer == c))
+		while (*buffer && !(*buffer == c))
 			buffer += 1;
 	}
+	printf("counter es igual '%d'\n", counter);
 	return (counter);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int	position;
+	int		position;
 	char	**ptr;
 	char	*token;
+	char	*new_s;
 
-	ptr = malloc(sizeof(char *) * (ft_counter(s, c) + 1));
-	token = ft_strtok((char *)s, c);
-	position = 0;
+	new_s = ft_strtrim(s, &c);
+	ptr = (char **)malloc(sizeof(char *) * (ft_counter(s, c) + 1));
 	if (!ptr)
 		return (0);
+	token = ft_strtok(new_s, c);
+	position = 0;
 	while (position < ft_counter(s, c))
 	{
-		ptr[position] = ft_strtok(NULL, c);
+		ptr[position] = token;
+		token = ft_strtok(NULL, c);
 		position++;
 	}
+	ptr[position] = NULL;
 	return (ptr);
 }
