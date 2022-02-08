@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:44:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/08 10:51:00 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/08 14:05:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	ft_counter(char const *s, char c)
 		while (*buffer && !(*buffer == c))
 			buffer += 1;
 	}
-	printf("counter es igual '%d'\n", counter);
 	return (counter);
 }
 
@@ -65,8 +64,10 @@ char	**ft_split(char const *s, char c)
 	char	**ptr;
 	char	*token;
 	char	*new_s;
+	char	*delim;
 
-	new_s = ft_strtrim(s, &c);
+	delim = &c;
+	new_s = ft_strtrim(s, delim);
 	ptr = (char **)malloc(sizeof(char *) * (ft_counter(s, c) + 1));
 	if (!ptr)
 		return (0);

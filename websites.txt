@@ -31,3 +31,8 @@ punteros
 
 https://stackoverflow.com/questions/50738225/how-to-print-a-double-pointer-value-in-c
 https://stackoverflow.com/questions/37098194/why-this-pointer-to-pointer-to-char-is-current
+
+estructuras
+
+https://www.delftstack.com/es/howto/c/return-a-struct-in-c/
+https://dyclassroom.com/c/c-function-returning-structure

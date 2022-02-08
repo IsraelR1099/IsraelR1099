@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 13:46:45 by irifarac          #+#    #+#              #
-#    Updated: 2022/02/07 14:04:59 by irifarac         ###   ########.fr        #
+#    Updated: 2022/02/08 13:41:04 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,9 @@ SRC = ft_atoi.c \
 	   ft_putnbr_fd.c \
 	   ft_split.c
 
+BONUS = ft_lstnew.c
+
+BONUS_OBJ = $(BONUS:.c=.o)
 OBJ = $(SRC:.c=.o)
 INCLUDE = libft.h
 
@@ -57,16 +60,19 @@ $(NAME): $(OBJ) $(INCLUDE)
 	$(CREATION_LIB) $(NAME) $(OBJ)
 	@echo "Compiling"
 
+bonus: $(NAME) $(BONUS_OBJ)
+	$(CREATION_LIB) $(NAME) $(BONUS_OBJ)
+
 %.o: %.c
 	@echo "Compilando"
 	gcc $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(BONUS_OBJ)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re .c.o bonus

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:44:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/08 09:44:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/08 14:06:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*ft_strtok(char *s, char c)
 	token = buffer;
 	if (!*buffer)
 		return (0);
+	while (*buffer == c)
+		buffer += 1;
 	while (*buffer && *buffer != c)
 		buffer += 1;
 	if (*buffer)
@@ -31,6 +33,8 @@ char	*ft_strtok(char *s, char c)
 			*buffer = 0;
 			buffer += 1;
 	}
+	while (*token == c)
+		token += 1;
 	dup_token = ft_strdup(token);
 	return (dup_token);
 }
@@ -54,45 +58,18 @@ int	ft_counter(char const *s, char c)
 	return (counter);
 }
 
-void	ft_clean_space(char *s, char c)
-{
-	int	position;
-	int	len;
-	int	temp;
-	int	position_new;
-
-	len = ft_strlen(s);
-	position = 0;
-	while (position < len)
-	{
-		if (s[position] == c && s[position + 1] == c)
-		{
-			temp = position;
-			position_new = position;
-			while (position_new < (len - 1))
-			{
-				s[position_new] = s[position_new + 1];
-				position_new++;
-			}
-			len--;
-			s[len] = '\0';
-			position = 0;
-		}
-		position++;
-	}
-}
-
 char	**ft_split(char const *s, char c)
 {
 	int		position;
 	char	**ptr;
 	char	*token;
-	char	*delim;
 	char	*new_s;
+	char	*delim;
 
 	delim = &c;
+	printf(" s es igual a '%s'\n", s);
 	new_s = ft_strtrim(s, delim);
-	ft_clean_space(new_s, c);
+	printf("new s es igual a '%s'\n", new_s);
 	ptr = (char **)malloc(sizeof(char *) * (ft_counter(s, c) + 1));
 	if (!ptr)
 		return (0);
