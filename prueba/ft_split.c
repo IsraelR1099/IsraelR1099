@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:44:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/09 12:52:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/09 20:43:54 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,18 @@ char	*ft_strtok(char *s, char c)
 	static char	*buffer = NULL;
 	char		*token;
 	char		*dup_token;
+	int	i;
 
+	i = 0;
+	i = i + 1;
 	if (!buffer)
 		buffer = s;
 	token = buffer;
 	if (!*buffer)
+	{
+		buffer = 0;
 		return (0);
+	}
 	while (*buffer == c)
 		buffer += 1;
 	while (*buffer && *buffer != c)

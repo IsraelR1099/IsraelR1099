@@ -38,3 +38,6 @@ https://www.delftstack.com/es/howto/c/return-a-struct-in-c/
 https://dyclassroom.com/c/c-function-returning-structure
 
 http://www.pedrogonzalezruiz.net/listas/listas.html
+
+
+https://blog.zhaw.ch/icclab/hunting-down-memory-leaks/

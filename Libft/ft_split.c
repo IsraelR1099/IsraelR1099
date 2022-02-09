@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:44:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/09 14:26:27 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/09 20:43:54 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,18 @@ char	*ft_strtok(char *s, char c)
 	static char	*buffer = NULL;
 	char		*token;
 	char		*dup_token;
+	int	i;
 
+	i = 0;
+	i = i + 1;
 	if (!buffer)
 		buffer = s;
 	token = buffer;
 	if (!*buffer)
+	{
+		buffer = 0;
 		return (0);
+	}
 	while (*buffer == c)
 		buffer += 1;
 	while (*buffer && *buffer != c)
@@ -67,9 +73,7 @@ char	**ft_split(char const *s, char c)
 	char	*delim;
 
 	delim = &c;
-	printf(" s es igual a '%s'\n", s);
 	new_s = ft_strtrim(s, delim);
-	printf("new s es igual a '%s'\n", new_s);
 	ptr = (char **)malloc(sizeof(char *) * (ft_counter(s, c) + 1));
 	if (!ptr)
 		return (0);
