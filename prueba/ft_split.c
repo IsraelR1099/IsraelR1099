@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:44:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/09 20:43:54 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:04:06 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ char	*ft_strtok(char *s, char c)
 	static char	*buffer = NULL;
 	char		*token;
 	char		*dup_token;
-	int	i;
 
-	i = 0;
-	i = i + 1;
 	if (!buffer)
 		buffer = s;
 	token = buffer;
@@ -73,7 +70,7 @@ char	**ft_split(char const *s, char c)
 	char	*delim;
 
 	delim = &c;
-	new_s = ft_strtrim(s, delim);
+	new_s = ft_strtrim(s, (char const *)delim);
 	ptr = (char **)malloc(sizeof(char *) * (ft_counter(s, c) + 1));
 	if (!ptr)
 		return (0);
@@ -85,6 +82,8 @@ char	**ft_split(char const *s, char c)
 		token = ft_strtok(NULL, c);
 		position++;
 	}
+	free(token);
+	free(new_s);
 	ptr[position] = NULL;
 	return (ptr);
 }

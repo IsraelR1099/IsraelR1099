@@ -41,3 +41,7 @@ http://www.pedrogonzalezruiz.net/listas/listas.html
 
 
 https://blog.zhaw.ch/icclab/hunting-down-memory-leaks/
+
+
+
+https://giters.com/gabrielasertori/Libft-42

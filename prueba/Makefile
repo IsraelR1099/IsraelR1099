@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 13:46:45 by irifarac          #+#    #+#              #
-#    Updated: 2022/02/09 13:02:59 by irifarac         ###   ########.fr        #
+#    Updated: 2022/02/10 13:51:18 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ BONUS_SRC = ft_lstnew.c \
 			ft_lstlast.c \
 			ft_lstadd_back.c \
 			ft_lstdelone.c \
-			ft_lstclear.c
+			ft_lstclear.c \
+			ft_lstiter.c
 
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
 OBJ = $(SRC:.c=.o)
