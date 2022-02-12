@@ -45,3 +45,9 @@ https://blog.zhaw.ch/icclab/hunting-down-memory-leaks/
 
 
 https://giters.com/gabrielasertori/Libft-42
+https://giters.com/gabrielasertori/Libft-42##helpfull-links
+
+get next line:
+
+https://bestofcpp.com/repo/Surfi89-get_next_line-cpp-miscellaneous
+
