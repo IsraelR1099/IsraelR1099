@@ -6,11 +6,11 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 10:47:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/18 14:35:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/12 10:33:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(char *str, int ch)
+char	*ft_strchr(const char *str, int ch)
 {
 	int	position;
 
@@ -19,11 +19,11 @@ char	*ft_strchr(char *str, int ch)
 	{
 		if (str[position] == (char)ch)
 		{
-			return (&str[position]);
+			return ((char *)str + position);
 		}
 		position++;
 	}
 	if (str[position] == (char)ch)
-		return (&str[position]);
+		return ((char *)str + position);
 	return (0);
 }

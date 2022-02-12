@@ -6,14 +6,13 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:44:28 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/10 10:04:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/12 12:18:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-char	*ft_strtok(char *s, char c)
+static char	*ft_strtok(char *s, char c)
 {
 	static char	*buffer = NULL;
 	char		*token;
@@ -42,7 +41,7 @@ char	*ft_strtok(char *s, char c)
 	return (dup_token);
 }
 
-int	ft_counter(char const *s, char c)
+static int	ft_counter(char const *s, char c)
 {
 	unsigned int	counter;
 	char			*buffer;

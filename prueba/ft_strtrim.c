@@ -6,13 +6,13 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 09:46:08 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/08 13:54:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/12 12:27:54 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	beginning(const char *s1, const char *set)
+static int	beginning(const char *s1, const char *set)
 {
 	int		position;
 
@@ -24,7 +24,7 @@ int	beginning(const char *s1, const char *set)
 	return (position);
 }
 
-int	end(const char *s1, const char *set)
+static int	end(const char *s1, const char *set)
 {
 	int	lens1;
 
