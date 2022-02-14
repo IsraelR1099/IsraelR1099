@@ -51,3 +51,9 @@ get next line:
 
 https://bestofcpp.com/repo/Surfi89-get_next_line-cpp-miscellaneous
 
+
+https://github.com/Surfi89/get_next_line/blob/main/get_next_line.c
+
+https://velog.io/@yamkim/42-Seoul-Get-Next-Line2-Overview
+http://seyong.me/study/Get-Next-Line/#read-%ED%95%A8%EC%88%98
+
