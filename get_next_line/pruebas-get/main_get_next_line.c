@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 13:47:39 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/12 13:57:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:59:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int	main(void)
 		ft_putstr(ptr);
 		close(fd);
 	}
+	printf("fd es '%d'\n", fd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 10:52:18 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/14 14:13:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:38:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	char			*ptr;
-	int				len;
+	unsigned int	len;
 	unsigned int	position;
 
 	len = ft_strlen(s);
@@ -23,10 +23,9 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	if (!ptr || !f || !s)
 		return (0);
 	position = 0;
-	ft_strlcpy(ptr, s, len + 1);
-	while (ptr[position] != '\0')
+	while (position < len)
 	{
-		ptr[position] = f(position, ptr[position]);
+		ptr[position] = f(position, s[position]);
 		position++;
 	}
 	ptr[position] = '\0';
