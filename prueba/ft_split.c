@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 18:24:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/15 22:51:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/16 09:58:25 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	**ft_split(const char *s, char c)
 	char	**ptr;
 	size_t	position;
 	size_t	len;
-	char	*token;
 
 	position = 0;
 	ptr = malloc(sizeof(char *) * (ft_counter(s, c) + 1));
@@ -49,27 +48,11 @@ char	**ft_split(const char *s, char c)
 			len = 0;
 			while (*s && *s != c && ++len)
 				++s;
-			token = ft_substr(s - len, 0, len);
-			printf("token es '%s'\n", token);
-			ptr[position] = token;
-			printf("ptr es '%s'\n", ptr[position]);			
-			position++;
+			ptr[position++] = ft_substr(s - len, 0, len);
 		}
 		else
 			++s;
 	}
-	printf("ptr es '%s'\n", ptr[0]);			
-	printf("ptr es '%s'\n", ptr[1]);			
-	printf("ptr es '%s'\n", ptr[2]);			
-	printf("ptr es '%s'\n", ptr[3]);			
-	printf("ptr es '%s'\n", ptr[4]);			
-	free(token);
-	printf("ptr es '%s'\n", ptr[0]);			
-	printf("ptr es '%s'\n", ptr[1]);			
-	printf("ptr es '%s'\n", ptr[2]);
-	printf("ptr es '%s'\n", ptr[3]);			
-	printf("ptr es '%s'\n", ptr[4]);			
-	
-	ptr[position] = '\0';
+	ptr[position] = NULL;
 	return (ptr);
 }

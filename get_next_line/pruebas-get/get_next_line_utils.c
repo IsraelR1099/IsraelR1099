@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 14:02:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/15 14:22:59 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:41:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,64 @@ char	*ft_strchr(const char *str, int ch)
 	return (0);
 }
 
-char	*ft_line(int fd, char *str)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	static char	*buffer;
-	char		*line;
+	unsigned int	position;
+	int				len_src;
 
-	buffer = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
-	if (!buffer)
+	len_src = ft_strlen(src);
+	position = 0;
+	if (size != 0)
+	{
+		while (src[position] != '\0' && position < (size - 1))
+		{
+			dest[position] = src[position];
+			position++;
+		}
+		dest[position] = '\0';
+	}
+	return (len_src);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*dest;
+
+	dest = malloc (ft_strlen((char *)s1) + 1);
+	if (dest == NULL)
 		return (0);
+	ft_strlcpy(dest, s1, ft_strlen((char *)s1) + 1);
+	return (dest);
+}
+
+char	*ft_line(char *s, char c)
+{
+	static char	*buffer = NULL;
+	char		*token;
+	char		*dup_token;
+
+	if (!buffer)
+		buffer = s;
+	token = buffer;
+	if (!*buffer)
+	{
+		buffer = 0;
+		return (0);
+	}
+	while (*buffer == c)
+		buffer += 1;
+	while (*buffer && *buffer != c)
+		buffer += 1;
+	if (*buffer)
+	{
+			*buffer = 0;
+			buffer += 1;
+	}
+	while (*token == c)
+		token += 1;
+	dup_token = ft_strdup(token);
+	return (dup_token);
+}
+
+
 

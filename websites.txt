@@ -59,4 +59,5 @@ https://github.com/Surfi89/get_next_line/blob/main/get_next_line.c
 
 https://velog.io/@yamkim/42-Seoul-Get-Next-Line2-Overview
 http://seyong.me/study/Get-Next-Line/#read-%ED%95%A8%EC%88%98
+https://github.com/cyrus-and/gdb-dashboard
 
