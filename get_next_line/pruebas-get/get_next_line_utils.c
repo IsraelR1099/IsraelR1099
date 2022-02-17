@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 14:02:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/16 14:41:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/17 13:44:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,43 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
+
+
+char	*ft_read_file(int fd)
+{
+	char	*whole_str;
+	int		nbr_bytes;
+	char	*line;
+
+	whole_str = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!whole_str)
+		return (0);
+	nbr_bytes = 1;
+	while (!(ft_strchr(whole_str, '\n')) && nbr_bytes != 0)
+	{
+		nbr_bytes = read(fd, whole_str, BUFFER_SIZE);
+		printf("nbr bytes es %d\n", nbr_bytes);
+		if (nbr_bytes == -1)
+		{
+			free(whole_str);
+			return (0);
+		}
+		printf("-----whole str en ft read line es %s------\n", whole_str);
+		whole_str[nbr_bytes] = '\0';
+	}
+	printf("?????whole str en ft read line es %s--------\n", whole_str);
+	line = ft_line(whole_str, '\n');
+	free(whole_str);
+	return (line);
+}
+
 char	*ft_line(char *s, char c)
 {
 	static char	*buffer = NULL;
 	char		*token;
 	char		*dup_token;
 
+	printf("++++line en ft line es %s\n", s);
 	if (!buffer)
 		buffer = s;
 	token = buffer;
