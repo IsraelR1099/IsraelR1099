@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 12:43:11 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/20 21:10:58 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/21 14:00:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*ft_line(char const *s, char c)
 	char		*token;
 	char		*dup_token;
 
-	
-	if (!buffer)
-		buffer = (char *)s;
+	buffer = (char *)s;
 	token = buffer;
 	if (!*buffer)
 	{
@@ -42,32 +40,43 @@ char	*ft_line(char const *s, char c)
 	return (dup_token);
 }
 
-char	*ft_read_file(int fd)
+char	*ft_read_file(char *temp_str, int fd)
 {
 	static char	*whole_str = NULL;
 	char		*token;
-	
+	int			nbr_bytes;
+
 	if (!whole_str)
 	{
 		whole_str = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		whole_str = temp_str;
 		if (!whole_str)
 			return (0);
 	}
-	if (calls_function() > 1)
+	nbr_bytes = 1;
+	while (!(ft_strchr(temp_str, '\n')) && nbr_bytes != 0)
 	{
+		nbr_bytes = read(fd, temp_str, BUFFER_SIZE);
+		if (nbr_bytes == -1)
+		{
+			free (temp_str);
+			return (0);
+		}
+		temp_str[nbr_bytes] = '\0';
 		whole_str = ft_strjoin(whole_str, temp_str);
 	}
-	token = ft_line(whole_str, '\n');
-	free (temp_str);
+	token = ft_strdup(whole_str);
+	token = ft_line(token, '\n');
+	while (*whole_str != '\n')
+		whole_str += 1;
+	if (*whole_str)
+		whole_str += 1;
 	return (token);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*temp_str;
 	char	*line;
-	int	nbr_bytes;
+	static char	*temp_str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
@@ -77,12 +86,13 @@ char	*get_next_line(int fd)
 		free (temp_str);
 		return (0);
 	}
-	nbr_bytes = 1;
-	while (!(ft_strchr(temp_str, '\n')) && nbr_bytes != 0)
-	{
-		nbr_bytes = read(fd, temp_str, BUFFER_SIZE);
-		temp_str[nbr_bytes] = '\0';
-	}
-	line = ft_read_file(temp_str);
+	else
+		temp_str = ft_read_file(temp_str, fd);
+
+	//line = ft_line(temp_str);
+	
+	//temt_str = clean_storage(temp_str);
+
+	free (temp_str);
 	return (line);
 }

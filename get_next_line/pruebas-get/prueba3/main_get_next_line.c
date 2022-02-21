@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 13:47:39 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/19 20:27:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/21 12:42:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 	char	*ptr;
 	char	*ptr2;
 	char	*ptr3;
-//	char	*ptr4;
+	char	*ptr4;
 
 	fd = open("hola.txt", O_RDONLY);
 	if (fd == -1)
