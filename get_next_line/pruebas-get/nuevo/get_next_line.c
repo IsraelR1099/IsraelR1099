@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 12:43:11 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/21 14:00:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/22 12:28:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*ft_read_file(char *temp_str, int fd)
 
 char	*get_next_line(int fd)
 {
-	char	*line;
+//	char	*line;
 	static char	*temp_str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -94,5 +94,5 @@ char	*get_next_line(int fd)
 	//temt_str = clean_storage(temp_str);
 
 	free (temp_str);
-	return (line);
+	return (temp_str);
 }

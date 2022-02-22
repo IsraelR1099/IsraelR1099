@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 13:47:39 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/21 12:42:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/22 14:05:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 	char	*ptr;
 	char	*ptr2;
 	char	*ptr3;
-	char	*ptr4;
+//	char	*ptr4;
 
 	fd = open("hola.txt", O_RDONLY);
 	if (fd == -1)
@@ -30,16 +30,13 @@ int	main(void)
 		ptr = get_next_line(fd);
 		printf("%s/////\n%s", TC_RED, TC_NRM);
 		ft_putstr(ptr);
-		printf("\n");
 		ptr2 = get_next_line(fd);
 		printf("%s/////\n%s", TC_RED, TC_NRM);
 		ft_putstr(ptr2);
-		printf("\n");
 		ptr3 = get_next_line(fd);
 		printf("ptr3 es\n");
 		printf("%s/////\n%s", TC_RED, TC_NRM);
 		ft_putstr(ptr3);
-		printf("\n");
 		//ptr4 = get_next_line(fd);
 		//printf("%s/////\n%s", TC_RED, TC_NRM);
 		//ft_putstr(ptr4);
