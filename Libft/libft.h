@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:30:04 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/08 20:50:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/23 12:41:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdlib.h>
 # include <stdio.h>
-# include <fcntl.h>
 # include <unistd.h>
+# include <stddef.h>
 
 typedef struct s_list
 {
@@ -36,10 +36,10 @@ int		ft_memcmp(const void *str1, const void *str2, size_t count);
 void	*ft_memcpy(void *dest, const void *src, size_t count);
 void	*ft_memmove(void *dest, const void *src, size_t count);
 void	*ft_memset(void *dest, int ch, size_t count);
-char	*ft_strchr(char *str, int ch);
+char	*ft_strchr(const char *str, int ch);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-int		ft_strlen(const char *str);
+size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *str1, const char *str2, size_t number);
 char	*ft_strnstr(const char *dest, const char *src, size_t count);
 char	*ft_strrchr(const char *str, int ch);
@@ -60,6 +60,12 @@ void	ft_putnbr_fd(int n, int fd);
 char	**ft_split(char const *s, char c);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
-int	ft_lstsize(t_list *lst);
+int		ft_lstsize(t_list *lst);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

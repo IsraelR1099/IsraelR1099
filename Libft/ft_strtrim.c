@@ -6,55 +6,22 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 09:46:08 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/31 13:26:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/23 12:36:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	beginning(const char *s1, const char *set)
-{
-	int		position;
-
-	position = 0;
-	while (ft_strchr((char *)set, s1[position]) != NULL)
-	{
-		position++;
-	}
-	return (position);
-}
-
-int	end(const char *s1, const char *set)
-{
-	int	lens1;
-	int	counter;
-
-	counter = 0;
-	lens1 = ft_strlen((char *)s1) - 1;
-	while (lens1 >= 0 && ft_strchr((char *)set, s1[lens1]) != NULL)
-	{
-		lens1--;
-	}
-	return (lens1 + 1);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*ptr;
-	char	*new_str;
-	int		first;
-	int		last;
+	size_t	position;
 
-	new_str = (char *)s1;
-	first = beginning(s1, set);
-	last = end(s1, set);
-	if (first >= last)
-		return (ft_strdup(""));
-	ptr = malloc(1 * (last - first + 1));
-	if (!ptr || !s1)
+	if (!s1 || !set)
 		return (0);
-	if (!set)
-		return ((char *)s1);
-	ft_strlcpy(ptr, s1 + first, (last - first + 1));
-	return (ptr);
+	while (*s1 && ft_strchr(set, *s1))
+			s1++;
+	position = ft_strlen(s1);
+	while (position && ft_strchr(set, s1[position]))
+		position--;
+	return (ft_substr(s1, 0, (position + 1)));
 }

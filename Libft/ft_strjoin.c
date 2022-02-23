@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <irifarac@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/29 14:58:44 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/29 14:59:02 by irifarac         ###   ########.fr       */
+/*   Created: 2022/02/12 10:25:23 by irifarac          #+#    #+#             */
+/*   Updated: 2022/02/12 10:26:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

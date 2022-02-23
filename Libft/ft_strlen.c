@@ -6,11 +6,13 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:08:10 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/28 13:34:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/23 12:42:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
+#include "libft.h"
+
+size_t	ft_strlen(const char *str)
 {
 	int	position;
 
