@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:56:53 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/22 21:08:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:49:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,12 @@ static char	*ft_line(char *str, char c)
 
 static char	*ft_iter(char *str)
 {
+	if (!ft_strchr(str, '\n'))
+			return (str);
 	while (*str != '\n')
 		str += 1;
 	if (*str)
 		str += 1;
-	/*if (*str == '\0' && nbr_bytes == 0)
-	{
-		return (str);
-		free(str);
-	}*/
 	return (str);
 }
 
@@ -62,6 +59,7 @@ static char	*ft_read_file(char *temp_str, int fd)
 			return (0);
 		whole_str[0] = 0;
 	}
+//	printf("whole str es asasas %lu ||%s//\n", sizeof(whole_str), whole_str);
 	nbr_bytes = 1;
 	while (!ft_strchr(temp_str, '\n') && nbr_bytes > 0)
 	{
@@ -73,17 +71,10 @@ static char	*ft_read_file(char *temp_str, int fd)
 			return (0);
 		}
 		temp_str[nbr_bytes] = '\0';
-		printf("temp str es $$%s$$\n", temp_str);
 		whole_str = ft_strjoin(whole_str, temp_str);
-		printf("whole str es !!%s!!\n", whole_str);
-		printf("size de whole str %zu\n", ft_strlen(whole_str));
-		printf("---------nbr bytes es %d\n", nbr_bytes);
 	}
-	printf("whole str es !!%s!!\n", whole_str);
 	token2 = ft_strdup(whole_str);
 	whole_str = ft_iter(whole_str);
-	if (nbr_bytes == 0)
-		free(whole_str);
 	free(temp_str);
 	return (token2);
 }

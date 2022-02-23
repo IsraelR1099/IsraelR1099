@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 14:02:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/22 20:42:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:52:18 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	unsigned int	lens1;
 	unsigned int	lens2;
