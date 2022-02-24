@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 18:24:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/23 13:24:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:05:18 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	**ft_split(const char *s, char c)
 		else
 			++s;
 	}
+	printf("holasl\n");
 	ptr[position] = NULL;
 	return (ptr);
 }

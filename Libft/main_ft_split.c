@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 10:06:34 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/10 21:10:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:14:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	allocation_size(void *ptr)
 
 int	main(void)
 {
-	char	*str = "hello!";
+	char	*str = "";
 	char	*str2 = "  holaa   como   ";
 	char	**ptr;
 	char	**ptr2;
@@ -33,7 +33,7 @@ int	main(void)
 	
 	printf("El tamanio de malloc es: %lu\n", allocation_size(ptr));
 	printf("%sresultado ptr 0 es '%s'\n%s", TC_GRN, ptr[0], TC_NRM);
-	printf("%sresultado ptr 1 es '%s'\n%s", TC_GRN, ptr[1], TC_NRM);
+//	printf("%sresultado ptr 1 es '%s'\n%s", TC_GRN, ptr[1], TC_NRM);
 //	printf("%sresultado ptr 2 es '%s'\n%s", TC_GRN, ptr[2], TC_NRM);
 
 //	printf("%sresultado ptr 2 es '%s'\n%s", TC_GRN, ptr[2], TC_NRM);
@@ -42,9 +42,9 @@ int	main(void)
 //	printf("%sresultado ptr 5 es '%s'\n%s", TC_GRN, ptr[5], TC_NRM);
 //	printf("%sresultado ptr 6 es '%s'\n%s", TC_GRN, ptr[6], TC_NRM)
 //	;
-	printf("%sresultado ptr2 0 es '%s'\n%s", TC_GRN, ptr2[0], TC_NRM);
-	printf("%sresultado ptr2 1 es '%s'\n%s", TC_GRN, ptr2[1], TC_NRM);
-	free(ptr2);
+//	printf("%sresultado ptr2 0 es '%s'\n%s", TC_GRN, ptr2[0], TC_NRM);
+//	printf("%sresultado ptr2 1 es '%s'\n%s", TC_GRN, ptr2[1], TC_NRM);
+//	free(ptr2);
 	free(ptr);
 
 	return (0);

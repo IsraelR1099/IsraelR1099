@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 14:02:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/23 13:52:18 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:41:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
+/*static int	calls()
+{
+	static int	call;
+
+	call++;
+	return(call);
+}*/
+
 char	*ft_strjoin(char *s1, char const *s2)
 {
 	unsigned int	lens1;
@@ -73,14 +81,19 @@ char	*ft_strjoin(char *s1, char const *s2)
 
 	lens1 = ft_strlen(s1);
 	lens2 = ft_strlen(s2);
-	ptr1 = (char *)malloc(sizeof(char) * (lens1 + lens2 +1));
+	ptr1 = (char *)malloc(sizeof(*ptr1) * (lens1 + 1));
+	ft_memcpy(ptr1, (char *)s1, lens1);
+//	if (calls() == 1)
+		free(s1);
+	s1 = (char *)malloc(sizeof(*s1) * (lens1 + lens2 +1));
 	if (ptr1 == NULL)
 		return (0);
 	if (ptr1)
 	{
-		ft_memcpy(ptr1, s1, lens1);
-		ft_memcpy(ptr1 + lens1, s2, lens2 + 1);
+		ft_memcpy(s1, ptr1, lens1);
+		ft_memcpy(s1 + lens1, s2, lens2 + 1);
 	}
-	ptr1[lens1 + lens2] = '\0';
-	return (ptr1);
+	free(ptr1);
+	s1[lens1 + lens2] = '\0';
+	return (s1);
 }
