@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 13:47:39 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/22 20:57:51 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/26 11:12:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int	main(void)
 	int		fd;
 	char	*ptr;
 	char	*ptr2;
-/*	char	*ptr3;
-	char	*ptr4;
-	char	*ptr5;
-	char	*ptr6;*/
+//	char	*ptr3;
+//	char	*ptr4;
 
 	fd = open("hola.txt", O_RDONLY);
 	if (fd == -1)
@@ -40,27 +38,15 @@ int	main(void)
 		ptr2 = get_next_line(fd);
 		printf("%s/////\n%s", TC_RED, TC_NRM);
 		ft_putstr(ptr2);
-/*		ptr3 = get_next_line(fd);
-		printf("ptr3 es\n");
-		printf("%s/////\n%s", TC_RED, TC_NRM);
-		ft_putstr(ptr3);
-		ptr4 = get_next_line(fd);
-		printf("%s/////\n%s", TC_RED, TC_NRM);
-		ft_putstr(ptr4);
-		ptr5 = get_next_line(fd);
-		printf("%s/////\n%s", TC_RED, TC_NRM);
-		ft_putstr(ptr5);
-		ptr6 = get_next_line(fd);
-		printf("%s/////\n%s", TC_RED, TC_NRM);
-		ft_putstr(ptr6);*/
+	//	ptr3 = get_next_line(fd);
+	//	printf("%s/////\n%s", TC_RED, TC_NRM);
+	//	ft_putstr(ptr3);
+		//ptr4 = get_next_line(fd);
+		//printf("%s/////\n%s", TC_RED, TC_NRM);
+		//ft_putstr(ptr4);
+		//printf("\n");
 		close(fd);
-		printf("%s\n----------------------%s\n", TC_GRN, TC_NRM);
+		//printf("%----------------------%s\n", TC_GRN, TC_NRM);
 	}
-	free(ptr);
-	free(ptr2);
-/*	free(ptr3);
-	free(ptr4);
-	free(ptr5);
-	free(ptr6);*/
 	return (0);
 }

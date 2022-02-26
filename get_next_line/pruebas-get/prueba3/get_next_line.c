@@ -6,44 +6,37 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:56:53 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/24 13:26:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/26 14:20:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "tc2.h"
 
 static char	*ft_line(char *str, char c)
 {
-	static char	*buffer = NULL;
+//	static char	*buffer = NULL;
 	char		*token;
+	//int			position;
 
-	buffer = str;
-	token = buffer;
-	if (!*buffer)
+	printf("str es al principio de line %p !!!!%s!!!\n", str, str);
+	token = str;
+	if (!*str)
 	{
-		buffer = 0;
-		free(buffer);
+		str = 0;
+		//free(buffer);
 		return (0);
 	}
-	while (*buffer && *buffer != c)
-		buffer += 1;
-	if (*buffer)
-	{
-		buffer += 1;
-		*buffer = 0;
-	}
-	return (token);
-}
-
-static char	*ft_iter(char *str)
-{
-	if (!ft_strchr(str, '\n'))
-			return (str);
-	while (*str != '\n')
+	while (*str && *str != c)
 		str += 1;
 	if (*str)
+	{
+		*str = 0;
 		str += 1;
-	return (str);
+	}
+	printf("str es %p !!!!%s!!!\n", str, str);
+	printf("token es |/%s|\n", token);
+	return (token);
 }
 
 static char	*ft_read_file(char *temp_str, int fd)
@@ -51,16 +44,12 @@ static char	*ft_read_file(char *temp_str, int fd)
 	static char	*whole_str = NULL;
 	char		*token2;
 	int			nbr_bytes;
-	static int	l;
+	static int	counter;
 
-	if (l == 0)
-	{
-		whole_str = (char *)malloc(sizeof(*whole_str) * (BUFFER_SIZE + 1));
-		if (!whole_str)
-			return (0);
-		whole_str[0] = 0;
-	}
+	if (!whole_str)
+		whole_str = ft_strdup("");
 	nbr_bytes = 1;
+	printf("whole str al principio es %p ###%s##\n", whole_str, whole_str);
 	while (!ft_strchr(temp_str, '\n') && nbr_bytes > 0)
 	{
 		nbr_bytes = read(fd, temp_str, BUFFER_SIZE);
@@ -71,13 +60,26 @@ static char	*ft_read_file(char *temp_str, int fd)
 			return (0);
 		}
 		temp_str[nbr_bytes] = '\0';
+		printf("%s-----read file----%s\n", TC_YEL, TC_NRM);
+		printf("whole str antes es ||%s||\n", whole_str);
 		whole_str = ft_strjoin(whole_str, temp_str);
+		printf("whole str es ||%s||\n", whole_str);
+		printf("%s-----read file end----%s\n", TC_YEL, TC_NRM);
 	}
-//	printf("whole str es ||%s||\n", whole_str);
+	printf("*********\n");
+	printf("----whole str es %p ||%s||\n", whole_str, whole_str);
 	token2 = ft_strdup(whole_str);
-	whole_str = ft_iter(whole_str);
-	free(temp_str);
-	l++;
+	counter = 0;
+	while (*whole_str && *whole_str != '\n')
+	{
+		counter ++;
+		whole_str += 1;
+	}
+	if (*whole_str)
+	{
+		counter++;
+		whole_str += 1;
+	}
 	return (token2);
 }
 
@@ -99,9 +101,9 @@ char	*get_next_line(int fd)
 	str = ft_read_file(temp_str, fd);
 	if (!str)
 		return (0);
+	printf("str address is %p\n", str);
 	line = ft_line(str, '\n');
 	if (!line)
 		return (0);
-//	free(str);
 	return (line);
 }
