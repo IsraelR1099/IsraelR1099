@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 13:47:39 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/26 11:12:42 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/27 17:46:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(void)
 {
 	int		fd;
 	char	*ptr;
-	char	*ptr2;
+//	char	*ptr2;
 //	char	*ptr3;
 //	char	*ptr4;
 
@@ -35,16 +35,16 @@ int	main(void)
 		ptr = get_next_line(fd);
 		printf("%s/////\n%s", TC_RED, TC_NRM);
 		ft_putstr(ptr);
-		ptr2 = get_next_line(fd);
+		/*ptr2 = get_next_line(fd);
 		printf("%s/////\n%s", TC_RED, TC_NRM);
 		ft_putstr(ptr2);
-	//	ptr3 = get_next_line(fd);
-	//	printf("%s/////\n%s", TC_RED, TC_NRM);
-	//	ft_putstr(ptr3);
-		//ptr4 = get_next_line(fd);
-		//printf("%s/////\n%s", TC_RED, TC_NRM);
-		//ft_putstr(ptr4);
-		//printf("\n");
+		ptr3 = get_next_line(fd);
+		printf("%s/////\n%s", TC_RED, TC_NRM);
+		ft_putstr(ptr3);
+		ptr4 = get_next_line(fd);
+		printf("%s/////\n%s", TC_RED, TC_NRM);
+		ft_putstr(ptr4);
+		//printf("\n");*/
 		close(fd);
 		//printf("%----------------------%s\n", TC_GRN, TC_NRM);
 	}

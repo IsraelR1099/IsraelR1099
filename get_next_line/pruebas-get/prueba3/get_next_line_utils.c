@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 14:02:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/26 12:19:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/27 20:12:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,81 @@ size_t	ft_strlen(const char *str)
 	while (str[position] != '\0')
 		position++;
 	return (position);
+}
+
+void	*ft_memset(void	*dest, int ch, size_t count)
+{
+	unsigned int	position;
+	char			*new_dest;
+
+	new_dest = (char *)dest;
+	position = 0;
+	while (position < count)
+	{
+		new_dest[position] = (char)ch;
+		position++;
+	}
+	return (new_dest);
+}
+
+void	*ft_calloc(size_t num, size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc (num * size);
+	if (ptr == NULL)
+	{
+		return (0);
+	}
+	ft_memset(ptr, 0, num * size);
+	return (ptr);
+}
+
+/*char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*ptr;
+	size_t	lenstr;
+	size_t	counter;
+
+	if (!s)
+		return (NULL);
+	lenstr = ft_strlen(s);
+	if (len >= (lenstr - start))
+		len = lenstr - start;
+	if (start > lenstr)
+		len = 0;
+	ptr = (char *)malloc(sizeof(*ptr) * (len + 1));
+	if (!ptr)
+		return (0);
+	counter = 0;
+	while (counter < len && start < ft_strlen(s))
+	{
+			ptr[counter++] = s[start++];
+	}
+	ptr[counter] = '\0';
+	return (ptr);
+}*/
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		return ((char *) ft_calloc(1, sizeof(char)));
+	if (ft_strlen(s) <= start + len)
+		substr = malloc(sizeof(char) * (ft_strlen(s) - start + 1));
+	else
+		substr = malloc(sizeof(char) * (len + 1));
+	if (!substr)
+		return (NULL);
+	while (s[start] && i < len)
+		substr[i++] = s[start++];
+	substr[i] = '\0';
+	return (substr);
 }
 
 void	*ft_memcpy(void *dest, const void *src, size_t count)
@@ -66,14 +141,6 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
-/*static int	calls()
-{
-	static int	call;
-
-	call++;
-	return(call);
-}*/
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	unsigned int	lens1;
@@ -93,8 +160,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_memcpy(ptr + lens1, s2, lens2 + 1);
 	}
 	ptr[lens1 + lens2] = '\0';
-	//printf("%s--------str join-------\n%s", TC_GRN, TC_NRM);
-	//printf("%s--------str join end-------\n%s", TC_GRN, TC_NRM);
 	free((void *)s1);
 	s1 = NULL;
 	return (ptr);

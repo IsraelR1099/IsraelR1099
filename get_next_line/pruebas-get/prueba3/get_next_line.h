@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 13:53:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/25 12:09:59 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/27 14:05:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,8 @@ char		*ft_strchr(const char *str, int ch);
 char		*ft_strdup(const char *s1);
 void		*ft_memcpy(void *dest, const void *src, size_t count);
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_read_file(char *whole_str, char temp_str[], int fd);
+char		*ft_line(char *whole_str);
+char		*ft_update_str(char *whole_str);
 #endif
