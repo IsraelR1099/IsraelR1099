@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 20:31:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/27 20:30:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/02/28 11:11:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,21 @@ char	*ft_read_file(char *whole_str, char temp_str[], int fd)
 			return (whole_str);
 		nbr_bytes = read(fd, temp_str, BUFFER_SIZE);
 	}
+	free(whole_str);
+	whole_str = NULL;
 	return (0);
 }
 
 char	*ft_line(char *whole_str)
 {
 	char	*line;
-	int	position;
+	int		position;
 
 	position = 0;
-	if(!whole_str[position])
+	if (!whole_str[position])
 		return (0);
 	while (whole_str[position] && whole_str[position] != '\n')
 		position++;
-	line = (char *)malloc(sizeof(*line) * (position + 2)); 
-	if (!line)
-	{
-		free(line);
-		return (0);
-	}
 	line = ft_substr(whole_str, 0, position + 1);
 	return (line);
 }
@@ -71,9 +67,9 @@ char	*ft_line(char *whole_str)
 char	*ft_update_str(char *whole_str)
 {
 	char	*new_whole_str;
-	int	position;
-	int	position_new;
-	int	len_str;
+	int		position;
+	int		position_new;
+	int		len_str;
 
 	position = 0;
 	len_str = ft_strlen(whole_str);
@@ -84,7 +80,7 @@ char	*ft_update_str(char *whole_str)
 		free(whole_str);
 		return (0);
 	}
-	new_whole_str = (char *)malloc(sizeof(*new_whole_str) * (len_str - position + 1));
+	new_whole_str = (char *)malloc(sizeof(char) * (len_str - position + 1));
 	if (!new_whole_str)
 		return (0);
 	position++;
@@ -95,4 +91,14 @@ char	*ft_update_str(char *whole_str)
 	free(whole_str);
 	whole_str = NULL;
 	return (new_whole_str);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	position;
+
+	position = 0;
+	while (str[position] != '\0')
+		position++;
+	return (position);
 }
