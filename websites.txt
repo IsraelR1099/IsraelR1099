@@ -61,3 +61,9 @@ https://velog.io/@yamkim/42-Seoul-Get-Next-Line2-Overview
 http://seyong.me/study/Get-Next-Line/#read-%ED%95%A8%EC%88%98
 https://github.com/cyrus-and/gdb-dashboard
 
+###############
+#####printf###
+##############
+
+https://iq.opengenus.org/how-printf-and-scanf-function-works-in-c-internally/
+
