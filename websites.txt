@@ -66,4 +66,19 @@ https://github.com/cyrus-and/gdb-dashboard
 ##############
 
 https://iq.opengenus.org/how-printf-and-scanf-function-works-in-c-internally/
+https://www.equestionanswers.com/c/c-printf-scanf-working-principle.php
+
+####################################
+operadores unarios binarios ternarios
+####################################
+
+https://www.geeksforgeeks.org/c-nested-ternary-operator/
+https://www.codespeedy.com/nested-ternary-operator-in-c/
+
+
+##############
+ciberseguridad
+##############
+
+https://cwe.mitre.org/top25/archive/2021/2021_cwe_top25.html
 
