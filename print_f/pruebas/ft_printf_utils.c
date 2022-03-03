@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 10:07:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/03 14:25:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:04:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_len(size_t n, int base)
 	return (len);
 }
 
-char	*ft_itoa(size_t n, int base)
+char	*ft_itoa(long long n, int base)
 {
 	char		*ptr;
 	size_t		len;

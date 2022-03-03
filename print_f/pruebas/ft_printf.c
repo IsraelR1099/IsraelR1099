@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 12:31:25 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/03 14:25:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:53:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int	ft_printf(const char *str, ...)
 {
 	va_list	lst;
-	int		position;
+//	int		position;
 	int		result;
 
 	va_start(lst, str);
-	position = 0;
+//	position = 0;
 	result = 0;
 	while (*str)
 	{

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 13:41:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/03 14:12:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/03 22:48:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int	main(void)
 	//ft_printf("str es %s\n", "como estas");
 	//ft_printf("unsigned es %u\n", -2);
 	//printf("real %u\n", -2);
-	ft_printf("hexadecimal '%x'\n", 176);
+	ft_printf("hexadecimal '%x'\n", 177);
 	return (0);
 }
