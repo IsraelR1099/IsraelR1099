@@ -6,11 +6,11 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 10:04:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/03 13:54:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:07:27 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int	ft_putchar(char c)
 {
@@ -19,5 +19,7 @@ int	ft_putchar(char c)
 
 int	ft_putstr(char *str)
 {
+	if (str == NULL)
+		return (write(1, "(null)", 6));
 	return (write(1, str, ft_strlen(str)));
 }

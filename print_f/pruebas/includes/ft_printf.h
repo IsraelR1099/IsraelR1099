@@ -6,12 +6,12 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:30:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/03 18:07:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/04 12:47:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <stdarg.h>
 # include <stdio.h>
@@ -24,10 +24,11 @@ int		ft_specifier(va_list lst, int str);
 int		ft_putchar(char c);
 int		ft_putstr(char *str);
 int		ft_putunsigned(long long int n);
-int		ft_puthex(unsigned int n);
+int		ft_puthex(unsigned int n, int str);
 //Funciones de la libreria libft
 size_t	ft_strlen(char *str);
 char	*ft_itoa(long long n, int base);
-int		ft_len(size_t n, int base);
+int		ft_len(long long n, int base);
+int		ft_tolower(int c);
 
 #endif

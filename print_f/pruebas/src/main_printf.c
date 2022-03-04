@@ -6,14 +6,15 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 13:41:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/03 22:48:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:14:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 #include <stdio.h>
 #include <limits.h>
 #include <stdarg.h>
+#include "../tc.h"
 
 int	prueba(const char *str, ...)
 {
@@ -41,33 +42,16 @@ void	test(unsigned int n)
 int	main(void)
 {
 //	int	result;
-//	int	ejemplo;
-//	unsigned int ejemplo2;
-//	int	*ptr;
-//	char	c = 'c';
+	int	ejemplo;
+	char	*ptr = NULL;
 
-	/*ejemplo = -2;
-	ejemplo2 = -4;
-	ptr = &ejemplo;
-	test(ejemplo2);
-	result = printf("resultado es '%i'\n", ejemplo2);
-	result = printf("resultado2 es '%u'\n", ejemplo2);
-	result = printf("resultado3 es '%u'\n", ejemplo);
-	result = printf("hola %s\n", "hola");
-	printf("result es %d\n", result);
-	printf("hexadecimal es %x %X\n", 152, 152);
-	result = prueba("h", 'z');
-	printf("result es %d\n", result);
-	printf("%x\n", INT_MIN);
-	printf("%x\n", -1);
-	printf("hola%d\n", ejemplo);
-	printf("%p\n", &ptr);
-	printf("%p\n", ptr);
-	printf("%p\n", c);*/
-	//ft_printf("hola %d\n", 256);
-	//ft_printf("str es %s\n", "como estas");
-	//ft_printf("unsigned es %u\n", -2);
-	//printf("real %u\n", -2);
-	ft_printf("hexadecimal '%x'\n", 177);
+	ejemplo = 15560;
+	/*result = ft_printf("hola%d\n", -50);
+	printf("%sresult mi printf es %d\n%s", TC_RED, result, TC_NRM);
+	result = printf("hola%d\n", -50);
+	printf("%sresult real es %d\n%s", TC_GRN, result, TC_NRM);
+	ft_printf("hexadecimal '%X'\n", ejemplo);
+	printf("%shexadecimal con printf real %X\n%s",TC_GRN, ejemplo, TC_NRM);*/
+	ft_printf("hola %s", ptr);
 	return (0);
 }

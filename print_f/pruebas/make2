@@ -1,0 +1,42 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/03/04 11:21:56 by irifarac          #+#    #+#              #
+#    Updated: 2022/03/04 11:58:26 by irifarac         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CREATION_LIB = ar -crs
+CFLAGS = -Wall -Wextra -Werror
+NAME = ft_printflib.a
+RN = ranlib
+SRC = ft_printf_number.c \
+		ft_printf_string.c \
+		ft_printf_utils.c
+		ft_printf.c
+
+INCLUDE = libft.h
+OBJ = $(SRC:.c=.o)
+
+%.o: %.c
+	gcc $(CFLAGS) -c $< -o $@
+
+$(NAME): $(OBJ)
+	$(CREATION_LIB) $(NAME) $(OBJ)
+	$(RN) $(NAME)
+
+all: $(NAME)
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

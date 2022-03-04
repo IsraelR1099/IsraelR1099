@@ -6,11 +6,11 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 12:31:25 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/03 17:53:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:14:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int	ft_printf(const char *str, ...)
 {
@@ -23,7 +23,7 @@ int	ft_printf(const char *str, ...)
 	result = 0;
 	while (*str)
 	{
-		if (*str == '%' && *str + 1 != '%')
+		if (*str == '%')
 		{
 			result += ft_specifier(lst, *(str + 1));
 			str += 1;
@@ -52,10 +52,13 @@ int	ft_specifier(va_list lst, int str)
 	{
 		ptr = ft_itoa(va_arg(lst, int), 10);
 		result += ft_putstr(ptr);
+		free(ptr);
 	}
 	else if (str == 'u')
 		result += ft_putunsigned(va_arg(lst, unsigned int));
 	else if (str == 'x' || str == 'X')
-		result += ft_puthex(va_arg(lst, unsigned int));
+		result += ft_puthex(va_arg(lst, unsigned int), str);
+	else if (str == '%')
+		result += ft_putchar('%');
 	return (result);
 }

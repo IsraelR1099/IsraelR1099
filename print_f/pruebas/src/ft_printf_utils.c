@@ -6,11 +6,11 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 10:07:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/03 18:04:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:14:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 size_t	ft_strlen(char *str)
 {
@@ -22,7 +22,7 @@ size_t	ft_strlen(char *str)
 	return (position);
 }
 
-int	ft_len(size_t n, int base)
+int	ft_len(long long n, int base)
 {
 	size_t	len;
 
@@ -31,11 +31,11 @@ int	ft_len(size_t n, int base)
 		return (1);
 	while (n)
 	{
-		n /= 10;
+		n /= base;
 		len++;
 	}
-	if (base == 16)
-		return (len - 1);
+	//if (base == 16)
+	//	return (len - 1);
 	return (len);
 }
 
@@ -60,12 +60,18 @@ char	*ft_itoa(long long n, int base)
 	ptr[len] = '\0';
 	while (len--)
 	{
-		//printf("el numero es %zu\n", nbr);
 		ptr[len] = (nbr % base) + 48;
 		nbr /= base;
 	}
-	//printf("ptr es %s\n", ptr);
 	if (n < 0)
 		*ptr = '-';
 	return (ptr);
+}
+
+int	ft_tolower(int c)
+{
+	if ((c >= 65) && (c <= 90))
+		return (c + 32);
+	else
+		return (c);
 }
