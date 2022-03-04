@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:30:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/04 12:47:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:18:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		ft_putchar(char c);
 int		ft_putstr(char *str);
 int		ft_putunsigned(long long int n);
 int		ft_puthex(unsigned int n, int str);
+int		ft_putptr(unsigned long long ptr);
 //Funciones de la libreria libft
 size_t	ft_strlen(char *str);
 char	*ft_itoa(long long n, int base);

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 13:41:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/04 14:14:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:48:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	test(unsigned int n)
 int	main(void)
 {
 //	int	result;
-	int	ejemplo;
-	char	*ptr = NULL;
+//	int	ejemplo;
+	char	*ptr = "hola";
 
-	ejemplo = 15560;
+//	ejemplo = 15560;
 	/*result = ft_printf("hola%d\n", -50);
 	printf("%sresult mi printf es %d\n%s", TC_RED, result, TC_NRM);
 	result = printf("hola%d\n", -50);
@@ -53,5 +53,7 @@ int	main(void)
 	ft_printf("hexadecimal '%X'\n", ejemplo);
 	printf("%shexadecimal con printf real %X\n%s",TC_GRN, ejemplo, TC_NRM);*/
 	ft_printf("hola %s", ptr);
+	ft_printf("hola %p\n", LONG_MIN);
+	printf("hola con printf %p\n", LONG_MIN);
 	return (0);
 }

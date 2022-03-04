@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 12:31:25 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/04 14:14:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:18:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	ft_specifier(va_list lst, int str)
 		result += ft_putchar(va_arg(lst, int));
 	else if (str == 's')
 		result += ft_putstr(va_arg(lst, char *));
-	/*else if (str == 'p')
-		result += ft_putptr(va_arg(lst, void *));*/
+	else if (str == 'p')
+		result += ft_putptr(va_arg(lst, unsigned long long));
 	else if (str == 'd' || str == 'i')
 	{
 		ptr = ft_itoa(va_arg(lst, int), 10);

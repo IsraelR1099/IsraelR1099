@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:10:07 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/04 14:14:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:42:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,26 @@ int	ft_puthex(unsigned int n, int str)
 	free(ptr);
 	return (len);
 }
-	
+
+int	ft_putptr(unsigned long long ptr)
+{
+	char	*ptr2;
+	int	position;
+	int	len;
+
+	ptr2 = ft_itoa(ptr, 16);
+	position = 0;
+	while (ptr2[position] != '\0')
+	{
+		if (ptr2[position] > 57 && ptr2[position] < 64)
+		{
+			ptr2[position] = ptr2[position] + 7;
+			ptr2[position] = ft_tolower(ptr2[position]);
+		}
+		position++;
+	}
+	ft_putstr("0x");
+	len = ft_putstr(ptr2);
+	free(ptr2);
+	return (len + 2);
+}	
