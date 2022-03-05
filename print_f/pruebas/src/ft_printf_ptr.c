@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_printf_ptr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/03 10:07:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/05 14:16:18 by irifarac         ###   ########.fr       */
+/*   Created: 2022/03/05 13:13:36 by irifarac          #+#    #+#             */
+/*   Updated: 2022/03/05 14:15:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-size_t	ft_strlen(char *str)
+int	ft_unsigned_len(unsigned long long n, int base)
 {
-	size_t	position;
-
-	position = 0;
-	while (str[position] != '\0')
-		position++;
-	return (position);
-}
-
-int	ft_len(long long n, int base)
-{
-	long long	len;
+	size_t	len;
 
 	len = 0;
 	if (n == 0)
@@ -37,13 +27,13 @@ int	ft_len(long long n, int base)
 	return (len);
 }
 
-char	*ft_itoa(long long n, int base)
+char	*ft_unsigned_itoa(unsigned long long n, int base)
 {
-	char		*ptr;
-	size_t		len;
-	long long	nbr;
+	char				*ptr;
+	size_t				len;
+	unsigned long long	nbr;
 
-	len = ft_len(n, base);
+	len = ft_unsigned_len(n, base);
 	nbr = n;
 	if (n < 0)
 	{
@@ -64,12 +54,4 @@ char	*ft_itoa(long long n, int base)
 	if (n < 0)
 		*ptr = '-';
 	return (ptr);
-}
-
-int	ft_tolower(int c)
-{
-	if ((c >= 65) && (c <= 90))
-		return (c + 32);
-	else
-		return (c);
 }

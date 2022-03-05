@@ -6,14 +6,15 @@
 #    By: amayo-ca <amayo-ca@student.42barc...>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/15 12:26:28 by amayo-ca          #+#    #+#              #
-#    Updated: 2022/03/04 12:09:57 by irifarac         ###   ########.fr        #
+#    Updated: 2022/03/05 13:28:23 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = src/ft_printf_number.c \
 		src/ft_printf_string.c \
 		src/ft_printf_utils.c \
-		src/ft_printf.c
+		src/ft_printf.c \
+		src/ft_printf_ptr.c
 INCLUDE		= libft.h
 OBJS		= ${SRCS:.c=.o}
 NAME		= libftprintf.a

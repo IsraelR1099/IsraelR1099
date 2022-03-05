@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:10:07 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/04 20:42:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:15:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int	ft_puthex(unsigned int n, int str)
 int	ft_putptr(unsigned long long ptr)
 {
 	char	*ptr2;
-	int	position;
-	int	len;
+	int		position;
+	int		len;
 
-	ptr2 = ft_itoa(ptr, 16);
+	ptr2 = ft_unsigned_itoa(ptr, 16);
 	position = 0;
 	while (ptr2[position] != '\0')
 	{
