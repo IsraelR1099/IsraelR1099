@@ -1,0 +1,37 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/03/06 20:16:36 by irifarac          #+#    #+#              #
+#    Updated: 2022/03/06 20:29:54 by irifarac         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SRC = src/ft_printf.c \
+	src/ft_printf_utils.c \
+	src/ft_printf_string.c \
+	src/ft_printf_number.c \
+	src/ft_printf_ptr.c
+
+INCLUDE = libft.h
+OBJ = $(SRC:.c=.o)
+NAME = libftprintf.a
+AR = ar rcs
+CFLAGS = -Wall -Wextra -Werror
+
+.c.o:
+	gcc $(CFLAGS) -c $< -o $(<:.c=.o)
+all: $(NAME)
+$(NAME): $(OBJ)
+	$(AR) $(NAME) $(OBJ)
+
+clean:
+	rm -f $(OBJ)
+fclean: clean
+	rm -f $(NAME)
+re: fclean all
+
+.PHONY: all clean fclean re
