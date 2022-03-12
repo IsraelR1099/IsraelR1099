@@ -1,0 +1,64 @@
+Paso 1: Configuracion de las particiones
+
+Comprobar con el comando lsblk
+
+Paso 2: Instalar sudo
+
+Ejecutar el comando: su -.
+Instalar sudo con el comando: apt install sudo
+
+Paso 3: Agregar usuario a un grupo
+
+Ejecutar el comando: usermod -aG sudo irifarac.
+Para verificar que se a creado: getent group sudo
+
+Paso 4: Configurar sudo
+
+Ejecutar el comando: sudo visudo -s //Se agrega -s para que visudo sea mas estricto.
+	Paso 4.1: Limitar intentos de autenticacion
+
+	Dentro del fichero agregar la linea: Defaults	passwd_tries=3
+
+	Paso 4.2: Agregar un mensaje personalizado
+
+	Agregar linea: Defaults	badpass_message="Mensaje"
+	En su defecto agregar: Defaults	insults
+	Este ultimo, deshabilita el comando badpass.
+
+	Paso 4.3: Crear un archivo de registro
+
+	Crear un directorio llamado "sudo" dentro de la ruta /var/log
+	Agregar la linea: logfile="var/log/sudo/sudo.log" a visudo
+
+	Paso 4.4: agregar una direccion segura
+
+	Agregar a la linea secure_path el directorio: /snap/bin.
+	La funcion de secure_path es que cuando tu ejecutas un comando con
+	sudo, por ejemplo sudo apt update, el sistema ira a buscar ese comando
+	en los directorios especificados en secure_path. Si por un casual hay un
+	ejecutable con un nombre similar a, en este caso, apt, como por ejemplo
+	apd, entonces se ejecutara ese comando mal escrito. Si ese comando mal
+	escrito es un virus entonces el sistema se puede ver afectado.
+	En conclusion, no poner ningun directorio "writeable", para otros
+	usuarios excepto root, en secure_path.
+
+	Paso 4.5: Activar tty
+
+	Agregar la linea: Defaults	requiretty.
+
+Paso 5: Instalar SSH
+
+	Descargar ssh: sudo apt install openssh-server
+
+	Paso 5.1: Configurar SSH
+
+	Ejecutar sudo vi /etc/ssh/sshd_config
+	Cambiar la linea #Port 22 por #Port 4242
+	Cambiar la linea #PermitRootLogin prohibit-password por #PermitRootLogin
+	no.
+	Guardar los cambios.
+
+	FALTA INSTALAR FIREWALL STEP 2 en ayoub github
+	configuracion de sudo hecha.
+	instalacion y configuracion de ssh hecha.
+	
