@@ -58,7 +58,40 @@ Paso 5: Instalar SSH
 	no.
 	Guardar los cambios.
 
-	FALTA INSTALAR FIREWALL STEP 2 en ayoub github
-	configuracion de sudo hecha.
-	instalacion y configuracion de ssh hecha.
+Paso 6: Instalar UFW
 	
+	UFW es un firewall. Un firewall es un hardware o software el cual
+	bloquea, segun ciertas reglas, la entrada de ciertas paginas,
+	Ips, protocolos como TCP, etc. Es como un portero que protege nuestro
+	sistema. Se suele situar entre un switch y router.
+	
+	Instalar paquetes con: sudo apt install ufw.
+	Habilitar ufw con: sudo ufw enable.
+	Permi
+
+Paso 7: Cambiar nombre al host
+
+	Para cambiar el nombre del host: hostnamectl set-hostname [nuevo nombre].
+	Para mirar los cambios: hostnamectl
+
+Paso 8: Conectarse a ssh
+
+	Para conectarse usar: ssh user_name@ip_address -p 4242
+	Para saber la direccion ip en debian: ip address o ip a s
+	ssh irifarac@ip_address -p 4242
+
+Paso 9: Implementar una politica estricta de contrasenyas
+
+	Para modificar una contra debemos modificar el archivo
+	login.defs ubicado en /etc/long.defs.
+	Modificamos las lineas PASS_MAX_DAYS= 30, PASS_MIN_DAYS= 2,
+	PASS_WARN_AGE=7.
+
+	instalar un PAM: apt install libpam-pwquality
+	editar el archivo: /etc/pam.d/common.password
+	Editar la linea: password requisite, agregando minlen=10, ucredit=-1,
+	dcredit=-1, maxrepeat=3, reject_username difok=7 enforce_for_root
+
+	paso 8 en zakaria
+
+beluga@42madrid.com
