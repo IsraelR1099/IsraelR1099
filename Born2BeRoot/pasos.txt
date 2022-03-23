@@ -92,6 +92,21 @@ Paso 9: Implementar una politica estricta de contrasenyas
 	Editar la linea: password requisite, agregando minlen=10, ucredit=-1,
 	dcredit=-1, maxrepeat=3, reject_username difok=7 enforce_for_root
 
-	paso 8 en zakaria
+
+BONUS
+
+Paso 1: Instalar Wordpress con lighttpd, MariaDB y PHP
+
+	Definicion lighttpd: lighttpd es un servidor web (intermediario entre
+	el servidor y el cliente), es decir, proporciona los archivos 
+	solicitados por parte del cliente. Porque utilizar lighttpd en
+	lugar de Apache? La ventaja de lighttpd es que procesa
+	una mayor cantidad de solicitudes en menor tiempo debido a que no
+	monta todos los recursos solicitados para poder enviar la pagina o
+	el contenido solicitado. 
+	Instalar lighttpd: apt install lighttpd
+	Hay que permitir el puerto 80: ufw allow 80
+	Instalar mariadb: apt install mariadb-server
+	
 
 beluga@42madrid.com

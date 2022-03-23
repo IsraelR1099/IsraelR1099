@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:11:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/16 20:49:18 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/03/17 12:57:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	main(int argc, char **argv)
 		ptr2 = remove_duplicates(argv[1]);
 		ptr3 = remove_duplicates(argv[2]);
 		position = 0;
+		position2 = 0;
 		while (*(ptr2 + position))
 		{
 			*(temp + position) = *(ptr2 + position);
