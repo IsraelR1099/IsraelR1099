@@ -107,6 +107,14 @@ Paso 1: Instalar Wordpress con lighttpd, MariaDB y PHP
 	Instalar lighttpd: apt install lighttpd
 	Hay que permitir el puerto 80: ufw allow 80
 	Instalar mariadb: apt install mariadb-server
+	Configurar la base de datos anyadiendo una base de datos y un usuario.
+	Descargar php.
+	Descargar vsftpd: apt install vsftpd.
+	Configurar el fichero /etc/vsftpd.conf.
+	Permitir el puerto 21 y 20 para la coneccion ftp: ufw allow 21/TCP 20/TCP.
+	Para conectarse al sftp hay que especificar el puerto de ssh permitido,
+	ya que sftp funciona con ssh: sftp -oPort=(numero_puerto) (usuario)@(IP)
+
 	
 
 beluga@42madrid.com
