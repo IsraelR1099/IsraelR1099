@@ -82,3 +82,5 @@ ciberseguridad
 
 https://cwe.mitre.org/top25/archive/2021/2021_cwe_top25.html
 
+MINILIBX
+https://harm-smits.github.io/42docs/libs/minilibx/colors.html
