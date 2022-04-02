@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:26:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/02 13:18:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/04/02 14:15:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,22 +112,33 @@ int	main(void)
 	
 	//punto 0,5 + 0,7i
 	mlx_pixel_put(new->mlx, new->mlx_win, 255, 243, Rojo);
+/*	int	iteration;
+	int	i;
+
+	iteration = 0;
+	while (i <= 5)
+	{
+		iteration = (0.5 + 0.7i)^2
+	mlx_pixel_put(new->mlx, new->mlx_win, 255, 243, Rojo);
+		i++;		
+	}*/
 	
 	//Crear una circunferencia
 	double	angulo;
-	int		radio;
+	double	radio;
 	double	ejex;
 	double	ejey;
 
-	radio = 2;
+	radio = 2,0;
 	angulo = 1;
-	while (angulo <= 360)
+	while (angulo < 360)
 	{
 		ejex = cos(angulo) * radio;
 		ejey = sin(angulo) * radio;
-		mlx_pixel_put(new->mlx, new->mlx_win, x + 250, y + 250, Rojo);
+		put_pix = mlx_pixel_put(new->mlx, new->mlx_win, (ejex * 10) + 250, (ejey * 10) + 250, 0xABCDEF);
 		angulo++;
 	}
+	printf("put pix es %d\n", put_pix);
 	//Crear una imagen
 /*	image = mlx_new_image(new->mlx, 100, 100);
 	//Informacion de la imagen
