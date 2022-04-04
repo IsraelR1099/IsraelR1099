@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:26:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/02 14:15:26 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/04/04 14:02:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,40 @@ int	key_event(int button, window *param)
 	return (1);
 }
 
+double	ft_calcx(double a, double b, double x)
+{
+	double	result;
+
+	printf("!!!!en calcx a es %f y b es %f y x es %f\n", a, b, x);
+	result = pow(a, 2) - pow(b, 2) + x;
+	printf("resultado sin alterar en x es %f\n", result);
+//	printf("result es %f\n", result);
+	return (result);
+}
+
+double	ft_calcy(double a, double b, double y)
+{
+	double	result;
+
+	printf("@@@en calcy a es %f y b es %f y y es %f\n", a, b, y);
+	result = (2 * a * b) + y;
+	printf("resultado sin alterar en y es %f\n", result);
+//	printf("result y es %f\n", result);
+	return (result);
+}
+
 int	main(void)
 {
 	int		put_pix;
-	int		x;
-	int		y;
+	double	x;
+	double	y;
+	double	a;
+	double	b;
+	double	a_temp;
+	double	b_temp;
+	int		new_a;
+	int		new_b;
+	int		i;
 //	void	*image;
 //	int		bit_per_pixel;
 //	int		size_line;
@@ -110,19 +139,47 @@ int	main(void)
 	}
 	printf("put pix es %d\n", put_pix);
 	
-	//punto 0,5 + 0,7i
+	//punto z sub 0 = 0,5 + 0,7i y c = -0.25 + 0.25i
 	mlx_pixel_put(new->mlx, new->mlx_win, 255, 243, Rojo);
-/*	int	iteration;
-	int	i;
 
-	iteration = 0;
-	while (i <= 5)
+	//Calculo de puntos de julia
+	//Punto z sub 1
+/*	x = ft_calcx(0.5, 0.7, -0.25);
+	y = ft_calcy(0.5, 0.7, 0.25);
+	x_temp = x;
+	y_temp = y;
+	new_x = 250 + (x * 10);
+	new_y = 250 - (y * 10);
+	mlx_pixel_put(new->mlx, new->mlx_win, new_x, new_y, Rojo);
+	//Punt z sub2
+	x = ft_calcx(x_temp, y_temp, -0.25);
+	y = ft_calcy(x_temp, y_temp, 0.25);
+	new_x = 250 + (x * 10);
+	new_y = 250 - (y * 10);
+	mlx_pixel_put(new->mlx, new->mlx_win, new_x, new_y, Rojo);
+*/
+
+	// valores de z
+	a_temp = 0.5;
+	b_temp = 0.7;
+	//valores de c
+	x = -0.25;
+	y = 0.25;
+	i = 0;
+	while (i < 6)
 	{
-		iteration = (0.5 + 0.7i)^2
-	mlx_pixel_put(new->mlx, new->mlx_win, 255, 243, Rojo);
-		i++;		
-	}*/
-	
+		a = ft_calcx(a_temp, b_temp, x);
+		b = ft_calcy(a_temp, b_temp, y);
+		a_temp = a;
+		b_temp = b;
+		new_a = 250 + (a * 10);
+		new_b = 250 - (b * 10);
+		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
+		i++;
+	}
+
+		
+
 	//Crear una circunferencia
 	double	angulo;
 	double	radio;
