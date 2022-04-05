@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:26:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/04 14:02:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/04/05 14:07:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 #include <math.h>
 
 
-#define	Rojo	0xff0000
+#define	Rojo		0xff0000
 #define	Amarillo	0xffff00
 #define	Verde		0x008000
 #define	Azul		0x0000ff
+#define Negro		0x000000
 
 
 typedef struct	s_program
@@ -60,9 +61,9 @@ double	ft_calcx(double a, double b, double x)
 {
 	double	result;
 
-	printf("!!!!en calcx a es %f y b es %f y x es %f\n", a, b, x);
+//	printf("!!!!en calcx a es %f y b es %f y x es %f\n", a, b, x);
 	result = pow(a, 2) - pow(b, 2) + x;
-	printf("resultado sin alterar en x es %f\n", result);
+//	printf("resultado sin alterar en x es %f\n", result);
 //	printf("result es %f\n", result);
 	return (result);
 }
@@ -71,9 +72,9 @@ double	ft_calcy(double a, double b, double y)
 {
 	double	result;
 
-	printf("@@@en calcy a es %f y b es %f y y es %f\n", a, b, y);
+//	printf("@@@en calcy a es %f y b es %f y y es %f\n", a, b, y);
 	result = (2 * a * b) + y;
-	printf("resultado sin alterar en y es %f\n", result);
+//	printf("resultado sin alterar en y es %f\n", result);
 //	printf("result y es %f\n", result);
 	return (result);
 }
@@ -177,8 +178,25 @@ int	main(void)
 		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
 		i++;
 	}
+	a_temp = 0.6;
+	b_temp = 0.8;
+	x = -0.5;
+	y = 0.5;
+	i = 0;
+	while (i < 8)
+	{
+		a = ft_calcx(a_temp, b_temp, x);
+		b = ft_calcy(a_temp, b_temp, y);
+		a_temp = a;
+		b_temp = b;
+		new_a = 250 + (a * 10);
+		new_b = 250 - (b * 10);
+		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
+		i++;
+	}
+	//Mandelbrot set
+	
 
-		
 
 	//Crear una circunferencia
 	double	angulo;
