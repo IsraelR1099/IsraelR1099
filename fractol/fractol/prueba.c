@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:26:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/05 14:07:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:12:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int	main(void)
 	printf("put pix es %d\n", put_pix);
 	
 	//punto z sub 0 = 0,5 + 0,7i y c = -0.25 + 0.25i
-	mlx_pixel_put(new->mlx, new->mlx_win, 255, 243, Rojo);
+//	mlx_pixel_put(new->mlx, new->mlx_win, 255, 243, Rojo);
 
 	//Calculo de puntos de julia
 	//Punto z sub 1
@@ -160,7 +160,7 @@ int	main(void)
 	mlx_pixel_put(new->mlx, new->mlx_win, new_x, new_y, Rojo);
 */
 
-	// valores de z
+/*	// valores de z
 	a_temp = 0.5;
 	b_temp = 0.7;
 	//valores de c
@@ -178,8 +178,10 @@ int	main(void)
 		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
 		i++;
 	}
+	// valores de z
 	a_temp = 0.6;
 	b_temp = 0.8;
+	// valores de c
 	x = -0.5;
 	y = 0.5;
 	i = 0;
@@ -193,11 +195,63 @@ int	main(void)
 		new_b = 250 - (b * 10);
 		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
 		i++;
-	}
+	}*/
 	//Mandelbrot set
 	
+	// valor inicial de z
+	a_temp = 0;
+	b_temp = 0;
+	//valor de c
+	
+	x = 0.4;
+	y = 0.4;
+	i = 0;
+	while (i < 20)
+	{
+		printf("el valor de x es: %f\n", a);
+		printf("el valor de y es: %f\n", b);
+		a = ft_calcx(a_temp, b_temp, x);
+		b = ft_calcy(a_temp, b_temp, y);
+		a_temp = a;
+		b_temp = b;
+		new_a = 250 + (a * 10);
+		new_b = 250 - (b * 10);
+		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
+		i++;
+	}
 
-
+	a_temp = 0;
+	b_temp = 0;
+	x = -0.7;
+	y = 0.25;
+	i = 0;
+	while (i < 20)
+	{
+		a = ft_calcx(a_temp, b_temp, x);
+		b = ft_calcy(a_temp, b_temp, y);
+		a_temp = a;
+		b_temp = b;
+		new_a = 250 + (a * 10);
+		new_b = 250 - (b * 10);
+		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
+		i++;
+	}
+	a_temp = 0;
+	b_temp = 0;
+	x = -0.3;
+	y = -0.7;
+	i = 0;
+	while (i < 20)
+	{
+		a = ft_calcx(a_temp, b_temp, x);
+		b = ft_calcy(a_temp, b_temp, y);
+		a_temp = a;
+		b_temp = b;
+		new_a = 250 + (a * 10);
+		new_b = 250 - (b * 10);
+		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Verde);
+		i++;
+	}
 	//Crear una circunferencia
 	double	angulo;
 	double	radio;
