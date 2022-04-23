@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:26:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/22 13:12:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/04/23 12:13:54 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ double	ft_calcx(double a, double b, double x)
 	double	result;
 
 //	printf("!!!!en calcx a es %f y b es %f y x es %f\n", a, b, x);
+//	printf("pow de a y b es %f, %f\n", pow(a, 2), pow(b, 2));
 	result = pow(a, 2) - pow(b, 2) + x;
 //	printf("resultado sin alterar en x es %f\n", result);
-//	printf("result es %f\n", result);
+//	printf("result de x es %f\n", result);
 	return (result);
 }
 
@@ -197,7 +198,7 @@ int	main(void)
 		i++;
 	}*/
 	//Mandelbrot set
-	
+/*	
 	// valor inicial de z
 	a_temp = 0;
 	b_temp = 0;
@@ -251,7 +252,172 @@ int	main(void)
 		new_b = 250 - (b * 10);
 		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Verde);
 		i++;
+	}*/
+	
+	//Generador de puntos
+	
+	a_temp = 0;
+	b_temp = 0;
+	i = 1;
+	x = 0;
+	y = 0;
+	int iter;
+
+	iter = 0;
+	while (y <= 2)
+	{
+		//a_temp = a;
+		//b_temp = b;
+		new_a = x;
+		new_b = y;
+		new_a = 250 + (x * 10);
+		new_b = 250 - (y * 10);
+		while (iter < 3)
+		{
+			printf("x es %f y es %f\n", x, y);
+			a = ft_calcx(a_temp, b_temp, x);
+			b = ft_calcy(a_temp, b_temp, y);
+			a_temp = a;
+			b_temp = b;
+			printf("a es %f y b es %f\n", a, b);
+			iter++;
+		}
+		printf("raiz es %f\n", sqrt((pow(a, 2) + pow(b, 2))));
+		if (sqrt((pow(a, 2) + pow(b, 2))) > 2)
+ 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
+		else
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
+		if (i == 9 || x == 2)
+		{
+			y += 0.25;
+			x = 0;
+			i = 0;
+		}
+		x += 0.25;
+		i++;
+		iter = 0;
+		a_temp = 0;
+		b_temp = 0;
 	}
+
+	a_temp = 0;
+	b_temp = 0;
+	i = 1;
+	x = 0;
+	y = 0;
+	while (y <= 2)
+	{
+		new_a = x;
+		new_b = y;
+		new_a = 250 + (x * 10);
+		new_b = 250 - (y * 10);
+		while (iter < 3)
+		{
+			//printf("x es %f y es %f\n", x, y);
+			a = ft_calcx(a_temp, b_temp, x);
+			b = ft_calcy(a_temp, b_temp, y);
+			a_temp = a;
+			b_temp = b;
+			//printf("a es %f y b es %f\n", a, b);
+			iter++;
+		}
+		if (sqrt((pow(a, 2) + pow(b, 2))) > 2)
+ 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
+		else
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
+		if (i == 8)
+		{
+			y += 0.25;
+			x = 0;
+			i = 0;
+		}
+		x -= 0.25;
+		i++;
+		iter = 0;
+		a_temp = 0;
+		b_temp = 0;
+	}
+
+	a_temp = 0;
+	b_temp = 0;
+	i = 1;
+	x = 0;
+	y = 0;
+	while (y >= -2)
+	{
+		new_a = x;
+		new_b = y;
+		new_a = 250 + (x * 10);
+		new_b = 250 - (y * 10);
+		while (iter < 3)
+		{
+			//printf("x es %f y es %f\n", x, y);
+			a = ft_calcx(a_temp, b_temp, x);
+			b = ft_calcy(a_temp, b_temp, y);
+			a_temp = a;
+			b_temp = b;
+			//printf("a es %f y b es %f\n", a, b);
+			iter++;
+		}
+		//printf("a es %f y b es %f\n", a, b);
+		//printf("raiz es %f\n", sqrt((pow(a, 2) + pow(b, 2))));
+		if (sqrt((pow(a, 2) + pow(b, 2))) > 2)
+ 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
+		else
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
+		if (i == 8)
+		{
+			y -= 0.25;
+			x = 0;
+			i = 0;
+		}
+		x += 0.25;
+		i++;
+		iter = 0;
+		a_temp = 0;
+		b_temp = 0;
+	}
+
+	a_temp = 0;
+	b_temp = 0;
+	i = 1;
+	x = 0;
+	y = 0;
+	while (y >= -2)
+	{
+		new_a = x;
+		new_b = y;
+		new_a = 250 + (x * 10);
+		new_b = 250 - (y * 10);
+		while (iter < 3)
+		{
+			//printf("x es %f y es %f\n", x, y);
+			a = ft_calcx(a_temp, b_temp, x);
+			b = ft_calcy(a_temp, b_temp, y);
+			a_temp = a;
+			b_temp = b;
+			//printf("a es %f y b es %f\n", a, b);
+			iter++;
+		}
+		//printf("a es %f y b es %f\n", a, b);
+		//printf("raiz es %f\n", sqrt((pow(a, 2) + pow(b, 2))));
+		if (sqrt((pow(a, 2) + pow(b, 2))) > 2)
+ 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
+		else
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
+		if (i == 8)
+		{
+			y -= 0.25;
+			x = 0;
+			i = 0;
+		}
+		x -= 0.25;
+		i++;
+		iter = 0;
+		a_temp = 0;
+		b_temp = 0;
+	}
+
 	//Crear una circunferencia
 	double	angulo;
 	double	radio;
