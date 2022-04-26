@@ -86,11 +86,11 @@ MINILIBX
 https://harm-smits.github.io/42docs/libs/minilibx/colors.html
 https://gontjarow.github.io/MiniLibX/
 
+https://github.com/keuhdall/images_example/blob/master/example.c
 Fractal
 https://users.math.yale.edu/public_html/People/frame/Fractals/MandelSet/welcome.html
 http://math.bu.edu/DYSYS/
 https://www.benlcollins.com/spreadsheets/how-to-draw-the-mandelbrot-set/
 https://blogs.kent.ac.uk/onetwomany/2020/04/24/deterministic-vs-predictable-the-mandelbrot-set/
-
 Viewport y redimensionamiento
 https://math.hws.edu/graphicsbook/c2/s3.html
