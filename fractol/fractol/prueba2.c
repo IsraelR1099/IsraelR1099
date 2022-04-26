@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:48:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/25 14:28:51 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/04/26 13:57:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ double	ft_calcy(double a, double b, double y)
 	return (result);
 }
 
+int	ft_mouse_event(int button, window *param)
+{
+	(void)param;
+	if (button == 5)
+	{
+
+	return(printf("button %d\n", button));
+}
+
 int	main(void)
 {
 	window	*new;
@@ -65,6 +74,7 @@ int	main(void)
 	int		new_b;
 	int		i;
 	int		iter;
+	double	result;
 
 	//Inicializar
 	new = (window *)malloc(sizeof(window));
@@ -122,13 +132,15 @@ int	main(void)
 	double	ejex;
 	double	ejey;
 
-	radio = 36;
+	radio = 2;
 	angulo = 1;
 	while (angulo < 360)
 	{
 		ejex = cos(angulo) * radio;
 		ejey = sin(angulo) * radio;
-		mlx_pixel_put(new->mlx, new->mlx_win, (ejex * 10) + 960, (ejey * 10) + 540, Blanco);
+		ejex = 1920 * (ejex + 4)/8;
+		ejey = 1080 * (3 - ejey)/6;
+		mlx_pixel_put(new->mlx, new->mlx_win, ejex, ejey, Blanco);
 	   angulo++;
 	}
 	//Puntos
@@ -139,39 +151,176 @@ int	main(void)
 	y = 0;
 	i = 1;
 	iter = 0;
+	result = 0;
 
-	while (y <= 2)
+	while (y <= 5)
 	{
 		new_a = x;
 		new_b = y;
-		new_a = 960 + (x * 360);
-		new_b = 540 - (y * 360);
-		while (iter < 3)
+		new_a = 1920 * (x + 4)/8;
+		new_b = 1080 * (3 - y)/6;
+		while (iter < 25)
 		{
-			printf("x es %f y es %f\n", x, y);
+			//printf("x es %f y es %f\n", x, y);
 			a = ft_calcx(a_temp, b_temp, x);
 			b = ft_calcy(a_temp, b_temp, y);
 			a_temp = a;
 			b_temp = b;
-			printf("a es %f y b es %f\n", a, b);
+			//printf("a es %f y b es %f\n", a, b);
 			iter++;
 		}
-		if (sqrt((pow(a, 2) + pow(b, 2))) > 2)
+		result = sqrt((pow(a, 2) + pow(b, 2)));
+		if (result >= 2 && result <= 2.5)
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Verde);
+		else if (result > 2.5)
 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
-		else
-			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
-		if (i == 200 || x == 2)
+        else
+            mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Negro);
+		if (i == 550 || x == 5)
 		{
-			y += 0.125;
+			y += 0.004;
 			x = 0;
 			i = 0;
 		}
-		x += 0.125;
+		x += 0.004;
 		i++;
 		iter = 0;
 		a_temp = 0;
 		b_temp = 0;
 	}
+	
+	a_temp = 0;
+    b_temp = 0;
+    i = 1;
+    x = 0;
+    y = 0;
+    while (y <= 2)
+    {
+        new_a = x;
+        new_b = y;
+        new_a = 1920 * (x + 4)/8;
+        new_b = 1080 * (3 - y)/6;
+        while (iter < 25)
+        {
+            //printf("x es %f y es %f\n", x, y);
+            a = ft_calcx(a_temp, b_temp, x);
+            b = ft_calcy(a_temp, b_temp, y);
+            a_temp = a;
+            b_temp = b;
+            //printf("a es %f y b es %f\n", a, b);
+            iter++;
+        }
+		result = sqrt((pow(a, 2) + pow(b, 2)));
+		if (result >= 2 && result <= 2.5)
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Verde);
+		else if (result > 2.5)
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
+        else
+            mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Negro);
+        if (i == 450 || x == 2)
+        {
+            y += 0.004;
+            x = 0;
+            i = 0;
+        }
+        x -= 0.004;
+        i++;
+        iter = 0;
+        a_temp = 0;
+        b_temp = 0;
+    }
+
+	a_temp = 0;
+    b_temp = 0;
+    i = 1;
+    x = 0;
+    y = 0;
+    while (y >= -2)
+    {
+        new_a = x;
+        new_b = y;
+        new_a = 1920 * (x + 4)/8;
+        new_b = 1080 * (3 - y)/6;
+        while (iter < 25)
+        {
+            //printf("x es %f y es %f\n", x, y);
+            a = ft_calcx(a_temp, b_temp, x);
+            b = ft_calcy(a_temp, b_temp, y);
+            a_temp = a;
+            b_temp = b;
+            //printf("a es %f y b es %f\n", a, b);
+            iter++;
+        }
+        //printf("a es %f y b es %f\n", a, b);
+        //printf("raiz es %f\n", sqrt((pow(a, 2) + pow(b, 2))));
+		result = sqrt((pow(a, 2) + pow(b, 2)));
+		if (result >= 2 && result <= 2.5)
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Verde);
+		else if (result > 2.5)
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
+        else
+            mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Negro);
+        if (i == 450 || x == 2)
+        {
+            y -= 0.004;
+            x = 0;
+            i = 0;
+        }
+        x += 0.004;
+        i++;
+        iter = 0;
+        a_temp = 0;
+        b_temp = 0;
+    }
+
+	a_temp = 0;
+    b_temp = 0;
+    i = 1;
+    x = 0;
+    y = 0;
+    while (y >= -20)
+    {
+        new_a = x;
+        new_b = y;
+        new_a = 1920 * (x + 4)/8;
+        new_b = 1080 * (3 - y)/6;
+        while (iter < 25)
+        {
+            //printf("x es %f y es %f\n", x, y);
+            a = ft_calcx(a_temp, b_temp, x);
+            b = ft_calcy(a_temp, b_temp, y);
+            a_temp = a;
+            b_temp = b;
+            //printf("a es %f y b es %f\n", a, b);
+            iter++;
+        }
+        //printf("a es %f y b es %f\n", a, b);
+        //printf("raiz es %f\n", sqrt((pow(a, 2) + pow(b, 2))));
+		result = sqrt((pow(a, 2) + pow(b, 2)));
+		if (result >= 2 && result <= 2.5)
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Verde);
+		else if (result > 2.5)
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
+        else
+            mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Negro);
+        if (i == 450 || x == 20)
+        {
+            y -= 0.004;
+            x = 0;
+            i = 0;
+        }
+        x -= 0.004;
+        i++;
+        iter = 0;
+        a_temp = 0;
+        b_temp = 0;
+    }
+
+	//Capturar un evento del raton
+	
+	mlx_hook(new->mlx_win, 4, 1L << 4, ft_mouse_event, new);
+	mlx_hook(new->mlx_win, 5, 1L << 3, ft_mouse_event, new);
 	mlx_loop(new->mlx);
+	free(new);
 	return (0);
 }
