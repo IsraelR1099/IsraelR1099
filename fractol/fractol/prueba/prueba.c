@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 13:26:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/23 12:13:54 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/04/26 13:58:00 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,23 @@ int	main(void)
 		mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Verde);
 		i++;
 	}*/
+
+	//Crear una circunferencia
+	double	angulo;
+	double	radio;
+	double	ejex;
+	double	ejey;
+
+	radio = 2,0;
+	angulo = 1;
+	while (angulo < 360)
+	{
+		ejex = cos(angulo) * radio;
+		ejey = sin(angulo) * radio;
+		put_pix = mlx_pixel_put(new->mlx, new->mlx_win, (ejex * 10) + 250, (ejey * 10) + 250, 0xABCDEF);
+		angulo++;
+	}
+	printf("put pix es %d\n", put_pix);
 	
 	//Generador de puntos
 	
@@ -287,7 +304,7 @@ int	main(void)
  			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
 		else
 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Rojo);
-		if (i == 9 || x == 2)
+		if (i == 15 || x == 2)
 		{
 			y += 0.25;
 			x = 0;
@@ -418,22 +435,6 @@ int	main(void)
 		b_temp = 0;
 	}
 
-	//Crear una circunferencia
-	double	angulo;
-	double	radio;
-	double	ejex;
-	double	ejey;
-
-	radio = 2,0;
-	angulo = 1;
-	while (angulo < 360)
-	{
-		ejex = cos(angulo) * radio;
-		ejey = sin(angulo) * radio;
-		put_pix = mlx_pixel_put(new->mlx, new->mlx_win, (ejex * 10) + 250, (ejey * 10) + 250, 0xABCDEF);
-		angulo++;
-	}
-	printf("put pix es %d\n", put_pix);
 	//Crear una imagen
 /*	image = mlx_new_image(new->mlx, 100, 100);
 	//Informacion de la imagen

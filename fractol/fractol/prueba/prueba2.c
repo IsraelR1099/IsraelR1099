@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:48:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/26 13:57:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/04/28 12:57:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "mlx/mlx.h"
+#include <limits.h>
 
 #define Rojo		0xff0000
 #define	Amarillo	0xffff00
@@ -55,8 +56,8 @@ double	ft_calcy(double a, double b, double y)
 int	ft_mouse_event(int button, window *param)
 {
 	(void)param;
-	if (button == 5)
-	{
+//	if (button == 5)
+//	{
 
 	return(printf("button %d\n", button));
 }
@@ -153,30 +154,36 @@ int	main(void)
 	iter = 0;
 	result = 0;
 
-	while (y <= 5)
+	while (y <= 2)
 	{
-		new_a = x;
-		new_b = y;
+		//new_a = x;
+		//new_b = y;
+		//printf("new a es %d y new b es %d\n", new_a, new_b);
 		new_a = 1920 * (x + 4)/8;
 		new_b = 1080 * (3 - y)/6;
+		printf("---despues new a es %d y new b es %d\n", new_a, new_b);
 		while (iter < 25)
 		{
-			//printf("x es %f y es %f\n", x, y);
+			//printf("x es %f y es %f y iter es  %d\n", x, y, iter);
 			a = ft_calcx(a_temp, b_temp, x);
 			b = ft_calcy(a_temp, b_temp, y);
+			if (a >= INT_MAX || b >= INT_MAX)
+				break;
+			//printf("despues de la formula a es %f y b es %f\n", a, b);
 			a_temp = a;
 			b_temp = b;
-			//printf("a es %f y b es %f\n", a, b);
 			iter++;
 		}
-		result = sqrt((pow(a, 2) + pow(b, 2)));
-		if (result >= 2 && result <= 2.5)
+		result = sqrt(pow(a, 2) + pow(b, 2));
+		//printf("result es %f\n", result);
+		//printf("iter es igual a %d\n", iter);
+		if (iter >= 5 && iter >= 7)
 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Verde);
-		else if (result > 2.5)
+		if (result < 2)
+			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Negro);
+		else
 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
-        else
-            mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Negro);
-		if (i == 550 || x == 5)
+		if (i == 550 || x == 2)
 		{
 			y += 0.004;
 			x = 0;
@@ -278,7 +285,7 @@ int	main(void)
     i = 1;
     x = 0;
     y = 0;
-    while (y >= -20)
+    while (y >= -2)
     {
         new_a = x;
         new_b = y;
