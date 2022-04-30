@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_formulas.c                                      :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/27 13:27:42 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/30 13:29:18 by irifarac         ###   ########.fr       */
+/*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
+/*   Updated: 2022/04/30 12:38:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_fractal.h"
+#include "mlx/mlx.h"
 
-double	ft_calcx(double a, double b, double x)
+int	ft_strcmp(char *str1, char *str2)
 {
-	double	result;
+	size_t	position;
 
-	result = pow(a, 2) - pow(b, 2) + x;
-	return (result);
+	position = 0;
+	while (str1[position] != '\0' && str1[position] == str2[position])
+		position++;
+	return ((unsigned char)str1[position] - (unsigned char)str2[position]);
 }
 
-double	ft_calcy(double a, double b, double y)
+void	ft_showOptions(void)
 {
-	double	result;
-
-	result = (2 * a * b) + y;
-	return (result);
+	printf("Utilizar los parametros siguientes:\n Mandelbrot.\n Julia.\n");
 }

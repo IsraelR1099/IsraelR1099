@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 10:48:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/28 12:57:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/04/30 13:12:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ int	main(void)
 	i = 1;
 	iter = 0;
 	result = 0;
-
 	while (y <= 2)
 	{
 		//new_a = x;
@@ -161,12 +160,13 @@ int	main(void)
 		//printf("new a es %d y new b es %d\n", new_a, new_b);
 		new_a = 1920 * (x + 4)/8;
 		new_b = 1080 * (3 - y)/6;
-		printf("---despues new a es %d y new b es %d\n", new_a, new_b);
+	//	printf("---despues new a es %d y new b es %d\n", new_a, new_b);
 		while (iter < 25)
 		{
 			//printf("x es %f y es %f y iter es  %d\n", x, y, iter);
 			a = ft_calcx(a_temp, b_temp, x);
 			b = ft_calcy(a_temp, b_temp, y);
+			printf("i es %d y es %f\n", i, y);
 			if (a >= INT_MAX || b >= INT_MAX)
 				break;
 			//printf("despues de la formula a es %f y b es %f\n", a, b);
@@ -183,7 +183,7 @@ int	main(void)
 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Negro);
 		else
 			mlx_pixel_put(new->mlx, new->mlx_win, new_a, new_b, Azul);
-		if (i == 550 || x == 2)
+		if (i == 50 || x == 2)
 		{
 			y += 0.004;
 			x = 0;
@@ -235,6 +235,7 @@ int	main(void)
         iter = 0;
         a_temp = 0;
         b_temp = 0;
+		//printf("x es %f\n", x);
     }
 
 	a_temp = 0;
@@ -322,7 +323,12 @@ int	main(void)
         a_temp = 0;
         b_temp = 0;
     }
+	int nuevoy;
 
+	nuevoy = -3;
+	nuevoy = 3 - (-3);
+
+	
 	//Capturar un evento del raton
 	
 	mlx_hook(new->mlx_win, 4, 1L << 4, ft_mouse_event, new);
