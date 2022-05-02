@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:55:36 by irifarac          #+#    #+#             */
-/*   Updated: 2022/04/30 13:33:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:34:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,26 @@ int	ft_iterationMandelbrot(points *values, double x, double y)
 			return (iter);
 		values->a_temp = values->a;
 		values->b_temp = values->b;
+		iter++;
+	}
+	return (0);
+}
+
+int	ft_iterationJulia(points *values, double a_temp, double b_temp)
+{
+	int	iter;
+
+	iter = 1;
+	values->x = -0.123;
+	values->y = 0.745;
+	while (iter <= 50)
+	{
+		values->a = ft_calcx(a_temp, b_temp, values->x);
+		values->b = ft_calcy(a_temp, b_temp, values->y);
+		if (sqrt(pow(values->a, 2) + pow(values->b, 2)) > 2)
+			return (iter);
+		a_temp = values->a;
+		b_temp = values->b;
 		iter++;
 	}
 	return (0);
