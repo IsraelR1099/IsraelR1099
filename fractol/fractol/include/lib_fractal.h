@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/02 13:34:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:50:54 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ typedef struct	s_fractal
 	int		bpp;
 	int		line_length;
 	int		endian;
+	int		red;
+	int		green;
+	int		blue;
 }	window;
 
 typedef struct	s_points
@@ -50,10 +53,12 @@ typedef struct	s_points
 
 double	ft_calcx(double a, double b, double x);
 double	ft_calcy(double a, double b, double y);
-int		key_event(int button, window *param, int value);
+int		key_event(int button, window *param);
 int		ft_iterationMandelbrot(points *values, double x, double y);
 int		ft_iterationJulia(points *values, double a_temp, double b_temp);
 int		ft_strcmp(char *str1, char *str2);
+int		create_rgb(int red, int green, int blue);
+int		color_value(int iter, window *init);
 void	generateImage(points *values, window *init, char *str);
 void	ft_Mandelbrot(points *values, window *init);
 void	ft_Julia(points *values, window *init);

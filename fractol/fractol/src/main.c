@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:06:35 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/02 13:27:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:53:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int counter, char **str)
 	points	*values;
 
 	init = (window *)malloc(sizeof(window));
+	init->red = (int)malloc(sizeof(int));
 	values = (points *)malloc(sizeof(points));
 	if (!init || !values)
 		return (0);

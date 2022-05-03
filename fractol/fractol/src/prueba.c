@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handler.c                                       :+:      :+:    :+:   */
+/*   prueba.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/28 10:52:12 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/03 13:46:51 by irifarac         ###   ########.fr       */
+/*   Created: 2022/05/03 13:45:23 by irifarac          #+#    #+#             */
+/*   Updated: 2022/05/03 13:53:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lib_fractal.h"
-#include "mlx/mlx.h"
+#include <unistd.h>
+#include <stdio.h>
 
-int	key_event(int button, window *init)
+int	main(int counter, char **str)
 {
-	printf("button es %d\n", button);
-	if (button == 53)
-		mlx_destroy_window(init->mlx, init->mlx_win);
-	if (button == 45)
-	{
-		init->red = 255;
-		init->green = 255;
-		init->blue = 0;
-	}
-	return (1);
+	char	*ptr;
+
+	ptr = str[2];
+	printf("%s\n", ptr);
+	ptr = str[4];
+	printf("%s\n", ptr);
+	return (0);
 }

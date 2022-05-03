@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:55:36 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/02 13:34:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:53:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	ft_iterationJulia(points *values, double a_temp, double b_temp)
 	int	iter;
 
 	iter = 1;
-	values->x = -0.123;
-	values->y = 0.745;
+	values->x = -1.3;
+	values->y = 0.005;
 	while (iter <= 50)
 	{
 		values->a = ft_calcx(a_temp, b_temp, values->x);
