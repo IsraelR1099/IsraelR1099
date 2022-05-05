@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 10:52:12 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/04 14:00:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/05 14:00:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,28 @@ int	key_event(int button, window *init)
 		init->trl -= 10;
 	else if (button == 69)
 		init->max_iter += 3;
-	generateImage(init, "Julia");
+	else if (button == 78)
+		init->max_iter -= 3;
+	generateImage(init, init->values->fract_type);
 	return (1);
 }
 
-int	ft_mouse_event(int button, window *init)
+int	ft_mouse_event(int button,int x, int y, window *init)
 {
+	(void)x;
+	(void)y;
 	printf("button es %d\n", button);
-	/*if (button == 4)
-		init->zoom = 0.8;
-	else if (button == 5)
-		init->zoom = 1.25;
-	else
-		init->zoom = 1;*/
-	(void)init;
+/*	if (button == 4)
+	{
+		init->zoom_y = 374;
+		generateImage(init, init->values->fract_type);
+	}*/
+	if (button == 5)
+	{
+		printf("entro\n");
+		init->zoom_x = -666.654;
+		init->zoom_y = 374.983;
+		generateImage(init, init->values->fract_type);
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/04 14:11:54 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/05 13:58:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_points
 	double	b;
 	double	a_temp;
 	double	b_temp;
+	char	*fract_type;
 }	points;
 
 typedef struct	s_fractal
@@ -50,7 +51,8 @@ typedef struct	s_fractal
 	int		red;
 	int		green;
 	int		blue;
-	float	zoom;
+	float	zoom_x;
+	float	zoom_y;
 	int		trl;
 	int		max_iter;
 	points	*values;
@@ -66,12 +68,13 @@ int		ft_iterationJulia(window *init, double a_temp, double b_temp);
 int		ft_strcmp(char *str1, char *str2);
 int		create_rgb(int red, int green, int blue);
 int		color_value(int iter, window *init);
-int		init_variables(window *init);
-int		ft_mouse_event(int button, window *init);
+int		init_variables(window *init, char *str);
+int		ft_mouse_event(int button, int x, int y, window *init);
+float	ft_atoi(char *str);
 void	generateImage(window *init, char *str);
 void	ft_Mandelbrot(window *init);
 void	ft_Julia(window *init);
 void	my_mlx_pixel_put(window *init, int x, int y, int color);
-void	ft_showOptions(void);
+void	ft_show_options(void);
 
 #endif
