@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:06:35 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/05 14:00:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/06 12:31:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int	init_variables(window *init, char *str)
 	init->zoom_y = 1;
 	init->trl = 0;
 	init->max_iter = 50;
+	init->red = 0;
+	init->green = 0;
+	init->blue = 255;
 	return (1);
 }
 

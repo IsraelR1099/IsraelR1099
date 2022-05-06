@@ -6,12 +6,13 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/05 12:17:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/06 14:05:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_fractal.h"
 #include "mlx/mlx.h"
+#include "tc.h"
 
 int	ft_strcmp(char *str1, char *str2)
 {
@@ -25,22 +26,28 @@ int	ft_strcmp(char *str1, char *str2)
 
 void	ft_show_options(void)
 {
-	printf("Utilizar los parametros siguientes:\n Mandelbrot.\n Julia.\n");
+	printf("%sUtilizar los parametros siguientes:\n%s", TC_GRN, TC_NRM);
+	printf("%s1. Mandelbrot\n%s", TC_BLU, TC_NRM);
+	printf("%s2. Julia\n%s", TC_RED, TC_NRM);
 }
 
-int	create_rgb(int red, int green, int blue)
+int	create_rgb(int tr, int red, int green, int blue)
 {
-	return (red << 16 | green << 8 | blue);
+	return (tr << 24 | red << 16 | green << 8 | blue);
 }
 
 int	color_value(int iter, window *init)
 {
 	int	color;
 
-	init->red = 0 + (iter * 15);
+	if (iter > 17)
+		iter = 17;
+	init->tr = 0x00;
+	init->red = 255;
 	init->green = 0 + (iter * 15);
-	init->blue = 255;
-	color = create_rgb(init->red, init->green, init->blue);
+	init->blue = 0;
+	//printf("red es %d, azul %d, verde %d\n",init->red, init->blue, init->green);
+	color = create_rgb(init->tr, init->red, init->green, init->blue);
 	return (color);
 }
 

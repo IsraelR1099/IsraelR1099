@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/05 13:58:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/06 10:59:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct	s_fractal
 	int		bpp;
 	int		line_length;
 	int		endian;
+	int		tr;
 	int		red;
 	int		green;
 	int		blue;
@@ -66,7 +67,7 @@ int		key_event(int button, window *param);
 int		ft_iterationMandelbrot(window *init, double x, double y);
 int		ft_iterationJulia(window *init, double a_temp, double b_temp);
 int		ft_strcmp(char *str1, char *str2);
-int		create_rgb(int red, int green, int blue);
+int		create_rgb(int tr, int red, int green, int blue);
 int		color_value(int iter, window *init);
 int		init_variables(window *init, char *str);
 int		ft_mouse_event(int button, int x, int y, window *init);
