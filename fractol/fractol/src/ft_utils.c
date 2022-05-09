@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/06 14:05:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/07 11:34:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	color_value(int iter, window *init)
 
 	if (iter > 17)
 		iter = 17;
-	init->tr = 0x00;
-	init->red = 255;
+	init->tr = 0;
+	init->red = 0 + (iter * 15);
 	init->green = 0 + (iter * 15);
 	init->blue = 0;
 	//printf("red es %d, azul %d, verde %d\n",init->red, init->blue, init->green);
