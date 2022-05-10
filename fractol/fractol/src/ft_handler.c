@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 10:52:12 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/09 14:06:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:50:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,31 @@ int	key_event(int button, window *init)
 		mlx_destroy_window(init->mlx, init->mlx_win);
 		exit(1);
 	}
+	//Mover arriba 
+	else if (button == 126)
+		init->trl_y += 15;
+	//Mover abajo
+	else if (button == 125)
+		init->trl_y -= 15;
 	//Mover hacia la izquierda
 	else if (button == 124)
-		init->trl -= 15;
+		init->trl_x -= 15;
 	//Mover hacia la derecha
 	else if (button == 123)
-		init->trl += 15;
+		init->trl_x += 15;
 	//Aumentar iteraciones +
 	else if (button == 69)
-		init->max_iter += 3;
+		init->max_iter += 10;
 	//Disminuir iteraciones -
 	else if (button == 78)
-		init->max_iter -= 3;
+		init->max_iter -= 10;
 	//Restablecer valores r
 	else if (button == 15)
 	{
 		init->zoom_x = 1;
 		init->zoom_y = 1;
-		init->trl = 0;
+		init->trl_x = 0;
+		init->trl_y = 0;
 	}
 	//Cambiar colores c
 	else if (button == 8)
@@ -54,26 +61,32 @@ int	key_event(int button, window *init)
 
 int	ft_mouse_event(int button,int x, int y, window *init)
 {
-	(void)x;
-	(void)y;
-	printf("button es %d\n", button);
-/*	if (button == 4)
-	{
-		init->zoom_y = 374;
-		generateImage(init, init->values->fract_type);
-	}*/
+
+	printf("button es %d, x es %d, y es %d\n", button, x, y);
+
 	if (button == 5)
 	{
+		init->trl_x += x - 640 * (init->zoom_x);
+		init->trl_y += y - 360 * (init->zoom_y);
 		printf("entro\n");
-		
-		init->zoom_x -= 0.1;
-		init->zoom_y -= 0.1;
+		if (init->zoom_x <= 0.1 && init->zoom_y <= 0.1)
+		{
+			init->zoom_x -= 0.01;
+			init->zoom_y -= 0.01;
+			printf("entro en if zoom x %f y zoom y %f\n", init->zoom_x, init->zoom_y);
+			generateImage(init, init->values->fract_type);
+		}
+		init->zoom_x -= 0.02;
+		init->zoom_y -= 0.02;
+		printf("zoom x %f y zoom y %f\n", init->zoom_x, init->zoom_y);
 		generateImage(init, init->values->fract_type);
 	}
 	else if (button == 4)
 	{
-		init->zoom_x += 0.25;
-		init->zoom_y += 0.25;
+		init->trl_x += x - 640 * (init->zoom_x);
+		init->trl_y += y - 360 * (init->zoom_y);
+		init->zoom_x += 0.02;
+		init->zoom_y += 0.02;
 		generateImage(init, init->values->fract_type);
 	}
 	return (1);

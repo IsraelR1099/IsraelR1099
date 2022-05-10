@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/06 10:59:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:47:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ typedef struct	s_fractal
 	int		blue;
 	float	zoom_x;
 	float	zoom_y;
-	int		trl;
+	int		trl_x;
+	int		trl_y;
 	int		max_iter;
 	points	*values;
 }	window;
@@ -76,6 +77,6 @@ void	generateImage(window *init, char *str);
 void	ft_Mandelbrot(window *init);
 void	ft_Julia(window *init);
 void	my_mlx_pixel_put(window *init, int x, int y, int color);
-void	ft_show_options(void);
+void	ft_show_options(char *str);
 
 #endif

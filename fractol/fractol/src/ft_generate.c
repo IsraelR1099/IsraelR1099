@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:01:53 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/09 14:06:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:45:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	generateImage(window *init, char *str)
 		ft_Mandelbrot(init);
 	else if (ft_strcmp(str, "Julia") == 0)
 		ft_Julia(init);
+	else if (ft_strcmp(str, "--help") == 0)
+		ft_show_options("--help");
 }
 /*
 void	ft_Mandelbrot(window *init)
@@ -63,8 +65,8 @@ void	ft_Mandelbrot(window *init)
 		init->values->new_a = 0;
 		while (init->values->new_a < HEIGHT)
 		{
-			init->values->x = ((((2 * 4 * init->zoom_x) * ((float)init->values->new_a)) + init->trl) / HEIGHT) - (4 * init->zoom_x);
-			init->values->y = (3 * init->zoom_y) - (((2 * 3 * init->zoom_y) * (float)init->values->new_b) / WIDTH);
+			init->values->x = ((((2 * 4 * init->zoom_x) * ((float)init->values->new_a)) + init->trl_x) / HEIGHT) - (4 * init->zoom_x);
+			init->values->y = (3 * init->zoom_y) - ((((2 * 3 * init->zoom_y) * (float)init->values->new_b) + init->trl_y) / WIDTH);
 			init->values->iter = ft_iterationMandelbrot(init, init->values->x, init->values->y);
 			if (init->values->iter == 0)
 			{
@@ -82,7 +84,7 @@ void	ft_Mandelbrot(window *init)
 	mlx_put_image_to_window(init->mlx, init->mlx_win, init->img, 0, 0);
 }
 
-void	ft_Julia(window *init)
+/*void	ft_Julia(window *init)
 {
 	int	color;
 
@@ -107,4 +109,33 @@ void	ft_Julia(window *init)
 		init->values->b_temp -= 0.008;
 	}
 	mlx_put_image_to_window(init->mlx, init->mlx_win, init->img, 0, 0);
+}*/
+void	ft_Julia(window *init)
+{
+	int	color;
+
+	init->values->new_b = 0;
+	while (init->values->new_b < WIDTH)
+	{
+		init->values->new_a = 0;
+		while (init->values->new_a < HEIGHT)
+		{
+			init->values->a_temp = ((((2 * 4 * init->zoom_x) * ((float)init->values->new_a)) + init->trl_x) / HEIGHT) - (4 * init->zoom_x);
+			init->values->b_temp = (3 * init->zoom_y) - (((2 * 3 * init->zoom_y) * (float)init->values->new_b) / WIDTH);
+			init->values->iter = ft_iterationJulia(init, init->values->a_temp, init->values->b_temp);
+			if (init->values->iter == 0)
+			{
+				my_mlx_pixel_put(init, init->values->new_a, init->values->new_b, 0x000000);
+			}
+			else
+			{
+				color = color_value(init->values->iter, init);
+				my_mlx_pixel_put(init, init->values->new_a,init->values->new_b, color);
+			}
+			init->values->new_a += 1;
+		}
+		init->values->new_b += 1;
+	}
+	mlx_put_image_to_window(init->mlx, init->mlx_win, init->img, 0, 0);
 }
+

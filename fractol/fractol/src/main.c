@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:06:35 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/09 14:06:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:48:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int counter, char **str)
 		free(init->values);
 		free(init);
 	}
-	ft_show_options();
+	ft_show_options(str[1]);
 	return (0);
 }
 
@@ -55,7 +55,8 @@ int	init_variables(window *init, char *str)
 	init->values->y_julia = -0.601;
 	init->zoom_x = 1;
 	init->zoom_y = 1;
-	init->trl = 0;
+	init->trl_x = 0;
+	init->trl_y = 0;
 	init->max_iter = 50;
 	init->red = 0;
 	init->green = 0;

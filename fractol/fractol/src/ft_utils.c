@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/07 11:34:36 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:50:23 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,17 @@ int	ft_strcmp(char *str1, char *str2)
 	return ((unsigned char)str1[position] - (unsigned char)str2[position]);
 }
 
-void	ft_show_options(void)
+void	ft_show_options(char *str)
 {
-	printf("%sUtilizar los parametros siguientes:\n%s", TC_GRN, TC_NRM);
-	printf("%s1. Mandelbrot\n%s", TC_BLU, TC_NRM);
-	printf("%s2. Julia\n%s", TC_RED, TC_NRM);
+	if (ft_strcmp(str, "--help") == 0)
+	{
+		printf("ESC, + max iter, - less iter\n");
+	}
+	else
+		printf("%sUtilizar los parametros siguientes:\n%s", TC_GRN, TC_NRM);
+		printf("%s1. Mandelbrot\n%s", TC_BLU, TC_NRM);
+		printf("%s2. Julia\n%s", TC_RED, TC_NRM);
+		printf("%s3. Julia [parametros]\n%s", TC_RED, TC_NRM);
 }
 
 int	create_rgb(int tr, int red, int green, int blue)

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 13:27:42 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/02 10:50:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:37:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ double	ft_calcx(double a, double b, double x)
 {
 	double	result;
 
-	result = pow(a, 2) - pow(b, 2) + x;
+	result = (a * a) - (b * b) + x;
 	return (result);
 }
 
