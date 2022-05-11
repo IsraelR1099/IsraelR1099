@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/10 13:47:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/11 13:13:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct	s_fractal
 
 double	ft_calcx(double a, double b, double x);
 double	ft_calcy(double a, double b, double y);
+double	ft_calcx_3(double a, double b, double x);
+double	ft_calcy_3(double a, double b, double y);
 int		key_event(int button, window *param);
 int		ft_iterationMandelbrot(window *init, double x, double y);
 int		ft_iterationJulia(window *init, double a_temp, double b_temp);

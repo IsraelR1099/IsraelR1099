@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 10:52:12 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/10 13:50:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/11 14:15:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ int	key_event(int button, window *init)
 	}
 	//Mover arriba 
 	else if (button == 126)
-		init->trl_y += 15;
+		init->trl_y += 20;
 	//Mover abajo
 	else if (button == 125)
-		init->trl_y -= 15;
+		init->trl_y -= 20;
 	//Mover hacia la izquierda
 	else if (button == 124)
-		init->trl_x -= 15;
+		init->trl_x -= 20;
 	//Mover hacia la derecha
 	else if (button == 123)
-		init->trl_x += 15;
+		init->trl_x += 20;
 	//Aumentar iteraciones +
 	else if (button == 69)
 		init->max_iter += 10;
@@ -55,6 +55,7 @@ int	key_event(int button, window *init)
 		init->green = 0;
 		init->blue = 0;
 	}
+	printf("trl_x es %d\n", init->trl_x);
 	generateImage(init, init->values->fract_type);
 	return (1);
 }
@@ -66,8 +67,9 @@ int	ft_mouse_event(int button,int x, int y, window *init)
 
 	if (button == 5)
 	{
-		init->trl_x += x - 640 * (init->zoom_x);
-		init->trl_y += y - 360 * (init->zoom_y);
+		init->trl_x += (int)(x - 640);
+		init->trl_y += (int)(y - 360);
+		printf("trl es %d\n", init->trl_x);
 		printf("entro\n");
 		if (init->zoom_x <= 0.1 && init->zoom_y <= 0.1)
 		{
@@ -85,8 +87,8 @@ int	ft_mouse_event(int button,int x, int y, window *init)
 	{
 		init->trl_x += x - 640 * (init->zoom_x);
 		init->trl_y += y - 360 * (init->zoom_y);
-		init->zoom_x += 0.02;
-		init->zoom_y += 0.02;
+		init->zoom_x += 0.2;
+		init->zoom_y += 0.2;
 		generateImage(init, init->values->fract_type);
 	}
 	return (1);

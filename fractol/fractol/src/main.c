@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:06:35 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/10 13:48:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/11 14:15:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int counter, char **str)
 	window	*init;
 
 	init = (window *)malloc(sizeof(window));
+	printf("%lu\n", sizeof(window));
 	init->values = (points *)malloc(sizeof(points));
 	if (!init || !init->values)
 		return (0);
