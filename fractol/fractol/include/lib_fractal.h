@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/11 13:13:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:59:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ typedef struct	s_fractal
 	void	*mlx_win;
 	void	*img;
 	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
+	int		b;
+	int		ll;
+	int		end;
 	int		tr;
 	int		red;
 	int		green;
 	int		blue;
-	float	zoom_x;
-	float	zoom_y;
+	double	zoom_x;
+	double	zoom_y;
 	int		trl_x;
 	int		trl_y;
 	int		max_iter;
@@ -67,17 +67,17 @@ double	ft_calcy(double a, double b, double y);
 double	ft_calcx_3(double a, double b, double x);
 double	ft_calcy_3(double a, double b, double y);
 int		key_event(int button, window *param);
-int		ft_iterationMandelbrot(window *init, double x, double y);
-int		ft_iterationJulia(window *init, double a_temp, double b_temp);
+int		ft_iteration_mandelbrot(window *init, double x, double y);
+int		ft_iteration_julia(window *init, double a_temp, double b_temp);
 int		ft_strcmp(char *str1, char *str2);
 int		create_rgb(int tr, int red, int green, int blue);
 int		color_value(int iter, window *init);
 int		init_variables(window *init, char *str);
 int		ft_mouse_event(int button, int x, int y, window *init);
 float	ft_atoi(char *str);
-void	generateImage(window *init, char *str);
-void	ft_Mandelbrot(window *init);
-void	ft_Julia(window *init);
+void	generate_image(window *init, char *str);
+void	ft_mandelbrot(window *init);
+void	ft_julia(window *init);
 void	my_mlx_pixel_put(window *init, int x, int y, int color);
 void	ft_show_options(char *str);
 

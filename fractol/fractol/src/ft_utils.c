@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/10 13:50:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:59:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	ft_show_options(char *str)
 		printf("ESC, + max iter, - less iter\n");
 	}
 	else
+	{
 		printf("%sUtilizar los parametros siguientes:\n%s", TC_GRN, TC_NRM);
 		printf("%s1. Mandelbrot\n%s", TC_BLU, TC_NRM);
 		printf("%s2. Julia\n%s", TC_RED, TC_NRM);
 		printf("%s3. Julia [parametros]\n%s", TC_RED, TC_NRM);
+	}
 }
 
 int	create_rgb(int tr, int red, int green, int blue)
@@ -52,7 +54,6 @@ int	color_value(int iter, window *init)
 	init->red = 0 + (iter * 15);
 	init->green = 0 + (iter * 15);
 	init->blue = 0;
-	//printf("red es %d, azul %d, verde %d\n",init->red, init->blue, init->green);
 	color = create_rgb(init->tr, init->red, init->green, init->blue);
 	return (color);
 }
