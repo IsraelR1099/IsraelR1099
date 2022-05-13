@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 10:52:12 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/12 13:22:13 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/13 13:58:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ int	ft_mouse_event(int button, int x, int y, window *init)
 	else if (button == 4)
 	{
 		printf("zoom x %f zoom y %f\n", init->zoom_x, init->zoom_y);
-	//	init->trl_x -= x - 640;
-	//	init->trl_y -= y - 360;
 		if (init->zoom_x == 0.014 && init->zoom_y == 0.012)
 		{
+			init->trl_x -= x - 640;
+			init->trl_y -= y - 360;
 			init->zoom_x += 0.006;
 			init->zoom_y += 0.008;
 		}
