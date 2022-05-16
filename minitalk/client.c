@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:22:53 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/16 14:12:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/16 20:54:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,26 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	sign_handler2(int sign2)
+void	sign_handler2(int pid_server, char *str)
 {
-	(void)sign2;
-	write(1, "1", 1);
+	int	bit;
+	int	position;
+
+	position = 0;
+	while (*(str + position))
+	{
+
+		bit = 8;
+		write(1, &*(str + position), 1);
+		while (bit--)
+		{
+			if (*(str + position) >> bit & 1)
+				kill(pid_server, SIGUSR1);
+			else
+				kill(pid_server, SIGUSR2);
+		}
+		position++;
+	}
 }
 
 int	ft_atoi(char *str)
@@ -48,17 +64,19 @@ int	ft_atoi(char *str)
 
 int	main(int counter, char **str)
 {
-	struct sigaction	act2;
+//	struct sigaction	act2;
 	int					pid2;
 
 	(void)counter;
 	printf("hola\n");
 	pid2 = ft_atoi(str[1]);
 	printf("pid en cliente es %d\n", pid2);
-	act2.sa_handler = sign_handler2;
-	act2.sa_flags = SA_SIGINFO;
-	sigemptyset(&act2.sa_mask);
-	sigaction(SIGUSR1, &act2, NULL);
-	kill(pid2, SIGUSR1);
+//	act2.sa_handler = sign_handler2;
+//	act2.sa_flags = SA_SIGINFO;
+//	sigemptyset(&act2.sa_mask);
+//	signal(SIGUSR1, sign_handler2);
+//	signal(SIGUSR2, sign_handler2);
+	sign_handler2(pid2, str[2]);
+//	kill(pid2, SIGUSR1);
 	return (0);
 }
