@@ -96,3 +96,6 @@ Viewport y redimensionamiento
 https://math.hws.edu/graphicsbook/c2/s3.html
 Color
 http://math.unipa.it/~grim/Jbarrallo.PDF
+
+bits
+http://galileo.phys.virginia.edu/compfac/courses/practical-c/14.pdf
