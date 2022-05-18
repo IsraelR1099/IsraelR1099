@@ -1,18 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <irifarac@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/29 15:31:16 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/04 13:06:25 by irifarac         ###   ########.fr       */
+/*   Created: 2022/05/18 11:59:47 by irifarac          #+#    #+#             */
+/*   Updated: 2022/05/18 14:21:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minitalk.h"
 
-static int	ft_len(int n)
+int	ft_atoi(char *str)
+{
+	int	nbr;
+	int	sign;
+	int	position;
+
+	position = 0;
+	sign = 1;
+	nbr = 0;
+	while (((str[position] >= 9) && (str[position] <= 13))
+		|| (str[position] == 32))
+		position++;
+	if ((str[position] == '-') || (str[position] == '+'))
+	{
+		if (str[position] == '-')
+			sign = -1;
+		position++;
+	}
+	while ((str[position] >= 48) && (str[position] <= 57))
+	{
+		nbr = (nbr * 10) + str[position] - 48;
+		position++;
+	}
+	return (sign * nbr);
+}
+
+size_t	ft_strlen(char *str)
+{
+	size_t	position;
+
+	position = 0;
+	while (*(str + position))
+		position++;
+	return (position);
+}
+
+int	ft_len(int n)
 {
 	int	len;
 
@@ -47,7 +83,7 @@ char	*ft_itoa(int n)
 		*ptr = 0 + 48;
 	ptr[len] = '\0';
 	while (len--)
-	{	
+	{
 		ptr[len] = (nbr % 10) + 48;
 		nbr /= 10;
 	}

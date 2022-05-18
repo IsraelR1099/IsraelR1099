@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/12 10:25:23 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/12 10:26:20 by irifarac         ###   ########.fr       */
+/*   Created: 2022/05/18 12:06:14 by irifarac          #+#    #+#             */
+/*   Updated: 2022/05/18 14:14:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	unsigned int	lens1;
-	unsigned int	lens2;
-	char			*ptr1;
+# include <signal.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
 
-	lens1 = ft_strlen((char *)s1);
-	lens2 = ft_strlen((char *)s2);
-	ptr1 = malloc ((lens1 + lens2 + 1) * 1);
-	if (ptr1 == NULL)
-		return (0);
-	if (ptr1)
-	{
-		ft_memcpy(ptr1, s1, lens1);
-		ft_memcpy(ptr1 + lens1, s2, lens2 + 1);
-	}
-	ptr1[lens1 + lens2] = '\0';
-	return (ptr1);
-}
+int		ft_atoi(char *str);
+int		ft_len(int n);
+size_t	ft_strlen(char *str);
+char	*ft_itoa(int n);
+void	sign_handler(int pid_server, char c);
+void	sign_handler_server(int n);
+
+#endif

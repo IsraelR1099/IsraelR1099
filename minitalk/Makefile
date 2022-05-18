@@ -6,43 +6,42 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 09:34:40 by irifarac          #+#    #+#              #
-#    Updated: 2022/05/13 13:48:53 by irifarac         ###   ########.fr        #
+#    Updated: 2022/05/18 14:05:03 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = server
-FT_PRINTF = ft_printf
+NAME_SERVER = server
+NAME_CLIENT = client
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 
-SRC = server.c
+SRC_CLIENT = client.c ft_utils.c
+SRC_SERVER = server.c ft_utils.c
 
-OBJ = $(SRC:.c=.o)
+OBJ_S = $(SRC_SERVER:.c=.o)
+OBJ_C = $(SRC_CLIENT:.c=.o)
 
-all: $(NAME)
+all: $(NAME_SERVER) $(NAME_CLIENT)
 
-$(NAME): $(OBJ)
-	@make -C $(FT_PRINTF)
-	@cp ft_printf/libftprintf.a .
-	@mv libftprintf.a $(NAME)
-	@$(AR) $(NAME) $(OBJ)
-	@echo "ft_printf compiled"
+$(NAME_CLIENT): $(OBJ_C)
+		gcc $(CFLAGS) $(SRC_CLIENT) -o $(NAME_CLIENT)
+$(NAME_SERVER): $(OBJ_S)
+		gcc $(CFLAGS) $(SRC_SERVER) -o $(NAME_SERVER)
 
 .c.o:
 	@echo "Compiling"
 	gcc $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
-	@make clean -C $(FT_PRINTF)
-	@echo "ft_printf objets cleaned"
+	rm -f $(OBJ_C)
+	rm -f $(OBJ_S)
+	@echo "Objets cleaned"
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(FT_PRINTF)/libftprintf.a
+	rm -f $(NAME_CLIENT)
+	rm -f $(NAME_SERVER)
 	@echo "executable files cleaned"
 
 re: fclean all
 
 .PHONY: all clean fclean re
-
