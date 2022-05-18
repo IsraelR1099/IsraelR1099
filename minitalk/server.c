@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:35:58 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/18 14:24:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/18 22:50:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	main(void)
 
 void	sign_handler_server(int sign)
 {
-	static unsigned char	bits;
-	static int				byte;
+	static unsigned char	bits = 0;
+	static int				byte = 0;
 
 	bits = bits << 1;
 	if (sign == SIGUSR1)
@@ -44,8 +44,18 @@ void	sign_handler_server(int sign)
 	byte++;
 	if (byte == 8)
 	{
-		write(1, &bits, 1);
-		byte = 0;
-		bits = 0;
+		if (bits == 0x00)
+		{
+		//	kill(client_pid, SIGUSR1);
+			write(1, "final", 5);
+			byte = 0;
+			bits = 0;
+		}
+		else
+		{
+			write(1, &bits, 1);
+			byte = 0;
+			bits = 0;
+		}
 	}
 }
