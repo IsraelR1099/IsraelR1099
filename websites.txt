@@ -96,6 +96,8 @@ Viewport y redimensionamiento
 https://math.hws.edu/graphicsbook/c2/s3.html
 Color
 http://math.unipa.it/~grim/Jbarrallo.PDF
+https://www.paridebroggi.com/blogpost/2015/05/06/fractal-continuous-coloring/
+
 
 bits
 http://galileo.phys.virginia.edu/compfac/courses/practical-c/14.pdf
