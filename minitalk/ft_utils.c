@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:59:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/18 14:21:38 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/19 09:38:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,9 @@ char	*ft_itoa(int n)
 	if (n < 0)
 		*ptr = '-';
 	return (ptr);
+}
+
+void	ft_putstr(char *str)
+{
+	write(1, str, ft_strlen(str));
 }

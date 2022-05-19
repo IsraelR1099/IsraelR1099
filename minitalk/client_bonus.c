@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:22:53 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/19 10:33:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/19 10:57:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int counter, char **str)
 	int	pid_server;
 	int	position;
 
+	signal(SIGUSR1, sign);
 	if (counter == 3)
 	{
 		pid_server = ft_atoi(str[1]);
@@ -47,4 +48,10 @@ void	sign_handler(int pid_server, char c)
 			kill(pid_server, SIGUSR2);
 		usleep(250);
 	}
+}
+
+void	sign(int sig)
+{
+	(void)sig;
+	ft_putstr("Signal receipt\n");
 }
