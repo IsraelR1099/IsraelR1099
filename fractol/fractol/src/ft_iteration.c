@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:55:36 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/12 13:16:54 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/20 11:04:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	ft_iteration_julia(window *init, double a_temp, double b_temp)
 	iter = 1;
 	while (iter <= init->max_iter)
 	{
-		init->values->a = ft_calcx_3(a_temp, b_temp, init->values->x_julia);
-		init->values->b = ft_calcy_3(a_temp, b_temp, init->values->y_julia);
+		init->values->a = ft_calcx(a_temp, b_temp, init->values->x_julia);
+		init->values->b = ft_calcy(a_temp, b_temp, init->values->y_julia);
 		if (sqrt((init->values->a * init->values->a)
 				+ (init->values->b * init->values->b)) >= 2)
 			return (iter);
