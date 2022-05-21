@@ -92,12 +92,13 @@ https://users.math.yale.edu/public_html/People/frame/Fractals/MandelSet/welcome.
 http://math.bu.edu/DYSYS/
 https://www.benlcollins.com/spreadsheets/how-to-draw-the-mandelbrot-set/
 https://blogs.kent.ac.uk/onetwomany/2020/04/24/deterministic-vs-predictable-the-mandelbrot-set/
+https://www.sekinoworld.com/fractal/
 Viewport y redimensionamiento
 https://math.hws.edu/graphicsbook/c2/s3.html
 Color
 http://math.unipa.it/~grim/Jbarrallo.PDF
 https://www.paridebroggi.com/blogpost/2015/05/06/fractal-continuous-coloring/
-
+https://krazydad.com/tutorials/makecolors.php
 
 bits
 http://galileo.phys.virginia.edu/compfac/courses/practical-c/14.pdf
