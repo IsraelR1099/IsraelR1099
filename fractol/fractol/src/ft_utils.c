@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/20 13:56:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:19:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,30 @@ int	create_rgb(int tr, int red, int green, int blue)
 	return (tr << 24 | red << 16 | green << 8 | blue);
 }
 
-int	color_value(int iter, window *init)
+int	color_value(int iter, window *init, char *str)
 {
-	int	color;
+	int		color;
+	double	continue_coloring;
+	double	magnitude;
 
-	if (iter > 17)
-		iter = 17;
-	init->tr = 0;
-	init->red = 0 + (iter * 15);
-	init->green = 0 + (iter * 15);
-	init->blue = 0;
+	if (ft_strcmp(str, "Mandelbrot") == 0)
+	{
+		magnitude = init->values->x * init->values->x + init->values->y * init->values->y;
+		continue_coloring = iter + 1 - ((log10(2) / sqrt(magnitude)) / log10(2));
+		init->red = (unsigned char)(sin(0.50 * continue_coloring + 8) * 128 + 127);
+		init->green = (unsigned char)(sin(0.40 * continue_coloring + 4 ) * 128 + 127);
+		init->blue = (unsigned char)(sin(0.25 * continue_coloring + 1) * 128 + 127);
+		init->tr = 0;
+	}
+	else if (ft_strcmp(str, "Julia") == 0)
+	{
+		magnitude = init->values->a_temp * init->values->a_temp + init->values->b_temp * init->values->b_temp;
+		continue_coloring = iter + 1 - ((log10(2) / sqrt(magnitude)) / log10(2));
+		init->red = (unsigned char)(sin(0.50 * continue_coloring + 8) * 128 + 127);
+		init->green = (unsigned char)(sin(0.40 * continue_coloring + 4 ) * 128 + 127);
+		init->blue = (unsigned char)(sin(0.25 * continue_coloring + 1) * 128 + 127);
+		init->tr = 0;
+	}
 	color = create_rgb(init->tr, init->red, init->green, init->blue);
 	return (color);
 }

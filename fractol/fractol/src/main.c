@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:06:35 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/20 13:43:58 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:56:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int counter, char **str)
 		mlx_key_hook(init->mlx_win, key_event, init);
 		mlx_hook(init->mlx_win, 4, 1L << 4, ft_mouse_event, init);
 		mlx_hook(init->mlx_win, 5, 1L << 3, ft_mouse_event, init);
+		mlx_hook(init->mlx_win, 17, 0, destroy_window, init);
 		mlx_loop(init->mlx);
 		free(init->values);
 		free(init);

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:55:36 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/20 11:04:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:19:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	ft_iteration_mandelbrot(window *init, double x, double y)
 	init->values->b_temp = 0;
 	while (iter <= init->max_iter)
 	{
-		init->values->a = ft_calcx_3(init->values->a_temp, init->values->b_temp, x);
-		init->values->b = ft_calcy_3(init->values->a_temp, init->values->b_temp, y);
+		init->values->a = ft_calcx(init->values->a_temp, init->values->b_temp, x);
+		init->values->b = ft_calcy(init->values->a_temp, init->values->b_temp, y);
 		if (sqrt((init->values->a * init->values->a)
 				+ (init->values->b * init->values->b)) >= 2)
 			return (iter);

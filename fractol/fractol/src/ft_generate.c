@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:01:53 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/20 13:56:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/21 14:19:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_mandelbrot(window *init)
 			}
 			else
 			{
-				color = color_value(init->values->iter, init);
+				color = color_value(init->values->iter, init, "Mandelbrot");
 				my_mlx_pixel_put(init, init->values->new_a, init->values->new_b, color);
 			}
 			init->values->new_a += 1;
@@ -71,7 +71,7 @@ void	ft_julia(window *init)
 			}
 			else
 			{
-				color = color_value(init->values->iter, init);
+				color = color_value(init->values->iter, init, "Julia");
 				my_mlx_pixel_put(init, init->values->new_a, init->values->new_b, color);
 			}
 			init->values->new_a += 1;
