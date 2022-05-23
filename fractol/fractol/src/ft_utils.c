@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/21 14:19:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/23 13:52:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 
 int	ft_strcmp(char *str1, char *str2)
 {
-	size_t	position;
+	size_t	i;
 
-	position = 0;
-	while (str1[position] != '\0' && str1[position] == str2[position])
-		position++;
-	return ((unsigned char)str1[position] - (unsigned char)str2[position]);
+	if (!str1)
+		return (1);
+	i = 0;
+	while (str1[i] != '\0' && str1[i] == str2[i])
+		i++;
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }
 
 void	ft_show_options(char *str)
@@ -47,25 +49,25 @@ int	create_rgb(int tr, int red, int green, int blue)
 int	color_value(int iter, window *init, char *str)
 {
 	int		color;
-	double	continue_coloring;
-	double	magnitude;
+	double	cnt_color;
+	double	mgd;
 
 	if (ft_strcmp(str, "Mandelbrot") == 0)
 	{
-		magnitude = init->values->x * init->values->x + init->values->y * init->values->y;
-		continue_coloring = iter + 1 - ((log10(2) / sqrt(magnitude)) / log10(2));
-		init->red = (unsigned char)(sin(0.50 * continue_coloring + 8) * 128 + 127);
-		init->green = (unsigned char)(sin(0.40 * continue_coloring + 4 ) * 128 + 127);
-		init->blue = (unsigned char)(sin(0.25 * continue_coloring + 1) * 128 + 127);
+		mgd = init->inf->x * init->inf->x + init->inf->y * init->inf->y;
+		cnt_color = iter + 1 - ((log10(2) / sqrt(mgd)) / log10(2));
+		init->red = (unsigned char)(sin(0.50 * cnt_color + 8) * 128 + 127);
+		init->green = (unsigned char)(sin(0.40 * cnt_color + 4) * 128 + 127);
+		init->blue = (unsigned char)(sin(0.25 * cnt_color + 1) * 128 + 127);
 		init->tr = 0;
 	}
 	else if (ft_strcmp(str, "Julia") == 0)
 	{
-		magnitude = init->values->a_temp * init->values->a_temp + init->values->b_temp * init->values->b_temp;
-		continue_coloring = iter + 1 - ((log10(2) / sqrt(magnitude)) / log10(2));
-		init->red = (unsigned char)(sin(0.50 * continue_coloring + 8) * 128 + 127);
-		init->green = (unsigned char)(sin(0.40 * continue_coloring + 4 ) * 128 + 127);
-		init->blue = (unsigned char)(sin(0.25 * continue_coloring + 1) * 128 + 127);
+		mgd = init->inf->a_temp * init->inf->a_temp + init->inf->b_temp * init->inf->b_temp;
+		cnt_color = iter + 1 - ((log10(2) / sqrt(mgd)) / log10(2));
+		init->red = (unsigned char)(sin(0.50 * cnt_color + 8) * 128 + 127);
+		init->green = (unsigned char)(sin(0.40 * cnt_color + 4) * 128 + 127);
+		init->blue = (unsigned char)(sin(0.25 * cnt_color + 1) * 128 + 127);
 		init->tr = 0;
 	}
 	color = create_rgb(init->tr, init->red, init->green, init->blue);

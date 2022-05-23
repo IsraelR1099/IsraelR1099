@@ -6,48 +6,48 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:55:36 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/21 14:19:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/23 14:03:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_fractal.h"
 #include "mlx/mlx.h"
 
-int	ft_iteration_mandelbrot(window *init, double x, double y)
+int	ft_iter_mandel(window *init, double x, double y)
 {
 	int	iter;
 
 	iter = 1;
-	init->values->a_temp = 0;
-	init->values->b_temp = 0;
+	init->inf->a_temp = 0;
+	init->inf->b_temp = 0;
 	while (iter <= init->max_iter)
 	{
-		init->values->a = ft_calcx(init->values->a_temp, init->values->b_temp, x);
-		init->values->b = ft_calcy(init->values->a_temp, init->values->b_temp, y);
-		if (sqrt((init->values->a * init->values->a)
-				+ (init->values->b * init->values->b)) >= 2)
+		init->inf->a = ft_calcx(init->inf->a_temp, init->inf->b_temp, x);
+		init->inf->b = ft_calcy(init->inf->a_temp, init->inf->b_temp, y);
+		if (sqrt((init->inf->a * init->inf->a)
+				+ (init->inf->b * init->inf->b)) >= 2)
 			return (iter);
-		init->values->a_temp = init->values->a;
-		init->values->b_temp = init->values->b;
+		init->inf->a_temp = init->inf->a;
+		init->inf->b_temp = init->inf->b;
 		iter++;
 	}
 	return (0);
 }
 
-int	ft_iteration_julia(window *init, double a_temp, double b_temp)
+int	ft_iter_julia(window *init, double a_temp, double b_temp)
 {
 	int	iter;
 
 	iter = 1;
 	while (iter <= init->max_iter)
 	{
-		init->values->a = ft_calcx(a_temp, b_temp, init->values->x_julia);
-		init->values->b = ft_calcy(a_temp, b_temp, init->values->y_julia);
-		if (sqrt((init->values->a * init->values->a)
-				+ (init->values->b * init->values->b)) >= 2)
+		init->inf->a = ft_calcx(a_temp, b_temp, init->inf->x_julia);
+		init->inf->b = ft_calcy(a_temp, b_temp, init->inf->y_julia);
+		if (sqrt((init->inf->a * init->inf->a)
+				+ (init->inf->b * init->inf->b)) >= 2)
 			return (iter);
-		a_temp = init->values->a;
-		b_temp = init->values->b;
+		a_temp = init->inf->a;
+		b_temp = init->inf->b;
 		iter++;
 	}
 	return (0);
