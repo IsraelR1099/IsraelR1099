@@ -6,13 +6,11 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/23 13:52:05 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:04:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_fractal.h"
-#include "mlx/mlx.h"
-#include "tc.h"
 
 int	ft_strcmp(char *str1, char *str2)
 {
@@ -26,27 +24,12 @@ int	ft_strcmp(char *str1, char *str2)
 	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }
 
-void	ft_show_options(char *str)
-{
-	if (ft_strcmp(str, "--help") == 0)
-	{
-		printf("ESC, + max iter, - less iter\n");
-	}
-	else
-	{
-		printf("%sUtilizar los parametros siguientes:\n%s", TC_GRN, TC_NRM);
-		printf("%s1. Mandelbrot\n%s", TC_BLU, TC_NRM);
-		printf("%s2. Julia\n%s", TC_RED, TC_NRM);
-		printf("%s3. Julia [parametros]\n%s", TC_RED, TC_NRM);
-	}
-}
-
 int	create_rgb(int tr, int red, int green, int blue)
 {
 	return (tr << 24 | red << 16 | green << 8 | blue);
 }
 
-int	color_value(int iter, window *init, char *str)
+int	color_value(int iter, t_window *init, char *str)
 {
 	int		color;
 	double	cnt_color;
@@ -56,50 +39,52 @@ int	color_value(int iter, window *init, char *str)
 	{
 		mgd = init->inf->x * init->inf->x + init->inf->y * init->inf->y;
 		cnt_color = iter + 1 - ((log10(2) / sqrt(mgd)) / log10(2));
-		init->red = (unsigned char)(sin(0.50 * cnt_color + 8) * 128 + 127);
-		init->green = (unsigned char)(sin(0.40 * cnt_color + 4) * 128 + 127);
-		init->blue = (unsigned char)(sin(0.25 * cnt_color + 1) * 128 + 127);
+		init->red = (unsigned char)(sin(init->fr * cnt_color + init->sr) * 128 + 127);
+		init->green = (unsigned char)(sin(init->fg * cnt_color + init->sg) * 128 + 127);
+		init->blue = (unsigned char)(sin(init->fb * cnt_color + init->sb) * 128 + 127);
 		init->tr = 0;
 	}
 	else if (ft_strcmp(str, "Julia") == 0)
 	{
-		mgd = init->inf->a_temp * init->inf->a_temp + init->inf->b_temp * init->inf->b_temp;
+		mgd = init->inf->atmp * init->inf->atmp
+			+ init->inf->btmp * init->inf->btmp;
 		cnt_color = iter + 1 - ((log10(2) / sqrt(mgd)) / log10(2));
-		init->red = (unsigned char)(sin(0.50 * cnt_color + 8) * 128 + 127);
-		init->green = (unsigned char)(sin(0.40 * cnt_color + 4) * 128 + 127);
-		init->blue = (unsigned char)(sin(0.25 * cnt_color + 1) * 128 + 127);
+		init->red = (unsigned char)(sin(init->fr * cnt_color + init->sr) * 128 + 127);
+		init->green = (unsigned char)(sin(init->fg * cnt_color + init->sg) * 128 + 127);
+		init->blue = (unsigned char)(sin(init->fb * cnt_color + init->sb) * 128 + 127);
 		init->tr = 0;
 	}
 	color = create_rgb(init->tr, init->red, init->green, init->blue);
 	return (color);
 }
 
-float	ft_atoi(char *str)
+float	ft_atoi(char *str, char c)
 {
 	float	number;
-	int		position;
+	int		i;
 	int		sign;
 	int		exponent;
 
 	sign = 1;
-	position = 0;
+	i = 0;
 	number = 0;
 	exponent = 0;
-	if (str[position] == '-')
+	if (str[i] == '-')
 	{
 		sign = -1;
-		position++;
+		i++;
 	}
-	while (((str[position] >= 48) && (str[position] <= 57))
-		|| str[position] == 46)
+	if (c == '-')
+		sign = -1;
+	while (((str[i] >= 48) && (str[i] <= 57)) || str[i] == 46)
 	{
-		if (str[position] == 46)
+		if (str[i] == 46)
 		{
-			position++;
+			i++;
 			continue ;
 		}
-		number = (number * 10) + str[position] - 48;
-		position++;
+		number = (number * 10) + str[i] - 48;
+		i++;
 		exponent++;
 	}
 	number /= pow(10, exponent - 1);

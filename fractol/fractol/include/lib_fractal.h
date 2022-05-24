@@ -6,11 +6,11 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/12 13:59:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/24 13:59:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	LIB_FRACTAL_H
+#ifndef LIB_FRACTAL_H
 # define LIB_FRACTAL_H
 
 # include <stdlib.h>
@@ -21,11 +21,19 @@
 
 # define HEIGHT	1280
 # define WIDTH	720	
+# define TC_NRM  "\x1B[0m"
+# define TC_RED  "\x1B[1;31m"
+# define TC_GRN  "\x1B[1;32m"
+# define TC_YEL  "\x1B[1;33m"
+# define TC_BLU  "\x1B[1;34m"
+# define TC_MAG  "\x1B[1;35m"
+# define TC_CYN  "\x1B[1;36m"
+# define TC_WHT  "\x1B[1;37m"
 
-typedef struct	s_points
+typedef struct s_points
 {
-	int		new_a;
-	int		new_b;
+	int		nwa;
+	int		nwb;
 	int		iter;
 	int		i;
 	double	x;
@@ -34,51 +42,59 @@ typedef struct	s_points
 	double	y_julia;
 	double	a;
 	double	b;
-	double	a_temp;
-	double	b_temp;
+	double	atmp;
+	double	btmp;
 	char	*fract_type;
-}	points;
+}	t_points;
 
-typedef struct	s_fractal
+typedef struct s_fractal
 {
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
-	char	*addr;
-	int		b;
-	int		ll;
-	int		end;
-	int		tr;
-	int		red;
-	int		green;
-	int		blue;
-	double	zoom_x;
-	double	zoom_y;
-	int		trl_x;
-	int		trl_y;
-	int		max_iter;
-	points	*values;
-}	window;
-
-
+	void		*mlx;
+	void		*mlx_win;
+	void		*img;
+	char		*addr;
+	int			b;
+	int			ll;
+	int			end;
+	int			tr;
+	int			red;
+	int			green;
+	int			blue;
+	double		z_x;
+	double		z_y;
+	int			trl_x;
+	int			trl_y;
+	int			max_iter;
+	double		fr;
+	double		fg;
+	double		fb;
+	int			sr;
+	int			sg;
+	int			sb;
+	t_points	*inf;
+}	t_window;
 
 double	ft_calcx(double a, double b, double x);
 double	ft_calcy(double a, double b, double y);
 double	ft_calcx_3(double a, double b, double x);
 double	ft_calcy_3(double a, double b, double y);
-int		key_event(int button, window *param);
-int		ft_iteration_mandelbrot(window *init, double x, double y);
-int		ft_iteration_julia(window *init, double a_temp, double b_temp);
+int		key_event(int button, t_window *param);
+int		ft_iter_mandel(t_window *init, double x, double y);
+int		ft_ijulia(t_window *init, double a_temp, double b_temp);
 int		ft_strcmp(char *str1, char *str2);
 int		create_rgb(int tr, int red, int green, int blue);
-int		color_value(int iter, window *init);
-int		init_variables(window *init, char *str);
-int		ft_mouse_event(int button, int x, int y, window *init);
-float	ft_atoi(char *str);
-void	generate_image(window *init, char *str);
-void	ft_mandelbrot(window *init);
-void	ft_julia(window *init);
-void	my_mlx_pixel_put(window *init, int x, int y, int color);
-void	ft_show_options(char *str);
+int		color_value(int iter, t_window *init, char *str);
+
+int		init_variables(t_window *init, char *str);
+int		ft_mouse_event(int button, int x, int y, t_window *init);
+int		destroy_window(t_window *init);
+float	ft_atoi(char *str, char c);
+void	generate_image(t_window *init, char *str);
+void	ft_mandelbrot(t_window *init);
+void	ft_julia(t_window *init);
+void	my_mlx_pxput(t_window *init, int x, int y, int color);
+void	all_hook(t_window *init);
+void	ft_free(t_window *init);
+void	ft_show_options(void);
 
 #endif

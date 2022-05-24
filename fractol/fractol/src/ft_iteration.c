@@ -6,48 +6,47 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:55:36 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/23 14:03:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/24 12:03:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_fractal.h"
-#include "mlx/mlx.h"
 
-int	ft_iter_mandel(window *init, double x, double y)
+int	ft_iter_mandel(t_window *init, double x, double y)
 {
 	int	iter;
 
 	iter = 1;
-	init->inf->a_temp = 0;
-	init->inf->b_temp = 0;
+	init->inf->atmp = 0;
+	init->inf->btmp = 0;
 	while (iter <= init->max_iter)
 	{
-		init->inf->a = ft_calcx(init->inf->a_temp, init->inf->b_temp, x);
-		init->inf->b = ft_calcy(init->inf->a_temp, init->inf->b_temp, y);
+		init->inf->a = ft_calcx(init->inf->atmp, init->inf->btmp, x);
+		init->inf->b = ft_calcy(init->inf->atmp, init->inf->btmp, y);
 		if (sqrt((init->inf->a * init->inf->a)
 				+ (init->inf->b * init->inf->b)) >= 2)
 			return (iter);
-		init->inf->a_temp = init->inf->a;
-		init->inf->b_temp = init->inf->b;
+		init->inf->atmp = init->inf->a;
+		init->inf->btmp = init->inf->b;
 		iter++;
 	}
 	return (0);
 }
 
-int	ft_iter_julia(window *init, double a_temp, double b_temp)
+int	ft_ijulia(t_window *init, double atmp, double btmp)
 {
 	int	iter;
 
 	iter = 1;
 	while (iter <= init->max_iter)
 	{
-		init->inf->a = ft_calcx(a_temp, b_temp, init->inf->x_julia);
-		init->inf->b = ft_calcy(a_temp, b_temp, init->inf->y_julia);
+		init->inf->a = ft_calcx(atmp, btmp, init->inf->x_julia);
+		init->inf->b = ft_calcy(atmp, btmp, init->inf->y_julia);
 		if (sqrt((init->inf->a * init->inf->a)
 				+ (init->inf->b * init->inf->b)) >= 2)
 			return (iter);
-		a_temp = init->inf->a;
-		b_temp = init->inf->b;
+		atmp = init->inf->a;
+		btmp = init->inf->b;
 		iter++;
 	}
 	return (0);
