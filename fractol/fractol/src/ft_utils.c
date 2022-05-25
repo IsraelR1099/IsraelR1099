@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/24 14:04:05 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:04:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ int	create_rgb(int tr, int red, int green, int blue)
 	return (tr << 24 | red << 16 | green << 8 | blue);
 }
 
+unsigned char	ft_color(double cnt_color, double fr, int shift)
+{
+	unsigned char	color;
+
+	color = 0;
+	color = sin(fr * cnt_color + shift) * 128 + 127;
+	return (color);
+}
+
 int	color_value(int iter, t_window *init, char *str)
 {
 	int		color;
@@ -39,9 +48,9 @@ int	color_value(int iter, t_window *init, char *str)
 	{
 		mgd = init->inf->x * init->inf->x + init->inf->y * init->inf->y;
 		cnt_color = iter + 1 - ((log10(2) / sqrt(mgd)) / log10(2));
-		init->red = (unsigned char)(sin(init->fr * cnt_color + init->sr) * 128 + 127);
-		init->green = (unsigned char)(sin(init->fg * cnt_color + init->sg) * 128 + 127);
-		init->blue = (unsigned char)(sin(init->fb * cnt_color + init->sb) * 128 + 127);
+		init->red = ft_color(cnt_color, init->fr, init->sr);
+		init->green = ft_color(cnt_color, init->fg, init->sg);
+		init->blue = ft_color(cnt_color, init->fb, init->sb);
 		init->tr = 0;
 	}
 	else if (ft_strcmp(str, "Julia") == 0)
@@ -49,9 +58,9 @@ int	color_value(int iter, t_window *init, char *str)
 		mgd = init->inf->atmp * init->inf->atmp
 			+ init->inf->btmp * init->inf->btmp;
 		cnt_color = iter + 1 - ((log10(2) / sqrt(mgd)) / log10(2));
-		init->red = (unsigned char)(sin(init->fr * cnt_color + init->sr) * 128 + 127);
-		init->green = (unsigned char)(sin(init->fg * cnt_color + init->sg) * 128 + 127);
-		init->blue = (unsigned char)(sin(init->fb * cnt_color + init->sb) * 128 + 127);
+		init->red = ft_color(cnt_color, init->fr, init->sr);
+		init->green = ft_color(cnt_color, init->fg, init->sg);
+		init->blue = ft_color(cnt_color, init->fb, init->sb);
 		init->tr = 0;
 	}
 	color = create_rgb(init->tr, init->red, init->green, init->blue);

@@ -6,12 +6,12 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 10:52:12 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/24 14:02:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:20:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_fractal.h"
-#include "mlx/mlx.h"
+#include "../mlx/mlx.h"
 
 int	key_event(int button, t_window *init)
 {
@@ -46,14 +46,20 @@ int	key_event(int button, t_window *init)
 		init->fr = 0.5;
 		init->fg = 0.4;
 		init->fb = 0.25;
+		init->sr = 8;
+		init->sg = 4;
+		init->sb = 1;
 		init->max_iter = 50;
 	}
 	//Cambiar colores c
 	else if (button == 8)
 	{
 		init->fr = 0.08;
-		init->fg = 0.9;
-		init->fb = 0.4;
+		init->fg = 0.25;
+		init->fb = 0.9;
+		init->sr += 2;
+		init->sg += 2;
+		init->sb += 1;
 	}
 	printf("trl_x es %d\n", init->trl_x);
 	generate_image(init, init->inf->fract_type);

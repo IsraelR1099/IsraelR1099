@@ -6,12 +6,12 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:01:53 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/24 12:01:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/25 12:01:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_fractal.h"
-#include "mlx/mlx.h"
+#include "../mlx/mlx.h"
 
 void	generate_image(t_window *init, char *str)
 {

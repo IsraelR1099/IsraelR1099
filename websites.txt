@@ -102,3 +102,8 @@ https://krazydad.com/tutorials/makecolors.php
 
 bits
 http://galileo.phys.virginia.edu/compfac/courses/practical-c/14.pdf
+
+Makefile
+https://stackoverflow.com/questions/52034997/how-to-make-makefile-recompile-when-a-header-file-is-changed
+https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html
+https://stackoverflow.com/questions/7826448/linking-libraries-with-gcc-order-of-arguments

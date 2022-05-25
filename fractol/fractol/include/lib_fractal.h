@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/24 13:59:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:17:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,27 +74,27 @@ typedef struct s_fractal
 	t_points	*inf;
 }	t_window;
 
-double	ft_calcx(double a, double b, double x);
-double	ft_calcy(double a, double b, double y);
-double	ft_calcx_3(double a, double b, double x);
-double	ft_calcy_3(double a, double b, double y);
-int		key_event(int button, t_window *param);
-int		ft_iter_mandel(t_window *init, double x, double y);
-int		ft_ijulia(t_window *init, double a_temp, double b_temp);
-int		ft_strcmp(char *str1, char *str2);
-int		create_rgb(int tr, int red, int green, int blue);
-int		color_value(int iter, t_window *init, char *str);
-
-int		init_variables(t_window *init, char *str);
-int		ft_mouse_event(int button, int x, int y, t_window *init);
-int		destroy_window(t_window *init);
-float	ft_atoi(char *str, char c);
-void	generate_image(t_window *init, char *str);
-void	ft_mandelbrot(t_window *init);
-void	ft_julia(t_window *init);
-void	my_mlx_pxput(t_window *init, int x, int y, int color);
-void	all_hook(t_window *init);
-void	ft_free(t_window *init);
-void	ft_show_options(void);
+double			ft_calcx(double a, double b, double x);
+double			ft_calcy(double a, double b, double y);
+double			ft_calcx_3(double a, double b, double x);
+double			ft_calcy_3(double a, double b, double y);
+int				key_event(int button, t_window *param);
+int				ft_iter_mandel(t_window *init, double x, double y);
+int				ft_ijulia(t_window *init, double a_temp, double b_temp);
+int				ft_strcmp(char *str1, char *str2);
+int				create_rgb(int tr, int red, int green, int blue);
+int				color_value(int iter, t_window *init, char *str);
+unsigned char	ft_color(double cnt_color, double fr, int shift);
+int				init_variables(t_window *init, char *str);
+int				ft_mouse_event(int button, int x, int y, t_window *init);
+int				destroy_window(t_window *init);
+float			ft_atoi(char *str, char c);
+void			generate_image(t_window *init, char *str);
+void			ft_mandelbrot(t_window *init);
+void			ft_julia(t_window *init);
+void			my_mlx_pxput(t_window *init, int x, int y, int color);
+void			all_hook(t_window *init);
+void			ft_free(t_window *init);
+void			ft_show_options(void);
 
 #endif
