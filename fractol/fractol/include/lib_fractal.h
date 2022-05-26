@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/25 14:17:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/26 13:57:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,10 @@ void			my_mlx_pxput(t_window *init, int x, int y, int color);
 void			all_hook(t_window *init);
 void			ft_free(t_window *init);
 void			ft_show_options(void);
+void			reset_variables(t_window *init);
+void			change_values(t_window *init);
+void			ft_zoom_plus(t_window *init);
+void			ft_zoom_less(int x, int y, t_window *init);
+int				checker(char *str);
 
 #endif

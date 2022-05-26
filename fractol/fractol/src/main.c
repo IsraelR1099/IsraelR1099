@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:06:35 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/25 14:19:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:05:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int counter, char **str)
 		ft_free(init);
 		return (0);
 	}
-	if (counter > 1 && counter < 6)
+	if ((counter > 1 && counter < 6) && (counter != 3 && counter != 4))
 	{
 		init_variables(init, &*(*(str + 1) + 0));
 		if (counter == 2)
@@ -44,6 +44,7 @@ int	main(int counter, char **str)
 
 int	init_variables(t_window *init, char *str)
 {
+	checker(str);
 	init->mlx = mlx_init();
 	init->mlx_win = mlx_new_window(init->mlx, HEIGHT, WIDTH, "Fractol");
 	init->img = mlx_new_image(init->mlx, HEIGHT, WIDTH);
@@ -75,6 +76,7 @@ void	all_hook(t_window *init)
 	mlx_hook(init->mlx_win, 5, 1L << 3, ft_mouse_event, init);
 	mlx_hook(init->mlx_win, 17, 0, destroy_window, init);
 	mlx_loop(init->mlx);
+	mlx_do_key_autorepeatoff(init);
 }
 
 void	ft_free(t_window *init)

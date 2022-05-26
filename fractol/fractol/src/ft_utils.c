@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/25 14:04:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/26 10:44:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,14 @@ float	ft_atoi(char *str, char c)
 	i = 0;
 	number = 0;
 	exponent = 0;
+	if (str[i] == '-' || c == '-')
+		sign = -1;
 	if (str[i] == '-')
-	{
-		sign = -1;
 		i++;
-	}
-	if (c == '-')
-		sign = -1;
-	while (((str[i] >= 48) && (str[i] <= 57)) || str[i] == 46)
+	while (str[i] != '\0')
 	{
 		if (str[i] == 46)
-		{
 			i++;
-			continue ;
-		}
 		number = (number * 10) + str[i] - 48;
 		i++;
 		exponent++;

@@ -6,12 +6,25 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:01:53 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/25 12:01:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:06:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_fractal.h"
 #include "../mlx/mlx.h"
+
+int	checker(char *str)
+{
+	if ((ft_strcmp(str, "Mandelbrot") == 0)
+		|| (ft_strcmp(str, "Julia") == 0))
+		return (1);
+	else
+	{
+		ft_show_options();
+		exit(0);
+	}
+	return (0);
+}
 
 void	generate_image(t_window *init, char *str)
 {
