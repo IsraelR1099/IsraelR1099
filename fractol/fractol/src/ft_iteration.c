@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:55:36 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/25 12:02:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/27 09:35:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,27 @@ int	ft_iter_mandel(t_window *init, double x, double y)
 	{
 		init->inf->a = ft_calcx(init->inf->atmp, init->inf->btmp, x);
 		init->inf->b = ft_calcy(init->inf->atmp, init->inf->btmp, y);
+		if (sqrt((init->inf->a * init->inf->a)
+				+ (init->inf->b * init->inf->b)) >= 2)
+			return (iter);
+		init->inf->atmp = init->inf->a;
+		init->inf->btmp = init->inf->b;
+		iter++;
+	}
+	return (0);
+}
+
+int	ft_iter_mandel3(t_window *init, double x, double y)
+{
+	int	iter;
+
+	iter = 1;
+	init->inf->atmp = 0;
+	init->inf->btmp = 0;
+	while (iter <= init->max_iter)
+	{
+		init->inf->a = ft_calcx_3(init->inf->atmp, init->inf->btmp, x);
+		init->inf->b = ft_calcy_3(init->inf->atmp, init->inf->btmp, y);
 		if (sqrt((init->inf->a * init->inf->a)
 				+ (init->inf->b * init->inf->b)) >= 2)
 			return (iter);

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/26 13:57:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/27 10:18:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int				destroy_window(t_window *init);
 float			ft_atoi(char *str, char c);
 void			generate_image(t_window *init, char *str);
 void			ft_mandelbrot(t_window *init);
+void			ft_mandelbrot3(t_window *init);
+int				ft_iter_mandel3(t_window *init, double x, double y);
 void			ft_julia(t_window *init);
 void			my_mlx_pxput(t_window *init, int x, int y, int color);
 void			all_hook(t_window *init);
