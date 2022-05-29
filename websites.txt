@@ -89,6 +89,7 @@ https://gontjarow.github.io/MiniLibX/
 https://github.com/keuhdall/images_example/blob/master/example.c
 Fractal
 https://ca.wikipedia.org/wiki/Fractal
+https://matousstieber.wordpress.com/2016/01/12/julia-set/
 https://users.math.yale.edu/public_html/People/frame/Fractals/MandelSet/welcome.html
 http://math.bu.edu/DYSYS/
 https://www.benlcollins.com/spreadsheets/how-to-draw-the-mandelbrot-set/
