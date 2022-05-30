@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/27 10:18:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:54:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ double			ft_calcx(double a, double b, double x);
 double			ft_calcy(double a, double b, double y);
 double			ft_calcx_3(double a, double b, double x);
 double			ft_calcy_3(double a, double b, double y);
+double			ft_calsinx(double a, double b, double x);
+double			ft_calsiny(double a, double b, double y);
+double			ft_calinx(double a, double b, double x, double y);
+double			ft_caliny(double a, double b, double x, double y);
+double			ft_calin3x(double a, double b, double x, double y);
+double			ft_calin3y(double a, double b, double x, double y);
 int				key_event(int button, t_window *param);
 int				ft_iter_mandel(t_window *init, double x, double y);
 int				ft_ijulia(t_window *init, double a_temp, double b_temp);
@@ -92,7 +98,11 @@ float			ft_atoi(char *str, char c);
 void			generate_image(t_window *init, char *str);
 void			ft_mandelbrot(t_window *init);
 void			ft_mandelbrot3(t_window *init);
+void			ft_mandelbrot_inv(t_window *init);
+void			ft_mandelbrot_inv3(t_window *init);
 int				ft_iter_mandel3(t_window *init, double x, double y);
+int				ft_iter_mandeli(t_window *init, double x, double y);
+int				ft_iter_mandi3(t_window *init, double x, double y);
 void			ft_julia(t_window *init);
 void			my_mlx_pxput(t_window *init, int x, int y, int color);
 void			all_hook(t_window *init);
