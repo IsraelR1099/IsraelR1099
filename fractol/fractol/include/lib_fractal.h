@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:09:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/30 13:54:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/31 11:48:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,13 @@ double			ft_calinx(double a, double b, double x, double y);
 double			ft_caliny(double a, double b, double x, double y);
 double			ft_calin3x(double a, double b, double x, double y);
 double			ft_calin3y(double a, double b, double x, double y);
+double			ft_glnx(double a, double b, double x);
+double			ft_glny(double a, double b, double y);
 int				key_event(int button, t_window *param);
 int				ft_iter_mandel(t_window *init, double x, double y);
 int				ft_ijulia(t_window *init, double a_temp, double b_temp);
+int				ft_julg(t_window *init, double a_temp, double b_temp);
+int				ft_ijul3(t_window *init, double atmp, double btmp);
 int				ft_strcmp(char *str1, char *str2);
 int				create_rgb(int tr, int red, int green, int blue);
 int				color_value(int iter, t_window *init, char *str);
@@ -103,7 +107,9 @@ void			ft_mandelbrot_inv3(t_window *init);
 int				ft_iter_mandel3(t_window *init, double x, double y);
 int				ft_iter_mandeli(t_window *init, double x, double y);
 int				ft_iter_mandi3(t_window *init, double x, double y);
+void			ft_julia3(t_window *init);
 void			ft_julia(t_window *init);
+void			ft_ijuliag(t_window *init);
 void			my_mlx_pxput(t_window *init, int x, int y, int color);
 void			all_hook(t_window *init);
 void			ft_free(t_window *init);

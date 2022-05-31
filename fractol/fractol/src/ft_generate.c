@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 14:01:53 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/30 13:55:56 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/05/31 11:45:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int	checker(char *str)
 {
 	if ((ft_strcmp(str, "Mandelbrot") == 0)
 		|| (ft_strcmp(str, "Julia") == 0)
+		|| (ft_strcmp(str, "Julia3") == 0)
 		|| (ft_strcmp(str, "Mandelbrot3") == 0)
 		|| (ft_strcmp(str, "Mandelbrot_inverse") == 0)
-		|| (ft_strcmp(str, "Mandelbrot_inverse3") == 0))
+		|| (ft_strcmp(str, "Mandelbrot_inverse3") == 0)
+		|| (ft_strcmp(str, "Julia_glynn") == 0))
 		return (1);
 	else
 	{
@@ -35,6 +37,10 @@ void	generate_image(t_window *init, char *str)
 		ft_mandelbrot(init);
 	else if (ft_strcmp(str, "Julia") == 0)
 		ft_julia(init);
+	else if (ft_strcmp(str, "Julia3") == 0)
+		ft_julia3(init);
+	else if (ft_strcmp(str, "Julia_glynn") == 0)
+		ft_ijuliag(init);
 	else if (ft_strcmp(str, "Mandelbrot3") == 0)
 		ft_mandelbrot3(init);
 	else if (ft_strcmp(str, "Mandelbrot_inverse") == 0)
