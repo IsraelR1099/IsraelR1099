@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:06:35 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/26 14:05:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:29:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	main(int counter, char **str)
 {
 	t_window	*init;
 
-	init = (t_window *)malloc(sizeof(t_window));
-	init->inf = (t_points *)malloc(sizeof(t_points));
-	if (!init || !init->inf)
-	{
-		ft_free(init);
-		return (0);
-	}
 	if ((counter > 1 && counter < 6) && (counter != 3 && counter != 4))
 	{
+		init = (t_window *)malloc(sizeof(t_window));
+		init->inf = (t_points *)malloc(sizeof(t_points));
+		if (!init || !init->inf)
+		{
+			ft_free(init);
+			return (0);
+		}
 		init_variables(init, &*(*(str + 1) + 0));
 		if (counter == 2)
 			generate_image(init, &*(*(str + 1) + 0));

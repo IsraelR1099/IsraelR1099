@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 10:52:12 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/26 14:05:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/01 10:52:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	change_values(t_window *init)
 
 int	key_event(int button, t_window *init)
 {
-	printf("button es %d\n", button);
 	if (button == 53)
 		destroy_window(init);
 	else if (button == 126)
@@ -59,29 +58,24 @@ int	key_event(int button, t_window *init)
 		reset_variables(init);
 	else if (button == 8)
 		change_values(init);
-	printf("trl_x es %d\n", init->trl_x);
 	generate_image(init, init->inf->fract_type);
 	return (1);
 }
 
 int	ft_mouse_event(int button, int x, int y, t_window *init)
 {
-	printf("button es %d, x es %d, y es %d\n", button, x, y);
 	if (button == 5)
 	{
 		init->trl_x += (int)((x - 640) * init->z_x);
 		init->trl_y += (int)((y - 360) * init->z_y);
-		printf("trl x es %d\n", init->trl_x);
 		if (init->z_x >= 0.0005 && init->z_y >= 0.0005)
 		{
-			printf("entro en if zoom x %f y zoom y %f\n", init->z_x, init->z_y);
 			ft_zoom_plus(init);
 			generate_image(init, init->inf->fract_type);
 		}
 	}
 	else if (button == 4)
 	{
-		printf("zoom x %f zoom y %f\n", init->z_x, init->z_y);
 		ft_zoom_less(x, y, init);
 		generate_image(init, init->inf->fract_type);
 	}

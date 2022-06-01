@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 12:21:50 by irifarac          #+#    #+#             */
-/*   Updated: 2022/05/26 10:44:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/01 10:40:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ unsigned char	ft_color(double cnt_color, double fr, int shift)
 	unsigned char	color;
 
 	color = 0;
-	color = sin(fr * cnt_color + shift) * 128 + 127;
+	color = (unsigned char)(sin(fr * cnt_color + shift) * 128 + 127);
 	return (color);
 }
 
@@ -46,7 +46,7 @@ int	color_value(int iter, t_window *init, char *str)
 
 	if (ft_strcmp(str, "Mandelbrot") == 0)
 	{
-		mgd = init->inf->x * init->inf->x + init->inf->y * init->inf->y;
+		mgd = (init->inf->x * init->inf->x) + (init->inf->y * init->inf->y);
 		cnt_color = iter + 1 - ((log10(2) / sqrt(mgd)) / log10(2));
 		init->red = ft_color(cnt_color, init->fr, init->sr);
 		init->green = ft_color(cnt_color, init->fg, init->sg);

@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 13:33:23 by irifarac          #+#    #+#              #
-#    Updated: 2022/05/25 13:47:32 by irifarac         ###   ########.fr        #
+#    Updated: 2022/06/01 13:32:10 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ $(NAME): $(OBJ)
 -include $(OBJ:.o=.d)
 %.o: %.c
 	gcc $(CFLAGS) -o $@ -c $<
+
+bonus: $(NAME)
 
 clean:
 	cd mlx && make $@
