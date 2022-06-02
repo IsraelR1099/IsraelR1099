@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lib_push_swap.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 13:12:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/02 14:02:56 by irifarac         ###   ########.fr       */
+/*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
+/*   Updated: 2022/06/02 13:54:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "../Libft/libft.h"
-#include "../include/lib_push_swap.h"
+#ifndef LIB_PUSH_SWAP_H
+# define LIB_PUSH_SWAP_H
 
-int	main(int counter, char **str)
-{
-	int	nbr;
+# include <stdlib.h>
+# include <unistd.h>
 
-	if (counter > 2)
-	{
-		if (ft_checker(str, counter))
-		{
-			nbr = ft_atoi(str[1]);
-			printf("counter es %d y nbr %d\n", counter, nbr);
-		}
-	}
-	return (0);
-}	
+int	ft_checker(char **str, int counter);
+int	ft_not_nbr(char c);
+
+#endif

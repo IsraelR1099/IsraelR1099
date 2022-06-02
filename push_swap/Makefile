@@ -6,32 +6,51 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/05/27 14:09:37 by irifarac         ###   ########.fr        #
+#    Updated: 2022/06/02 12:19:02 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+#Colores
+RED = \033[0;31m
+GREEN = \033[0;32m
+RESET = \033[0m
+
 NAME = push_swap
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -MMD
 SRC = $(wildcard src/*.c)
 OBJ = $(SRC:.c=.o)
+DEPENDS = $(patsubst %.c, %.d, $(SRC))
+LIBFT = libft
 
-all: $(NAME)
+all: makelibs $(NAME) 
+
+makelibs:
+	@$(MAKE) -C $(LIBFT)
+
+#incluir la dependencia a Makefile
+-include $(DEPENDS)
+$(NAME): $(OBJ) Libft/libft.a
+	@echo "$(GREEN)Creando ejecutable $@ $(RESET)"
+	gcc $(CFLAGS) $(SRC) -LLibft -lft -o $@
+	rm -f push_swap.d
+	@echo "$(GREEN)Compilado $@ $(RESET)"
+
+%.o: %.c
+	@echo "$(GREEN)Compilando $< de $@ $(RESET)"
+	gcc $(CFLAGS) -o $@ -c $<
 
 
-$(NAME): $(OBJ)
-	cd Libft && make all
-	gcc $(CFLAGS) $(SRC) -o $@
-	@echo "Compilado"
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(DEPENDS)
+	@make clean -C $(LIBFT)
 	@echo "Objetos borrados"
 
 fclean: clean
+	cd Libft && make fclean
 	rm -f $(NAME)
 	@echo "Ejecutable borrado"
 
 re: fclean all
 
 .PHONY: all clean fclean re
-
