@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:30:04 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/23 12:41:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/03 12:22:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stddef.h>
+
+# define MAX_INT 2147483647
+# define MIN_INT -2147483648
 
 typedef struct s_list
 {

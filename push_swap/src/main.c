@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:12:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/02 14:02:56 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:04:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,22 @@
 
 int	main(int counter, char **str)
 {
-	int	nbr;
+	t_nbr	*lst;
+	int		index;
 
 	if (counter > 2)
 	{
 		if (ft_checker(str, counter))
 		{
-			nbr = ft_atoi(str[1]);
-			printf("counter es %d y nbr %d\n", counter, nbr);
+			lst = (t_nbr *)malloc(sizeof(t_nbr));
+			if (!lst)
+				return (0);
+			index = 1;
+			while (*(str + index) && !(index == counter))
+			{
+				lst->data = ft_atoi(&*(*(str + index) + 0));
+				index++;
+			}
 		}
 	}
 	return (0);

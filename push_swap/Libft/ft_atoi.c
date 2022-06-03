@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:29:09 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/17 12:28:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/03 12:22:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_atoi(const char *str)
 {
 	int		position;
-	int		number;
+	long	number;
 	int		sign;
 
 	position = 0;
@@ -35,5 +35,7 @@ int	ft_atoi(const char *str)
 		number = number * 10 + str[position] - 48;
 		position++;
 	}
+	if (number > MAX_INT || number < MIN_INT)
+		return (0);
 	return (sign * number);
 }
