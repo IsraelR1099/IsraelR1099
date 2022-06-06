@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/06/03 13:50:42 by irifarac         ###   ########.fr        #
+#    Updated: 2022/06/06 13:29:00 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ RESET = \033[0m
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror -MMD
 SRC = src/ft_errors.c \
-	  src/main.c
+	  src/main.c \
+	  src/ft_utils.c
 
 OBJ = $(SRC:.c=.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))

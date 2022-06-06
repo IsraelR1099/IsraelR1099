@@ -1,42 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 13:12:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/06 14:03:43 by irifarac         ###   ########.fr       */
+/*   Created: 2022/06/06 13:20:20 by irifarac          #+#    #+#             */
+/*   Updated: 2022/06/06 14:03:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Libft/libft.h"
 #include "../include/lib_push_swap.h"
 
-int	main(int counter, char **str)
+void	ft_createlist(t_nbr *lst, int nbr_nodes)
 {
-	t_nbr	*head;
+	t_nbr	*new_node;
 	t_nbr	*tmp;
-	int		index;
+	int		i;
 
-	if (counter > 2)
+	i = 2;
+	tmp = lst;
+	lst->data = 0;
+	lst->next = NULL;
+	while (i <= nbr_nodes)
 	{
-		if (ft_checker(str, counter))
-		{
-			lst = (t_nbr *)malloc(sizeof(t_nbr));
-			if (!lst)
-				return (0);
-			printf("data fuera es %d\n", lst->data);
-			ft_createlist(head, (counter - 1));
-			index = 1;
-			head->index = 0;
-			while (*(str + index) && !(index == counter))
-			{
-				ft_values(lst, 
-				index++;
-				lst->index++;
-			}
-		}
+		new_node = (t_nbr *)malloc(sizeof(t_nbr));
+		if (!new_node)
+			break ;
+		new_node->data = 0;
+		new_node->next = NULL;
+		tmp->next = new_node;
+		tmp = tmp->next;
+		i++;
 	}
-	return (0);
 }
+
+/*void	ft_values(int data, int index)
+{
+	t_nbr	*node;
+*/

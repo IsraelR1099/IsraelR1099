@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/03 14:04:56 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:03:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@
 typedef struct	t_list
 {
 	int				data;
+	int				index;
 	struct t_list	*next;
 }	t_nbr;
 
-int	ft_checker(char **str, int counter);
-int	ft_not_nbr(char c);
-int	ft_dup(char **str, int counter);
-int	ft_intdup(int *nbrs, int counter);
+int		ft_checker(char **str, int counter);
+int		ft_not_nbr(char c);
+int		ft_dup(char **str, int counter);
+int		ft_intdup(int *nbrs, int counter);
+void	ft_createlist(t_nbr *lst, int nbr_nodes);
 
 #endif
