@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/06/06 13:29:00 by irifarac         ###   ########.fr        #
+#    Updated: 2022/06/08 14:01:59 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,11 @@ NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror -MMD
 SRC = src/ft_errors.c \
 	  src/main.c \
-	  src/ft_utils.c
+	  src/ft_utils.c \
+	  src/ft_ways_sort.c \
+	  src/ft_sort.c \
+	  src/ft_find.c \
+	  src/ft_rules.c
 
 OBJ = $(SRC:.c=.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))

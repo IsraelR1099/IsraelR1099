@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:12:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/06 14:03:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:00:18 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,25 @@ int	main(int counter, char **str)
 	t_nbr	*head;
 	t_nbr	*tmp;
 	int		index;
+	int		i;
 
 	if (counter > 2)
 	{
 		if (ft_checker(str, counter))
 		{
-			lst = (t_nbr *)malloc(sizeof(t_nbr));
-			if (!lst)
-				return (0);
-			printf("data fuera es %d\n", lst->data);
-			ft_createlist(head, (counter - 1));
+			head = ft_createlist((counter - 1));
 			index = 1;
-			head->index = 0;
-			while (*(str + index) && !(index == counter))
+			tmp = head;
+			i = 0;
+			while (!(index == counter) && head != NULL)
 			{
-				ft_values(lst, 
+				tmp->data = ft_atoi(*(str + index));
+				tmp->index = i;
+				tmp = tmp->next;
 				index++;
-				lst->index++;
+				i++;
 			}
+			ft_sort_lst(head, counter);
 		}
 	}
 	return (0);

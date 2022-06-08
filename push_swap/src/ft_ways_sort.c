@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_ways_sort.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/06 13:20:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/08 12:06:18 by irifarac         ###   ########.fr       */
+/*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
+/*   Updated: 2022/06/08 14:10:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_push_swap.h"
 
-t_nbr	*ft_createlist(int nbr_nodes)
+void	ft_sort_3(t_nbr *head)
 {
-	t_nbr	*new_node;
-	t_nbr	*tmp;
-	t_nbr	*lst;
-	int		i;
-
-	lst = (t_nbr *)malloc(sizeof(t_nbr));
-	if (!lst)
-		return (NULL);
-	i = 2;
-	tmp = lst;
-	lst->data = 0;
-	lst->next = NULL;
-	while (i <= nbr_nodes)
+	int	max;
+	int	min;
+	
+	max = ft_max_nbr(head);
+	min = ft_min_nbr(head);
+	if (max == 1)
 	{
-		new_node = (t_nbr *)malloc(sizeof(t_nbr));
-		if (!new_node)
-			return (NULL);
-		new_node->data = 0;
-		new_node->next = NULL;
-		tmp->next = new_node;
-		tmp = tmp->next;
-		i++;
+		ft_rra(&head);
+		write(1, "rra\n", 4);
 	}
-	return (lst);
+	/*	if (min == 0)
+			ft_sa(head);
+	}
+	else if (min == 1 && max == 2)
+		ft_sa(head);
+	else if (max == 0 && min == 2)
+	{
+		ft_sa(head);
+		ft_rra(head);
+	}
+	else if (max == 0 && min == 1)
+		ft_ra(head);*/
 }
