@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 13:20:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/08 12:06:18 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/10 12:43:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,24 @@ t_nbr	*ft_createlist(int nbr_nodes)
 	}
 	return (lst);
 }
+
+void	ft_write(int max, int min)
+{
+	if (max == 1 && min == 2)
+		write(1, "rra\n", 4);
+	else if (max == 1 && min == 0)
+	{
+		write(1, "rra\n", 4);
+		write(1, "sa\n", 3);
+	}
+	else if (min == 1 && max == 2)
+		write(1, "sa\n", 3);
+	else if (max == 0 && min == 2)
+	{
+		write(1, "sa\n", 3);
+		write(1, "rra\n", 4);
+	}
+	else if (max == 0 && min == 1)
+		write(1, "ra\n", 3);
+}
+		

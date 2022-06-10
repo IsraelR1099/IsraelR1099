@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/08 14:10:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/10 12:43:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,26 @@ void	ft_sort_3(t_nbr *head)
 	
 	max = ft_max_nbr(head);
 	min = ft_min_nbr(head);
-	if (max == 1)
+	if (max == 1 && min == 2)
+		ft_rra(&head);
+	else if (max == 1 && min == 0)
 	{
 		ft_rra(&head);
-		write(1, "rra\n", 4);
-	}
-	/*	if (min == 0)
-			ft_sa(head);
+		ft_sa(&head);
 	}
 	else if (min == 1 && max == 2)
-		ft_sa(head);
+		ft_sa(&head);
 	else if (max == 0 && min == 2)
 	{
-		ft_sa(head);
-		ft_rra(head);
+		ft_sa(&head);
+		ft_rra(&head);
 	}
 	else if (max == 0 && min == 1)
-		ft_ra(head);*/
+		ft_ra(&head);
+	ft_write(max, min);
+	while (head)
+	{
+		printf("data es %d\n", head->data);
+		head = head->next;
+	}
 }
