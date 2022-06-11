@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/10 10:22:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/11 12:51:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		ft_min_nbr(t_nbr *head);
 t_nbr	*ft_createlist(int nbr_nodes);
 void	ft_sort_lst(t_nbr *head, int counter);
 void	ft_sort_3(t_nbr *head);
+void	ft_sort_4(t_nbr *head, t_nbr *head_b);
 void	ft_rra(t_nbr **head);
 void	ft_sa(t_nbr **head);
 void	ft_ra(t_nbr **head);

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:32:05 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/10 12:45:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:07:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ void	ft_rra(t_nbr **head)
 void	ft_sa(t_nbr **head)
 {
 	t_nbr	*new_head;
-	t_nbr	*second;
 
-	second = *head;
-	*head = (*head)->next;
-	(*head)->next = second;
-	second->next = second->next->next;
-	
+	new_head =	(*head)->next;
+	(*head)->next = (*head)->next->next;
+	new_head->next = *head;
+	*head = new_head;
+		
 }
 
 void	ft_ra(t_nbr **head)
@@ -54,3 +53,10 @@ void	ft_ra(t_nbr **head)
 	first->next = NULL;
 	last->next = first;
 }
+
+void	ft_pb(t_nbr **head, t_nbr **head_b)
+{
+	if (!(*head_b)->next)
+		*head_b = *head;
+}
+
