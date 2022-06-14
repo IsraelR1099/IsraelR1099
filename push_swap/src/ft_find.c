@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:18:11 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/08 14:01:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/14 11:30:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,23 @@ int	ft_min_nbr(t_nbr *head)
 	}
 	return (0);
 }
+
+void	ft_update_index(t_nbr *head)
+{
+	int		nbr;
+	t_nbr	*tmp;
+
+	nbr = 0;
+	if (head->index != 0)
+	{
+		tmp = head;
+		while (tmp)
+		{
+			tmp->index = nbr;
+			nbr++;
+			tmp = tmp->next;
+		}
+	}
+}
+		
+
