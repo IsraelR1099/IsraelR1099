@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:18:11 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/14 11:30:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/15 10:15:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_update_index(t_nbr *head)
 	t_nbr	*tmp;
 
 	nbr = 0;
-	if (head->index != 0)
+	if (head->index != 0 || head->next->index != 1)
 	{
 		tmp = head;
 		while (tmp)

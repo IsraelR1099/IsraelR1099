@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 13:20:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/14 14:01:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/15 14:05:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ void	ft_deallocation(t_nbr **head)
 {
 	t_nbr	*tmp;
 
-	printf("hola fuera\n");
 	while (*head)
 	{
-		printf("hola free\n");
 		tmp = *head;
 		*head = (*head)->next;
 		free(tmp);

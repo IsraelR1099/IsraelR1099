@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:12:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/14 14:06:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/15 09:42:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int counter, char **str)
 				i++;
 			}
 			ft_sort_lst(&head, counter);
-			ft_deallocation(&head);
+			//ft_deallocation(&head);
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:32:05 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/14 14:06:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/15 13:46:23 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ void	ft_rra(t_nbr **head)
 	sec_last->next = NULL;
 	last->next = *head;
 	*head = last;
+	write(1, "rra\n", 4);
 }
 
 void	ft_sa(t_nbr **head)
 {
 	t_nbr	*new_head;
 
-	new_head =	(*head)->next;
+	new_head = (*head)->next;
 	(*head)->next = (*head)->next->next;
 	new_head->next = *head;
 	*head = new_head;
-		
+	write(1, "sa\n", 3);
 }
 
 void	ft_ra(t_nbr **head)
@@ -52,6 +53,7 @@ void	ft_ra(t_nbr **head)
 	*head = first->next;
 	first->next = NULL;
 	last->next = first;
+	write(1, "ra\n", 3);
 }
 
 void	ft_pb(t_nbr **head, t_nbr **head_b)
@@ -60,7 +62,7 @@ void	ft_pb(t_nbr **head, t_nbr **head_b)
 	t_nbr	*tmp_b;
 
 	tmp = (*head)->next;
-	if (!(*head_b)->next)
+	if (!(*head_b)->next && (*head_b)->data == 0)
 	{
 		tmp_b = *head_b;
 		free(tmp_b);
@@ -68,10 +70,34 @@ void	ft_pb(t_nbr **head, t_nbr **head_b)
 		*head_b = *head;
 		*head = tmp;
 	}
+	else
+	{
+		(*head)->next = *head_b;
+		*head_b = *head;
+		*head = tmp;
+	}
 	ft_update_index(*head);
+	write(1, "pb\n", 3);
 }
 
-//void	ft_pa(t_nbr **head, t_nbr **head_b)
-//{
+void	ft_pa(t_nbr **head, t_nbr **head_b)
+{
+	t_nbr	*tmp;
 
 
+	if ((*head_b)->next == NULL)
+	{
+		(*head_b)->next = *head;
+		*head = *head_b;
+		*head_b = NULL;
+	}
+	else
+	{
+		tmp = (*head_b)->next;
+		(*head_b)->next = *head;
+		*head = *head_b;
+		*head_b = tmp;
+	}
+	ft_update_index(*head);
+	write(1, "pa\n", 3);
+}

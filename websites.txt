@@ -114,3 +114,4 @@ push swap
 
 https://stackoverflow.com/questions/58497606/creating-linked-list-in-c-using-for-loop-for-assigning-values
 https://www.dsi.fceia.unr.edu.ar/images/trasp_T08.pdf
+https://www.omnicalculator.com/statistics/combination

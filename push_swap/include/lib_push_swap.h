@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/14 13:47:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/15 12:40:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void	ft_update_index(t_nbr *head);
 void	ft_sort_lst(t_nbr **head, int counter);
 void	ft_sort_3(t_nbr **head);
 void	ft_sort_4(t_nbr **head, t_nbr **head_b);
+void	ft_sort_5(t_nbr **head, t_nbr **head_b);
 void	ft_rra(t_nbr **head);
 void	ft_sa(t_nbr **head);
 void	ft_ra(t_nbr **head);
 void	ft_pb(t_nbr **head, t_nbr **head_b);
+void	ft_pa(t_nbr **head, t_nbr **head_b);
 void	ft_write(int max, int min);
 void	ft_deallocation(t_nbr **head);
 
