@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/15 14:02:51 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/16 13:30:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_sort_5(t_nbr **head, t_nbr **head_b)
 
 	min = ft_min_nbr(*head);
 	max = ft_max_nbr(*head);
+	(void)max;
 	if (min == 0)
 	{
 		ft_pb(head, head_b);

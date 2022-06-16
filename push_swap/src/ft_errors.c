@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:26:30 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/08 12:06:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/16 13:40:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	ft_not_nbr(char c)
 int	ft_dup(char **str, int counter)
 {
 	int	index;
-	int	*nbrs;
+	long	*nbrs;
 
 	index = 1;
-	nbrs = (int *)malloc(sizeof(int) * (counter - 1));
+	nbrs = (long *)malloc(sizeof(long) * (counter - 1));
 	if (!(nbrs))
 		return (0);
 	while (*(str + index) && !(index == counter))
@@ -77,7 +77,7 @@ int	ft_dup(char **str, int counter)
 	return (0);
 }
 
-int	ft_intdup(int *nbrs, int counter)
+int	ft_intdup(long *nbrs, int counter)
 {
 	int	i;
 	int	count;
@@ -96,5 +96,28 @@ int	ft_intdup(int *nbrs, int counter)
 		}
 		i++;
 	}
+	return (0);
+}
+
+int	ft_check_sort(t_nbr **head, int counter)
+{
+	t_nbr	*tmp;
+	int	nbr;
+	int	len;
+	
+	tmp = *head;
+	nbr = tmp->data;
+	len = 1;
+	while (tmp)
+	{
+		if (tmp->data > nbr)
+		{
+			nbr = tmp->data;
+			len++;
+		}
+		tmp = tmp->next;
+	}
+	if (len == (counter - 1))
+		return (1);
 	return (0);
 }

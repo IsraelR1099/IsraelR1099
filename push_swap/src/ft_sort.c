@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:56:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/15 12:49:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:01:54 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	ft_sort_lst(t_nbr **head, int counter)
 {
 	t_nbr	*head_b;
-	/*if (ft_check_sort(head, counter))
+	if (ft_check_sort(head, counter))
 	{
 		free(head);
 		return ;
-	}*/
+	}
 	if ((counter - 1) <= 3)
 		ft_sort_3(head);
 	else if ((counter - 1) == 4)
