@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:32:05 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/15 13:46:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/17 11:51:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_rra(t_nbr **head)
 	sec_last->next = NULL;
 	last->next = *head;
 	*head = last;
+	ft_update_index(*head);
 	write(1, "rra\n", 4);
 }
 
@@ -38,6 +39,7 @@ void	ft_sa(t_nbr **head)
 	(*head)->next = (*head)->next->next;
 	new_head->next = *head;
 	*head = new_head;
+	ft_update_index(*head);
 	write(1, "sa\n", 3);
 }
 
@@ -53,6 +55,7 @@ void	ft_ra(t_nbr **head)
 	*head = first->next;
 	first->next = NULL;
 	last->next = first;
+	ft_update_index(*head);
 	write(1, "ra\n", 3);
 }
 

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:26:30 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/16 13:40:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/17 11:16:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,12 @@ int	ft_check_sort(t_nbr **head, int counter)
 	t_nbr	*tmp;
 	int	nbr;
 	int	len;
+	int	lenhead;
 	
 	tmp = *head;
 	nbr = tmp->data;
 	len = 1;
+	lenhead = ft_size(*head);
 	while (tmp)
 	{
 		if (tmp->data > nbr)
@@ -118,6 +120,8 @@ int	ft_check_sort(t_nbr **head, int counter)
 		tmp = tmp->next;
 	}
 	if (len == (counter - 1))
+		return (1);
+	else if (len == (lenhead))
 		return (1);
 	return (0);
 }

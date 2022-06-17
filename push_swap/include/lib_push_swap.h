@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/16 13:40:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/17 11:16:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,19 @@ typedef struct	t_list
 }	t_nbr;
 
 int		ft_checker(char **str, int counter);
+int		ft_check_sort(t_nbr **head, int counter);
 int		ft_not_nbr(char c);
 int		ft_dup(char **str, int counter);
 int		ft_intdup(long *nbrs, int counter);
 int		ft_max_nbr(t_nbr *head);
 int		ft_min_nbr(t_nbr *head);
+int		ft_size(t_nbr *head);
 t_nbr	*ft_createlist(int nbr_nodes);
 void	ft_update_index(t_nbr *head);
 void	ft_sort_lst(t_nbr **head, int counter);
-void	ft_sort_3(t_nbr **head);
-void	ft_sort_4(t_nbr **head, t_nbr **head_b);
-void	ft_sort_5(t_nbr **head, t_nbr **head_b);
+void	ft_sort_3(t_nbr **head, int counter);
+void	ft_sort_4(t_nbr **head, t_nbr **head_b, int counter);
+void	ft_sort_5(t_nbr **head, t_nbr **head_b, int counter);
 void	ft_rra(t_nbr **head);
 void	ft_sa(t_nbr **head);
 void	ft_ra(t_nbr **head);
