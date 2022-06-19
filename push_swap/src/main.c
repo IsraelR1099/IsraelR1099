@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:12:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/17 14:08:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/18 21:43:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ int	main(int counter, char **str)
 			//ft_deallocation(&head);
 		}
 	}
-	if (ft_check_sort(&head, counter))
-		printf("OK\n");
+	if (counter > 2)
+	{
+		if (ft_check_sort(&head, counter))
+			printf("\033[0;32mOK\n\033[0m");
+		else
+			printf("\033[0;31mKO\n\033[0m");
+	}
+		
 	return (0);
 }
