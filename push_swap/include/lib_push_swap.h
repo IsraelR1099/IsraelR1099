@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/17 11:16:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:52:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int		ft_min_nbr(t_nbr *head);
 int		ft_size(t_nbr *head);
 t_nbr	*ft_createlist(int nbr_nodes);
 void	ft_update_index(t_nbr *head);
+void	ft_utilsort_m4(t_nbr **head, t_nbr **head_b, int counter);
+void	ft_utilsort_min5(t_nbr **head, t_nbr **head_b, int counter);
+void	ft_utilsort_max5(t_nbr **head, t_nbr **head_b, int counter);
+void	ft_utilsort_max4(t_nbr **head, t_nbr **head_b, int counter);
 void	ft_sort_lst(t_nbr **head, int counter);
 void	ft_sort_3(t_nbr **head, int counter);
 void	ft_sort_4(t_nbr **head, t_nbr **head_b, int counter);

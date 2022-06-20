@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/06/08 14:01:59 by irifarac         ###   ########.fr        #
+#    Updated: 2022/06/20 12:58:38 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRC = src/ft_errors.c \
 	  src/ft_ways_sort.c \
 	  src/ft_sort.c \
 	  src/ft_find.c \
-	  src/ft_rules.c
+	  src/ft_rules.c \
+	  src/ft_utils_more.c
 
 OBJ = $(SRC:.c=.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))
@@ -49,14 +50,22 @@ $(NAME): $(OBJ) Libft/libft.a
 
 
 clean:
+ifneq ("$(wildcard $(OBJ) $(DEPENDS))", "")
 	rm -f $(OBJ) $(DEPENDS)
 	@make clean -C $(LIBFT)
-	@echo "Objetos borrados"
+	@echo "$(GREEN)Objetos borrados$(RESET)"
+else
+	@echo "$(RED)Objetos no existen, no se borra$(RESET)"
+endif
 
 fclean: clean
+ifneq ("$(wildcard $(NAME))", "")
 	cd Libft && make fclean
 	rm -f $(NAME)
-	@echo "Ejecutable borrado"
+	@echo "$(GREEN)Ejecutable borrado$(RESET)"
+else
+	@echo "$(RED)El ejecutable no existe$(RESET)"
+endif
 
 re: fclean all
 

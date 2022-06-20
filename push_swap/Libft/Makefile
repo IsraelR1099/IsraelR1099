@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 13:46:45 by irifarac          #+#    #+#              #
-#    Updated: 2022/06/02 12:17:03 by irifarac         ###   ########.fr        #
+#    Updated: 2022/06/20 12:49:28 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,20 @@ bonus : $(NAME) $(BONUS_OBJ)
 	@echo "Compilando bonus"
 
 clean:
-	rm -f $(OBJ) $(BONUS_OBJ)
+ifneq ("$(wildcard $(OBJ) $(BONUS_OBJ))", "")
+	rm -f $(OBJ) $(BONUS_OBJ) $(DEPENDS)
+	rm -f libft.d
+else
+	@echo "$(RED)Objetos Libft no existen, no se borra$(RESET)"
+endif
 
 fclean: clean
+ifneq ("$(wildcard $(NAME))", "")
 	rm -f $(NAME)
+	@echo "$(GREEN)Ejecutable borrado$(RESET)"
+else
+	@echo "$(RED)EL ejecutable de Libft no existe$(RESET)"
+endif
 
 re: fclean all
 

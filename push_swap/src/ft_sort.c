@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:56:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/17 10:38:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:48:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_sort_lst(t_nbr **head, int counter)
 {
 	t_nbr	*head_b;
+
 	if (ft_check_sort(head, counter))
 	{
 		ft_deallocation(head);

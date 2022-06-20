@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:32:05 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/17 11:51:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/20 10:31:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	ft_pb(t_nbr **head, t_nbr **head_b)
 void	ft_pa(t_nbr **head, t_nbr **head_b)
 {
 	t_nbr	*tmp;
-
 
 	if ((*head_b)->next == NULL)
 	{

@@ -1,6 +1,0 @@
-../src/main.c:			lst->index = 0;
-../src/main.c:			printf("data fuera es %d\n", lst->data);
-../src/main.c:				printf("data es %d\n", lst->data);
-../src/main.c:				lst = lst->next;
-../src/main.c:				lst->data = ft_atoi(&*(*(str + index) + 0));
-../src/main.c:				lst->index++;

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 13:20:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/17 11:18:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:55:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_write(int max, int min)
 	else if (max == 0 && min == 1)
 		write(1, "ra\n", 3);
 }
+
 void	ft_deallocation(t_nbr **head)
 {
 	t_nbr	*tmp;
@@ -85,4 +86,11 @@ int	ft_size(t_nbr *head)
 		tmp = tmp->next;
 	}
 	return (len);
+}
+
+void	ft_utilsort_min5(t_nbr **head, t_nbr **head_b, int counter)
+{
+	ft_pb(head, head_b);
+	ft_sort_4(head, head_b, counter);
+	ft_pa(head, head_b);
 }

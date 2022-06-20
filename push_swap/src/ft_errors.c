@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:26:30 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/17 11:16:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/20 10:29:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_not_nbr(char c)
 
 int	ft_dup(char **str, int counter)
 {
-	int	index;
+	int		index;
 	long	*nbrs;
 
 	index = 1;
@@ -102,10 +102,10 @@ int	ft_intdup(long *nbrs, int counter)
 int	ft_check_sort(t_nbr **head, int counter)
 {
 	t_nbr	*tmp;
-	int	nbr;
-	int	len;
-	int	lenhead;
-	
+	int		nbr;
+	int		len;
+	int		lenhead;
+
 	tmp = *head;
 	nbr = tmp->data;
 	len = 1;
