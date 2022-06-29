@@ -111,7 +111,7 @@ https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html
 https://stackoverflow.com/questions/7826448/linking-libraries-with-gcc-order-of-arguments
 
 push swap
-
+https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a
 https://stackoverflow.com/questions/58497606/creating-linked-list-in-c-using-for-loop-for-assigning-values
 https://www.dsi.fceia.unr.edu.ar/images/trasp_T08.pdf
 https://www.omnicalculator.com/statistics/combination
