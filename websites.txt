@@ -117,3 +117,4 @@ https://www.dsi.fceia.unr.edu.ar/images/trasp_T08.pdf
 https://www.omnicalculator.com/statistics/combination
 http://web.tecnico.ulisboa.pt/mcasquilho/compute/_linpro/TaylorB_module_c.pdf
 https://doc.lagout.org/science/0_Computer%20Science/2_Algorithms/The%20Art%20of%20Computer%20Programming%20%28vol.%203_%20Sorting%20and%20Searching%29%20%282nd%20ed.%29%20%5BKnuth%201998-05-04%5D.pdf
+https://medium.com/algopods/burrows-wheeler-transform-c743a2c23e0a
