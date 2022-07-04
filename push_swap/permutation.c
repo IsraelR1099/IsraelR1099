@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 13:52:46 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/20 09:52:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/06/29 11:11:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void permute(char *a, int l, int r)
 	if (l == r)
 	{	
 		nbr = ft_conversor(a, r + 1);
-    	printf("%d %d %d %d %d\n", nbr[0], nbr[1], nbr[2], nbr[3], nbr[4]);
+    	printf("%d %d %d %d\n", nbr[0], nbr[1], nbr[2], nbr[3]);
 	}	
 	else
 	{ 
@@ -78,7 +78,7 @@ void permute(char *a, int l, int r)
 /* Driver program to test above functions */
 int main() 
 { 
-    char str[] = "ABCDE"; 
+    char str[] = "ABCD"; 
     int n;
 	n = strlen(str); 
     permute(str, 0, n-1); 

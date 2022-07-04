@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:56:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/20 11:48:38 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/04 13:39:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	ft_sort_lst(t_nbr **head, int counter)
 		ft_sort_5(head, &head_b, counter);
 		free(head_b);
 	}
-	//else if ((counter - 1) > 5)
-	//	ft_merge(head);
+	else if ((counter - 1) > 5)
+	{
+		head_b = ft_createlist(0);
+		ft_algorithm(head, &head_b, counter);
+		free(head_b);
+	}
 }

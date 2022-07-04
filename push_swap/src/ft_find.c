@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:18:11 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/20 10:31:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/04 13:54:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,32 @@ void	ft_update_index(t_nbr *head)
 			tmp = tmp->next;
 		}
 	}
+}
+
+int	ft_max_value(t_nbr **head)
+{
+	t_nbr	*tmp;
+	int		nbr;
+
+	tmp = *head;
+	nbr = 0;
+	while (tmp)
+	{
+		if (nbr == 0)
+			nbr = tmp->data;
+		if (nbr < tmp->data)
+			nbr = tmp->data;
+		tmp = tmp->next;
+	}
+	tmp = *head;
+	while (tmp)
+	{
+		if (tmp->data == nbr)
+		{
+			tmp->priority = 1;
+			return (tmp->index);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
 }

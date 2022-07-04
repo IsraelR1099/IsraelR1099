@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/20 13:48:36 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/04 13:55:57 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,3 +94,34 @@ void	ft_sort_5(t_nbr **head, t_nbr **head_b, int counter)
 		ft_sort_5(head, head_b, counter);
 	}
 }
+
+void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
+{
+	int	*max_group;
+	int	nbr;
+	int	i;
+
+	max_group = (int *)malloc(sizeof(int) * (ft_groups(counter)));
+	if (!max_group)
+	{
+		ft_deallocation(head);
+		return ;
+	}
+	nbr = ft_groups(counter);
+	ft_update_index(*head);
+	while (nbr)
+	{
+		i = ft_max_value(head);
+		printf("i es %d\n", i);
+		nbr--;
+	}
+/*	while (*head)
+	{
+		printf("data es %d e index %d\n", (*head)->data, (*head)->index);
+		*head = (*head)->next;
+	}*/
+	(void)head_b;
+	printf("ft groups es %d\n", ft_groups(counter));
+}
+
+
