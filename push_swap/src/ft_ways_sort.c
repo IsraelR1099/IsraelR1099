@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/04 13:55:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:52:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 {
 	int	*max_group;
 	int	nbr;
+	int	value;
 	int	i;
+	t_nbr	*tmp;
 
 	max_group = (int *)malloc(sizeof(int) * (ft_groups(counter)));
 	if (!max_group)
@@ -108,20 +110,39 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 		return ;
 	}
 	nbr = ft_groups(counter);
+	printf("ft groups es %d\n", ft_groups(counter));
 	ft_update_index(*head);
+	value = ft_max_value(head);
+	printf("value es %d\n", value);
+	i = 1;
 	while (nbr)
 	{
-		i = ft_max_value(head);
-		printf("i es %d\n", i);
+		tmp = *head;
+		while (tmp->data <= value && tmp)
+		{
+			if (tmp->data == value)
+			{
+				printf("hola en if data es %d\n", tmp->data);
+				tmp->priority = 1;
+			}
+			else if (tmp->data < value)
+			{
+				tmp->priority = i;
+				printf("priority es  %d y data %d\n", tmp->priority, tmp->data);
+				//break ;
+			}
+			tmp = tmp->next;
+		}
+		printf("data es %d y nbr %d\n", tmp->data, nbr);
+		i++;
 		nbr--;
 	}
-/*	while (*head)
+	while (*head)
 	{
 		printf("data es %d e index %d\n", (*head)->data, (*head)->index);
 		*head = (*head)->next;
-	}*/
+	}
 	(void)head_b;
-	printf("ft groups es %d\n", ft_groups(counter));
 }
 
 

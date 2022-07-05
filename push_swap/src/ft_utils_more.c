@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:48:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/04 13:55:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/04 20:19:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,4 @@ void	ft_index(t_nbr **head, int counter)
 		i++;
 	}
 }
-
-
-
 
