@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:48:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/04 20:19:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:52:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,31 +70,40 @@ int	ft_groups(int counter)
 	return (count);
 }
 
-void	ft_index(t_nbr **head, int counter)
+void	ft_priority(t_nbr **head, int counter)
 {
-	t_nbr	*tmp;
-	t_nbr	*tmp2;
-	int		nbr;
+	int		*max_group;
 	int		i;
+	int		nbr;
+	t_nbr	*tmp;
 
-	tmp = *head;
+	nbr = ft_groups(counter);
+	printf("nbr es %d\n", nbr);
+	max_group = ft_ini(head, nbr);
+	if (!max_group)
+		return ;
 	i = 1;
-	(void)counter;
-	while (tmp)
+	while (nbr >= 0)
 	{
-		tmp2 = *head;
-		nbr = tmp->data;
-		while (tmp2)
+		tmp = *head;
+		while (tmp)
 		{
-			if (tmp2->data < nbr)
-			{
-				tmp2->index = 1;
-				tmp->index = tmp2->index + 1;
-			}
-			tmp2 = tmp2->next;
+			if (tmp->data > max_group[i] &&
+			   	tmp->data < max_group[i - 1] && i < ft_groups(counter))
+				max_group[i] = tmp->data;
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
+		nbr--;
 		i++;
 	}
+	i = 0;
+	nbr = ft_groups(counter);
+	while (i < nbr)
+	{
+		printf("numero otro %d\n", max_group[i]);
+		i++;
+	}
+	ft_update_priority(head, max_group);
+	free(max_group);
 }
 

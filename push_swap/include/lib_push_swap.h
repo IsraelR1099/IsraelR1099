@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/04 13:50:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:27:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <limits.h>
 
 # define MAX_INT 2147483647
 # define MIN_INT -2147483648
@@ -39,6 +40,7 @@ int		ft_min_nbr(t_nbr *head);
 int		ft_size(t_nbr *head);
 int		ft_groups(int counter);
 int		ft_max_value(t_nbr **head);
+int		*ft_ini(t_nbr **head, int nbr);
 t_nbr	*ft_createlist(int nbr_nodes);
 void	ft_update_index(t_nbr *head);
 void	ft_utilsort_m4(t_nbr **head, t_nbr **head_b, int counter);
@@ -57,6 +59,7 @@ void	ft_pb(t_nbr **head, t_nbr **head_b);
 void	ft_pa(t_nbr **head, t_nbr **head_b);
 void	ft_write(int max, int min);
 void	ft_deallocation(t_nbr **head);
-void	ft_index(t_nbr **head, int counter);
+void	ft_priority(t_nbr **head, int counter);
+void	ft_update_priority(t_nbr **head, int *max_group);
 
 #endif
