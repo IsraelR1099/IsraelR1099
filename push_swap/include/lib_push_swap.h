@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/06 12:27:29 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/07 13:01:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,18 @@ void	ft_sa(t_nbr **head);
 void	ft_ra(t_nbr **head);
 void	ft_pb(t_nbr **head, t_nbr **head_b);
 void	ft_pa(t_nbr **head, t_nbr **head_b);
+void	ft_rrb(t_nbr **head_b);
+void	ft_sb(t_nbr **head_b);
+void	ft_rb(t_nbr **head_b);
+void	ft_ss(t_nbr **head, t_nbr **head_b);
+void	ft_rr(t_nbr **head, t_nbr **head_b);
 void	ft_write(int max, int min);
 void	ft_deallocation(t_nbr **head);
 void	ft_priority(t_nbr **head, int counter);
 void	ft_update_priority(t_nbr **head, int *max_group);
+void	ft_apply_pb(t_nbr **head, t_nbr **head_b, t_nbr **tmp);
+void	ft_apply_rra(t_nbr **head, t_nbr **tmp);
+void	ft_apply_ss(t_nbr **head, t_nbr **head_b, t_nbr **tmp, t_nbr **tmp_b);
+void	ft_apply_sa(t_nbr **head, t_nbr **tmp);
 
 #endif

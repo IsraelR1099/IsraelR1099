@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 11:46:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/06 13:52:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/07 11:48:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ void	ft_update_priority(t_nbr **head, int *max_group)
 			}
 			i++;
 		}
+		tmp = tmp->next;
+	}
+	tmp = *head;
+	while (tmp)
+	{
+		printf("data es %d y priority es %d\n", tmp->data, tmp->priority);
 		tmp = tmp->next;
 	}
 }

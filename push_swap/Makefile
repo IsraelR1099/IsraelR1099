@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/07/06 11:54:19 by irifarac         ###   ########.fr        #
+#    Updated: 2022/07/07 13:50:15 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,14 @@ CFLAGS = -Wall -Wextra -Werror -MMD
 SRC = src/ft_errors.c \
 	  src/main.c \
 	  src/ft_utils.c \
+	  src/ft_actions.c \
 	  src/ft_ways_sort.c \
 	  src/ft_sort.c \
 	  src/ft_find.c \
 	  src/ft_rules.c \
 	  src/ft_utils_more.c \
-	  src/ft_utils_more2.c
+	  src/ft_utils_more2.c \
+	  src/ft_rules_b.c
 
 OBJ = $(SRC:.c=.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/06 13:52:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/07 13:55:06 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,40 @@ void	ft_sort_5(t_nbr **head, t_nbr **head_b, int counter)
 
 void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 {
+	t_nbr	*tmp;
+	t_nbr	*tmp_b;
+	int		i;
+
+	tmp = *head;
+	tmp_b = *head_b;
 	ft_priority(head, counter);
+	i = 0;
+	while (tmp && i++ < 25)
+	{
+		printf("head b es %d\n", (*head_b)->data);
+		printf("head a es %d y tmp es %d\n", (*head)->data, tmp->data);
+		if (tmp->data < tmp->next->data && tmp->priority == 0)
+			ft_apply_pb(head, head_b, &tmp);
+		else if (tmp->priority != 0 && tmp->next->priority != 0)
+			ft_apply_rra(head, &tmp);
+		else
+		{
+			if (tmp_b->data != 0 && tmp_b->data < tmp_b->next->data)
+				ft_apply_ss(head, head_b, &tmp, &tmp_b);
+			else
+				ft_apply_sa(head, &tmp);
+		}
+	}
 	while (*head)
 	{
 		printf("data es %d e index %d i priority es %d\n", (*head)->data, (*head)->index, (*head)->priority);
 		*head = (*head)->next;
 	}
-	(void)head_b;
-	(void)counter;
+	while (*head_b)
+	{
+		printf("data b es %d y priority es %d\n", (*head_b)->data, (*head_b)->priority);
+		*head_b = (*head_b)->next;
+	}
 }
 
 
