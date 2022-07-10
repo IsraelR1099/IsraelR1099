@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 12:18:56 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/07 13:55:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/08 13:22:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_apply_pb(t_nbr **head, t_nbr **head_b, t_nbr **tmp)
 	}
 	last_b = temp;
 	printf("last b es %d\n", last_b->data);
-	if ((*head_b)->data < (*head_b)->next->data)
+	if ((*head_b)->next != NULL && (*head_b)->data < (*head_b)->next->data)
 	{
 		printf("hola\n");
 		if ((*head_b)->data < last_b->data)
