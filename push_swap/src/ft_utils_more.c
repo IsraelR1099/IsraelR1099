@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:48:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/07 12:18:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/11 12:52:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	ft_priority(t_nbr **head, int counter)
 	t_nbr	*tmp;
 
 	nbr = ft_groups(counter);
-	printf("nbr es %d\n", nbr);
 	max_group = ft_ini(head, nbr);
 	if (!max_group)
 		return ;

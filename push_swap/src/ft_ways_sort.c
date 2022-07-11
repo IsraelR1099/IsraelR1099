@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/10 20:56:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/11 13:57:06 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,29 +122,29 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 		}
 	}
 */
-	while (!ft_check_sort(head, counter) && ft_lstsize(head) < (counter - 1))
+	while (!ft_check_sort(head, counter) && i++ < 25/*&& ft_slst(head) < (counter - 1)*/)
 	{
-		if (ft_condition_rra(head) && ft_condition_rrb(head_b))
+		if (ft_condition_rra(head, counter) && ft_condition_rrb(head_b))
 			ft_rrr(head, head_b);
-		else if (ft_condition_rra(head))
+		else if (ft_condition_rra(head, counter))
 			ft_rra(head);
-		else if (ft_condition_rrb(head_b)
+		else if (ft_condition_rrb(head_b))
 			ft_rrb(head_b);
 		else if (ft_condition_sa(head) && ft_condition_sb(head_b))
 			ft_ss(head, head_b);
-		else if (ft_condition_sa(head)
+		else if (ft_condition_sa(head))
 			ft_sa(head);
-		else if (ft_condition_sb(head_b)
+		else if (ft_condition_sb(head_b))
 			ft_sb(head_b);
 		else if (ft_condition_ra(head) && ft_condition_ra(head_b))
 			ft_rr(head, head_b);
-		else if (ft_condition_ra(head);
+		else if (ft_condition_ra(head))
 			ft_ra(head);
 		else if (ft_condition_rb(head_b))
 			ft_rb(head_b);
 		else if (ft_condition_pb(head))
 			ft_pb(head, head_b);
-		else if (ft_condition_pa(head, head_b, counter);
+		else if (ft_condition_pa(head, head_b, counter))
 			ft_pa(head, head_b);
 	}
 	tmp = *head;

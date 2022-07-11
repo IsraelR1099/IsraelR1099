@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/07/07 13:50:15 by irifarac         ###   ########.fr        #
+#    Updated: 2022/07/11 13:35:47 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,13 @@ SRC = src/ft_errors.c \
 	  src/ft_sort.c \
 	  src/ft_find.c \
 	  src/ft_rules.c \
+	  src/ft_rules_b.c \
+	  src/ft_rules_general.c \
 	  src/ft_utils_more.c \
 	  src/ft_utils_more2.c \
-	  src/ft_rules_b.c
+	  src/ft_utils_more3.c \
+	  src/ft_conditions.c \
+	  src/ft_conditions2.c
 
 OBJ = $(SRC:.c=.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))

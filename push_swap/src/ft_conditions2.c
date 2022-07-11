@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 20:28:39 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/10 20:56:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/11 11:39:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ int	ft_condition_pb(t_nbr **head)
 {
 	t_nbr	*tmp;
 
+//	printf("hola en pb\n");
 	tmp = *head;
+//	printf("priority %d y next %d y data %d y next %d\n", tmp->priority, tmp->next->priority, tmp->data, tmp->next->data);
 	if (tmp->priority == 0 &&
-		tmp->next->priority == 0 &&
 		tmp->data < tmp->next->data)
 		return (1);
+//	printf("final pb\n");
 	return (0);
 }
 
