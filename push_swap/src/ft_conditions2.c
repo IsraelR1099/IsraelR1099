@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 20:28:39 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/11 11:39:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/12 14:01:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,20 @@ int	ft_condition_pb(t_nbr **head)
 	return (0);
 }
 
-int	ft_condition_pa(t_nbr ** head, t_nbr **head_b, int counter)
+int	ft_condition_pa(t_nbr **head, t_nbr **head_b, int counter)
 {
 	int	max;
+	int	lstsize;
 
-	max = ft_max_nbr(*head_b);
-	if (ft_check_sort(head, counter))
+	max = ft_max_value(head_b);
+//	printf("max es %d\n", max);
+	lstsize = ft_slst(head);
+	(void)counter;
+	if (ft_check_sort(head, lstsize + 1))
 	{
-		if ((*head_b)->next == NULL)
+		if ((*head_b)->data == max)
 			return (1);
-		else if ((*head_b)->data == max)
+		else if ((*head_b)->next == NULL)
 			return (1);
 	}
 	return (0);

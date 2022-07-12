@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 20:18:21 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/11 13:57:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/12 13:03:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	ft_condition_rrb(t_nbr **head_b)
 	t_nbr	*tmp;
 	int		last;
 
-//	printf("hola en rrb\n");
 	if ((*head_b)->next == NULL)
 		return (0);
 	tmp = *head_b;
@@ -58,6 +57,7 @@ int	ft_condition_rrb(t_nbr **head_b)
 		last = tmp->data;
 		tmp = tmp->next;
 	}
+//	printf("last rrb es %d\n", last);
 	tmp = *head_b;
 	if (last > tmp->data)
 		return (1);
@@ -79,7 +79,7 @@ int	ft_condition_sa(t_nbr **head)
 		return (1);
 	else if (tmp->priority != 0 &&
 		tmp->next->priority != 0 &&
-		tmp->priority > tmp->next->priority)
+		tmp->priority < tmp->next->priority)
 		return (1);
 	//printf("final sa\n");
 	return (0);

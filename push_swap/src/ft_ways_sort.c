@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/11 13:57:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/12 15:27:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,36 +98,25 @@ void	ft_sort_5(t_nbr **head, t_nbr **head_b, int counter)
 void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 {
 	t_nbr	*tmp;
-	t_nbr	*tmp_b;
+	//t_nbr	*tmp_b;
 	int		i;
 
 	tmp = *head;
-	tmp_b = *head_b;
+	//tmp_b = *head_b;
 	ft_priority(head, counter);
 	i = 0;
-/*	while (tmp && i++ < 25)
-	{
-	//	printf("head b es %d\n", (*head_b)->data);
-	//	printf("head a es %d y tmp es %d\n", (*head)->data, tmp->data);
-		if (tmp->data < tmp->next->data && tmp->priority == 0)
-			ft_apply_pb(head, head_b, &tmp);
-		else if (ft_pcheck(head) && tmp->priority != 0 && tmp->next->priority != 0)
-			ft_apply_rra(head, &tmp);
-		else
-		{
-			if (tmp_b->next != NULL && tmp_b->data < tmp_b->next->data)
-				ft_apply_ss(head, head_b, &tmp, &tmp_b);
-			else
-				ft_apply_sa(head, &tmp);
-		}
-	}
-*/
-	while (!ft_check_sort(head, counter) && i++ < 25/*&& ft_slst(head) < (counter - 1)*/)
+	while (!ft_is_sort(head, counter) && i++ < 50 /*&& ft_slst(head) < (counter - 1)*/)
 	{
 		if (ft_condition_rra(head, counter) && ft_condition_rrb(head_b))
 			ft_rrr(head, head_b);
 		else if (ft_condition_rra(head, counter))
 			ft_rra(head);
+		else if (ft_condition_ra(head) && ft_condition_ra(head_b))
+			ft_rr(head, head_b);
+		else if (ft_condition_ra(head))
+			ft_ra(head);
+		else if (ft_condition_rb(head_b))
+			ft_rb(head_b);
 		else if (ft_condition_rrb(head_b))
 			ft_rrb(head_b);
 		else if (ft_condition_sa(head) && ft_condition_sb(head_b))
@@ -136,21 +125,21 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 			ft_sa(head);
 		else if (ft_condition_sb(head_b))
 			ft_sb(head_b);
-		else if (ft_condition_ra(head) && ft_condition_ra(head_b))
-			ft_rr(head, head_b);
-		else if (ft_condition_ra(head))
-			ft_ra(head);
-		else if (ft_condition_rb(head_b))
-			ft_rb(head_b);
-		else if (ft_condition_pb(head))
-			ft_pb(head, head_b);
 		else if (ft_condition_pa(head, head_b, counter))
 			ft_pa(head, head_b);
+		else if (ft_condition_pb(head))
+			ft_pb(head, head_b);
+		tmp = *head;
+		while (tmp)
+		{
+			printf("data b es %d\n", tmp->data);
+			tmp = tmp->next;
+		}
 	}
 	tmp = *head;
 	while (tmp)
 	{
-		printf("data es %d e index %d i priority es %d\n", tmp->data, tmp->index, tmp->priority);
+		printf("data es %d e index %d y priority es %d\n", tmp->data, tmp->index, tmp->priority);
 		tmp = tmp->next;
 	}
 	while (*head_b)

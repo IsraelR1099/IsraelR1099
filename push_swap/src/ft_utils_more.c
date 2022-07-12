@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:48:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/11 12:52:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/12 14:04:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ void	ft_priority(t_nbr **head, int counter)
 		nbr--;
 		i++;
 	}
-	i = 0;
+//	i = 0;
 	nbr = ft_groups(counter);
-	while (i < nbr)
+	/*while (i < nbr)
 	{
 		printf("numero otro %d\n", max_group[i]);
 		i++;
-	}
+	}*/
 	ft_update_priority(head, max_group);
 	free(max_group);
 }

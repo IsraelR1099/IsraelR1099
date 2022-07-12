@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:18:11 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/05 20:50:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/12 13:24:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_max_value(t_nbr **head)
 	{
 		if (tmp->data == nbr)
 		{
-			tmp->priority = 1;
+			//tmp->priority = 1;
 			return (tmp->data);
 		}
 		tmp = tmp->next;
