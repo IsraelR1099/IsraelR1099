@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 11:46:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/12 14:05:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/13 13:49:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,7 @@ int	ft_pcheck(t_nbr **head)
 	int		cmp;
 
 	tmp = *head;
-	last = NULL;
-	while (tmp != NULL)
-	{
-		last = tmp;
-		tmp = tmp->next;
-	}
-	tmp = *head;
+	last = ft_lastnode(tmp);
 	while (tmp && tmp->priority != 0)
 	{
 		cmp = tmp->data;

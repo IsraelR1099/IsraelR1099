@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/11 13:46:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/13 12:54:27 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int		ft_slst(t_nbr **head);
 int		ft_pcheck(t_nbr **head);
 int		ft_diff_up(t_nbr **head, int nbr);
 int		ft_diff_down(t_nbr **head, int nbr);
+int		ft_is_sort(t_nbr **head, int counter);
+int		ft_go_check(t_nbr **head);
 t_nbr	*ft_createlist(int nbr_nodes);
+t_nbr	*ft_lastnode(t_nbr *tmp);
 void	ft_update_index(t_nbr *head);
 void	ft_utilsort_m4(t_nbr **head, t_nbr **head_b, int counter);
 void	ft_utilsort_min5(t_nbr **head, t_nbr **head_b, int counter);

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 20:18:21 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/12 13:03:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/13 13:49:25 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_condition_rra(t_nbr **head, int counter)
 {
-	int		last;
 	int		nbr;
 	int		up;
 	int		down;
@@ -26,19 +25,16 @@ int	ft_condition_rra(t_nbr **head, int counter)
 	up = ft_diff_up(head, nbr);
 	down = ft_diff_down(head, nbr);
 	//printf("up es %d y down %d\n", up, down);
-	while (tmp != NULL)
-	{
-		last = tmp->data;
-		node = tmp;
-		tmp = tmp->next;
-	}
+	node = ft_lastnode(tmp);
 	tmp = *head;
-	if (tmp->data > last && ft_pcheck(head))
+	if (tmp->data > node->data && ft_pcheck(head))
 		return (1);
 	else if (ft_pcheck(head))
 		return (1);
 	else if (tmp->priority != 0 && node->priority != 0 &&
 			down < up)
+		return (1);
+	else if (ft_go_check(head))
 		return (1);
 	return (0);
 }

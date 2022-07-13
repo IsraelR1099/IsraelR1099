@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/12 15:27:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/13 13:54:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 	//tmp_b = *head_b;
 	ft_priority(head, counter);
 	i = 0;
-	while (!ft_is_sort(head, counter) && i++ < 50 /*&& ft_slst(head) < (counter - 1)*/)
+	while (!ft_is_sort(head, counter) /*&& i++ < 50 && ft_slst(head) < (counter - 1)*/)
 	{
 		if (ft_condition_rra(head, counter) && ft_condition_rrb(head_b))
 			ft_rrr(head, head_b);
