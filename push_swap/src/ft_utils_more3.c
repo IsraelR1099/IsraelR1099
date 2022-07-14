@@ -6,44 +6,34 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:53:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/13 13:54:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/14 13:02:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_push_swap.h"
 
-int	ft_diff_down(t_nbr **head, int nbr)
+int	ft_diff_down(t_nbr **head)
 {
 	t_nbr	*tmp;
-	int		iter;
-	int		result;
-	int		count;
-	int		i;
-	int		size;
+	int	count;
+	int	result;
 
-	size = ft_slst(head);
-	iter = (size) - nbr;
 	tmp = *head;
-	i = 0;
 	count = 0;
-	while (tmp != NULL && i < iter)
+	result = 0;
+	while (tmp)
 	{
+		if (tmp->priority == 0)
+			count = tmp->data;
 		tmp = tmp->next;
-		i++;
 	}
-	if (i == iter)
+	tmp = *head;
+	while (tmp && tmp->data != count)
 	{
-		while (tmp && nbr)
-		{
-			if (tmp->priority != 0)
-				break ;
-			tmp = tmp->next;
-			count++;
-			nbr--;
-		}
+		result++;
+		tmp = tmp->next;
 	}
-	result = size - (iter + count);
-	return (result);
+	return (ft_slst(head) - result);
 }
 
 int	ft_is_sort(t_nbr **head, int counter)
@@ -54,7 +44,7 @@ int	ft_is_sort(t_nbr **head, int counter)
 
 	tmp = *head;
 	nbr = tmp->data;
-	len = 0;
+	len = 1;
 	while (tmp)
 	{
 		if (tmp->data > nbr)

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/13 13:54:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/14 21:04:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,43 +98,44 @@ void	ft_sort_5(t_nbr **head, t_nbr **head_b, int counter)
 void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 {
 	t_nbr	*tmp;
-	//t_nbr	*tmp_b;
+	t_nbr	*tmp_b;
 	int		i;
 
 	tmp = *head;
-	//tmp_b = *head_b;
+	tmp_b = *head_b;
 	ft_priority(head, counter);
 	i = 0;
-	while (!ft_is_sort(head, counter) /*&& i++ < 50 && ft_slst(head) < (counter - 1)*/)
+	while (!ft_is_sort(head, counter) && i++ < 50 /*&& ft_slst(head) < (counter - 1)*/)
 	{
-		if (ft_condition_rra(head, counter) && ft_condition_rrb(head_b))
-			ft_rrr(head, head_b);
-		else if (ft_condition_rra(head, counter))
-			ft_rra(head);
-		else if (ft_condition_ra(head) && ft_condition_ra(head_b))
-			ft_rr(head, head_b);
-		else if (ft_condition_ra(head))
-			ft_ra(head);
-		else if (ft_condition_rb(head_b))
-			ft_rb(head_b);
-		else if (ft_condition_rrb(head_b))
-			ft_rrb(head_b);
-		else if (ft_condition_sa(head) && ft_condition_sb(head_b))
-			ft_ss(head, head_b);
-		else if (ft_condition_sa(head))
-			ft_sa(head);
-		else if (ft_condition_sb(head_b))
-			ft_sb(head_b);
-		else if (ft_condition_pa(head, head_b, counter))
+		if (ft_pcheck(head) && ft_check_sort(head, counter))
+		{
 			ft_pa(head, head_b);
-		else if (ft_condition_pb(head))
+			ft_do_stackb(head, head_b);
+		}
+		else
+		{
+			ft_do_both(head, head_b);
+			ft_do_stacka(head, head_b);
+		}
+		if (ft_condition_pb(head))
+		{
 			ft_pb(head, head_b);
+			ft_do_both(head, head_b);
+			ft_do_stackb(head, head_b);
+		}
 		tmp = *head;
 		while (tmp)
 		{
-			printf("data b es %d\n", tmp->data);
+			printf("data  es %d y priority %d\n", tmp->data, tmp->priority);
 			tmp = tmp->next;
 		}
+		tmp_b = *head_b;
+		while (tmp_b)
+		{
+			printf("data b es %d\n", tmp_b->data);
+			tmp_b = tmp_b->next;
+		}
+			
 	}
 	tmp = *head;
 	while (tmp)

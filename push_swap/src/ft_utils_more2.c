@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 11:46:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/13 13:49:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/14 13:17:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,26 @@ int	ft_pcheck(t_nbr **head)
 {
 	t_nbr	*tmp;
 	t_nbr	*last;
-	int		cmp;
+	int	size;
+	int	count;
 
 	tmp = *head;
-	last = ft_lastnode(tmp);
-	while (tmp && tmp->priority != 0)
+	size = ft_slst(head);
+	count = 0;
+	while (tmp)
 	{
-		cmp = tmp->data;
+		count++;
+		if (tmp->priority == 0)
+			break ;
 		tmp = tmp->next;
 	}
 	tmp = *head;
-	if (last->priority == 0 && tmp->data > last->data)
+	last = ft_lastnode(tmp);
+	if (tmp->priority != 0 && last->priority != 0
+		&& count != size)
 		return (1);
-	if (tmp->priority == 0 && last->priority == 0)
+	else if (count == size)
 		return (1);
-	else
-		return (0);
-	if (tmp->priority == 0 && tmp->next->priority == 0)
-		return (1);
-	else
-		return (0);
-	if (cmp == last->data && tmp->priority < last->priority)
-		return (1);
-	else
-		return (0);
 	return (0);
 }
 
@@ -107,14 +103,14 @@ int	ft_slst(t_nbr **head)
 	return (counter);
 }
 
-int	ft_diff_up(t_nbr **head, int nbr)
+int	ft_diff_up(t_nbr **head)
 {
 	t_nbr	*tmp;
 	int		counter;
 
 	tmp = *head;
 	counter = 0;
-	while (nbr && tmp)
+	while (tmp)
 	{
 		if (tmp->priority == 0)
 			break ;

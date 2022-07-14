@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/13 12:54:27 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/14 13:52:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ int		ft_min_nbr(t_nbr *head);
 int		ft_size(t_nbr *head);
 int		ft_groups(int counter);
 int		ft_max_value(t_nbr **head);
-int		ft_condition_rra(t_nbr **head, int counter);
+int		ft_condition_rra(t_nbr **head);
 int		ft_condition_rrb(t_nbr **head_b);
 int		ft_condition_sa(t_nbr **head);
 int		ft_condition_sb(t_nbr **head_b);
 int		ft_condition_ra(t_nbr **head);
 int		ft_condition_rb(t_nbr **head_b);
 int		ft_condition_pb(t_nbr **head);
-int		ft_condition_pa(t_nbr **head, t_nbr **head_b, int counter);
+int		ft_condition_pa(t_nbr **head, t_nbr **head_b);
 int		*ft_ini(t_nbr **head, int nbr);
 int		ft_slst(t_nbr **head);
 int		ft_pcheck(t_nbr **head);
-int		ft_diff_up(t_nbr **head, int nbr);
-int		ft_diff_down(t_nbr **head, int nbr);
+int		ft_diff_up(t_nbr **head);
+int		ft_diff_down(t_nbr **head);
 int		ft_is_sort(t_nbr **head, int counter);
 int		ft_go_check(t_nbr **head);
 t_nbr	*ft_createlist(int nbr_nodes);

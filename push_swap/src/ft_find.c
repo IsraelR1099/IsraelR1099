@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:18:11 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/13 13:27:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/14 13:53:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_max_value(t_nbr **head)
 	nbr = MIN_INT;
 	while (tmp)
 	{
-		if (nbr == 0)
+		if (nbr == MIN_INT)
 			nbr = tmp->data;
 		if (nbr < tmp->data)
 			nbr = tmp->data;
