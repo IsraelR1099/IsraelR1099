@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:53:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/14 13:02:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:00:57 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,21 @@ int	ft_diff_down(t_nbr **head)
 
 	tmp = *head;
 	count = 0;
-	result = 0;
+	result = 1;
 	while (tmp)
 	{
 		if (tmp->priority == 0)
 			count = tmp->data;
 		tmp = tmp->next;
 	}
+//	printf("count es %d\n", count);
 	tmp = *head;
 	while (tmp && tmp->data != count)
 	{
 		result++;
 		tmp = tmp->next;
 	}
+//	printf("result es %d\n", result);
 	return (ft_slst(head) - result);
 }
 
@@ -54,7 +56,7 @@ int	ft_is_sort(t_nbr **head, int counter)
 		}
 		tmp = tmp->next;
 	}
-	printf("len es %d y counter es %d\n", len, counter - 1);
+//	printf("len es %d y counter es %d\n", len, counter - 1);
 	if (len == (counter - 1))
 		return (1);
 	return (0);
@@ -74,23 +76,47 @@ t_nbr	*ft_lastnode(t_nbr *tmp)
 	return (node);
 }
 
-int	ft_go_check(t_nbr **head)
+int	ft_diff_upb(t_nbr **head_b)
 {
+	int		max;
+	int		result;
 	t_nbr	*tmp;
-	int		up;
-	int		down;
-	int		size;
 
-	tmp = *head;
-	size = ft_slst(head);
-	up = 0;
-	while (tmp && tmp->priority != 0)
+	max = ft_max_value(head_b);
+	tmp = *head_b;
+	result = 1;
+	while (tmp)
 	{
-		up++;
+		if (tmp->data == max)
+			break ;
+		tmp = tmp->next;
+		result++;
+	}
+	return (result);
+}
+
+int	ft_diff_downb(t_nbr **head_b)
+{
+	int		max;
+	int		result;
+	t_nbr	*tmp;
+
+	max = ft_max_value(head_b);
+	tmp = *head_b;
+	result = 1;
+	while (tmp)
+	{
+		if (tmp->data == max)
+		{
+			while (tmp)
+			{
+				result++;
+				tmp = tmp->next;
+			}
+		}
+		if (!tmp)
+			break ;
 		tmp = tmp->next;
 	}
-	down = size - (up + 1);
-	if (down < up && up != size)
-		return (1);
-	return (0);
+	return (result);
 }

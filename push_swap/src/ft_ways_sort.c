@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/14 21:04:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:01:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 	t_nbr	*tmp;
 	t_nbr	*tmp_b;
 	int		i;
+	int		size;
 
 	tmp = *head;
 	tmp_b = *head_b;
@@ -107,21 +108,34 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 	i = 0;
 	while (!ft_is_sort(head, counter) && i++ < 50 /*&& ft_slst(head) < (counter - 1)*/)
 	{
+		size = ft_slst(head_b);
 		if (ft_pcheck(head) && ft_check_sort(head, counter))
 		{
-			ft_pa(head, head_b);
-			ft_do_stackb(head, head_b);
+			while (!ft_is_sort(head, counter) )//&& size >= 1 && i++ < 50)
+			{
+				if (ft_condition_pa(head, head_b))
+					ft_pa(head, head_b);
+				if (!ft_do_both(head, head_b))
+				{
+					size = ft_slst(head_b);
+					printf("hola tmp es %d y size %d\n", (*head_b)->data, size);
+					ft_do_stackb(head_b, head);
+					//printf("hola fuera\n");
+				}
+			}
+			//printf("salimos\n");
+			continue ;
 		}
 		else
 		{
-			ft_do_both(head, head_b);
-			ft_do_stacka(head, head_b);
+			if (!ft_do_both(head, head_b))
+				ft_do_stacka(head);
 		}
 		if (ft_condition_pb(head))
 		{
 			ft_pb(head, head_b);
-			ft_do_both(head, head_b);
-			ft_do_stackb(head, head_b);
+			if (!ft_do_both(head, head_b))
+				ft_do_stackb(head_b, head);
 		}
 		tmp = *head;
 		while (tmp)
@@ -135,10 +149,9 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 			printf("data b es %d\n", tmp_b->data);
 			tmp_b = tmp_b->next;
 		}
-			
 	}
 	tmp = *head;
-	while (tmp)
+	/*while (tmp)
 	{
 		printf("data es %d e index %d y priority es %d\n", tmp->data, tmp->index, tmp->priority);
 		tmp = tmp->next;
@@ -147,7 +160,7 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 	{
 		printf("data b es %d y priority es %d\n", (*head_b)->data, (*head_b)->priority);
 		*head_b = (*head_b)->next;
-	}
+	}*/
 }
 
 

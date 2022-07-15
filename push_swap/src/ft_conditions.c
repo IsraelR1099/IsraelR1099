@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 20:18:21 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/14 14:09:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:01:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	ft_condition_rra(t_nbr **head)
 	tmp = *head;
 	up = ft_diff_up(head);
 	down = ft_diff_down(head);
-	//printf("up es %d y down %d\n", up, down);
+	printf("up es %d y down %d\n", up, down);
 	node = ft_lastnode(tmp);
 	if (tmp->data > node->data &&
-		!ft_pcheck(head);
+		!ft_pcheck(head))
 		return (1);
 	else if (ft_pcheck(head) && down < up)
 		return (1);
@@ -39,11 +39,15 @@ int	ft_condition_rrb(t_nbr **head_b)
 {
 	t_nbr	*tmp;
 	int		last;
+	int		up;
+	int		down;
 
-	if ((*head_b)->next == NULL)
+	if ((*head_b) == NULL || (*head_b)->next == NULL)
 		return (0);
 	tmp = *head_b;
 	last = 0;
+	up = ft_diff_upb(head_b);
+	down = ft_diff_downb(head_b);
 	while (tmp != NULL)
 	{
 		last = tmp->data;
@@ -51,6 +55,8 @@ int	ft_condition_rrb(t_nbr **head_b)
 	}
 	tmp = *head_b;
 	if (last > tmp->data)
+		return (1);
+	else if (last < tmp->data && down < up)
 		return (1);
 	return (0);
 }
@@ -74,11 +80,16 @@ int	ft_condition_sa(t_nbr **head)
 int	ft_condition_sb(t_nbr **head_b)
 {
 	t_nbr	*tmp;
+	t_nbr	*last;
 
-	if ((*head_b)->next == NULL)
+	//printf("entramos en sb\n");
+	if ((*head_b) == NULL || (*head_b)->next == NULL)
 		return (0);
 	tmp = *head_b;
-	if (tmp->data < tmp->next->data)
+	last = ft_lastnode(tmp);
+	//printf("salimos de sb\n");
+	if (tmp->data < tmp->next->data &&
+			tmp->data > last->data)
 		return (1);
 	return (0);
 }
