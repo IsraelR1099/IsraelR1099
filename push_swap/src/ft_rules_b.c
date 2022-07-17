@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 09:57:42 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/11 09:50:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/16 17:52:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,48 @@ void	ft_rb(t_nbr **head_b)
 
 void	ft_ss(t_nbr **head, t_nbr **head_b)
 {
-	ft_sa(head);
-	ft_sb(head_b);
+	
+	t_nbr	*new_heada;
+	t_nbr	*new_headb;
+
+	new_heada = (*head)->next;
+	(*head)->next = (*head)->next->next;
+	new_heada->next = *head;
+	*head = new_heada;
+	ft_update_index(*head);
+
+	new_headb = (*head_b)->next;
+	(*head_b)->next = (*head_b)->next->next;
+	new_headb->next = *head_b;
+	*head_b = new_headb;
+	ft_update_index(*head_b);
 	write(1, "ss\n", 3);
 }
 
 void	ft_rr(t_nbr **head, t_nbr **head_b)
 {
-	ft_ra(head);
-	ft_rb(head_b);
+	
+	t_nbr	*first;
+	t_nbr	*last;
+	t_nbr	*firstb;
+	t_nbr	*lastb;
+
+	first = *head;
+	last = *head;
+	while (last->next != NULL)
+		last = last->next;
+	*head = first->next;
+	first->next = NULL;
+	last->next = first;
+	ft_update_index(*head);
+
+	firstb = *head_b;
+	lastb = *head_b;
+	while (lastb->next != NULL)
+		lastb = lastb->next;
+	*head_b = firstb->next;
+	firstb->next = NULL;
+	lastb->next = firstb;
+	ft_update_index(*head_b);
 	write(1, "rr\n", 3);
 }

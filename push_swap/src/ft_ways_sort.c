@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/15 14:01:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/17 20:47:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,31 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 	tmp_b = *head_b;
 	ft_priority(head, counter);
 	i = 0;
-	while (!ft_is_sort(head, counter) && i++ < 50 /*&& ft_slst(head) < (counter - 1)*/)
+//(void)i;
+	(void)tmp;
+	(void)tmp_b;
+	while (!ft_is_sort(head, counter) && i++ < 350 /* && ft_slst(head) < (counter - 1)*/)
 	{
+		//printf("hola arriba\n");
 		size = ft_slst(head_b);
 		if (ft_pcheck(head) && ft_check_sort(head, counter))
-		{
-			while (!ft_is_sort(head, counter) )//&& size >= 1 && i++ < 50)
+		{	
+			//printf("hola\n");
+			while (!ft_is_sort(head, counter) && size >= 1) //&& i++ < 50)
 			{
 				if (ft_condition_pa(head, head_b))
 					ft_pa(head, head_b);
-				if (!ft_do_both(head, head_b))
+			//	printf("hola despues de if \n");
+				if (!ft_do_both(head, head_b, counter))
 				{
 					size = ft_slst(head_b);
-					printf("hola tmp es %d y size %d\n", (*head_b)->data, size);
-					ft_do_stackb(head_b, head);
+				tmp_b = *head_b;
+				while (tmp_b)
+				{
+				//	printf("data b es %d\n", tmp_b->data);
+					tmp_b = tmp_b->next;
+				}
+					ft_do_stackb(head_b, head, counter);
 					//printf("hola fuera\n");
 				}
 			}
@@ -128,17 +139,25 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 		}
 		else
 		{
-			if (!ft_do_both(head, head_b))
+//			printf("hola en else fuera\n");
+			if (!ft_do_both(head, head_b, counter))
+			{	
+//				printf("hola en else\n");
 				ft_do_stacka(head);
+			}
 		}
+//		printf("antes de condition\n");
 		if (ft_condition_pb(head))
 		{
 			ft_pb(head, head_b);
-			if (!ft_do_both(head, head_b))
-				ft_do_stackb(head_b, head);
+//			printf("despues de pb\n");
+			if (!ft_do_both(head, head_b, counter))
+				ft_do_stackb(head_b, head, counter);
+//			printf("despues de stackb\n");
 		}
+//		printf("fuera de condition pb\n");
 		tmp = *head;
-		while (tmp)
+/*		while (tmp)
 		{
 			printf("data  es %d y priority %d\n", tmp->data, tmp->priority);
 			tmp = tmp->next;
@@ -148,10 +167,11 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 		{
 			printf("data b es %d\n", tmp_b->data);
 			tmp_b = tmp_b->next;
-		}
+		}*/
+	printf("%d\n", i);
 	}
-	tmp = *head;
-	/*while (tmp)
+/*	tmp = *head;
+	while (tmp)
 	{
 		printf("data es %d e index %d y priority es %d\n", tmp->data, tmp->index, tmp->priority);
 		tmp = tmp->next;

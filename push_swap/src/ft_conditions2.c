@@ -6,26 +6,28 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 20:28:39 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/15 13:56:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/17 15:01:23 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_push_swap.h"
 
-int	ft_condition_rb(t_nbr **head_b, t_nbr **head)
+int	ft_condition_rb(t_nbr **head_b, t_nbr **head, int counter)
 {
 	t_nbr	*tmp;
 	int		last;
 	int		up;
 	int		down;
+	int		max;
 
-	if ((*head_b) == NULL)
+	if ((*head_b) == NULL || (*head_b)->next == NULL)
 		return (0);
 //	printf("hola en rb\n");
 	tmp = *head_b;
 	up = ft_diff_upb(head_b);
 	down = ft_diff_downb(head_b);
-	//printf("up es %d y down %d\n", up, down);
+	max = ft_max_value(head_b);
+//	printf("up en rb es %d y down %d\n", up, down);
 	while (tmp)
 	{
 		last = tmp->data;
@@ -34,12 +36,20 @@ int	ft_condition_rb(t_nbr **head_b, t_nbr **head)
 	tmp = *head_b;
 	//printf("last es %d\n", last);
 	if (tmp->data < last &&
-		tmp->data < tmp->next->data)
+		tmp->data < tmp->next->data &&
+		last != max)
 		return (1);
-	else if (ft_pcheck(head) && 
+	else if (ft_pcheck(head) == 2 && 
+			tmp->data > tmp->next->data &&
+			tmp->data > last && up < down &&
+			tmp->data != max)
+		return (up);
+	else if (ft_check_sort(head, counter) &&
 			tmp->data > tmp->next->data &&
 			tmp->data > last && up < down)
-		return (1);
+		return (up);
+	else if (down == up)
+		return (up);
 //	printf("salimos de rb\n");
 	return (0);
 }
@@ -68,7 +78,7 @@ int	ft_condition_pa(t_nbr **head, t_nbr **head_b)
 	int	lstsize;
 
 	max = ft_max_value(head_b);
-	printf("max es %d\n", max);
+//	printf("max es %d\n", max);
 	lstsize = ft_slst(head);
 	if (ft_check_sort(head, lstsize + 1))
 	{

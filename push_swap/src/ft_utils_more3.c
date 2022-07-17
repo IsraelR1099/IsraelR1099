@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:53:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/15 14:00:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/16 13:48:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ int	ft_diff_upb(t_nbr **head_b)
 
 	max = ft_max_value(head_b);
 	tmp = *head_b;
-	result = 1;
+	result = 0;
 	while (tmp)
 	{
+		result++;
 		if (tmp->data == max)
 			break ;
 		tmp = tmp->next;
-		result++;
 	}
 	return (result);
 }
@@ -103,7 +103,7 @@ int	ft_diff_downb(t_nbr **head_b)
 
 	max = ft_max_value(head_b);
 	tmp = *head_b;
-	result = 1;
+	result = 0;
 	while (tmp)
 	{
 		if (tmp->data == max)

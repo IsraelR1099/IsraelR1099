@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 11:46:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/15 14:01:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/17 15:02:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,19 @@ int	ft_pcheck(t_nbr **head)
 	count = 0;
 	while (tmp)
 	{
-		count++;
 		if (tmp->priority == 0)
 			break ;
 		tmp = tmp->next;
+		count++;
 	}
 	tmp = *head;
 	last = ft_lastnode(tmp);
+//	printf("count es %d y size %d\n", count, size);
 	if (tmp->priority != 0 && last->priority != 0
 		&& count != size)
 		return (1);
 	else if (count == size)
-		return (1);
+		return (2);
 	return (0);
 }
 

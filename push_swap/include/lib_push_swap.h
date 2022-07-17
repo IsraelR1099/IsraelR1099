@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/15 13:46:13 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/15 20:43:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		ft_condition_rrb(t_nbr **head_b);
 int		ft_condition_sa(t_nbr **head);
 int		ft_condition_sb(t_nbr **head_b);
 int		ft_condition_ra(t_nbr **head);
-int		ft_condition_rb(t_nbr **head_b, t_nbr **head);
+int		ft_condition_rb(t_nbr **head_b, t_nbr **head, int counter);
 int		ft_condition_pb(t_nbr **head);
 int		ft_condition_pa(t_nbr **head, t_nbr **head_b);
 int		*ft_ini(t_nbr **head, int nbr);
@@ -57,7 +57,7 @@ int		ft_diff_upb(t_nbr **head_b);
 int		ft_diff_downb(t_nbr **head_b);
 int		ft_is_sort(t_nbr **head, int counter);
 int		ft_go_check(t_nbr **head);
-int		ft_do_both(t_nbr **head, t_nbr **head_b);
+int		ft_do_both(t_nbr **head, t_nbr **head_b, int counter);
 t_nbr	*ft_createlist(int nbr_nodes);
 t_nbr	*ft_lastnode(t_nbr *tmp);
 void	ft_update_index(t_nbr *head);
@@ -86,7 +86,7 @@ void	ft_deallocation(t_nbr **head);
 void	ft_priority(t_nbr **head, int counter);
 void	ft_update_priority(t_nbr **head, int *max_group);
 void	ft_do_stacka(t_nbr  **head);
-void	ft_do_stackb(t_nbr **head_b, t_nbr **head);
+void	ft_do_stackb(t_nbr **head_b, t_nbr **head, int counter);
 void	ft_apply_pb(t_nbr **head, t_nbr **head_b, t_nbr **tmp);
 void	ft_apply_rra(t_nbr **head, t_nbr **tmp);
 void	ft_apply_ss(t_nbr **head, t_nbr **head_b, t_nbr **tmp, t_nbr **tmp_b);
