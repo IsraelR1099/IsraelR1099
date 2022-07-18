@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/17 20:47:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:10:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 //(void)i;
 	(void)tmp;
 	(void)tmp_b;
-	while (!ft_is_sort(head, counter) && i++ < 350 /* && ft_slst(head) < (counter - 1)*/)
+	while (!ft_is_sort(head, counter) && i++ < 55 /* && ft_slst(head) < (counter - 1)*/)
 	{
 		//printf("hola arriba\n");
 		size = ft_slst(head_b);
@@ -137,12 +137,15 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 			//printf("salimos\n");
 			continue ;
 		}
-		else
+		ft_phase1(head, head_b, counter);
+	//	printf("cambio de fase\n");
+		ft_phase2(head, head_b, counter);
+	/*	else
 		{
 //			printf("hola en else fuera\n");
 			if (!ft_do_both(head, head_b, counter))
 			{	
-//				printf("hola en else\n");
+				printf("hola en else\n");
 				ft_do_stacka(head);
 			}
 		}
@@ -155,20 +158,21 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 				ft_do_stackb(head_b, head, counter);
 //			printf("despues de stackb\n");
 		}
-//		printf("fuera de condition pb\n");
+//		printf("fuera de condition pb\n");*/
 		tmp = *head;
-/*		while (tmp)
+		while (tmp)
 		{
-			printf("data  es %d y priority %d\n", tmp->data, tmp->priority);
+			printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
 			tmp = tmp->next;
 		}
 		tmp_b = *head_b;
 		while (tmp_b)
 		{
-			printf("data b es %d\n", tmp_b->data);
+			printf("data b es %d index b %d\n", tmp_b->data, tmp_b->index);
 			tmp_b = tmp_b->next;
-		}*/
-	printf("%d\n", i);
+		}
+		//exit (1);
+	//printf("%d\n", i);
 	}
 /*	tmp = *head;
 	while (tmp)

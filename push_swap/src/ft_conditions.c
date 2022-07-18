@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 20:18:21 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/17 20:37:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/18 13:54:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	ft_condition_ra(t_nbr **head)
 //	printf("entro en ra\n");
 	tmp = *head;
 	last = ft_lastnode(tmp);
-	if (ft_pcheck(head) == 2 &&
+	if (ft_pcheck(head) &&
 		tmp->priority < last->priority)
 	{
 //		printf("primera condition en ra\n");

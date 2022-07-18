@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:49:19 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/17 15:02:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/18 12:50:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_do_both(t_nbr **head, t_nbr **head_b, int counter)
 	}
 	else if (ft_condition_rra(head) && ft_condition_rrb(head_b))
 	{
-//		printf("dentro de rra do both\n");
+		printf("dentro de rra do both\n");
 		ft_rrr(head, head_b);
 		return (1);
 //		printf("salgo de rra both\n");
