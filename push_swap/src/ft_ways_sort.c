@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/18 14:10:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/18 17:30:00 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 			continue ;
 		}
 		ft_phase1(head, head_b, counter);
+		exit (1);
 	//	printf("cambio de fase\n");
 		ft_phase2(head, head_b, counter);
 	/*	else

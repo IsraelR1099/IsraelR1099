@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/18 14:06:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:57:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ int		ft_best_way(t_nbr **head, int counter);
 int		ft_do_both(t_nbr **head, t_nbr **head_b, int counter);
 int		ft_phase1(t_nbr **head, t_nbr **head_b, int counter);
 int		ft_phase2(t_nbr **head, t_nbr **head_b, int counter);
+int		ft_best_down(t_nbr **head, int counter);
+int		ft_best_up(t_nbr **head, int counter);
+int		ft_best_sizeb(t_nbr **head, int counter);
+int		ft_best_sizeup(t_nbr **head, int counter);
 t_nbr	*ft_createlist(int nbr_nodes);
 t_nbr	*ft_lastnode(t_nbr *tmp);
 void	ft_update_index(t_nbr *head);
