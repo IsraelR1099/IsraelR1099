@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/07/18 14:06:34 by irifarac         ###   ########.fr        #
+#    Updated: 2022/07/20 12:11:35 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC = src/ft_errors.c \
 	  src/ft_do_stack.c \
 	  src/ft_conditions.c \
 	  src/ft_conditions2.c \
-	  src/ft_phase1.c \
+	  src/ft_phase.c \
 	  src/ft_find_best.c
 
 OBJ = $(SRC:.c=.o)

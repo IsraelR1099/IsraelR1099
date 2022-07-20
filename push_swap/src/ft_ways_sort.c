@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/18 17:30:00 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:26:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 //(void)i;
 	(void)tmp;
 	(void)tmp_b;
-	while (!ft_is_sort(head, counter) && i++ < 55 /* && ft_slst(head) < (counter - 1)*/)
+	while (!ft_is_sort(head, counter) && i++ < 2 /* && ft_slst(head) < (counter - 1)*/)
 	{
-		//printf("hola arriba\n");
+		printf("hola arriba\n");
 		size = ft_slst(head_b);
 		if (ft_pcheck(head) && ft_check_sort(head, counter))
 		{	
 			//printf("hola\n");
-			while (!ft_is_sort(head, counter) && size >= 1) //&& i++ < 50)
+			while (!ft_is_sort(head, counter) && size >= 1 && i++ < 5)
 			{
 				if (ft_condition_pa(head, head_b))
 					ft_pa(head, head_b);
@@ -138,9 +138,20 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 			continue ;
 		}
 		ft_phase1(head, head_b, counter);
-		exit (1);
+		tmp = *head;
+		while (tmp)
+		{
+			printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
+			tmp = tmp->next;
+		}
 	//	printf("cambio de fase\n");
 		ft_phase2(head, head_b, counter);
+	/*	tmp = *head;
+		while (tmp)
+		{
+			printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
+			tmp = tmp->next;
+		}*/
 	/*	else
 		{
 //			printf("hola en else fuera\n");
@@ -160,20 +171,13 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 //			printf("despues de stackb\n");
 		}
 //		printf("fuera de condition pb\n");*/
-		tmp = *head;
-		while (tmp)
-		{
-			printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
-			tmp = tmp->next;
-		}
-		tmp_b = *head_b;
+		/*tmp_b = *head_b;
 		while (tmp_b)
 		{
 			printf("data b es %d index b %d\n", tmp_b->data, tmp_b->index);
 			tmp_b = tmp_b->next;
-		}
-		//exit (1);
-	//printf("%d\n", i);
+		}*/
+		exit (1);
 	}
 /*	tmp = *head;
 	while (tmp)

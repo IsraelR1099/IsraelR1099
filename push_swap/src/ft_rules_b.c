@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 09:57:42 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/18 13:30:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:01:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_rrb(t_nbr **head_b)
 
 void	ft_sb(t_nbr **head_b)
 {
-
 	t_nbr	*new_head;
 
 	new_head = (*head_b)->next;

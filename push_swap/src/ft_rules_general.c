@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 09:50:40 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/18 13:21:36 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/20 10:54:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_rrr(t_nbr **head, t_nbr **head_b)
 	lastb->next = *head_b;
 	*head_b = lastb;
 	ft_update_index(*head_b);
+	write(1, "rrr\n", 4);
 
 }
 	

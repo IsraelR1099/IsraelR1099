@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:42:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/19 20:44:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:17:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
 		{
 			nbr = ft_groups(counter);
 		//	printf("entro en best\n");
-			while (nbr)
+			while (nbr && ft_pcheck(head) != 2)
 			{
 				ft_rra(head);
 				if (ft_condition_pb(head))
@@ -70,14 +70,33 @@ int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
 
 int	ft_phase2(t_nbr **head, t_nbr **head_b, int counter)
 {
-	while (!ft_check_sort(head, counter))
+	t_nbr	*tmp;
+	int		i = 0;
+
+	printf("entro en phase2\n");
+	while (!ft_check_sort(head, counter) && i++ < 5)
 	{
+		printf("hola dentro\n");
+		tmp = *head;
+		while (tmp)
+		{
+			printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
+			tmp = tmp->next;
+		}
 		if (!ft_do_both(head, head_b, counter))
 		{	
-			//printf("hola en else\n");
+			printf("hola en else\n");
 			ft_do_stacka(head);
 		}
 	}
+/*	printf("fuera\n");
+	tmp = *head;
+	while (tmp)
+	{
+		printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
+		tmp = tmp->next;
+	}
+	printf("salgo de phase2\n");*/
 	return (1);
 }
 

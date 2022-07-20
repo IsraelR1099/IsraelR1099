@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:49:19 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/18 17:57:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:30:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_do_both(t_nbr **head, t_nbr **head_b, int counter)
 {
-//	printf("hola en do both\n");
+	printf("hola en do both\n");
 	if (ft_condition_sa(head) && ft_condition_sb(head_b))
 	{
 //		printf("dentro de sa do both\n");
@@ -31,7 +31,7 @@ int	ft_do_both(t_nbr **head, t_nbr **head_b, int counter)
 	}
 	else if (ft_condition_ra(head) && ft_condition_rb(head_b, head, counter))
 	{
-//		printf("entro en do both rr\n");
+		printf("entro en do both rr\n");
 		ft_rr(head, head_b);
 		return (1);
 	}
@@ -41,14 +41,14 @@ int	ft_do_both(t_nbr **head, t_nbr **head_b, int counter)
 
 void	ft_do_stacka(t_nbr **head)
 {
-//	printf("entro en do stack\n");
+	printf("entro en do stack\n");
 	if (ft_condition_sa(head))
 		ft_sa(head);
 	else if (ft_condition_rra(head))
 		ft_rra(head);
 	else if (ft_condition_ra(head))
 	{
-//		printf("hola en ra en stack\n");
+		printf("hola en ra en stack\n");
 		ft_ra(head);
 	}
 }
