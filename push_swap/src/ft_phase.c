@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_phase1.c                                        :+:      :+:    :+:   */
+/*   ft_phase.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:42:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/20 11:17:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/21 21:11:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,12 @@ int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
 int	ft_phase2(t_nbr **head, t_nbr **head_b, int counter)
 {
 	t_nbr	*tmp;
+	t_nbr	*tmp_b;
+	t_nbr	*last;
 	int		i = 0;
 
 	printf("entro en phase2\n");
-	while (!ft_check_sort(head, counter) && i++ < 5)
+	while (!ft_check_sort(head, counter) && ft_slst(head) > 5 && i++ < 10)
 	{
 		printf("hola dentro\n");
 		tmp = *head;
@@ -83,10 +85,25 @@ int	ft_phase2(t_nbr **head, t_nbr **head_b, int counter)
 			printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
 			tmp = tmp->next;
 		}
-		if (!ft_do_both(head, head_b, counter))
-		{	
-			printf("hola en else\n");
-			ft_do_stacka(head);
+		ft_inversions(head, head_b, counter);
+	}
+	ft_sort_5(head, head_b, counter);
+	last = ft_lastnode(head);
+	while (!ft_check_sort(head, counter))
+	{
+		if (ft_iter(head))
+		{
+			if ((tmp_b->priority - 1) == tmp->priority)
+			{
+				ft_pa(head, head_b);
+			}
+			else
+			{
+				if (last->priority - 1 == tmp->priority)
+					ft_rra(head);
+				ft_pa(head, head_b);
+				ft_ra(head);
+			}
 		}
 	}
 /*	printf("fuera\n");
