@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:26:30 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/20 10:40:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/22 11:40:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ int	ft_check_sort(t_nbr **head, int counter)
 		return (1);
 	else if (len == (lenhead))
 		return (1);
-	printf("len es %d y lenhead es %d\n", len, lenhead);
+	//printf("len es %d y lenhead es %d\n", len, lenhead);
 	return (0);
 }

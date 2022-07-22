@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/20 13:26:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:55:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 	(void)tmp_b;
 	while (!ft_is_sort(head, counter) && i++ < 2 /* && ft_slst(head) < (counter - 1)*/)
 	{
-		printf("hola arriba\n");
+	//	printf("hola arriba\n");
 		size = ft_slst(head_b);
 		if (ft_pcheck(head) && ft_check_sort(head, counter))
 		{	
@@ -138,12 +138,12 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 			continue ;
 		}
 		ft_phase1(head, head_b, counter);
-		tmp = *head;
+	/*	tmp = *head;
 		while (tmp)
 		{
 			printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
 			tmp = tmp->next;
-		}
+		}*/
 	//	printf("cambio de fase\n");
 		ft_phase2(head, head_b, counter);
 	/*	tmp = *head;

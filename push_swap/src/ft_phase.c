@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:42:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/21 21:11:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:55:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
 		}
 //		printf("fuera de condition pb\n");
 	}
-	printf("fuera de fase1\n");
+	//printf("fuera de fase1\n");
 	return (1);
 }
 
@@ -74,44 +74,66 @@ int	ft_phase2(t_nbr **head, t_nbr **head_b, int counter)
 	t_nbr	*tmp_b;
 	t_nbr	*last;
 	int		i = 0;
+	int		j;
 
-	printf("entro en phase2\n");
-	while (!ft_check_sort(head, counter) && ft_slst(head) > 5 && i++ < 10)
+	//printf("entro en phase2\n");
+	while (!ft_check_sort(head, counter) && ft_slst(head) > 5) //&& i++ < 10)
 	{
-		printf("hola dentro\n");
-		tmp = *head;
-		while (tmp)
-		{
-			printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
-			tmp = tmp->next;
-		}
+		//	printf("hola dentro\n");
 		ft_inversions(head, head_b, counter);
 	}
 	ft_sort_5(head, head_b, counter);
-	last = ft_lastnode(head);
-	while (!ft_check_sort(head, counter))
-	{
-		if (ft_iter(head))
-		{
-			if ((tmp_b->priority - 1) == tmp->priority)
-			{
-				ft_pa(head, head_b);
-			}
-			else
-			{
-				if (last->priority - 1 == tmp->priority)
-					ft_rra(head);
-				ft_pa(head, head_b);
-				ft_ra(head);
-			}
-		}
-	}
-/*	printf("fuera\n");
-	tmp = *head;
+/*	tmp = *head;
+	//printf("despues de sort\n");
 	while (tmp)
 	{
 		printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
 		tmp = tmp->next;
+	}
+	tmp_b = *head_b;
+	i = 0;
+	while (tmp_b && i++ < 9)
+	{
+		printf("data b  es %d y priority %d index %d\n", tmp_b->data, tmp_b->priority, tmp_b->index);
+		tmp_b = tmp_b->next;
+	}*/
+	last = ft_lastnode(*head);
+	tmp_b = *head_b;
+	while (ft_slst(head) != ft_groups(counter))
+	{
+		tmp = *head;
+		i = ft_times(head, head_b);
+		/*if (i == ft_slst(head))
+		{
+			ft_sb(head_b);
+			i = ft_times(head, head_b);
+		}*/
+		j = i;
+		while (i)
+		{
+			ft_ra(head);
+			i--;
+		}
+		ft_pa(head, head_b);
+		if ((*head)->priority < (*head)->next->priority)
+			ft_sa(head);
+		while (j)
+		{
+			ft_rra(head);
+			j--;
+		}
+	}
+/*	tmp = *head;
+	while (tmp)
+	{
+		printf("data  es %d y priority %d index %d\n", tmp->data, tmp->priority, tmp->index);
+		tmp = tmp->next;
+	}
+	tmp_b = *head_b;
+	while (tmp_b)
+	{
+		printf("data b  es %d y priority %d index %d\n", tmp_b->data, tmp_b->priority, tmp_b->index);
+		tmp_b = tmp_b->next;
 	}
 	printf("salgo de phase2\n");*/
 	return (1);
