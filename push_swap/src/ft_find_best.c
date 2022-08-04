@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 13:54:19 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/20 13:26:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/24 13:36:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_best_way(t_nbr **head, int counter)
 	int	pnbr2;
 	int	group;
 
-	nbr = 0;
 	group = ft_groups(counter);
 	if (ft_slst(head) <= (2 * group))
 	{
@@ -31,7 +30,6 @@ int	ft_best_way(t_nbr **head, int counter)
 	}
 	nbr = ft_best_up(head, counter);
 	nbr_last = ft_best_down(head, counter);
-///	printf("nbr last es %d y nbr %d\n", nbr_last, nbr);
 	if (nbr_last < nbr)
 		return (2);
 	return (1);
@@ -40,9 +38,9 @@ int	ft_best_way(t_nbr **head, int counter)
 int	ft_best_up(t_nbr **head, int counter)
 {
 	t_nbr	*tmp;
-	int	len;
-	int	group;
-	int	nbr;
+	int     len;
+	int     group;
+	int     nbr;
 
 	tmp = *head;
 	group = ft_groups(counter);
@@ -60,10 +58,10 @@ int	ft_best_up(t_nbr **head, int counter)
 
 int	ft_best_down(t_nbr **head, int counter)
 {
-	int	nbr_last;
-	int	len;
-	int	group;
-	int	size;
+	int     nbr_last;
+	int     len;
+	int     group;
+	int     size;
 	t_nbr	*tmp;
 
 	size = ft_slst(head);
@@ -75,7 +73,6 @@ int	ft_best_down(t_nbr **head, int counter)
 	{
 		if (len == (size - group))
 		{
-//			printf("entro\n");
 			while (tmp)
 			{
 				if (tmp->priority == 0)
@@ -143,5 +140,3 @@ int	ft_best_sizeup(t_nbr **head, int counter)
 	}
 	return (pnbr);
 }
-	
-

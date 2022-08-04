@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 09:57:42 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/20 11:01:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/07/24 18:34:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_rrb(t_nbr **head_b)
 {
-	
 	t_nbr	*last;
 	t_nbr	*sec_last;
 
