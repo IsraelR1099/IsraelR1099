@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/07/22 09:33:37 by irifarac         ###   ########.fr        #
+#    Updated: 2022/08/05 13:24:10 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ CFLAGS = -Wall -Wextra -Werror -MMD
 SRC = src/ft_errors.c \
 	  src/main.c \
 	  src/ft_utils.c \
+	  src/ft_number.c \
 	  src/ft_actions.c \
 	  src/ft_ways_sort.c \
 	  src/ft_sort.c \
@@ -41,7 +42,7 @@ OBJ = $(SRC:.c=.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))
 LIBFT = libft
 
-all: makelibs $(NAME) 
+all: makelibs $(NAME)
 
 makelibs:
 	@$(MAKE) -C $(LIBFT)

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 13:54:19 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/24 13:36:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:14:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ft_best_sizeb(t_nbr **head, int counter)
 	pnbr2 = 0;
 	tmp = *head;
 	len = 0;
-	size = ft_slst(head);	
+	size = ft_slst(head);
 	group = ft_groups(counter);
 	while (tmp)
 	{
@@ -126,7 +126,7 @@ int	ft_best_sizeup(t_nbr **head, int counter)
 	int	pnbr;
 	int	len;
 	int	group;
-	
+
 	pnbr = 0;
 	len = 0;
 	tmp = *head;

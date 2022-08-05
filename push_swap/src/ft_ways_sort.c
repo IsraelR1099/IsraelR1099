@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/04 17:21:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:32:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,18 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 	tmp = *head;
 	tmp_b = *head_b;
 	ft_priority(head, counter);
+    ft_pass_positive(head, counter);
+    tmp = *head;
+    while (tmp)
+    {
+        printf("data es %d priority %d y positive %d\n", tmp->data, tmp->priority, tmp->positive);
+        tmp = tmp->next;
+     }
+    exit(1);
 	i = 0;
     (void)i;
-//	(void)tmp;
-//	(void)tmp_b;
+	(void)tmp;
+	(void)tmp_b;
 	while (!ft_is_sort(head, counter) /*&& i++ < 2  && ft_slst(head) < (counter - 1)*/)
 	{
 	/*	size = ft_slst(head_b);
@@ -126,7 +134,10 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 		}*/
 		ft_phase1(head, head_b, counter);
 		ft_phase2(head, head_b, counter);
-        tmp = *head;
+        exit (1);
+        exit (1);
+        ft_phase3(head, head_b, counter);
+       /* tmp = *head;
         while (tmp)
         {
             printf("data es %d priority %d\n", tmp->data, tmp->priority);
@@ -138,8 +149,7 @@ void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
             printf("data b es %d priority %d indice %d\n", tmp_b->data,
             tmp_b->priority, tmp_b->index);
             tmp_b = tmp_b->next;
-        }
-        exit (1);
-        ft_phase3(head, head_b, counter);
+        }*/
+        //exit (1);
 	}
 }

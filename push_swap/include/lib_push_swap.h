@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/25 14:06:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:44:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	t_list
 	int				data;
 	int				index;
 	int				priority;
+    int             positive;
 	struct t_list	*next;
 }	t_nbr;
 
@@ -69,6 +70,7 @@ int		ft_best_sizeup(t_nbr **head, int counter);
 int		ft_times(t_nbr **head, t_nbr **head_b);
 int		ft_times_space(t_nbr **head, t_nbr **head_b);
 int     ft_times_noprio(t_nbr **head, t_nbr **head_b);
+int     ft_move_b(t_nbr **head, t_nbr **head_b);
 t_nbr	*ft_createlist(int nbr_nodes);
 t_nbr	*ft_lastnode(t_nbr *tmp);
 void	ft_update_index(t_nbr *head);
@@ -99,6 +101,7 @@ void	ft_update_priority(t_nbr **head, int *max_group);
 void	ft_do_stacka(t_nbr  **head);
 void	ft_do_stackb(t_nbr **head_b, t_nbr **head, int counter);
 void	ft_inversions(t_nbr **head, t_nbr **head_b, int counter);
-int     ft_move_b(t_nbr **head, t_nbr **head_b);
+void    ft_set_pos(t_nbr **head);
+void    ft_pass_positive(t_nbr **head, int counter);
 
 #endif

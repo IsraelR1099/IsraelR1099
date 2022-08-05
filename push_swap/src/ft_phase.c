@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:42:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/04 20:56:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/05 14:11:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
 {
 	int		nbr;
 
-	while (ft_pcheck(head) != 2 )
+	while (ft_pcheck(head) != 2)
 	{
 		if (ft_best_way(head, counter) == 2)
 		{
@@ -159,19 +159,20 @@ int	ft_phase2(t_nbr **head, t_nbr **head_b, int counter)
 int	ft_phase3(t_nbr **head, t_nbr **head_b, int counter)
 {
     t_nbr   *last;
-    t_nbr   *tmpa;
-    t_nbr   *tmp_b;
-    int     count = 0;
+    t_nbr   *last_b;
+  //  t_nbr   *tmpa;
+   // t_nbr   *tmp_b;
+//    int     count = 0;
     int     times;
 
 
-    while (ft_slst(head) < (counter - 1) && *head_b && count++ < 20)
+    while (ft_slst(head) < (counter - 1) && *head_b) //&& count++ < 55)
     {
-        tmpa = *head;
+       /* tmpa = *head;
         tmp_b = *head_b;
         while (tmpa)
         {
-            printf("data es %d\n", tmpa->data);
+            printf("data es %d y priority %d\n", tmpa->data, tmpa->priority);
             tmpa = tmpa->next;
         }
         int i = 0;
@@ -179,11 +180,24 @@ int	ft_phase3(t_nbr **head, t_nbr **head_b, int counter)
         {
             printf("data b es %d\n", tmp_b->data);
             tmp_b = tmp_b->next;
-        }
+        }*/
         last = ft_lastnode(*head);
+        last_b = ft_lastnode(*head_b);
         if ((*head_b)->data < (*head)->data)
         {
-            ft_pa(head, head_b);
+            if (*head_b && last->data > (*head_b)->data &&
+                    last->priority == 0 && last->data < (*head)->data)
+                ft_rra(head);
+            else if (*head_b && last->data < (*head)->data &&
+                    last->data > (*head_b)->data)
+                ft_rra(head);
+            else
+            {
+                if (last_b->data > (*head_b)->data)
+                    ft_rrb(head_b);
+                else
+                    ft_pa(head, head_b);
+            }
         }
         else
         {
@@ -193,7 +207,6 @@ int	ft_phase3(t_nbr **head, t_nbr **head_b, int counter)
                 ft_ra(head);
                 ft_pa(head, head_b);
                 last = ft_lastnode(*head);
-                printf("last es %d\n", last->data);
                 if (last->data > (*head_b)->data)
                     ft_rra(head);
             }
