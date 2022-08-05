@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 13:14:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/05 14:11:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/05 20:45:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    ft_pass_positive(t_nbr **head, int counter)
 
     tmp = *head;
     minus = 1;
-    result = MAX_INT;
+    result = MIN_INT;
     ft_set_pos(head);
     while (tmp)
     {
@@ -30,11 +30,9 @@ void    ft_pass_positive(t_nbr **head, int counter)
         nbr = MAX_INT;
         while (tmp_op)
         {
-            if (nbr == MAX_INT)
-                nbr = tmp_op->data;
             if (nbr > tmp_op->data)
             {
-                if (result != tmp_op->data)
+                if (result < tmp_op->data)
                 {
                     nbr = tmp_op->data;
                     tmp_op->positive = counter - minus;
@@ -43,7 +41,6 @@ void    ft_pass_positive(t_nbr **head, int counter)
             tmp_op = tmp_op->next;
         }
         result = nbr;
-        printf("nbr es %d y result %d\n", nbr, result);
         minus++;
         tmp = tmp->next;
     }
