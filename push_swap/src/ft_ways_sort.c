@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/05 13:32:26 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/06 13:51:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,59 +97,13 @@ void	ft_sort_5(t_nbr **head, t_nbr **head_b, int counter)
 
 void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 {
-	t_nbr	*tmp;
-	t_nbr	*tmp_b;
-	int		i;
-//	int		size;
-
-	tmp = *head;
-	tmp_b = *head_b;
 	ft_priority(head, counter);
     ft_pass_positive(head, counter);
-    tmp = *head;
-    while (tmp)
-    {
-        printf("data es %d priority %d y positive %d\n", tmp->data, tmp->priority, tmp->positive);
-        tmp = tmp->next;
-     }
-    exit(1);
-	i = 0;
-    (void)i;
-	(void)tmp;
-	(void)tmp_b;
-	while (!ft_is_sort(head, counter) /*&& i++ < 2  && ft_slst(head) < (counter - 1)*/)
+    ft_update_index(*head);
+	while (!ft_is_sort(head, counter))
 	{
-	/*	size = ft_slst(head_b);
-		if (ft_pcheck(head) && ft_check_sort(head, counter))
-		{
-			while (!ft_is_sort(head, counter) && size >= 1 && i++ < 5)
-			{
-				if (ft_condition_pa(head, head_b))
-					ft_pa(head, head_b);
-				if (!ft_do_both(head, head_b, counter))
-					ft_do_stackb(head_b, head, counter);
-					//printf("hola fuera\n");
-			}
-			continue ;
-		}*/
 		ft_phase1(head, head_b, counter);
 		ft_phase2(head, head_b, counter);
-        exit (1);
-        exit (1);
         ft_phase3(head, head_b, counter);
-       /* tmp = *head;
-        while (tmp)
-        {
-            printf("data es %d priority %d\n", tmp->data, tmp->priority);
-            tmp = tmp->next;
-        }
-        tmp_b = *head_b;
-        while (tmp_b)
-        {
-            printf("data b es %d priority %d indice %d\n", tmp_b->data,
-            tmp_b->priority, tmp_b->index);
-            tmp_b = tmp_b->next;
-        }*/
-        //exit (1);
-	}
+    }
 }

@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/08/05 13:24:10 by irifarac         ###   ########.fr        #
+#    Updated: 2022/08/06 12:48:53 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC = src/ft_errors.c \
 	  src/ft_conditions2.c \
 	  src/ft_phase.c \
 	  src/ft_find_best.c \
-	  src/ft_inversions.c
+	  src/ft_inversions.c \
+	  src/ft_aux.c
 
 OBJ = $(SRC:.c=.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))

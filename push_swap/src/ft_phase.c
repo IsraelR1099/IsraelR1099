@@ -6,13 +6,13 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:42:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/05 14:11:59 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/06 13:51:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_push_swap.h"
 
-int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
+/*int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
 {
 	int		nbr;
 
@@ -39,6 +39,57 @@ int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
 		}
 	}
 	return (1);
+}*/
+int ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
+{
+    int     group;
+    int     limits;
+    t_nbr   *tmp;
+
+    group = ft_groups(counter) * 2;
+    while (ft_pcheck(head) != 2 )
+    {
+        limits = 1;
+        tmp = *head;
+        if (ft_best_way(head, group, counter ) == 1)
+        {
+            while (limits <= ft_groups(counter) ||
+                    limits <= ft_groups(counter) * 2)
+            {
+                tmp = *head;
+                if (tmp->positive >= (counter - 1 - group))
+                {
+                    if (tmp->priority == 0)
+                        ft_pb(head, head_b);
+                }
+                if (!ft_check_pos(head, counter, group))
+                    ft_ra(head);
+                tmp = tmp->next;
+                limits++;
+             }
+        }
+        else
+        {
+            while (limits <= ft_groups(counter) ||
+                    limits <= ft_groups(counter) * 2)
+            {
+                tmp = *head;
+                if (tmp->positive >= (counter - 1 - group))
+                    if (ft_condition_pb(head))
+                        ft_pb(head, head_b);
+                ft_rra(head);
+                tmp = tmp->next;
+                limits++;
+            }
+        }
+        if (ft_check_pos(head, counter, group))
+        {
+            group = group + (ft_groups(counter) * 2);
+            if (group >= 100)
+                group = 90;
+        }
+    }
+    return (1);
 }
 
 int	ft_phase2(t_nbr **head, t_nbr **head_b, int counter)

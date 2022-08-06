@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 13:14:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/05 20:45:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/06 13:54:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,20 @@ void    ft_set_pos(t_nbr **head)
         tmp->positive = 0;
         tmp = tmp->next;
     }
+}
+
+int ft_check_pos(t_nbr **head, int counter, int group)
+{
+    t_nbr   *tmp;
+    int     condition;
+
+    tmp = *head;
+    condition = counter - 1 - group;
+    while (tmp)
+    {
+        if (tmp->positive >= condition)
+            return (0);
+        tmp = tmp->next;
+    }
+    return (1);
 }

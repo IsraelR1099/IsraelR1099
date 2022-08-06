@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/05 13:44:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/06 12:48:25 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct	t_list
 	struct t_list	*next;
 }	t_nbr;
 
+//borrar
+void    ft_aux(t_nbr **head, t_nbr **head_b);
 int		ft_checker(char **str, int counter);
 int		ft_check_sort(t_nbr **head, int counter);
 int		ft_not_nbr(char c);
@@ -58,7 +60,7 @@ int		ft_diff_upb(t_nbr **head_b);
 int		ft_diff_downb(t_nbr **head_b);
 int		ft_is_sort(t_nbr **head, int counter);
 int		ft_go_check(t_nbr **head);
-int		ft_best_way(t_nbr **head, int counter);
+int		ft_best_way(t_nbr **head, int group, int counter);
 int		ft_do_both(t_nbr **head, t_nbr **head_b, int counter);
 int		ft_phase1(t_nbr **head, t_nbr **head_b, int counter);
 int		ft_phase2(t_nbr **head, t_nbr **head_b, int counter);
@@ -71,6 +73,7 @@ int		ft_times(t_nbr **head, t_nbr **head_b);
 int		ft_times_space(t_nbr **head, t_nbr **head_b);
 int     ft_times_noprio(t_nbr **head, t_nbr **head_b);
 int     ft_move_b(t_nbr **head, t_nbr **head_b);
+int     ft_check_pos(t_nbr **head, int counter, int group);
 t_nbr	*ft_createlist(int nbr_nodes);
 t_nbr	*ft_lastnode(t_nbr *tmp);
 void	ft_update_index(t_nbr *head);
