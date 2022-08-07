@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/06 12:48:25 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/07 20:02:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		ft_times_space(t_nbr **head, t_nbr **head_b);
 int     ft_times_noprio(t_nbr **head, t_nbr **head_b);
 int     ft_move_b(t_nbr **head, t_nbr **head_b);
 int     ft_check_pos(t_nbr **head, int counter, int group);
+int     ft_no_valid(char **str, int counter);
 t_nbr	*ft_createlist(int nbr_nodes);
 t_nbr	*ft_lastnode(t_nbr *tmp);
 void	ft_update_index(t_nbr *head);
@@ -106,5 +107,7 @@ void	ft_do_stackb(t_nbr **head_b, t_nbr **head, int counter);
 void	ft_inversions(t_nbr **head, t_nbr **head_b, int counter);
 void    ft_set_pos(t_nbr **head);
 void    ft_pass_positive(t_nbr **head, int counter);
+void    ft_send(t_nbr **head, t_nbr **head_b, int counter, int group);
+void    ft_error(void);
 
 #endif

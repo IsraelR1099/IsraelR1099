@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:42:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/06 13:51:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/07 12:51:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,7 @@ int ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
         limits = 1;
         tmp = *head;
         if (ft_best_way(head, group, counter ) == 1)
-        {
-            while (limits <= ft_groups(counter) ||
-                    limits <= ft_groups(counter) * 2)
-            {
-                tmp = *head;
-                if (tmp->positive >= (counter - 1 - group))
-                {
-                    if (tmp->priority == 0)
-                        ft_pb(head, head_b);
-                }
-                if (!ft_check_pos(head, counter, group))
-                    ft_ra(head);
-                tmp = tmp->next;
-                limits++;
-             }
-        }
+            ft_send(head, head_b, counter, group);
         else
         {
             while (limits <= ft_groups(counter) ||
@@ -219,19 +204,6 @@ int	ft_phase3(t_nbr **head, t_nbr **head_b, int counter)
 
     while (ft_slst(head) < (counter - 1) && *head_b) //&& count++ < 55)
     {
-       /* tmpa = *head;
-        tmp_b = *head_b;
-        while (tmpa)
-        {
-            printf("data es %d y priority %d\n", tmpa->data, tmpa->priority);
-            tmpa = tmpa->next;
-        }
-        int i = 0;
-        while (tmp_b && i++ < 10)
-        {
-            printf("data b es %d\n", tmp_b->data);
-            tmp_b = tmp_b->next;
-        }*/
         last = ft_lastnode(*head);
         last_b = ft_lastnode(*head_b);
         if ((*head_b)->data < (*head)->data)

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 13:14:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/06 13:54:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:26:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,29 @@ void    ft_set_pos(t_nbr **head)
     {
         tmp->positive = 0;
         tmp = tmp->next;
+    }
+}
+
+void    ft_send(t_nbr **head, t_nbr ** head_b, int counter, int group)
+{
+    t_nbr   *tmp;
+    int     limits;
+
+    tmp = *head;
+    limits = 1;
+    while (limits <= ft_groups(counter) ||
+            limits <= ft_groups(counter) * 2)
+    {
+        tmp = *head;
+        if (tmp->positive >= (counter -1 - group))
+        {
+            if (tmp->priority == 0)
+                ft_pb(head, head_b);
+        }
+        if (!ft_check_pos(head, counter, group))
+            ft_ra(head);
+        tmp = tmp->next;
+        limits++;
     }
 }
 
