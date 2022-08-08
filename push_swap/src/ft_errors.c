@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:26:30 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/07 19:59:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/08 13:36:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_checker(char **str, int counter)
 	while (*(*(str + index) + position))
 	{
 		if (!(ft_not_nbr(*(*(str + index) + position)))
-			|| ft_dup(str, counter) || ft_strlen(&str[index][0]) == 0)
+			|| ft_dup(str, counter))
 		{
 			write(2, "Error\n", 6);
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 13:55:49 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/07 20:33:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/08 13:36:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int ft_no_valid(char **str, int counter)
         position++;
         if (!*(*(str + index) + position))
         {
+            if (!ft_atoi(*(str + index)) &&
+                    *(*(str + index)) != '0')
+                ft_error();
             index++;
             position = 0;
             if (index == counter)

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:42:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/07 12:51:26 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/08 10:59:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
         if (ft_check_pos(head, counter, group))
         {
             group = group + (ft_groups(counter) * 2);
-            if (group >= 100)
-                group = 90;
+            if (group >= (counter - 1))
+                group = (counter - 1 - ft_groups(counter));
         }
     }
     return (1);

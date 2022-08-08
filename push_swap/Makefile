@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/08/06 12:48:53 by irifarac         ###   ########.fr        #
+#    Updated: 2022/08/08 09:37:04 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC = src/ft_errors.c \
 	  src/ft_utils_more.c \
 	  src/ft_utils_more2.c \
 	  src/ft_utils_more3.c \
+	  src/ft_utils_4.c \
 	  src/ft_do_stack.c \
 	  src/ft_conditions.c \
 	  src/ft_conditions2.c \
