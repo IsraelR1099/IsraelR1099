@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:32:05 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/20 10:53:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/09 12:43:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,10 @@ void	ft_pa(t_nbr **head, t_nbr **head_b)
 
 	if ((*head_b)->next == NULL)
 	{
-		//printf("hola en pa tmp es %d\n", (*head_b)->data);
 		tmp = *head_b;
 		*head_b = NULL;
 		tmp->next = *head;
 		*head = tmp;
-		/*(*head_b)->next = *head;
-		*head = *head_b;
-		*head_b = NULL;*/
 	}
 	else
 	{

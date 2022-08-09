@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:07:01 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/08 10:57:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:15:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ void	ft_sort_5(t_nbr **head, t_nbr **head_b, int counter)
 void	ft_algorithm(t_nbr **head, t_nbr **head_b, int counter)
 {
 	ft_priority(head, counter);
-    ft_pass_positive(head, counter);
-    ft_update_index(*head);
+	ft_pass_positive(head, counter);
+	ft_update_index(*head);
 	while (!ft_is_sort(head, counter))
 	{
 		ft_phase1(head, head_b, counter);
 		ft_phase2(head, head_b, counter);
-        ft_phase3(head, head_b, counter);
-    }
+		ft_phase3(head, head_b, counter);
+	}
 }

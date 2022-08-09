@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/07 20:02:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/09 20:31:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ typedef struct	t_list
 void    ft_aux(t_nbr **head, t_nbr **head_b);
 int		ft_checker(char **str, int counter);
 int		ft_check_sort(t_nbr **head, int counter);
-int		ft_not_nbr(char c);
-int		ft_dup(char **str, int counter);
-int		ft_intdup(long *nbrs, int counter);
 int		ft_max_nbr(t_nbr *head);
 int		ft_min_nbr(t_nbr *head);
 int		ft_size(t_nbr *head);
@@ -65,12 +62,7 @@ int		ft_do_both(t_nbr **head, t_nbr **head_b, int counter);
 int		ft_phase1(t_nbr **head, t_nbr **head_b, int counter);
 int		ft_phase2(t_nbr **head, t_nbr **head_b, int counter);
 int		ft_phase3(t_nbr **head, t_nbr **head_b, int counter);
-int		ft_best_down(t_nbr **head, int counter);
-int		ft_best_up(t_nbr **head, int counter);
-int		ft_best_sizeb(t_nbr **head, int counter);
-int		ft_best_sizeup(t_nbr **head, int counter);
 int		ft_times(t_nbr **head, t_nbr **head_b);
-int		ft_times_space(t_nbr **head, t_nbr **head_b);
 int     ft_times_noprio(t_nbr **head, t_nbr **head_b);
 int     ft_move_b(t_nbr **head, t_nbr **head_b);
 int     ft_check_pos(t_nbr **head, int counter, int group);
@@ -105,7 +97,6 @@ void	ft_update_priority(t_nbr **head, int *max_group);
 void	ft_do_stacka(t_nbr  **head);
 void	ft_do_stackb(t_nbr **head_b, t_nbr **head, int counter);
 void	ft_inversions(t_nbr **head, t_nbr **head_b, int counter);
-void    ft_set_pos(t_nbr **head);
 void    ft_pass_positive(t_nbr **head, int counter);
 void    ft_send(t_nbr **head, t_nbr **head_b, int counter, int group);
 void    ft_error(void);

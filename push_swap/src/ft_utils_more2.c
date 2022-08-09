@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 11:46:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/20 11:26:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:25:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,14 @@ void	ft_update_priority(t_nbr **head, int *max_group)
 		}
 		tmp = tmp->next;
 	}
-/*	tmp = *head;
-	while (tmp)
-	{
-		printf("data es %d y priority es %d\n", tmp->data, tmp->priority);
-		tmp = tmp->next;
-	}*/
 }
 
 int	ft_pcheck(t_nbr **head)
 {
 	t_nbr	*tmp;
 	t_nbr	*last;
-	int	size;
-	int	count;
+	int		size;
+	int		count;
 
 	tmp = *head;
 	size = ft_slst(head);
@@ -80,7 +74,6 @@ int	ft_pcheck(t_nbr **head)
 	}
 	tmp = *head;
 	last = ft_lastnode(tmp);
-//	printf("count es %d y size %d\n", count, size);
 	if (tmp->priority != 0 && last->priority != 0
 		&& count != size)
 		return (1);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 13:12:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/08 13:36:48 by irifarac         ###   ########.fr       */
+/*   Created: 2022/08/09 12:40:21 by irifarac          #+#    #+#             */
+/*   Updated: 2022/08/09 12:40:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int counter, char **str)
 	int		index;
 	int		i;
 
-    printf("counter es %d\n", counter);
 	if (counter >= 2)
 	{
 		if (ft_checker(str, counter))

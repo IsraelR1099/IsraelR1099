@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:53:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/05 13:13:38 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:25:57 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	ft_diff_down(t_nbr **head)
 {
 	t_nbr	*tmp;
-	int	count;
-	int	result;
+	int		count;
+	int		result;
 
 	tmp = *head;
 	count = 0;
@@ -27,14 +27,12 @@ int	ft_diff_down(t_nbr **head)
 			count = tmp->data;
 		tmp = tmp->next;
 	}
-//	printf("count es %d\n", count);
 	tmp = *head;
 	while (tmp && tmp->data != count)
 	{
 		result++;
 		tmp = tmp->next;
 	}
-//	printf("result es %d\n", result);
 	return (ft_slst(head) - result);
 }
 
@@ -56,7 +54,6 @@ int	ft_is_sort(t_nbr **head, int counter)
 		}
 		tmp = tmp->next;
 	}
-//	printf("len es %d y counter es %d\n", len, counter - 1);
 	if (len == (counter - 1))
 		return (1);
 	return (0);

@@ -6,42 +6,14 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:26:30 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/08 13:36:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:43:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_push_swap.h"
 #include "../Libft/libft.h"
 
-int	ft_checker(char **str, int counter)
-{
-	int	position;
-	int	index;
-
-	position = 0;
-	index = 1;
-    ft_no_valid(str, counter);
-	while (*(*(str + index) + position))
-	{
-		if (!(ft_not_nbr(*(*(str + index) + position)))
-			|| ft_dup(str, counter))
-		{
-			write(2, "Error\n", 6);
-			return (0);
-		}
-		position++;
-		if (!(*(*(str + index) + position)))
-		{
-			index++;
-			position = 0;
-			if (index == counter)
-				break ;
-		}
-	}
-	return (1);
-}
-
-int	ft_not_nbr(char c)
+static int	ft_not_nbr(char c)
 {
 	if (c == '-')
 		return (1);
@@ -50,7 +22,29 @@ int	ft_not_nbr(char c)
 	return (0);
 }
 
-int	ft_dup(char **str, int counter)
+static int	ft_intdup(long *nbrs, int counter)
+{
+	int	i;
+	int	count;
+	int	j;
+
+	i = 0;
+	count = counter - 1;
+	while (i < (count - 1))
+	{
+		j = i + 1;
+		while (j < count)
+		{
+			if (nbrs[i] == nbrs[j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+static int	ft_dup(char **str, int counter)
 {
 	int		index;
 	long	*nbrs;
@@ -78,26 +72,32 @@ int	ft_dup(char **str, int counter)
 	return (0);
 }
 
-int	ft_intdup(long *nbrs, int counter)
+int	ft_checker(char **str, int counter)
 {
-	int	i;
-	int	count;
-	int	j;
+	int	position;
+	int	index;
 
-	i = 0;
-	count = counter - 1;
-	while (i < (count - 1))
+	position = 0;
+	index = 1;
+	ft_no_valid(str, counter);
+	while (*(*(str + index) + position))
 	{
-		j = i + 1;
-		while (j < count)
+		if (!(ft_not_nbr(*(*(str + index) + position)))
+			|| ft_dup(str, counter))
 		{
-			if (nbrs[i] == nbrs[j])
-				return (1);
-			j++;
+			write(2, "Error\n", 6);
+			return (0);
 		}
-		i++;
+		position++;
+		if (!(*(*(str + index) + position)))
+		{
+			index++;
+			position = 0;
+			if (index == counter)
+				break ;
+		}
 	}
-	return (0);
+	return (1);
 }
 
 int	ft_check_sort(t_nbr **head, int counter)

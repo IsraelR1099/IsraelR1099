@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 09:57:42 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/24 18:34:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/09 12:45:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_sb(t_nbr **head_b)
 	write(1, "sb\n", 3);
 }
 
-
 void	ft_rb(t_nbr **head_b)
 {
 	t_nbr	*first;
@@ -62,7 +61,6 @@ void	ft_rb(t_nbr **head_b)
 
 void	ft_ss(t_nbr **head, t_nbr **head_b)
 {
-	
 	t_nbr	*new_heada;
 	t_nbr	*new_headb;
 
@@ -71,7 +69,6 @@ void	ft_ss(t_nbr **head, t_nbr **head_b)
 	new_heada->next = *head;
 	*head = new_heada;
 	ft_update_index(*head);
-
 	new_headb = (*head_b)->next;
 	(*head_b)->next = (*head_b)->next->next;
 	new_headb->next = *head_b;
@@ -82,7 +79,6 @@ void	ft_ss(t_nbr **head, t_nbr **head_b)
 
 void	ft_rr(t_nbr **head, t_nbr **head_b)
 {
-	
 	t_nbr	*first;
 	t_nbr	*last;
 	t_nbr	*firstb;
@@ -96,7 +92,6 @@ void	ft_rr(t_nbr **head, t_nbr **head_b)
 	first->next = NULL;
 	last->next = first;
 	ft_update_index(*head);
-
 	firstb = *head_b;
 	lastb = *head_b;
 	while (lastb->next != NULL)

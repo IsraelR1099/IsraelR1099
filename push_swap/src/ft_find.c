@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:18:11 by irifarac          #+#    #+#             */
-/*   Updated: 2022/07/18 11:35:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:58:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ int	ft_max_value(t_nbr **head)
 	while (tmp)
 	{
 		if (tmp->data == nbr)
-		{
 			return (tmp->data);
-		}
 		tmp = tmp->next;
 	}
 	return (0);

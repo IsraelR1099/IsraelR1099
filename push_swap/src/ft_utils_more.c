@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 11:48:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/05 13:13:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:21:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,22 +87,15 @@ void	ft_priority(t_nbr **head, int counter)
 		tmp = *head;
 		while (tmp)
 		{
-			if (tmp->data > max_group[i] &&
-			   	tmp->data < max_group[i - 1] && i < ft_groups(counter))
+			if (tmp->data > max_group[i]
+				&& tmp->data < max_group[i - 1] && i < ft_groups(counter))
 				max_group[i] = tmp->data;
 			tmp = tmp->next;
 		}
 		nbr--;
 		i++;
 	}
-//	i = 0;
 	nbr = ft_groups(counter);
-	/*while (i < nbr)
-	{
-		printf("numero otro %d\n", max_group[i]);
-		i++;
-	}*/
 	ft_update_priority(head, max_group);
 	free(max_group);
 }
-
