@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:26:30 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/09 17:43:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:30:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	ft_check_sort(t_nbr **head, int counter)
 	tmp = *head;
 	nbr = MIN_INT;
 	len = 0;
-	lenhead = ft_size(*head);
+	lenhead = ft_slst(head);
 	while (tmp)
 	{
 		if (tmp->data > nbr)

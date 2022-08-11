@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 11:46:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/09 17:25:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:46:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,23 +91,6 @@ int	ft_slst(t_nbr **head)
 	tmp = *head;
 	while (tmp != NULL)
 	{
-		counter++;
-		tmp = tmp->next;
-	}
-	return (counter);
-}
-
-int	ft_diff_up(t_nbr **head)
-{
-	t_nbr	*tmp;
-	int		counter;
-
-	tmp = *head;
-	counter = 0;
-	while (tmp)
-	{
-		if (tmp->priority == 0)
-			break ;
 		counter++;
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 13:20:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/06/20 11:55:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:37:51 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,6 @@ void	ft_deallocation(t_nbr **head)
 		free(tmp);
 	}
 	*head = NULL;
-}
-
-int	ft_size(t_nbr *head)
-{
-	int		len;
-	t_nbr	*tmp;
-
-	len = 0;
-	tmp = head;
-	while (tmp)
-	{
-		len++;
-		tmp = tmp->next;
-	}
-	return (len);
 }
 
 void	ft_utilsort_min5(t_nbr **head, t_nbr **head_b, int counter)

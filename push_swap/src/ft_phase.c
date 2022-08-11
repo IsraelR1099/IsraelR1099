@@ -6,67 +6,68 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:42:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/09 20:49:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:05:51 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_push_swap.h"
 
-/*int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
+static void	ft_send_rra(t_nbr **head, t_nbr **head_b, int counter, int group)
 {
-	int		nbr;
+	t_nbr	*tmp;
+	int		limits;
 
-	while (ft_pcheck(head) != 2)
+	tmp = *head;
+	limits = 1;
+	while (limits <= ft_groups(counter)
+		|| limits <= ft_groups(counter) * 2)
 	{
-		if (ft_best_way(head, counter) == 2)
+		tmp = *head;
+		if (tmp->positive >= (counter - 1 - group))
+			if (ft_condition_pb(head))
+				ft_pb(head, head_b);
+		ft_rra(head);
+		tmp = tmp->next;
+		limits++;
+	}
+}
+
+static void	ft_phase3_down(t_nbr **head, t_nbr **head_b)
+{
+	int		times;
+	t_nbr	*last;
+
+	if ((*head_b)->data < (*head)->next->data
+		&& (*head_b)->data > (*head)->data)
+	{
+		ft_ra(head);
+		ft_pa(head, head_b);
+		last = ft_lastnode(*head);
+		if (last->data > (*head_b)->data)
+			ft_rra(head);
+	}
+	else
+	{
+		times = ft_times_noprio(head, head_b);
+		while (times)
 		{
-			nbr = ft_groups(counter);
-			while (nbr && ft_pcheck(head) != 2)
-			{
-				ft_rra(head);
-				if (ft_condition_pb(head))
-					ft_pb(head, head_b);
-				nbr--;
-			}
-		}
-		if (!ft_do_both(head, head_b, counter))
-			ft_do_stacka(head);
-		if (ft_condition_pb(head))
-		{
-			ft_pb(head, head_b);
-			if (!ft_do_both(head, head_b, counter))
-				ft_do_stackb(head_b, head, counter);
+			ft_ra(head);
+			times--;
 		}
 	}
-	return (1);
-}*/
+}
+
 int	ft_phase1(t_nbr **head, t_nbr **head_b, int counter)
 {
 	int		group;
-	int		limits;
-	t_nbr	*tmp;
 
 	group = ft_groups(counter) * 2;
 	while (ft_pcheck(head) != 2)
 	{
-		limits = 1;
-		tmp = *head;
 		if (ft_best_way(head, group, counter) == 1)
 			ft_send(head, head_b, counter, group);
 		else
-		{
-			while (limits <= ft_groups(counter)
-				|| limits <= ft_groups(counter) * 2)
-			{
-				tmp = *head;
-				if (tmp->positive >= (counter - 1 - group))
-					if (ft_condition_pb(head))
-						ft_pb(head, head_b);
-				ft_rra(head);
-				tmp = tmp->next;
-				limits++;
-			}
-		}
+			ft_send_rra(head, head_b, counter, group);
 		if (ft_check_pos(head, counter, group))
 		{
 			group = group + (ft_groups(counter) * 2);
@@ -110,9 +111,9 @@ int	ft_phase3(t_nbr **head, t_nbr **head_b, int counter)
 {
 	t_nbr	*last;
 	t_nbr	*last_b;
-	int		times;
+//	int		times;
 
-	while (ft_slst(head) < (counter - 1) && *head_b) //&& count++ < 55)
+	while (ft_slst(head) < (counter - 1) && *head_b)
 	{
 		last = ft_lastnode(*head);
 		last_b = ft_lastnode(*head_b);
@@ -134,7 +135,7 @@ int	ft_phase3(t_nbr **head, t_nbr **head_b, int counter)
 		}
 		else
 		{
-			if ((*head_b)->data < (*head)->next->data
+			/*if ((*head_b)->data < (*head)->next->data
 				&& (*head_b)->data > (*head)->data)
 			{
 				ft_ra(head);
@@ -151,7 +152,8 @@ int	ft_phase3(t_nbr **head, t_nbr **head_b, int counter)
 					ft_ra(head);
 					times--;
 				}
-			}
+			}*/
+			ft_phase3_down(head, head_b);
 		}
 	}
 	return (1);

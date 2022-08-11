@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 13:14:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/09 20:03:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:56:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,31 @@ static void	ft_set_pos(t_nbr **head)
 	}
 }
 
+static int	ft_set_nbr(t_nbr **head, int result, int counter, int minus)
+{
+	int		nbr;
+	t_nbr	*tmp;
+
+	nbr = MAX_INT;
+	tmp = *head;
+	while (tmp)
+	{
+		if (nbr > tmp->data)
+		{
+			if (result < tmp->data)
+			{
+				nbr = tmp->data;
+				tmp->positive = counter - minus;
+			}
+		}
+		tmp = tmp->next;
+	}
+	return (nbr);
+}
+
 void	ft_pass_positive(t_nbr **head, int counter)
 {
 	t_nbr	*tmp;
-	t_nbr	*tmp_op;
 	int		nbr;
 	int		minus;
 	int		result;
@@ -38,20 +59,7 @@ void	ft_pass_positive(t_nbr **head, int counter)
 	ft_set_pos(head);
 	while (tmp)
 	{
-		tmp_op = *head;
-		nbr = MAX_INT;
-		while (tmp_op)
-		{
-			if (nbr > tmp_op->data)
-			{
-				if (result < tmp_op->data)
-				{
-					nbr = tmp_op->data;
-					tmp_op->positive = counter - minus;
-				}
-			}
-			tmp_op = tmp_op->next;
-		}
+		nbr = ft_set_nbr(head, result, counter, minus);
 		result = nbr;
 		minus++;
 		tmp = tmp->next;

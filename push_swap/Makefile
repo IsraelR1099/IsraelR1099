@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/08/08 09:37:04 by irifarac         ###   ########.fr        #
+#    Updated: 2022/08/11 13:10:21 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRC = src/ft_errors.c \
 	  src/main.c \
 	  src/ft_utils.c \
 	  src/ft_number.c \
-	  src/ft_actions.c \
 	  src/ft_ways_sort.c \
 	  src/ft_sort.c \
 	  src/ft_find.c \
@@ -32,9 +31,7 @@ SRC = src/ft_errors.c \
 	  src/ft_utils_more2.c \
 	  src/ft_utils_more3.c \
 	  src/ft_utils_4.c \
-	  src/ft_do_stack.c \
 	  src/ft_conditions.c \
-	  src/ft_conditions2.c \
 	  src/ft_phase.c \
 	  src/ft_find_best.c \
 	  src/ft_inversions.c \
@@ -42,7 +39,7 @@ SRC = src/ft_errors.c \
 
 OBJ = $(SRC:.c=.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))
-LIBFT = libft
+LIBFT = Libft
 
 all: makelibs $(NAME)
 
