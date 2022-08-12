@@ -6,7 +6,7 @@
 #    By: irifarac <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/27 13:14:50 by irifarac          #+#    #+#              #
-#    Updated: 2022/08/12 13:09:04 by irifarac         ###   ########.fr        #
+#    Updated: 2022/08/12 13:30:49 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,8 +55,6 @@ $(NAME): $(OBJ) Libft/libft.a
 %.o: %.c
 	@echo "$(GREEN)Compilando $< de $@ $(RESET)"
 	gcc $(CFLAGS) -o $@ -c $<
-
-
 
 clean:
 ifneq ("$(wildcard $(OBJ) $(DEPENDS))", "")
