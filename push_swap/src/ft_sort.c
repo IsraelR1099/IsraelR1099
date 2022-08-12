@@ -6,14 +6,16 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:56:43 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/11 17:15:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:27:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lib_push_swap.h"
 
-static void	ft_sort_more(t_nbr **head, t_nbr *head_b, int counter)
+static void	ft_sort_more(t_nbr **head, int counter)
 {
+	t_nbr	*head_b;
+
 	head_b = ft_createlist(0);
 	ft_algorithm(head, &head_b, counter);
 	free(head_b);
@@ -43,5 +45,5 @@ void	ft_sort_lst(t_nbr **head, int counter)
 		free(head_b);
 	}
 	else if ((counter - 1) > 5)
-		ft_sort_more(head, head_b, counter);
+		ft_sort_more(head, counter);
 }

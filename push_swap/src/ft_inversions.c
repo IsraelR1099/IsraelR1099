@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 12:36:42 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/09 20:36:00 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:26:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_times_space(t_nbr **head, t_nbr **head_b)
 	return (0);
 }
 
-void	ft_inversions(t_nbr **head, t_nbr **head_b, int counter)
+void	ft_inversions(t_nbr **head, t_nbr **head_b)
 {
 	t_nbr	*tmp;
 	t_nbr	*tmp_b;
@@ -43,7 +43,6 @@ void	ft_inversions(t_nbr **head, t_nbr **head_b, int counter)
 	tmp = *head;
 	tmp_b = *head_b;
 	nbr = tmp->priority;
-	(void)counter;
 	if (nbr > tmp->next->priority)
 	{
 		ft_pb(head, head_b);

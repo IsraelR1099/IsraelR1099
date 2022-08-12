@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 13:54:19 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/10 20:29:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:26:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_best_down(t_nbr **head, int counter, int group)
 	tmp = *head;
 	while (tmp)
 	{
-		if (tmp->index >= (ft_slst(head) - ft_groups(counter)))
+		if (tmp->index >= (ft_slst(head) - (ft_groups(counter) * 2)))
 		{
 			if (tmp->positive >= (counter - 1 - group)
 				&& tmp->priority == 0)
@@ -42,7 +42,7 @@ int	ft_best_way(t_nbr **head, int group, int counter)
 	tmp = *head;
 	times = 0;
 	i = 0;
-	while (tmp && i < ft_groups(counter))
+	while (tmp && i < ft_groups(counter) * 2)
 	{
 		if (tmp->positive >= (counter - 1 - group)
 			&& tmp->priority == 0)

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 11:46:27 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/10 17:46:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:28:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,18 @@ int	ft_slst(t_nbr **head)
 		tmp = tmp->next;
 	}
 	return (counter);
+}
+
+t_nbr	*ft_lastnode(t_nbr *tmp)
+{
+	t_nbr	*node;
+	t_nbr	*temp;
+
+	temp = tmp;
+	while (temp)
+	{
+		node = temp;
+		temp = temp->next;
+	}
+	return (node);
 }

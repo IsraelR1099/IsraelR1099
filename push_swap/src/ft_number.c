@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 13:14:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/11 16:56:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:05:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	ft_send(t_nbr **head, t_nbr **head_b, int counter, int group)
 		|| limits <= ft_groups(counter) * 2)
 	{
 		tmp = *head;
-		if (tmp->positive >= (counter -1 - group))
+		if (tmp->positive >= (counter - 1 - group))
 		{
 			if (tmp->priority == 0)
-				ft_pb(head, head_b);
+				ft_condition_send(head, head_b);
 		}
 		if (!ft_check_pos(head, counter, group))
 			ft_ra(head);

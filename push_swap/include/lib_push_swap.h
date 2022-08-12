@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:38:57 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/10 17:46:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:08:23 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ typedef struct	t_list
 	struct t_list	*next;
 }	t_nbr;
 
-//borrar
-void    ft_aux(t_nbr **head, t_nbr **head_b);
 int		ft_checker(char **str, int counter);
 int		ft_check_sort(t_nbr **head, int counter);
 int		ft_max_nbr(t_nbr *head);
@@ -79,9 +77,12 @@ void	ft_write(int max, int min);
 void	ft_deallocation(t_nbr **head);
 void	ft_priority(t_nbr **head, int counter);
 void	ft_update_priority(t_nbr **head, int *max_group);
-void	ft_inversions(t_nbr **head, t_nbr **head_b, int counter);
+void	ft_inversions(t_nbr **head, t_nbr **head_b);
 void    ft_pass_positive(t_nbr **head, int counter);
 void    ft_send(t_nbr **head, t_nbr **head_b, int counter, int group);
 void    ft_error(void);
+void	ft_check_pb(t_nbr **head, t_nbr **head_b);
+void	ft_check_rra(t_nbr **head, t_nbr **head_b);
+void	ft_condition_send(t_nbr **head, t_nbr **head_b);
 
 #endif

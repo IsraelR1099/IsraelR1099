@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 13:20:20 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/10 17:37:51 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:22:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,27 @@ void	ft_utilsort_min5(t_nbr **head, t_nbr **head_b, int counter)
 	ft_pb(head, head_b);
 	ft_sort_4(head, head_b, counter);
 	ft_pa(head, head_b);
+}
+
+int	ft_is_sort(t_nbr **head, int counter)
+{
+	t_nbr	*tmp;
+	int		nbr;
+	int		len;
+
+	tmp = *head;
+	nbr = tmp->data;
+	len = 1;
+	while (tmp)
+	{
+		if (tmp->data > nbr)
+		{
+			nbr = tmp->data;
+			len++;
+		}
+		tmp = tmp->next;
+	}
+	if (len == (counter - 1))
+		return (1);
+	return (0);
 }
