@@ -6,12 +6,18 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 12:40:21 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/12 13:38:00 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/26 11:39:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Libft/libft.h"
 #include "../include/lib_push_swap.h"
+
+static void	ft_start(t_nbr *head, int counter)
+{
+	ft_sort_lst(&head, counter);
+	ft_deallocation(&head);
+}
 
 int	main(int counter, char **str)
 {
@@ -36,16 +42,8 @@ int	main(int counter, char **str)
 				index++;
 				i++;
 			}
-			ft_sort_lst(&head, counter);
-			ft_deallocation(&head);
+			ft_start(head, counter);
 		}
 	}
-/*	if (counter > 2)
-	{
-		if (ft_check_sort(&head, counter))
-			printf("\033[0;32mOK\n\033[0m");
-		else
-			printf("\033[0;31mKO\n\033[0m");
-	}*/
 	return (0);
 }
