@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:31:46 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/26 13:36:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/08/28 14:31:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,19 @@
 #include <stdio.h>
 #include<stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include<readline/readline.h>
 #include<readline/history.h>
 #include <string.h>
+
+struct cmd	*parsecmd(char *s);
+
+void	panic(char *str)
+{
+	write(2, str, strlen(str) + 1);
+	exit (1);
+}
 
 int	getcmd(char **buf, int size)
 {
@@ -27,6 +37,17 @@ int	getcmd(char **buf, int size)
 	if (strcmp(*buf, "exit") == 0) //EOF
 		return (-1);
 	return (0);
+}
+
+int	fork1(void)
+{
+	int	pid;
+
+	printf("entro en fork1\n");
+	pid = fork();
+	if (pid == -1)
+		panic("fork");
+	return (pid);
 }
 
 int	main(void)
@@ -43,16 +64,33 @@ int	main(void)
 			printf("entro en cd\n");
 			buf[strlen(buf)] = 0;
 			printf("strlen %lu y directorio %s\n", strlen(buf), buf + 3);
-			/*char	*arg_list[] = {
-				"pwd",
-				NULL
-			};*/
 			if (chdir(buf + 3) < 0)
 				printf("cd: no such file or directory: %s\n", buf + 3);
-			//execvp("pwd", arg_list);
 			continue ;
 		}
+		if (fork1() == 0)
+		{
+			parsecmd(buf);
+		}
+		wait(NULL);
 		printf("%s\n", buf);
 	}
 	return (0);
+}
+
+struct cmd	*parsecmd(char *s)
+{
+	char	*es;
+	struct cmd	*cmd;
+
+	es = s + strlen(s);
+	cmd = parseline(&s, es);
+	peek(&s, es, "");
+	if (s != es)
+	{
+		printf("leftovers: %s\n", s);
+		panic("syntax");
+	}
+	nulterminate(cmd);
+	return (cmd);
 }
