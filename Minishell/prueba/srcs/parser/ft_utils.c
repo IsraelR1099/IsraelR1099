@@ -6,15 +6,16 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/05 13:37:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/06 20:30:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include "../../Libft/libft.h"
 
 void	ft_error(char *str)
 {
-	write(2, str, strlen(str) + 1);
+	write(2, str, ft_strlen(str) + 1);
 	exit (1);
 }
 

@@ -6,18 +6,19 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/05 13:37:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/06 21:18:57 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include "../../Libft/libft.h"
 
 struct cmd	*parsecmd(char *str)
 {
 	char	*estr;
 	struct cmd	*cmd;
 
-	estr = str + strlen(str);
+	estr = str + ft_strlen(str);
 	cmd = parseline(&str, estr);
 	peek(&s, estr, "");
 	if (str != estr)
@@ -45,7 +46,7 @@ struct cmd	*parsepipe(char **pstr, char *estr)
 	if (ft_find(pstr, estr, "|"))
 	{
 		gettoken(pstr, estr, 0, 0);
-		cmd = pipecmd(cmd, parsepipe(pstr, estr));
+		cmd = dopipe(cmd, parsepipe(pstr, estr));
 	}
 	return (cmd);
 }
@@ -62,11 +63,11 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 		if (gettoken(pstr, estr, &ftoken, &eftoken) != 'z')
 			ft_error("syntax error near unexpected token 'newline'\n");
 		if (operator == '<')
-			cmd = redircmd(cmd, ftoken, eftoken, O_RDONLY, 0);
+			cmd = doredir(cmd, ftoken, eftoken, O_RDONLY, 0);
 		else if (operator == '>')
-			cmd = redircmd(cmd, ftoken, eftoken, O_WRONLY|O_CREAT, 1);
+			cmd = doredir(cmd, ftoken, eftoken, O_WRONLY|O_CREAT, 1);
 		else if (operator == '+')
-			cmd = redircmd(cmd, ftoken, eftoken, O_WRONLY|O_CREAT, 1);
+			cmd = doredir(cmd, ftoken, eftoken, O_WRONLY|O_CREAT, 1);
 	}
 	return (cmd);
 }
