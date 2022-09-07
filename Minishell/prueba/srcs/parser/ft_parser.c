@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/06 21:18:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/07 13:14:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 
 struct cmd	*parsecmd(char *str)
 {
-	char	*estr;
+	char		*estr;
 	struct cmd	*cmd;
 
 	estr = str + ft_strlen(str);
 	cmd = parseline(&str, estr);
-	peek(&s, estr, "");
+	ft_find(&str, estr, "");
 	if (str != estr)
 	{
 		printf("leftovers: %s\n", str);
 		ft_error("syntax");
 	}
-	nulterminate(cmd);
+	//nulterminate(cmd);
 	return (cmd);
 }
 
 struct cmd	*parseline(char **pstr, char *estr)
 {
-	struct cmd *cmd;
+	struct cmd	*cmd;
 
-	cmd = parsepipe(pstr, es);
+	cmd = parsepipe(pstr, estr);
 	return (cmd);
 }
 
@@ -46,7 +46,7 @@ struct cmd	*parsepipe(char **pstr, char *estr)
 	if (ft_find(pstr, estr, "|"))
 	{
 		gettoken(pstr, estr, 0, 0);
-		cmd = dopipe(cmd, parsepipe(pstr, estr));
+		cmd = buildpipe(cmd, parsepipe(pstr, estr));
 	}
 	return (cmd);
 }
@@ -63,21 +63,22 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 		if (gettoken(pstr, estr, &ftoken, &eftoken) != 'z')
 			ft_error("syntax error near unexpected token 'newline'\n");
 		if (operator == '<')
-			cmd = doredir(cmd, ftoken, eftoken, O_RDONLY, 0);
+			cmd = buildredir(cmd, ftoken, eftoken, O_RDONLY, 0);
 		else if (operator == '>')
-			cmd = doredir(cmd, ftoken, eftoken, O_WRONLY|O_CREAT, 1);
+			cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY|O_CREAT, 1);
 		else if (operator == '+')
-			cmd = doredir(cmd, ftoken, eftoken, O_WRONLY|O_CREAT, 1);
+			cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY|O_CREAT, 1);
 	}
 	return (cmd);
 }
 
-
-struct cmd *parseexec(char **pstr, char *estr)
+struct cmd	*parseexec(char **pstr, char *estr)
 {
 	struct cmd	*ret;
 
-	ret = parseredirs(pstr, estr);
-	while (ft_find(pstr, estr, "|") <= 0)
+	ret = parseredirs(pstr, estr, ret);
+/*	while (ft_find(pstr, estr, "|") <= 0)
 	{
-
+	}*/
+	return (ret);
+}
