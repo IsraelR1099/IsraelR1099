@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/07 13:11:51 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:49:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	main(void)
 		}
 		if (fork1() == 0)
 		{
-			printf("hola\n");
 			parsecmd(buf);
+			printf("hola fuera\n");
 		}
 		wait(NULL);
-		printf("%s\n", buf);
+		printf("buf %s\n", buf);
 	}
 	return (0);
 }

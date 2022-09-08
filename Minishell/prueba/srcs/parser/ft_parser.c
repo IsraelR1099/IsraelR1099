@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/07 13:14:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:43:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ struct cmd	*parsepipe(char **pstr, char *estr)
 	cmd = parseexec(pstr, estr);
 	if (ft_find(pstr, estr, "|"))
 	{
+		printf("entro en pipe\n");
 		gettoken(pstr, estr, 0, 0);
 		cmd = buildpipe(cmd, parsepipe(pstr, estr));
+		printf("cmd left %d\n", cmd->type);
 	}
 	return (cmd);
 }
@@ -59,6 +61,7 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 
 	while (ft_find(pstr, estr, "<>"))
 	{
+		printf("entro en redirs\n");
 		operator = gettoken(pstr, estr, 0, 0);
 		if (gettoken(pstr, estr, &ftoken, &eftoken) != 'z')
 			ft_error("syntax error near unexpected token 'newline'\n");
@@ -75,10 +78,28 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 struct cmd	*parseexec(char **pstr, char *estr)
 {
 	struct cmd	*ret;
+	struct doexec	*cmd;
+	int			token;
+	int			i;
+	char		*ftoken;
+	char		*eftoken;
 
+	ret = buildexec();
 	ret = parseredirs(pstr, estr, ret);
-/*	while (ft_find(pstr, estr, "|") <= 0)
+	cmd = (struct doexec *)ret;
+	i = 0;
+	while (!ft_find(pstr, estr, "|"))
 	{
-	}*/
+		if ((token = gettoken(pstr, estr, &ftoken, &eftoken)) == 0)
+			break ;
+		if (token != 'z')
+			ft_error("syntax");
+		cmd->names[i] = ftoken;
+		cmd->end_names[i] = eftoken;
+		i++;
+		ret = parseredirs(pstr, estr, ret);
+	}
+	cmd->names[i] = 0;
+	cmd->end_names[i] = 0;
 	return (ret);
 }

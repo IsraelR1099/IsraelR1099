@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/09/07 13:51:42 by irifarac         ###   ########.fr        #
+#    Updated: 2022/09/08 17:44:03 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ makelibs:
 -include $(DEPENDS)
 $(NAME): $(OBJ)
 	@echo "$(GREEN)Creando ejecutable 🛠 $@ $(RESET)"
-	gcc $(CFLAGS) $(SRC) -lreadline -o $@
+	gcc $(CFLAGS) $(SRC) -LLibft -lft -lreadline -o $@
 	@rm -f minishell.d
 	@echo "$(GREEN)Compilado ✅ $@ $(RESET)"
 
