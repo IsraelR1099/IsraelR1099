@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/07 13:07:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:13:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ struct cmd	*parseline(char **pstr, char *estr);
 struct cmd	*parsepipe(char **pstr, char *estr);
 struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd);
 struct cmd	*parseexec(char **pstr, char *estr);
+void		ft_runcmd(struct cmd *cmd);
+//Building tree structs
 struct cmd	*buildexec(void);
 struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile, int right, int fd);
 struct cmd	*buildpipe(struct cmd *left, struct cmd *right);

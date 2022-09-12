@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/08 20:49:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/12 13:43:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	getcmd(char **buf, int size)
 
 int	main(void)
 {
-	char	*buf;
+	static char	*buf;
 
 	buf = (char *)malloc(sizeof(char) * 100);
 	if (!buf)
@@ -43,10 +43,11 @@ int	main(void)
 		}
 		if (fork1() == 0)
 		{
-			parsecmd(buf);
+			printf("dentro hijo\n");
+			ft_runcmd(parsecmd(buf));
 			printf("hola fuera\n");
 		}
-		wait(NULL);
+		wait(0);
 		printf("buf %s\n", buf);
 	}
 	return (0);
