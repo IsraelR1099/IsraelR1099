@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/12 13:01:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:44:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 static void	ft_case(char **tmp, char **estr, int *result)
 {
-	if (**tmp == '|')
+	if (**tmp == 0)
+		return ;
+	else if (**tmp == '|')
 		*tmp = *tmp + 1;
 	else if (**tmp == '<')
 		*tmp = *tmp + 1;
@@ -47,7 +49,6 @@ int	fork1(void)
 {
 	int	pid;
 
-	printf("entro en fork1\n");
 	pid = fork();
 	if (pid == -1)
 		ft_error("fork");
@@ -77,6 +78,7 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 		tmp++;
 	if (ftoken)
 		*ftoken = tmp;
+	result = *tmp;
 	ft_case(&tmp, &estr, &result);
 	if (eftoken)
 		*eftoken = tmp;

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/12 12:13:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:40:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <string.h>
+#include <fcntl.h>
 
 # define EXEC 1
 # define REDIR 2
 # define PIPE 3
-# define O_WRONLY 10
-# define O_CREAT 11
-# define O_RDONLY 12
+//# define O_WRONLY 10
+//# define O_CREAT 11
+//# define O_RDONLY 12
 
 typedef struct cmd
 {
@@ -69,6 +70,8 @@ void		ft_runcmd(struct cmd *cmd);
 struct cmd	*buildexec(void);
 struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile, int right, int fd);
 struct cmd	*buildpipe(struct cmd *left, struct cmd *right);
+// Null terminate strings
+struct cmd	*terminate(struct cmd *cmd);
 //Utils
 void	ft_error(char *str);
 int		fork1(void);
