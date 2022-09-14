@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/13 12:44:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/14 14:18:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static void	ft_case(char **tmp, char **estr, int *result)
 	}
 }
 
-void	ft_error(char *str)
+void	ft_error(char *str, int exit_code)
 {
 	write(2, str, ft_strlen(str) + 1);
-	exit (1);
+	exit ((unsigned char)exit_code);
 }
 
 int	fork1(void)
@@ -59,13 +59,17 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 {
 	char	*tmp;
 
+	printf("entro en ft find\n");
 	tmp = *pstr;
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
-	if (*tmp && ft_strchr(tokens, *tmp))
+	/*if (*tmp && ft_strchr(tokens, *tmp))
 		return (1);
-	return (0);
+	printf("retorno 0\n");
+	return (0);*/
+	printf("retorno %d\n", (*tmp && ft_strchr(tokens, *tmp)));
+	return (*tmp && ft_strchr(tokens, *tmp));
 }
 
 int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
@@ -85,5 +89,6 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
+	printf("ret en gettoken es %d\n", result);
 	return (result);
 }

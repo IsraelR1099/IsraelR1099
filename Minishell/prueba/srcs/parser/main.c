@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/13 13:25:38 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/14 14:00:23 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(void)
 		{
 			ft_runcmd(parsecmd(buf));
 		}
-		printf("returned value %d\n", WEXITSTATUS(0));
+		//printf("returned value %d\n", WEXITSTATUS(0));
 		wait(0);
 	}
 	return (0);
