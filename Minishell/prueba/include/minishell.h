@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/13 12:40:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/16 09:32:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 //# define O_CREAT 11
 //# define O_RDONLY 12
 
+# define MAXARGS 10
+
 typedef struct cmd
 {
 	int	type;
@@ -38,8 +40,8 @@ typedef struct cmd
 typedef struct doexec
 {
 	int		type;
-	char	*names[10];
-	char	*end_names[10];
+	char	*names[MAXARGS];
+	char	*end_names[MAXARGS];
 }	doexec;
 
 typedef struct doredir
@@ -73,7 +75,7 @@ struct cmd	*buildpipe(struct cmd *left, struct cmd *right);
 // Null terminate strings
 struct cmd	*terminate(struct cmd *cmd);
 //Utils
-void	ft_error(char *str);
+void	ft_error(char *str, int exit_code);
 int		fork1(void);
 int		ft_find(char **pstr, char *estr, char *tokens);
 int		gettoken(char **pstr, char *estr, char **ftoken, char **eftoken);

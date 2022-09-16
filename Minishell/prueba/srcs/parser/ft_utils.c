@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/14 14:18:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/16 10:38:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	fork1(void)
 
 	pid = fork();
 	if (pid == -1)
-		ft_error("fork");
+		ft_error("fork", 1);
 	return (pid);
 }
 
@@ -59,7 +59,6 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 {
 	char	*tmp;
 
-	printf("entro en ft find\n");
 	tmp = *pstr;
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
@@ -68,7 +67,6 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 		return (1);
 	printf("retorno 0\n");
 	return (0);*/
-	printf("retorno %d\n", (*tmp && ft_strchr(tokens, *tmp)));
 	return (*tmp && ft_strchr(tokens, *tmp));
 }
 
@@ -89,6 +87,6 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
-	printf("ret en gettoken es %d\n", result);
+//	printf("ret en gettoken es %d\n", result);
 	return (result);
 }

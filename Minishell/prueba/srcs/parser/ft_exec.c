@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/14 13:53:05 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/16 14:04:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_runpipecmd(struct cmd *cmd)
 
 	pipecmd = (struct dopipe *)cmd;
 	if (pipe(file_d) < 0)
-		ft_error("pipe error");
+		ft_error("pipe error", 1);
 	if (fork1() == 0)
 	{
 		close(1); // first child closes stdout fd
@@ -46,6 +46,7 @@ void	ft_runcmd(struct cmd *cmd)
 {
 	struct doexec	*execcmd;
 	struct doredir	*redircmd;
+	//char			*env[] = {"hola", NULL};
 
 	if (cmd == 0)
 		exit (1);
@@ -63,6 +64,7 @@ void	ft_runcmd(struct cmd *cmd)
 		close(redircmd->fd);
 		if (open(redircmd->file, redircmd->right) < 0)
 			printf("redir %s failed\n", redircmd->file);
+		ft_runcmd(redircmd->cmd);
 		exit (1);
 	}
 	else if (cmd->type == PIPE)
