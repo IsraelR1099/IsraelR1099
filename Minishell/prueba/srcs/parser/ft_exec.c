@@ -6,11 +6,12 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/16 14:04:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/19 14:05:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include "../../Libft/libft.h"
 
 static void	ft_runpipecmd(struct cmd *cmd)
 {
@@ -42,11 +43,48 @@ static void	ft_runpipecmd(struct cmd *cmd)
 	wait(0);
 }
 
+static char	*ft_strchrnul(const char *s, int c)
+{
+	while (*s)
+	{
+		if (c == *s)
+			break ;
+		s++;
+	}
+	return ((char *)s);
+}
+
+static int	ft_execve(char *file, char *argv[], char *envp[])
+{
+	char	*path;
+	char	tstr[126];
+	char	*pstr;
+	char	*cpath;
+
+	path = getenv("PATH");
+	cpath = path;
+
+	while (cpath)
+	{
+		pstr = ft_strchrnul(cpath, ':');
+		ft_memcpy(tstr, cpath, pstr - cpath);
+		tstr[pstr - cpath] = '/';
+		ft_memcpy(tstr + (pstr - cpath) + (pstr>cpath), file, ft_strlen(file + 1));
+		execve(tstr, argv, envp);
+		cpath = pstr + 1;
+	}
+	return (0);
+}
+
+static int	ft_execvp(char *file, char *argv[], char *envp[])
+{
+	return (ft_execve(file, argv, envp));
+}
+
 void	ft_runcmd(struct cmd *cmd)
 {
 	struct doexec	*execcmd;
 	struct doredir	*redircmd;
-	//char			*env[] = {"hola", NULL};
 
 	if (cmd == 0)
 		exit (1);
@@ -55,7 +93,7 @@ void	ft_runcmd(struct cmd *cmd)
 		execcmd = (struct doexec *)cmd;
 		if (execcmd->names[0] == 0)
 			exit (1);
-		execvp(execcmd->names[0], execcmd->names);
+		ft_execvp(execcmd->names[0], execcmd->names, NULL);
 		printf("exec %s failed\n", execcmd->names[0]);
 	}
 	else if (cmd->type == REDIR)
