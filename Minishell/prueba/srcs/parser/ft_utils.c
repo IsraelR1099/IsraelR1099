@@ -6,14 +6,14 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/19 14:05:36 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/15 20:30:25 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../Libft/libft.h"
 
-static void	ft_case(char **tmp, char **estr, int *result)
+/*static void	ft_case(char **tmp, char **estr, int *result)
 {
 	if (**tmp == 0)
 		return ;
@@ -37,7 +37,7 @@ static void	ft_case(char **tmp, char **estr, int *result)
 			&& !ft_strchr("<|>", **tmp))
 			*tmp = *tmp + 1;
 	}
-}
+}*/
 
 void	ft_error(char *str, int exit_code)
 {
@@ -59,6 +59,7 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 {
 	char	*tmp;
 
+	printf("entro en ft find\n");
 	tmp = *pstr;
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
@@ -67,6 +68,7 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 		return (1);
 	printf("retorno 0\n");
 	return (0);*/
+	printf("retorno %d\n", (*tmp && ft_strchr(tokens, *tmp)));
 	return (*tmp && ft_strchr(tokens, *tmp));
 }
 
@@ -81,12 +83,34 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	if (ftoken)
 		*ftoken = tmp;
 	result = *tmp;
-	ft_case(&tmp, &estr, &result);
+	if (*tmp == 0)
+		return (0);
+	else if (*tmp == '|')
+		tmp = tmp + 1;
+	else if (*tmp == '<')
+		tmp = tmp + 1;
+	else if (*tmp == '>')
+	{
+		tmp = tmp + 1;
+		if (*tmp == '>')
+		{
+			result = '+';
+			tmp = tmp + 1;
+		}
+	}
+	else
+	{
+		result = 'z';
+		while (tmp < estr && !ft_strchr("\t\r\n\v ", *tmp)
+			&& !ft_strchr("<|>", *tmp))
+			tmp = tmp + 1;
+	}
+//	ft_case(&tmp, &estr, &result);
 	if (eftoken)
 		*eftoken = tmp;
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
-//	printf("ret en gettoken es %d\n", result);
+	printf("ret en gettoken es %d\n", result);
 	return (result);
 }

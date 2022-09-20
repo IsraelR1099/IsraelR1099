@@ -6,12 +6,11 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/19 14:05:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:17:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include "../../Libft/libft.h"
 
 static void	ft_runpipecmd(struct cmd *cmd)
 {
@@ -43,49 +42,16 @@ static void	ft_runpipecmd(struct cmd *cmd)
 	wait(0);
 }
 
-static char	*ft_strchrnul(const char *s, int c)
-{
-	while (*s)
-	{
-		if (c == *s)
-			break ;
-		s++;
-	}
-	return ((char *)s);
-}
-
-static int	ft_execve(char *file, char *argv[], char *envp[])
-{
-	char	*path;
-	char	tstr[126];
-	char	*pstr;
-	char	*cpath;
-
-	path = getenv("PATH");
-	cpath = path;
-
-	while (cpath)
-	{
-		pstr = ft_strchrnul(cpath, ':');
-		ft_memcpy(tstr, cpath, pstr - cpath);
-		tstr[pstr - cpath] = '/';
-		ft_memcpy(tstr + (pstr - cpath) + (pstr>cpath), file, ft_strlen(file + 1));
-		execve(tstr, argv, envp);
-		cpath = pstr + 1;
-	}
-	return (0);
-}
-
-static int	ft_execvp(char *file, char *argv[], char *envp[])
-{
-	return (ft_execve(file, argv, envp));
-}
-
 void	ft_runcmd(struct cmd *cmd)
 {
 	struct doexec	*execcmd;
 	struct doredir	*redircmd;
+//	struct doexec	*exec;
 
+//	exec = (struct doexec *)cmd;
+//	printf("names es %s\n", exec->names[0]);
+
+//	printf("names es 2 %s\n", exec->names[1]);
 	if (cmd == 0)
 		exit (1);
 	if (cmd->type == EXEC)
@@ -102,8 +68,8 @@ void	ft_runcmd(struct cmd *cmd)
 		close(redircmd->fd);
 		if (open(redircmd->file, redircmd->right) < 0)
 			printf("redir %s failed\n", redircmd->file);
-		ft_runcmd(redircmd->cmd);
 		exit (1);
+		ft_runcmd(redircmd->cmd);
 	}
 	else if (cmd->type == PIPE)
 		ft_runpipecmd(cmd);
