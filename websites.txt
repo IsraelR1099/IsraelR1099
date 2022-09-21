@@ -124,3 +124,5 @@ https://medium.com/algopods/burrows-wheeler-transform-c743a2c23e0a
 
 Minishell
 https://github.com/jeffallen/xv6
+https://mwatler.github.io/unx511_winter2021/Advanced%20Programming%20in%20the%20UNIX%20Environment%203rd%20Edition.pdf
+
