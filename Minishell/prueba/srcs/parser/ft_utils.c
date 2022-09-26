@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/15 20:30:25 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:24:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 void	ft_error(char *str, int exit_code)
 {
 	write(2, str, ft_strlen(str) + 1);
-	exit ((unsigned char)exit_code);
+	exit((unsigned char)exit_code);
 }
 
 int	fork1(void)
@@ -59,7 +59,7 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 {
 	char	*tmp;
 
-	printf("entro en ft find\n");
+//	printf("entro en ft find\n");
 	tmp = *pstr;
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
@@ -68,7 +68,7 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 		return (1);
 	printf("retorno 0\n");
 	return (0);*/
-	printf("retorno %d\n", (*tmp && ft_strchr(tokens, *tmp)));
+//	printf("retorno %d\n", (*tmp && ft_strchr(tokens, *tmp)));
 	return (*tmp && ft_strchr(tokens, *tmp));
 }
 
@@ -111,6 +111,6 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
-	printf("ret en gettoken es %d\n", result);
+//	printf("ret en gettoken es %d\n", result);
 	return (result);
 }

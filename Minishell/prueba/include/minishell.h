@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/19 21:24:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/26 11:37:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #include <readline/history.h>
 #include <string.h>
 #include <fcntl.h>
+#include <termios.h>
+#include <signal.h>
 
 # define EXEC 1
 # define REDIR 2
@@ -72,11 +74,14 @@ struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile, int right, int
 struct cmd	*buildpipe(struct cmd *left, struct cmd *right);
 // Null terminate strings
 struct cmd	*terminate(struct cmd *cmd);
+//Signals
+void		ft_handler(int signo);
+void		ft_info_handler(int signo, siginfo_t *info, void *context);
 //Utils
-void	ft_error(char *str, int exit_code);
-int		fork1(void);
-int		ft_find(char **pstr, char *estr, char *tokens);
-int		gettoken(char **pstr, char *estr, char **ftoken, char **eftoken);
-int		ft_execvp(char *file, char *argv[], char *envp[]);
+void		ft_error(char *str, int exit_code);
+int			fork1(void);
+int			ft_find(char **pstr, char *estr, char *tokens);
+int			gettoken(char **pstr, char *estr, char **ftoken, char **eftoken);
+int			ft_execvp(char *file, char *argv[], char *envp[]);
 
 #endif

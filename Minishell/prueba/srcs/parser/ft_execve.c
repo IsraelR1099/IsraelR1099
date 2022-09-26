@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 21:18:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/20 14:09:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:53:25 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,18 @@ static char	*ft_strchrnul(const char *s, int c)
 
 static int	ft_execve(char *file, char *argv[], char *envp[])
 {
-	char	*path = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin";
+	char	*path;
 	char	tstr[126];
 	char	*pstr;
 	char	*cpath;
+	int		ret;
+	size_t		len;
 
-//	path = getenv("PATH");
+	path = getenv("PATH");
 	cpath = path;
-	printf("file es %s\n", file);
+	len = 0;
 	ft_bzero(tstr, 126);
+//	printf("entro en ft execve y path es %s y cpath %s y path len %zu\n", path, cpath, ft_strlen(path));
 	while (cpath)
 	{
 		pstr = ft_strchrnul(cpath, ':');
@@ -42,9 +45,13 @@ static int	ft_execve(char *file, char *argv[], char *envp[])
 		tstr[pstr - cpath] = '/';
 		ft_memcpy(tstr + (pstr - cpath) + (pstr>cpath), file, ft_strlen(file) +
 		1);
-		execve(tstr, argv, envp);
+		ret = execve(tstr, argv, envp);
+//		printf("ret %d y tstr %s\n", ret, tstr);
 		cpath = pstr + 1;
+		len++;
 	}
+	printf("salgo de exec\n");
+	ft_error("command not found", 127);
 	return (0);
 }
 

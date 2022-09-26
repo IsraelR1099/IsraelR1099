@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/14 14:00:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:54:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,37 @@ static int	getcmd(char **buf, int size)
 	return (0);
 }
 
+static void	ft_termios(void)
+{
+	struct termios	term;
+
+	if (isatty(STDIN_FILENO) == 0)
+		ft_error("this fd is not a tty", 130);
+	if (tcgetattr(STDIN_FILENO, &term) < 0)
+		ft_error("get attributes error", 130);
+	term.c_lflag &= ~(ECHOCTL);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0)
+		ft_error("set attributes error", 130);
+	printf("%lu\n", term.c_lflag);
+	if (term.c_lflag != 536872335)
+		ft_error("attributes wrongly set", 130);
+}
+
+static void	ft_signals(void)
+{
+	struct sigaction	act;
+	struct sigaction	oact;
+
+	act.sa_handler = SIG_IGN;
+	act.sa_mask = 0;
+	act.sa_flags = SA_RESTART;
+	act.sa_sigaction = ft_info_handler;
+	if (sigaction(SIGCHLD, &act, &oact) < 0)
+		ft_error("sigaction error", 130);
+	if (sigaction(SIGINT, &act, &oact) < 0)
+		ft_error("sigaction error", 130);
+}
+
 int	main(void)
 {
 	static char	*buf;
@@ -30,6 +61,8 @@ int	main(void)
 	buf = (char *)malloc(sizeof(char) * 100);
 	if (!buf)
 		exit (-1);
+	ft_termios();
+	ft_signals();
 	while (getcmd(&buf, sizeof(buf)) >= 0)
 	{
 		if (buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' ')
@@ -40,10 +73,7 @@ int	main(void)
 			continue ;
 		}
 		if (fork1() == 0)
-		{
 			ft_runcmd(parsecmd(buf));
-		}
-		//printf("returned value %d\n", WEXITSTATUS(0));
 		wait(0);
 	}
 	return (0);
