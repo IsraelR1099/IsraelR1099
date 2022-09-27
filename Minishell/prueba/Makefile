@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/09/26 11:37:53 by irifarac         ###   ########.fr        #
+#    Updated: 2022/09/26 20:37:58 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ GREEN = \033[0;32m
 RESET = \033[0m
 
 NAME = minishell
-CFLAGS = -Wall -Werror -Wextra -MMD
+CFLAGS = -Wall -Werror -Wextra -MMD -g
 
 # Folders
 OBJDIR = obj

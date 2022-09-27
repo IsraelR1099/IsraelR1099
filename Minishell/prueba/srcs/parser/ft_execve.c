@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 21:18:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/26 12:53:25 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:24:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_execve(char *file, char *argv[], char *envp[])
 		cpath = pstr + 1;
 		len++;
 	}
-	printf("salgo de exec\n");
+	printf("salgo de exec y ret es %d\n", ret);
 	ft_error("command not found", 127);
 	return (0);
 }

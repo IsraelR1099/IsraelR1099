@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/26 13:54:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/27 20:03:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static int	getcmd(char **buf, int size)
 {
 	ft_memset(*buf, 0, size);
 	*buf = readline("$ ");
-	add_history(*buf);
+	//If the line has any text in it, save it on the history
+	if (*buf && **buf)
+		add_history(*buf);
 	if (ft_strncmp(*buf, "exit", ft_strlen(*buf)) == 0)
 		return (-1);
 	return (0);
@@ -31,11 +33,13 @@ static void	ft_termios(void)
 		ft_error("this fd is not a tty", 130);
 	if (tcgetattr(STDIN_FILENO, &term) < 0)
 		ft_error("get attributes error", 130);
+	//turn off echo octal
 	term.c_lflag &= ~(ECHOCTL);
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0)
 		ft_error("set attributes error", 130);
-	printf("%lu\n", term.c_lflag);
-	if (term.c_lflag != 536872335)
+//	if (term.c_lflag != 536872335)
+	//Check if the changes were set properly
+	if (term.c_lflag & (ECHOCTL))
 		ft_error("attributes wrongly set", 130);
 }
 
@@ -45,8 +49,9 @@ static void	ft_signals(void)
 	struct sigaction	oact;
 
 	act.sa_handler = SIG_IGN;
-	act.sa_mask = 0;
-	act.sa_flags = SA_RESTART;
+//	act.sa_mask = 0;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = ft_info_handler;
 	if (sigaction(SIGCHLD, &act, &oact) < 0)
 		ft_error("sigaction error", 130);

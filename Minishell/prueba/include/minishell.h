@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/26 11:37:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/27 14:24:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <signal.h>
+#include <sys/ioctl.h>
 
 # define EXEC 1
 # define REDIR 2
