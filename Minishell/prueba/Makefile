@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/09/28 13:08:27 by irifarac         ###   ########.fr        #
+#    Updated: 2022/09/28 17:58:20 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ NAME = minishell
 CFLAGS = -Wall -Werror -Wextra -MMD -g
 LDFLAGS = /Users/${USER}/.brew/opt/readline/lib
 RFLAGS = /Users/${USER}/.brew/opt/readline/include
+
+UNAME_S := $(shell uname -s)
 
 # Folders
 OBJDIR = obj
@@ -47,15 +49,22 @@ makelibs:
 -include $(DEPENDS)
 $(NAME): $(OBJ)
 	@echo "$(GREEN)Creando ejecutable 🛠 $@ $(RESET)"
+ifeq ($(UNAME_S), Linux)
+	gcc $(CFLAGS) $(OBJ) -LLibft -lft -lreadline -o $@
+else
 	gcc $(CFLAGS) $(OBJ) -LLibft -lft -L$(LDFLAGS) -lreadline -o $@
+endif
 	@rm -f minishell.d
 	@echo "$(GREEN)Compilado ✅ $@ $(RESET)"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo "$(GREEN)Compilando $< de $@ $(RESET)"
 	@mkdir -p $(@D)
-#	gcc -I$(RFLAGS) $(CFLAGS) -o $@ -c $<
+ifeq ($(UNAME_S), Linux)
+	gcc $(CFLAGS) -c $< -o $@
+else
 	gcc -I$(RFLAGS) $(CFLAGS) -c $< -o $@
+endif
 
 clean:
 ifneq ("$(wildcard $(OBJ) $(DEPENDS) $(OBJDIR))", "")

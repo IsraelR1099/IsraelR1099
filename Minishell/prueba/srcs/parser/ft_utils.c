@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/26 12:24:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/29 21:01:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,13 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 {
 	char	*tmp;
 
-//	printf("entro en ft find\n");
 	tmp = *pstr;
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
-	/*if (*tmp && ft_strchr(tokens, *tmp))
-		return (1);
-	printf("retorno 0\n");
-	return (0);*/
-//	printf("retorno %d\n", (*tmp && ft_strchr(tokens, *tmp)));
-	return (*tmp && ft_strchr(tokens, *tmp));
+	printf("retorno %d\n", (*tmp && ft_strchr(tokens, *tmp) &&
+	!ft_strchr(tmp, 34)));
+	return (*tmp && ft_strchr(tokens, *tmp) && !ft_strchr(tmp, 34));
 }
 
 int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)

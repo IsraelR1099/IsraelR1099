@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/26 12:21:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/29 21:02:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,9 @@ struct cmd	*parsecmd(char *str)
 {
 	char		*estr;
 	struct cmd	*cmd;
-//	struct doexec	*execmd;
 
 
-	//printf("salgo de exec\n");
 	estr = str + ft_strlen(str);
-//	printf("entro en parsecmd\n");
 	cmd = parseline(&str, estr);
 	ft_find(&str, estr, "");
 	if (str != estr)
@@ -31,9 +28,6 @@ struct cmd	*parsecmd(char *str)
 		ft_error("syntax", 1);
 	}
 	terminate(cmd);
-//	execmd = (struct doexec *)cmd;
-//	printf("ecm type %s\n", execmd->names[0]);
-//	printf("ecm type %s\n", execmd->names[1]);
 	return (cmd);
 }
 
@@ -41,7 +35,6 @@ struct cmd	*parseline(char **pstr, char *estr)
 {
 	struct cmd	*cmd;
 
-//	printf("entro en parseline\n");
 	cmd = parsepipe(pstr, estr);
 	return (cmd);
 }
@@ -54,7 +47,7 @@ struct cmd	*parsepipe(char **pstr, char *estr)
 	cmd = parseexec(pstr, estr);
 	if (ft_find(pstr, estr, "|"))
 	{
-	//	printf("entro en pipe\n");
+		printf("entro en pipe\n");
 		gettoken(pstr, estr, 0, 0);
 		cmd = buildpipe(cmd, parsepipe(pstr, estr));
 	//	printf("cmd left %d\n", cmd->type);
@@ -71,7 +64,7 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 	//printf("entro en parseredirs\n");
 	while (ft_find(pstr, estr, "<>"))
 	{
-		//printf("entro en while redirs\n");
+		printf("entro en while redirs\n");
 		operator = gettoken(pstr, estr, 0, 0);
 		//printf("operator en while parse redirs es %d\n", operator);
 		if (gettoken(pstr, estr, &ftoken, &eftoken) != 'z')
@@ -120,6 +113,7 @@ struct cmd	*parseexec(char **pstr, char *estr)
 		cmd->names[i] = ftoken;
 		cmd->end_names[i] = eftoken;
 		i++;
+		printf("ftoken es %s\n", ftoken);
 		//printf("while de parseexec antes\n");
 		ret = parseredirs(pstr, estr, ret);
 		//printf("while de parseexec despues\n");

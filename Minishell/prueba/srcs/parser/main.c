@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/28 14:11:42 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:32:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static void	ft_termios(void)
 		ft_error("get attributes error", 130);
 	//turn off echo octal
 	term.c_lflag &= ~(ECHOCTL);
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0)
+	//TCSADRAIN the change occurs after all ouput has been transmitted
+	if (tcsetattr(STDIN_FILENO, TCSADRAIN, &term) < 0)
 		ft_error("set attributes error", 130);
 	//Check if the changes were set properly
 	if (term.c_lflag & (ECHOCTL))
@@ -48,9 +49,9 @@ static void	ft_signals(void)
 	struct sigaction	oact;
 
 	act.sa_handler = SIG_IGN;
-	act.sa_mask = 0;
-//	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_RESTART; //SA_SIGINFO;
+//	act.sa_mask = 0;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESTART | SA_SIGINFO;
 	act.sa_sigaction = ft_info_handler;
 	if (sigaction(SIGCHLD, &act, &oact) < 0)
 		ft_error("sigaction error", 130);

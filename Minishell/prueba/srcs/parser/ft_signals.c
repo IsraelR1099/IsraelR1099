@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/28 14:11:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:49:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_info_handler(int signo, siginfo_t *info, void *context)
 	printf("pid: %d status: %d\n", child, status);
 	if (signo == SIGCHLD)
 	{
-		//printf("child died\n");
+		printf("child died\n");
 	}
 	if (signo == SIGINT)
 	{
@@ -36,9 +36,10 @@ void	ft_info_handler(int signo, siginfo_t *info, void *context)
 		//if (ioctl(STDIN_FILENO, TIOCSTI, "\n") < 0)
 		//	ft_error("ioctl erro", 130);
 		//printf("state %lu\n", rl_readline_state);
-		write(2, "\n", 1);
-		rl_replace_line("", 0);
+		//write(2, "\n", 1);
+		printf("\n");
 		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 		//if (RL_STATE_REDISPLAYING)
 		//	printf("true\n");
