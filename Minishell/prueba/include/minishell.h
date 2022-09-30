@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/28 09:43:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/30 13:55:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@
 # define EXEC 1
 # define REDIR 2
 # define PIPE 3
-//# define O_WRONLY 10
-//# define O_CREAT 11
-//# define O_RDONLY 12
+# define MAXARGS 10
+//# define O_RONLY	0x000
+//# define O_WRONLY	0x001
+//# define O_RDWR		0x002
+//# define O_CREAT	0x200
 
 typedef struct cmd
 {
@@ -84,5 +86,7 @@ int			fork1(void);
 int			ft_find(char **pstr, char *estr, char *tokens);
 int			gettoken(char **pstr, char *estr, char **ftoken, char **eftoken);
 int			ft_execvp(char *file, char *argv[], char *envp[]);
+int			ft_setcmd(struct doexec **cmd, char *ftoken, char *eftoken, int sign);
+int			ft_quotes(char *str, char *estr, char **pquotes, char **epquotes);
 
 #endif

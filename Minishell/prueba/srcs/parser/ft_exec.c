@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/26 12:07:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/30 13:13:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	ft_runcmd(struct cmd *cmd)
 //	printf("names es %s\n", exec->names[0]);
 
 //	printf("names es 2 %s\n", exec->names[1]);
+//	printf("names 3 es %s\n", exec->names[2]);
+//	printf("names 4 es %s\n", exec->names[3]);
 	if (cmd == 0)
 		exit (1);
 	if (cmd->type == EXEC)
@@ -66,9 +68,11 @@ void	ft_runcmd(struct cmd *cmd)
 	{
 		redircmd = (struct doredir *)cmd;
 		close(redircmd->fd);
-		if (open(redircmd->file, redircmd->right) < 0)
+		if (open(redircmd->file, redircmd->right, 0666) < 0)
+		{
 			printf("redir %s failed\n", redircmd->file);
-		exit (1);
+			exit (1);
+		}
 		ft_runcmd(redircmd->cmd);
 	}
 	else if (cmd->type == PIPE)

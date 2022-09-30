@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/29 21:01:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/30 11:33:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,11 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 	char	*tmp;
 
 	tmp = *pstr;
-	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
+	while (tmp < estr && ft_strchr("\t\r\n\v\" ", *tmp))
 		tmp++;
 	*pstr = tmp;
-	printf("retorno %d\n", (*tmp && ft_strchr(tokens, *tmp) &&
-	!ft_strchr(tmp, 34)));
-	return (*tmp && ft_strchr(tokens, *tmp) && !ft_strchr(tmp, 34));
+	printf("retorno %d y token es %s\n", (*tmp && ft_strchr(tokens, *tmp)), tokens);
+	return (*tmp && ft_strchr(tokens, *tmp));
 }
 
 int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
@@ -74,7 +73,7 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	int		result;
 
 	tmp = *pstr;
-	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
+	while (tmp < estr && ft_strchr("\t\r\n\v\" ", *tmp))
 		tmp++;
 	if (ftoken)
 		*ftoken = tmp;
@@ -97,14 +96,14 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	else
 	{
 		result = 'z';
-		while (tmp < estr && !ft_strchr("\t\r\n\v ", *tmp)
+		while (tmp < estr && !ft_strchr("\t\r\n\v\" ", *tmp)
 			&& !ft_strchr("<|>", *tmp))
 			tmp = tmp + 1;
 	}
 //	ft_case(&tmp, &estr, &result);
 	if (eftoken)
 		*eftoken = tmp;
-	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
+	while (tmp < estr && ft_strchr("\t\r\n\v\" ", *tmp))
 		tmp++;
 	*pstr = tmp;
 //	printf("ret en gettoken es %d\n", result);

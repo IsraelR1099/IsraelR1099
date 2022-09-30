@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/29 21:02:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/09/30 13:58:00 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@
 struct cmd	*parsecmd(char *str)
 {
 	char		*estr;
+	char		*pquotes;
+	char		*epquotes;
 	struct cmd	*cmd;
 
 
 	estr = str + ft_strlen(str);
+	ft_quotes(str, estr, &pquotes, &epquotes);
 	cmd = parseline(&str, estr);
 	ft_find(&str, estr, "");
 	if (str != estr)
@@ -94,7 +97,6 @@ struct cmd	*parseexec(char **pstr, char *estr)
 	struct cmd		*ret;
 	struct doexec	*cmd;
 	int				token;
-	int				i;
 	char			*ftoken;
 	char			*eftoken;
 
@@ -102,24 +104,22 @@ struct cmd	*parseexec(char **pstr, char *estr)
 	ret = buildexec();
 	ret = parseredirs(pstr, estr, ret);
 	cmd = (struct doexec *)ret;
-	i = 0;
-	while (!ft_find(pstr, estr, "|") && i < 10)
+	while (!ft_find(pstr, estr, "|"))
 	{
-		//printf("entro en while parseexec\n");
+		printf("entro en while parseexec\n");
 		if ((token = gettoken(pstr, estr, &ftoken, &eftoken)) == 0)
 			break ;
 		if (token != 'z')
 			ft_error("syntax", 1);
-		cmd->names[i] = ftoken;
-		cmd->end_names[i] = eftoken;
-		i++;
-		printf("ftoken es %s\n", ftoken);
+		if ((ft_setcmd(&cmd, ftoken, eftoken, 0) >= MAXARGS))
+				break ;
+		printf("ftoken es %s y pstr es %s\n", ftoken, *pstr);
 		//printf("while de parseexec antes\n");
 		ret = parseredirs(pstr, estr, ret);
 		//printf("while de parseexec despues\n");
 	}
-	cmd->names[i] = 0;
-	cmd->end_names[i] = 0;
 //	printf("salgo de exec\n");
+	ft_setcmd(&cmd, ftoken, eftoken, 1);
+	printf("pstr es %s\n", *pstr);
 	return (ret);
 }
