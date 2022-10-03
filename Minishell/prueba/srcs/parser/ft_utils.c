@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/02 20:58:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/03 11:18:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,46 +61,31 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 
 	tmp = *pstr;
 //	printf("--entro en ft_find tmp %s\n", tmp);
-	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp, 2))
+	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
-	printf("retorno %d y token es %s\n", (*tmp && ft_strchr(tokens, *tmp, 2)), tokens);
-	return (*tmp && ft_strchr(tokens, *tmp, 2));
+//	printf("retorno %d y token es %s\n", (*tmp && ft_strchr(tokens, *tmp)), tokens);
+	return (*tmp && ft_strchr(tokens, *tmp));
 }
 
 int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 {
 	char		*tmp;
 	int			result;
-	static int	flag_quote;
 
 	tmp = *pstr;
-	printf("flag_quote es %d y tmp %s\n", flag_quote, tmp);
-	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp, flag_quote))
-	{
-	/*	if (*tmp == 34)
-		{
-			//printf("entro en while\n");
-			flag_quote = 1;
-		}*/
-		tmp++;
-	}
+//	printf("tmp %s\n", tmp);
 	if (*tmp == 34)
 	{
-		flag_quote = 1;
-		tmp++;
+		ft_quotes(pstr, estr, ftoken, eftoken);
+		result = 'z';
+		return (result);
 	}
+	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
+		tmp++;
 	if (ftoken)
 		*ftoken = tmp;
-	printf("flag_quote despues es %d\n", flag_quote);
-	if (flag_quote == 1 && (*tmp == '|'
-		|| *tmp == '<' || *tmp == '>'))
-	{
-	//	printf("entro en if\n");
-		result = 'z';
-	}
-	else
-		result = *tmp;
+	result = *tmp;
 	//printf("result es %d\n", result);
 	if (*tmp == 0)
 		return (0);
@@ -108,8 +93,6 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 		tmp = tmp + 1;
 	else if (*tmp == '<')
 		tmp = tmp + 1;
-	//else if (*tmp == '$')
-	//	ft_expand(ftoken);
 	else if (*tmp == '>')
 	{
 		tmp = tmp + 1;
@@ -122,27 +105,18 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	else
 	{
 		result = 'z';
-		printf("tmp antes antes es #%s# y flag es %d\n", tmp, flag_quote);
-		while (tmp < estr && !ft_strchr("\t\r\n\v ", *tmp, 2)
-			&& !ft_strchr("<|>", *tmp, flag_quote))
-		{
-			printf("tmp es %c\n", *tmp);
-			if (*tmp == 34)
-				flag_quote = 0;
+//		printf("tmp antes antes es #%s#\n", tmp);
+		while (tmp < estr && !ft_strchr("\t\r\n\v ", *tmp)
+			&& !ft_strchr("<|>", *tmp))
 			tmp = tmp + 1;
-		}
 	}
 //	ft_case(&tmp, &estr, &result);
 	if (eftoken)
 		*eftoken = tmp;
-	printf("tmp al final antes es #%s# y flag_quote %d\n", tmp, flag_quote);
-	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp, 2))
-	{
+//	printf("tmp al final antes es #%s#\n", tmp);
+	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
-	//	if (*tmp == 34)
-	//		flag_quote = 0;
-	}
-	printf("tmp al final es #%s# y flag_quote %d\n", tmp, flag_quote);
+//	printf("tmp al final es #%s#\n", tmp);
 	*pstr = tmp;
 	return (result);
 }
