@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/03 10:12:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:32:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define REDIR 2
 # define PIPE 3
 # define MAXARGS 10
+# define RWRR (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 //# define O_RONLY	0x000
 //# define O_WRONLY	0x001
 //# define O_RDWR		0x002

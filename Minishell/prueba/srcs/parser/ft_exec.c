@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/03 13:12:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:32:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,20 @@ void	ft_runcmd(struct cmd *cmd)
 	else if (cmd->type == REDIR)
 	{
 		redircmd = (struct doredir *)cmd;
-		close(redircmd->fd);
-		if (open(redircmd->file, redircmd->right, 0666) < 0)
+		if (access(redircmd->file, F_OK) == 0)
 		{
-			printf("redir %s failed\n", redircmd->file);
-			exit (1);
+			close(redircmd->fd);
+			if (open(redircmd->file, redircmd->right) < 0)
+			{
+				printf("redir %s failed\n", redircmd->file);
+				exit (1);
+			}
+		}
+		else
+		{
+			close(redircmd->fd);
+			if (open(redircmd->file, redircmd->right, RWRR) < 0)
+				ft_error("open error", 1);
 		}
 		ft_runcmd(redircmd->cmd);
 	}
