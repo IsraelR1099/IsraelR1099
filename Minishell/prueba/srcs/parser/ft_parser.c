@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/04 20:52:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/05 14:03:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 	int		operator;
 	char	file[20];
 
-	//printf("entro en parseredirs\n");
+	printf("entro en parseredirs\n");
 	while (ft_find(pstr, estr, "<>"))
 	{
 	//	printf("entro en while redirs\n");
 		operator = gettoken(pstr, estr, 0, 0);
-		//printf("operator en while parse redirs es %d\n", operator);
 		if (gettoken(pstr, estr, &ftoken, &eftoken) != 'z')
 			ft_error("syntax error near unexpected token 'newline'\n", 127);
 		ft_memcpy(file, ftoken, eftoken - ftoken);
-		printf("file es %s\n", file);
+		file[eftoken - ftoken] = '\0';
+		printf("file es %s y ftoken %s\n", file, ftoken);
 		if (operator == '<')
 		{
 			cmd = buildredir(cmd, ftoken, eftoken, O_RDONLY, 0);
@@ -89,17 +89,14 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 		else if (operator == '+')
 		{
 			if (access(file, F_OK) == 0)
-			{
-				printf("entro en file\n");
-				cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY | O_APPEND, 1);
-			}
+				cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY | O_CREAT | O_APPEND, 1);
 			else
 				cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY | O_CREAT |
-				O_TRUNC, 1);
+				O_APPEND, 1);
 //			break ;
 		}
 	}
-//	printf("salgo de parseredir\n");
+	printf("salgo de parseredir\n");
 	return (cmd);
 }
 
@@ -124,7 +121,7 @@ struct cmd	*parseexec(char **pstr, char *estr)
 			ft_error("syntax", 1);
 		if ((ft_setcmd(&cmd, ftoken, eftoken, 0) >= MAXARGS))
 				break ;
-	//	printf("ftoken es %s y pstr es %s\n", ftoken, *pstr);
+		printf("ftoken es %s y pstr es %s\n", ftoken, *pstr);
 		//printf("while de parseexec antes\n");
 		ret = parseredirs(pstr, estr, ret);
 		//printf("while de parseexec despues\n");

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:17:51 by irifarac          #+#    #+#             */
-/*   Updated: 2022/09/30 13:58:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/05 12:13:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	ft_setcmd(struct doexec **cmd, char *ftoken, char *eftoken, int sign)
 		i = 0;
 		return (i);
 	}
+	printf("names es %s\n", (*cmd)->names[i]);
 	(*cmd)->names[i] = ftoken;
 	(*cmd)->end_names[i] = eftoken;
 	i++;
