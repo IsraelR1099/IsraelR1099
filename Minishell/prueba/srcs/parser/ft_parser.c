@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/05 14:03:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:22:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ struct cmd	*parsecmd(char *str)
 		ft_error("syntax", 1);
 	}
 	terminate(cmd);
+	printf("cmd address parsecmd es %p\n", cmd);
 	return (cmd);
 }
 
@@ -75,7 +76,6 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 		if (operator == '<')
 		{
 			cmd = buildredir(cmd, ftoken, eftoken, O_RDONLY, 0);
-//			break ;
 		}
 		else if (operator == '>')
 		{
@@ -84,7 +84,6 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 			else
 				cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY | O_CREAT |
 				O_TRUNC, 1);
-//			break ;
 		}
 		else if (operator == '+')
 		{
@@ -93,7 +92,6 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 			else
 				cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY | O_CREAT |
 				O_APPEND, 1);
-//			break ;
 		}
 	}
 	printf("salgo de parseredir\n");

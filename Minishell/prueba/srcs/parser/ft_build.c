@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 20:04:56 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/05 13:13:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:57:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile, int right, int
 {
 	struct doredir	*cmd;
 
+	printf("buildredir address scmd %p y size es %ld\n", scmd, sizeof(*cmd));
 	cmd = malloc(sizeof(*cmd));
 	if (!cmd)
 		return (NULL);
@@ -39,6 +40,7 @@ struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile, int right, int
 	cmd->efile = efile;
 	cmd->right = right;
 	cmd->fd = fd;
+	printf("cmd doreadir address %p\n", cmd);
 	return ((struct cmd *)cmd);
 }
 

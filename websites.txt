@@ -127,3 +127,5 @@ https://github.com/jeffallen/xv6
 https://mwatler.github.io/unx511_winter2021/Advanced%20Programming%20in%20the%20UNIX%20Environment%203rd%20Edition.pdf
 https://blog.nelhage.com/2009/12/a-brief-introduction-to-termios-termios3-and-stty/
 
+https://stackoverflow.com/questions/70672456/how-here-document-works-in-shell
+https://askubuntu.com/questions/1120556/how-input-redirection-works

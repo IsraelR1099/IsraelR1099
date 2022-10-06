@@ -6,12 +6,14 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/05 14:03:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:21:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../Libft/libft.h"
+
+int	var = 0;
 
 static void	ft_runpipecmd(struct cmd *cmd)
 {
@@ -62,7 +64,8 @@ static void	ft_runredir(struct cmd *cmd)
 	}
 	else
 	{
-		printf("entro en redir fd 2 y file es %s\n", redircmd->file);
+		var++;
+		printf("entro en redir fd 2 y file es %s y type %d y var %d address %p\n", redircmd->file, redircmd->cmd->type, var, redircmd);
 		close(redircmd->fd);
 		if ((fd = open(redircmd->file, redircmd->right, RWRR)) < 0)
 			ft_error("open error", 1);
@@ -77,8 +80,10 @@ void	ft_runcmd(struct cmd *cmd)
 //	struct doredir	*redircmd;
 	struct doexec	*exec;
 
+	printf("cmd address runcmd es %p\n", cmd);
 	exec = (struct doexec *)cmd;
-	printf("names es %s\n", exec->names[0]);
+	var++;
+	printf("names es %s y var %d y address: %p\n", exec->names[0], var, exec);
 
 //	printf("names es 2 %s\n", exec->names[1]);
 //	printf("names 3 es %s\n", exec->names[2]);
