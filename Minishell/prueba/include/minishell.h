@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/05 12:23:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/07 13:18:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,13 @@
 #include <termios.h>
 #include <signal.h>
 #include <sys/ioctl.h>
+#include <limits.h>
 
 # define EXEC 1
 # define REDIR 2
 # define PIPE 3
 # define MAXARGS 10
 # define RWRR (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
-//# define O_RONLY	0x000
-//# define O_WRONLY	0x001
-//# define O_RDWR		0x002
-//# define O_CREAT	0x200
 
 typedef struct cmd
 {

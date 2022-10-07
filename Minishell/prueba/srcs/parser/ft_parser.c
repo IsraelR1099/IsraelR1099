@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/06 20:22:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/07 10:42:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ struct cmd	*parseexec(char **pstr, char *estr)
 	ret = buildexec();
 	ret = parseredirs(pstr, estr, ret);
 	cmd = (struct doexec *)ret;
+	printf("ret address: %p\n", ret);
 	while (!ft_find(pstr, estr, "|"))
 	{
 		//printf("entro en while parseexec\n");

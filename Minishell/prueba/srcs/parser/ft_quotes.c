@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 13:48:44 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/03 12:12:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/07 11:48:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	ft_quotes(char **pstr, char *estr, char **ftoken, char **eftoken)
 	tmp++;
 	if (ftoken)
 		*ftoken = tmp;
-	while (tmp < estr && !ft_strchr("\"", *tmp))
+	while (tmp < estr && !ft_strchr("\"\'", *tmp))
 	{
 //		printf("entro en while tmp es %c\n", *tmp);
 		tmp++;
 	}
 	if (eftoken)
 		*eftoken = tmp;
-	if (*tmp == 34)
+	if (*tmp == 34 || *tmp == 39)
 		tmp++;
 	else
 		ft_error("syntax error quoting", 1);
@@ -40,5 +40,5 @@ int	ft_quotes(char **pstr, char *estr, char **ftoken, char **eftoken)
 	}
 	*pstr = tmp;
 //	printf("tmp al final de quotes es #%s#\n", tmp);
-	return (*tmp && ft_strchr("\"", *tmp));
+	return (*tmp && ft_strchr("\"\'", *tmp));
 }

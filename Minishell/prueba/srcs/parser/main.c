@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/03 14:14:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:41:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static int	getcmd(char **buf, int size)
 	if (*buf && **buf)
 		add_history(*buf);
 	if (ft_strncmp(*buf, "exit", ft_strlen(*buf)) == 0)
+	{
+		free(*buf);
 		return (-1);
+	}
 	return (0);
 }
 

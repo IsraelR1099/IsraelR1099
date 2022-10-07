@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/03 11:18:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:02:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 
 	tmp = *pstr;
 //	printf("tmp %s\n", tmp);
-	if (*tmp == 34)
+	if (*tmp == 34 || *tmp == 39)
 	{
 		ft_quotes(pstr, estr, ftoken, eftoken);
 		result = 'z';
