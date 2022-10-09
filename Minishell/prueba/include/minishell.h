@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/07 13:18:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/08 21:05:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ int			gettoken(char **pstr, char *estr, char **ftoken, char **eftoken);
 int			ft_execvp(char *file, char *argv[], char *envp[]);
 int			ft_setcmd(struct doexec **cmd, char *ftoken, char *eftoken, int sign);
 int			ft_quotes(char **pstr, char *estr, char **ftoken, char **eftoken);
+void		ft_reverse(struct cmd *cmd);
+void		p_struct(struct cmd *cmd, struct cmd *srcmd[]);
 
 #endif

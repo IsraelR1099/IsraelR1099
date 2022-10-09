@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/07 13:48:42 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/09 20:42:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,49 +78,43 @@ static void	ft_runpipecmd(struct cmd *cmd)
 static void	ft_runredir(struct cmd *cmd)
 {
 	struct doredir	*redircmd;
-	struct doredir	*rcmd;
-	struct cmd		*tmp;
 	struct cmd		*srcmd[_POSIX_OPEN_MAX];
-	int				fd;
-//	struct stat		buf;
+	int j;
 
 	redircmd = (struct doredir *)cmd;
-	rcmd = (struct doredir *)cmd;
-	printf("ftoken es %s y cmd %d\n", rcmd->file, rcmd->cmd->type);
-	int i = 0;
-	tmp = cmd;
-	struct doredir	*tmpredir;
-	while (tmp->type == 2 || tmp->type == 1)
+	j = 1;
+	p_struct(cmd, srcmd);
+	while (redircmd->type == 2)
 	{
-		tmpredir = (struct doredir *)tmp;
-		srcmd[i] = tmp;
-		tmp = tmpredir->cmd;
-		i++;
+		redircmd = (struct doredir *)srcmd[j];
+		if ((access(redircmd->file, F_OK)) == 0)
+		{
+			if(open(redircmd->file, redircmd->right) < 0)
+				ft_error("open failed", 1);
+		}
+		else
+		{
+			if ((open(redircmd->file, redircmd->right, RWRR)) < 0)
+				ft_error("open error", 1);
+		}
+		j++;
+		redircmd = (struct doredir *)srcmd[j];
 	}
-	i = 0;
-	while (i < 3)
-	{
-		printf("address %d: %p\n", i, srcmd[i]);
-		i++;
-	}
-
+	redircmd = (struct doredir *)srcmd[0];
 	if (access(redircmd->file, F_OK) == 0)
 	{
-		printf("entro en redir fd 1\n");
 		close(redircmd->fd);
-		if ((fd = open(redircmd->file, redircmd->right)) < 0)
+		if ((open(redircmd->file, redircmd->right)) < 0)
 			ft_error("open failed", 1);
 	}
 	else
 	{
 		var++;
-		printf("entro en redir fd 2 y file es %s y type %d y var %d address %p\n", redircmd->file, redircmd->cmd->type, var, redircmd);
 		close(redircmd->fd);
-		if ((fd = open(redircmd->file, redircmd->right, RWRR)) < 0)
+		if ((open(redircmd->file, redircmd->right, RWRR)) < 0)
 			ft_error("open error", 1);
 	}
-	printf("fd es %d\n", fd);
-	ft_runcmd(redircmd->cmd);
+	ft_runcmd(srcmd[(j)]);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/07 10:42:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/07 22:55:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ struct cmd	*parsecmd(char *str)
 		ft_error("syntax", 1);
 	}
 	terminate(cmd);
+//	if (cmd->type == 2)
+//		ft_reverse(cmd);
 	printf("cmd address parsecmd es %p\n", cmd);
 	return (cmd);
 }
