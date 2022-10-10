@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/07 12:02:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/10 10:15:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,14 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	else if (*tmp == '|')
 		tmp = tmp + 1;
 	else if (*tmp == '<')
+	{
 		tmp = tmp + 1;
+		if (*tmp == '<')
+		{
+			result = '-';
+			tmp = tmp + 1;
+		}
+	}
 	else if (*tmp == '>')
 	{
 		tmp = tmp + 1;

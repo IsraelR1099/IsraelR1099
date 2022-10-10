@@ -6,14 +6,13 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/09 20:42:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:05:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../Libft/libft.h"
 
-int	var = 0;
 
 static void	ft_runpipecmd(struct cmd *cmd)
 {
@@ -75,18 +74,35 @@ static void	ft_runpipecmd(struct cmd *cmd)
 }
 */
 
+static int	getbuf(char **buf, int size, char *delimit)
+{
+	ft_memset(*buf, 0, size);
+	printf("delimit es |%s|\n", delimit);
+	*buf = readline("> ");
+	printf("buf es %s\n", *buf);
+	if (ft_strncmp(*buf, delimit, ft_strlen(*buf)) == 0)
+		return (-1);
+	printf("devuelvo 0\n");
+	return (0);
+}
+
 static void	ft_runredir(struct cmd *cmd)
 {
 	struct doredir	*redircmd;
 	struct cmd		*srcmd[_POSIX_OPEN_MAX];
-	int j;
+	int				j;
+	char			*buf;
 
-	redircmd = (struct doredir *)cmd;
 	j = 1;
+	buf = (char *)malloc(sizeof(char) * 200);
+	if (!buf)
+		ft_error("malloc error", 1);
 	p_struct(cmd, srcmd);
+	redircmd = (struct doredir *)srcmd[j];
 	while (redircmd->type == 2)
 	{
 		redircmd = (struct doredir *)srcmd[j];
+		printf("redircmd address: %p\n", redircmd);
 		if ((access(redircmd->file, F_OK)) == 0)
 		{
 			if(open(redircmd->file, redircmd->right) < 0)
@@ -101,6 +117,21 @@ static void	ft_runredir(struct cmd *cmd)
 		redircmd = (struct doredir *)srcmd[j];
 	}
 	redircmd = (struct doredir *)srcmd[0];
+	if (redircmd->right & O_RDWR)
+	{
+		printf("entro en if file es %s\n", redircmd->file);
+		close(redircmd->fd);
+		if ((open("tmp", redircmd->right, 0600)) < 0)
+			ft_error("open error", 1);
+		//while (ft_strncmp(buf, redircmd->file, ft_strlen(buf)) != 0)
+		while (getbuf(&buf, sizeof(buf), redircmd->file) >= 0)
+		{
+			printf("entro en readline");
+			if ((write(0, buf, ft_strlen(buf)) < 0))
+				ft_error("write error", 1);
+		}
+		printf("salgo de if\n");
+	}
 	if (access(redircmd->file, F_OK) == 0)
 	{
 		close(redircmd->fd);
@@ -109,7 +140,6 @@ static void	ft_runredir(struct cmd *cmd)
 	}
 	else
 	{
-		var++;
 		close(redircmd->fd);
 		if ((open(redircmd->file, redircmd->right, RWRR)) < 0)
 			ft_error("open error", 1);
@@ -126,8 +156,7 @@ void	ft_runcmd(struct cmd *cmd)
 
 	printf("cmd address runcmd es %p\n", cmd);
 	exec = (struct doexec *)cmd;
-	var++;
-	printf("names es %s y var %d y address: %p y type %d\n", exec->names[0], var, exec, exec->type);
+	printf("names es %s y address: %p y type %d\n", exec->names[0], exec, exec->type);
 	//	printf("names es 2 %s\n", exec->names[1]);
 //	printf("names 3 es %s\n", exec->names[2]);
 //	printf("names 4 es %s\n", exec->names[3]);

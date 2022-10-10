@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:39:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/08 21:09:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/10 09:38:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	p_struct(struct cmd *cmd, struct cmd *srcmd[])
 {
 	struct cmd		*tmp;
 	struct doredir	*tmpredir;
-//	struct cmd		*pcmd[_POSIX_OPEN_MAX];
 	int				i;
 
 	printf("entro en pstruct\n");
@@ -29,5 +28,7 @@ void	p_struct(struct cmd *cmd, struct cmd *srcmd[])
 		srcmd[i] = tmp;
 		tmp = tmpredir->cmd;
 		i++;
+		if (i >= _POSIX_OPEN_MAX)
+			ft_error("maximum number of open files exceed", 1);
 	}
 }
