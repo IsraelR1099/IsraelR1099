@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/10 14:05:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:46:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ static void	ft_runpipecmd(struct cmd *cmd)
 static int	getbuf(char **buf, int size, char *delimit)
 {
 	ft_memset(*buf, 0, size);
-	printf("delimit es |%s|\n", delimit);
+//	printf("delimit es |%s|\n", delimit);
 	*buf = readline("> ");
-	printf("buf es %s\n", *buf);
+//	printf("buf es %s\n", *buf);
 	if (ft_strncmp(*buf, delimit, ft_strlen(*buf)) == 0)
 		return (-1);
-	printf("devuelvo 0\n");
+//	printf("devuelvo 0\n");
 	return (0);
 }
 
@@ -120,16 +120,18 @@ static void	ft_runredir(struct cmd *cmd)
 	if (redircmd->right & O_RDWR)
 	{
 		printf("entro en if file es %s\n", redircmd->file);
-		close(redircmd->fd);
-		if ((open("tmp", redircmd->right, 0600)) < 0)
+		if ((open(".tmp", redircmd->right, 0600)) < 0)
 			ft_error("open error", 1);
 		//while (ft_strncmp(buf, redircmd->file, ft_strlen(buf)) != 0)
 		while (getbuf(&buf, sizeof(buf), redircmd->file) >= 0)
 		{
-			printf("entro en readline");
-			if ((write(0, buf, ft_strlen(buf)) < 0))
+		//	printf("entro en readline");
+			if ((write(3, buf, ft_strlen(buf)) < 0))
+				ft_error("write error", 1);
+			if ((write(3, "\n", 1) < 0))
 				ft_error("write error", 1);
 		}
+		write(1, "salgo\n", 6);
 		printf("salgo de if\n");
 	}
 	if (access(redircmd->file, F_OK) == 0)

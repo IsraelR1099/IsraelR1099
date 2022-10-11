@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/10 11:52:26 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:42:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 				O_APPEND, 1);
 		}
 		else if (operator ==  '-')
-				cmd = buildredir(cmd, ftoken, eftoken, O_RDWR | O_CREAT | O_EXCL, 0);
+				cmd = buildredir(cmd, ftoken, eftoken, O_RDWR | O_CREAT |
+				O_EXCL, 1);
 	}
 	printf("salgo de parseredir\n");
 	return (cmd);
