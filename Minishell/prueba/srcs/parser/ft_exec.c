@@ -6,13 +6,12 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/10 20:46:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/12 13:49:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../Libft/libft.h"
-
 
 static void	ft_runpipecmd(struct cmd *cmd)
 {
@@ -92,6 +91,8 @@ static void	ft_runredir(struct cmd *cmd)
 	struct cmd		*srcmd[_POSIX_OPEN_MAX];
 	int				j;
 	char			*buf;
+	char			file[] = ".tmp";
+//	int				fd = mkstemp(file);
 
 	j = 1;
 	buf = (char *)malloc(sizeof(char) * 200);
@@ -120,7 +121,7 @@ static void	ft_runredir(struct cmd *cmd)
 	if (redircmd->right & O_RDWR)
 	{
 		printf("entro en if file es %s\n", redircmd->file);
-		if ((open(".tmp", redircmd->right, 0600)) < 0)
+		if ((open(file, redircmd->right, 0600)) < 0)
 			ft_error("open error", 1);
 		//while (ft_strncmp(buf, redircmd->file, ft_strlen(buf)) != 0)
 		while (getbuf(&buf, sizeof(buf), redircmd->file) >= 0)
@@ -133,6 +134,13 @@ static void	ft_runredir(struct cmd *cmd)
 		}
 		write(1, "salgo\n", 6);
 		printf("salgo de if\n");
+		if ((open(file, O_RDONLY)) < 0)
+			ft_error("open error", 1);
+		close(3);
+		unlink(file);
+		dup2(4, 0);
+		close(4);
+		ft_runcmd(srcmd[j]);
 	}
 	if (access(redircmd->file, F_OK) == 0)
 	{
@@ -146,7 +154,7 @@ static void	ft_runredir(struct cmd *cmd)
 		if ((open(redircmd->file, redircmd->right, RWRR)) < 0)
 			ft_error("open error", 1);
 	}
-	ft_runcmd(srcmd[(j)]);
+	ft_runcmd(srcmd[j]);
 }
 
 
