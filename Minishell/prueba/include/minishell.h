@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/08 21:05:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:44:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ struct cmd	*parsepipe(char **pstr, char *estr);
 struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd);
 struct cmd	*parseexec(char **pstr, char *estr);
 void		ft_runcmd(struct cmd *cmd);
+void		ft_heredoc(struct cmd *cmd);
 //Building tree structs
 struct cmd	*buildexec(void);
 struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile, int right, int fd);
@@ -86,7 +87,6 @@ int			gettoken(char **pstr, char *estr, char **ftoken, char **eftoken);
 int			ft_execvp(char *file, char *argv[], char *envp[]);
 int			ft_setcmd(struct doexec **cmd, char *ftoken, char *eftoken, int sign);
 int			ft_quotes(char **pstr, char *estr, char **ftoken, char **eftoken);
-void		ft_reverse(struct cmd *cmd);
 void		p_struct(struct cmd *cmd, struct cmd *srcmd[]);
 
 #endif

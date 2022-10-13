@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/12 13:49:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:41:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ struct cmd	*parsecmd(char *str)
 		ft_error("syntax", 1);
 	}
 	terminate(cmd);
-	printf("cmd address parsecmd es %p\n", cmd);
+//	printf("cmd address parsecmd es %p\n", cmd);
 	return (cmd);
 }
 
@@ -63,7 +63,7 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 	int		operator;
 	char	file[20];
 
-	printf("entro en parseredirs\n");
+//	printf("entro en parseredirs\n");
 	while (ft_find(pstr, estr, "<>"))
 	{
 	//	printf("entro en while redirs\n");
@@ -72,7 +72,7 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 			ft_error("syntax error near unexpected token 'newline'\n", 127);
 		ft_memcpy(file, ftoken, eftoken - ftoken);
 		file[eftoken - ftoken] = '\0';
-		printf("file es %s y ftoken %s\n", file, ftoken);
+//		printf("file es %s y ftoken %s\n", file, ftoken);
 		if (operator == '<')
 		{
 			cmd = buildredir(cmd, ftoken, eftoken, O_RDONLY, 0);
@@ -97,7 +97,7 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 				cmd = buildredir(cmd, ftoken, eftoken, O_RDWR | O_CREAT |
 				O_EXCL, 1);
 	}
-	printf("salgo de parseredir\n");
+//	printf("salgo de parseredir\n");
 	return (cmd);
 }
 
@@ -113,7 +113,7 @@ struct cmd	*parseexec(char **pstr, char *estr)
 	ret = buildexec();
 	ret = parseredirs(pstr, estr, ret);
 	cmd = (struct doexec *)ret;
-	printf("ret address: %p\n", ret);
+//	printf("ret address: %p\n", ret);
 	while (!ft_find(pstr, estr, "|"))
 	{
 		//printf("entro en while parseexec\n");
@@ -123,7 +123,7 @@ struct cmd	*parseexec(char **pstr, char *estr)
 			ft_error("syntax", 1);
 		if ((ft_setcmd(&cmd, ftoken, eftoken, 0) >= MAXARGS))
 				break ;
-		printf("ftoken es %s y pstr es %s\n", ftoken, *pstr);
+//		printf("ftoken es %s y pstr es %s\n", ftoken, *pstr);
 		//printf("while de parseexec antes\n");
 		ret = parseredirs(pstr, estr, ret);
 		//printf("while de parseexec despues\n");

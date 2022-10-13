@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/03 13:12:36 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:46:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ void	ft_info_handler(int signo, siginfo_t *info, void *context)
 	(void)context;
 	child = info->si_pid;
 	status = info->si_status;
-	printf("pid: %d status: %d\n", child, status);
+	(void)status;
+	(void)child;
+/*	printf("pid: %d status: %d\n", child, status);
 	if (signo == SIGCHLD)
 	{
 		printf("child died\n");
-	}
+	}*/
 	if (signo == SIGINT)
 	{
 		//printf("sigint %s\n", rl_line_buffer);
