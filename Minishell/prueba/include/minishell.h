@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/13 17:44:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/14 11:00:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int			gettoken(char **pstr, char *estr, char **ftoken, char **eftoken);
 int			ft_execvp(char *file, char *argv[], char *envp[]);
 int			ft_setcmd(struct doexec **cmd, char *ftoken, char *eftoken, int sign);
 int			ft_quotes(char **pstr, char *estr, char **ftoken, char **eftoken);
+int			ft_quotes_simple(char **pstr, char *estr, char **ftoken, char **eftoken);
 void		p_struct(struct cmd *cmd, struct cmd *srcmd[]);
 
 #endif

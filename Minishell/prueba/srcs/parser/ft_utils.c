@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/13 20:50:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/14 13:34:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	printf("tmp en gettoken %s\n", tmp);
 	if (*tmp == 34 || *tmp == 39)
 	{
-		ft_quotes(pstr, estr, ftoken, eftoken);
+		if (*tmp == 34)
+			ft_quotes(pstr, estr, ftoken, eftoken);
+		else if (*tmp == 39)
+			ft_quotes_simple(pstr, estr, ftoken, eftoken);
 		result = 'z';
 		return (result);
 	}
@@ -113,12 +116,10 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	{
 		result = 'z';
 //		printf("tmp antes antes es #%s#\n", tmp);
-		while (tmp < estr && !ft_strchr("\t\r\n\v ", *tmp)
+		while (tmp < estr && !ft_strchr("\t\r\n\v\" ", *tmp)
 			&& !ft_strchr("<|>", *tmp))
 		{
-			if (*tmp == 34 || *tmp == 39)
-				ft_quotes(pstr, estr, ftoken, eftoken);
-			printf("tmp es %c\n", *tmp);
+		//	printf("tmp es %c\n", *tmp);
 			tmp = tmp + 1;
 		}
 	}

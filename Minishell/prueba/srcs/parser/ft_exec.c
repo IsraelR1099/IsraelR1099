@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/13 17:41:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/14 13:34:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,13 @@ void	ft_runcmd(struct cmd *cmd)
 {
 	struct doexec	*execcmd;
 //	struct doredir	*redircmd;
-//	struct doexec	*exec;
+	struct doexec	*exec;
 
 //	printf("cmd address runcmd es %p\n", cmd);
-//	exec = (struct doexec *)cmd;
-//	printf("names es %s y address: %p y type %d\n", exec->names[0], exec, exec->type);
-	//	printf("names es 2 %s\n", exec->names[1]);
-//	printf("names 3 es %s\n", exec->names[2]);
+	exec = (struct doexec *)cmd;
+	printf("names es |%s| y address: %p y type %d\n", exec->names[0], exec, exec->type);
+	printf("names es 2 |%s|\n", exec->names[1]);
+	printf("names 3 es |%s|\n", exec->names[2]);
 //	printf("names 4 es %s\n", exec->names[3]);
 	if (cmd == 0)
 		exit (1);
