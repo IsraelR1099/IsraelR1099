@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/13 20:28:27 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/16 13:31:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ static void	ft_signals(void)
 	struct sigaction	act;
 	struct sigaction	oact;
 
+	printf("entro en signals parent\n");
 	act.sa_handler = SIG_IGN;
 //	act.sa_mask = 0;
 	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_RESTART | SA_SIGINFO;
+	act.sa_flags = SA_RESTART | SA_SIGINFO | SA_NOCLDWAIT;
 	act.sa_sigaction = ft_info_handler;
 	if (sigaction(SIGCHLD, &act, &oact) < 0)
 		ft_error("sigaction error", 130);
@@ -81,7 +82,9 @@ int	main(void)
 			continue ;
 		}
 		if (fork1() == 0)
+		{
 			ft_runcmd(parsecmd(buf));
+		}
 		wait(0);
 	}
 	return (0);

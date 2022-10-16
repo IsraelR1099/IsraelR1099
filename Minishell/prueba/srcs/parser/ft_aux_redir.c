@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:39:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/13 17:41:29 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/16 20:24:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,17 @@ void	p_struct(struct cmd *cmd, struct cmd *srcmd[])
 	}
 }
 
-static void	*ft_change(void *file)
-{
-	ft_memcpy(file, ".tmp2", 5);
-	return (file);
-}
-
 void	ft_heredoc(struct cmd *cmd)
 {
 	char			*buf;
-	char			file[20] = ".tmp";
 	struct doredir	*redircmd;
-	int				fd;
 
-//	printf("entro en heredoc\n");
 	buf = (char *)malloc(sizeof(char) * 200);
 	if (!buf)
 		ft_error("malloc error", 1);
-	if ((access(file, F_OK) == 0))
-	{
-		ft_change(file);
-	}
 	redircmd = (struct doredir *)cmd;
-	if ((fd = open(file, redircmd->right, 0600)) < 0)
-	{
-		printf("errno es %d\n", errno);
+	if ((open(".tmp", redircmd->right, 0600)) < 0)
 		ft_error("open error", 1);
-	}
-//	printf("fd es %d\n", fd);
 	while (getbuf(&buf, sizeof(buf), redircmd->file) >= 0)
 	{
 		if ((write(3, buf, ft_strlen(buf)) < 0))
@@ -79,12 +62,13 @@ void	ft_heredoc(struct cmd *cmd)
 		if ((write(3, "\n", 1) < 0))
 			ft_error("write error", 1);
 	}
-	if ((open(file, O_RDONLY)) < 0)
+	if ((open(".tmp", O_RDONLY)) < 0)
 		ft_error("open error", 1);
 	close(3),
-	unlink(file);
+	unlink(".tmp");
 	dup2(4, 0);
 	close(4);
 	free(buf);
+	printf("saliento de heredoc\n");
 	ft_runcmd(redircmd->cmd);
 }

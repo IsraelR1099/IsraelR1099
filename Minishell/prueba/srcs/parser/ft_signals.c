@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/13 17:46:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/16 20:12:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,36 @@ void	ft_handler(int signo)
 void	ft_info_handler(int signo, siginfo_t *info, void *context)
 {
 	int	child;
+	int	state;
 	int	status;
+	int	signo2;
+	pid_t	pid;
 
 	(void)context;
+	state = 0;
 	child = info->si_pid;
 	status = info->si_status;
-	(void)status;
-	(void)child;
-/*	printf("pid: %d status: %d\n", child, status);
+	signo2 = info->si_signo;
+	pid = info->si_pid;
+	printf("pid: %d status: %d y signo: %d, pid info: %d\n", child, status,
+	signo2, pid);
 	if (signo == SIGCHLD)
 	{
 		printf("child died\n");
-	}*/
-	if (signo == SIGINT)
+		state = 1;
+	printf("state %d\n", state);
+	}
+	else
+		printf("child alive\n");
+	printf("state2 %d\n", state);
+	if (state == 0 && pid != 0)
 	{
-		//printf("sigint %s\n", rl_line_buffer);
-		//if (ioctl(STDIN_FILENO, TIOCSTI, "\n") < 0)
-		//	ft_error("ioctl erro", 130);
-		//printf("state %lu\n", rl_readline_state);
-		//write(2, "\n", 1);
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		//if (RL_STATE_REDISPLAYING)
-		//	printf("true\n");
+		if (signo == SIGINT)
+		{
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
 	}
 }

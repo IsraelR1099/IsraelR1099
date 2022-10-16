@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 20:04:56 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/13 17:47:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/16 20:26:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ struct cmd	*buildexec(void)
 	return ((struct cmd *)cmd);
 }
 
-struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile, int right, int fd)
+struct cmd	*buildredir(struct cmd *scmd, char *file,
+char *efile, int right, int fd)
 {
 	struct doredir	*cmd;
 
