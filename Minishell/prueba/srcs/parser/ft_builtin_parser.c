@@ -6,11 +6,12 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:34:06 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/07 12:35:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/17 20:37:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include "../../Libft/libft.h"
 
 struct cmd	*builtparse(char *str)
 {
@@ -39,8 +40,9 @@ struct cmd	*builtexec(char **pstr, char *estr)
 
 	ret = buildexec();
 	cmd = (struct doexec *)ret;
-	while ((token = gettoken(pstr, estr, &ftoken, &eftoken)) != 0)
+	while (*pstr < estr)
 	{
+		token = gettoken(pstr, estr, &ftoken, &eftoken);
 		if (token != 'z')
 			ft_error("syntax", 1);
 		if ((ft_setcmd(&cmd, ftoken, eftoken, 0) >= MAXARGS))

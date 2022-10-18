@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/10/08 20:52:53 by irifarac         ###   ########.fr        #
+#    Updated: 2022/10/18 14:13:02 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,13 +31,15 @@ LIBFT = Libft
 SRC = $(SRCDIR)/main.c \
 	  $(SRCDIR)/ft_utils.c \
 	  $(SRCDIR)/ft_build.c \
+	  $(SRCDIR)/ft_builtin_parser.c \
 	  $(SRCDIR)/ft_parser.c \
 	  $(SRCDIR)/ft_exec.c \
 	  $(SRCDIR)/ft_termination.c \
 	  $(SRCDIR)/ft_execve.c \
 	  $(SRCDIR)/ft_signals.c \
 	  $(SRCDIR)/ft_quotes.c \
-	  $(SRCDIR)/ft_aux_redir.c
+	  $(SRCDIR)/ft_aux_redir.c \
+	  $(SRCDIR)/ft_heredoc.c
 
 OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))

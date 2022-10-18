@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/16 20:32:25 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/17 21:26:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@ static void	ft_runpipecmd(struct cmd *cmd)
 		ft_error("pipe error", 1);
 	if (fork1() == 0)
 	{
-		close(1); // first child closes stdout fd
-		dup(file_d[1]); // changes the stdout by the file_d[1].
+		close(1);
+		dup(file_d[1]);
 		close(file_d[0]);
 		close(file_d[1]);
 		ft_runcmd(pipecmd->left);
 	}
 	if (fork1() == 0)
 	{
-		close(0); // second child closes stdin fd
+		close(0);
 		dup(file_d[0]);
 		close(file_d[0]);
 		close(file_d[1]);
 		ft_runcmd(pipecmd->right);
 	}
-	close(file_d[0]); //close fd of parent process
+	close(file_d[0]);
 	close(file_d[1]);
-	wait(0); // the parent process waits for the two children process
+	wait(0);
 	wait(0);
 }
 
@@ -64,41 +64,18 @@ static void	ft_runredir(struct cmd *cmd)
 				ft_error("open failed", 1);
 		}
 		else
-		{
 			if ((open(redircmd->file, redircmd->right, RWRR)) < 0)
 				ft_error("open error", 1);
-		}
-		j++;
-		redircmd = (struct doredir *)srcmd[j];
+		redircmd = (struct doredir *)srcmd[++j];
 	}
-	redircmd = (struct doredir *)srcmd[0];
-	if (access(redircmd->file, F_OK) == 0)
-	{
-		close(redircmd->fd);
-		if ((open(redircmd->file, redircmd->right)) < 0)
-			ft_error("open failed", 1);
-	}
-	else
-	{
-		close(redircmd->fd);
-		if ((open(redircmd->file, redircmd->right, RWRR)) < 0)
-			ft_error("open error", 1);
-	}
+	ft_redir_exec(srcmd[0]);
 	ft_runcmd(srcmd[j]);
 }
 
 void	ft_runcmd(struct cmd *cmd)
 {
 	struct doexec	*execcmd;
-//	struct doredir	*redircmd;
-//	struct doexec	*exec;
 
-//	printf("cmd address runcmd es %p\n", cmd);
-//	exec = (struct doexec *)cmd;
-//	printf("names es |%s| y address: %p y type %d\n", exec->names[0], exec, exec->type);
-//	printf("names es 2 |%s|\n", exec->names[1]);
-//	printf("names 3 es |%s|\n", exec->names[2]);
-//	printf("names 4 es %s\n", exec->names[3]);
 	if (cmd == 0)
 		exit (1);
 	if (cmd->type == EXEC)

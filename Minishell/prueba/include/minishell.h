@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/16 13:31:58 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:47:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define PIPE 3
 # define MAXARGS 10
 # define RWRR (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+# define WCA O_WRONLY | O_CREAT | O_APPEND
+# define RDCE O_RDWR | O_CREAT | O_EXCL
 
 typedef struct cmd
 {
@@ -68,6 +70,8 @@ struct cmd	*parseline(char **pstr, char *estr);
 struct cmd	*parsepipe(char **pstr, char *estr);
 struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd);
 struct cmd	*parseexec(char **pstr, char *estr);
+struct cmd	*builtparse(char *str);
+struct cmd	*builtexec(char **pstr, char *estr);
 void		ft_runcmd(struct cmd *cmd);
 void		ft_heredoc(struct cmd *cmd);
 //Building tree structs
@@ -89,5 +93,7 @@ int			ft_setcmd(struct doexec **cmd, char *ftoken, char *eftoken, int sign);
 int			ft_quotes(char **pstr, char *estr, char **ftoken, char **eftoken);
 int			ft_quotes_simple(char **pstr, char *estr, char **ftoken, char **eftoken);
 void		p_struct(struct cmd *cmd, struct cmd *srcmd[]);
+void		ft_redir_exec(struct cmd *cmd);
+void		ft_simple_redir(struct cmd *cmd, char *array[2], char file[20], int operator);
 
 #endif

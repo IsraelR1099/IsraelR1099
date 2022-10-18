@@ -6,22 +6,12 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:39:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/16 20:24:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:49:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../Libft/libft.h"
-#include <errno.h>
-
-static int	getbuf(char **buf, int size, char *delimit)
-{
-	ft_memset(*buf, 0, size);
-	*buf = readline("> ");
-	if (ft_strncmp(*buf, delimit, ft_strlen(*buf)) == 0)
-		return (-1);
-	return (0);
-}
 
 void	p_struct(struct cmd *cmd, struct cmd *srcmd[])
 {
@@ -29,12 +19,10 @@ void	p_struct(struct cmd *cmd, struct cmd *srcmd[])
 	struct doredir	*tmpredir;
 	int				i;
 
-//	printf("entro en pstruct\n");
 	i = 0;
 	tmp = cmd;
 	while (tmp->type == 2 || tmp->type == 1)
 	{
-//		printf("entro en bucle pstruct tmp: %p\n", tmp);
 		tmpredir = (struct doredir *)tmp;
 		srcmd[i] = tmp;
 		tmp = tmpredir->cmd;
@@ -44,31 +32,37 @@ void	p_struct(struct cmd *cmd, struct cmd *srcmd[])
 	}
 }
 
-void	ft_heredoc(struct cmd *cmd)
+void	ft_redir_exec(struct cmd *cmd)
 {
-	char			*buf;
 	struct doredir	*redircmd;
 
-	buf = (char *)malloc(sizeof(char) * 200);
-	if (!buf)
-		ft_error("malloc error", 1);
 	redircmd = (struct doredir *)cmd;
-	if ((open(".tmp", redircmd->right, 0600)) < 0)
-		ft_error("open error", 1);
-	while (getbuf(&buf, sizeof(buf), redircmd->file) >= 0)
+	if (access(redircmd->file, F_OK) == 0)
 	{
-		if ((write(3, buf, ft_strlen(buf)) < 0))
-			ft_error("write error", 1);
-		if ((write(3, "\n", 1) < 0))
-			ft_error("write error", 1);
+		close(redircmd->fd);
+		if ((open(redircmd->file, redircmd->right)) < 0)
+			ft_error("open failed", 1);
 	}
-	if ((open(".tmp", O_RDONLY)) < 0)
-		ft_error("open error", 1);
-	close(3),
-	unlink(".tmp");
-	dup2(4, 0);
-	close(4);
-	free(buf);
-	printf("saliento de heredoc\n");
-	ft_runcmd(redircmd->cmd);
+	else
+	{
+		close(redircmd->fd);
+		if ((open(redircmd->file, redircmd->right, RWRR)) < 0)
+			ft_error("open error", 1);
+	}
+}
+
+void	ft_simple_redir(struct cmd *cmd, char *array[2], char file[20], int operator)
+{
+	printf("entro en simple file es %s\n", file);
+	if (operator == '<')
+		cmd = buildredir(cmd, array[0], array[1], O_RDONLY, 0);
+	else if (operator == '>')
+	{
+		if (access(file, F_OK) == 0)
+		cmd = buildredir(cmd, array[0], array[1], O_WRONLY |
+		O_APPEND, 1);
+		else
+			cmd = buildredir(cmd, array[0], array[1], O_WRONLY | O_CREAT
+			| O_TRUNC, 1);
+	}
 }

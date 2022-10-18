@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/14 13:34:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/17 21:50:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,9 @@ int	ft_find(char **pstr, char *estr, char *tokens)
 	char	*tmp;
 
 	tmp = *pstr;
-//	printf("--entro en ft_find tmp %s\n", tmp);
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
-//	printf("retorno %d y token es %s\n", (*tmp && ft_strchr(tokens, *tmp)), tokens);
 	return (*tmp && ft_strchr(tokens, *tmp));
 }
 
@@ -74,7 +72,6 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	int			result;
 
 	tmp = *pstr;
-	printf("tmp en gettoken %s\n", tmp);
 	if (*tmp == 34 || *tmp == 39)
 	{
 		if (*tmp == 34)
@@ -89,7 +86,6 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	if (ftoken)
 		*ftoken = tmp;
 	result = *tmp;
-	//printf("result es %d\n", result);
 	if (*tmp == 0)
 		return (0);
 	else if (*tmp == '|')
@@ -115,21 +111,15 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	else
 	{
 		result = 'z';
-//		printf("tmp antes antes es #%s#\n", tmp);
 		while (tmp < estr && !ft_strchr("\t\r\n\v\" ", *tmp)
 			&& !ft_strchr("<|>", *tmp))
-		{
-		//	printf("tmp es %c\n", *tmp);
 			tmp = tmp + 1;
-		}
 	}
 //	ft_case(&tmp, &estr, &result);
 	if (eftoken)
 		*eftoken = tmp;
-//	printf("tmp al final antes es #%s#\n", tmp);
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
-//	printf("tmp al final es #%s#\n", tmp);
 	*pstr = tmp;
 	return (result);
 }
