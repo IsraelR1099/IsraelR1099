@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/17 20:37:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:58:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	ft_signals(void)
 	act.sa_handler = SIG_IGN;
 //	act.sa_mask = 0;
 	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_RESTART | SA_SIGINFO | SA_NOCLDWAIT;
+	act.sa_flags = SA_RESTART | SA_SIGINFO; //| SA_NOCLDWAIT;
 	act.sa_sigaction = ft_info_handler;
 	if (sigaction(SIGCHLD, &act, &oact) < 0)
 		ft_error("sigaction error", 130);

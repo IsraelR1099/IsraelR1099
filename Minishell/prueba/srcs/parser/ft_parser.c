@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/18 20:51:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:16:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 {
 	char	*ftoken;
 	char	*eftoken;
-	char	*array[2];
 	int		operator;
 	char	file[20];
 
@@ -89,30 +88,31 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 			ft_error("syntax error near unexpected token 'newline'\n", 127);
 		ft_memcpy(file, ftoken, eftoken - ftoken);
 		file[eftoken - ftoken] = '\0';
-		array[0] = ftoken;
-		array[1] = eftoken;
-		printf("file en redir es %s\n", file);
+		printf("ftoken |%s|, eftoken |%s| y operator %d y file %s\n", ftoken, eftoken, operator, file);
+	//	cmd = buildredir(cmd, ftoken, eftoken, O_RDONLY, 0);
 		if (operator == '<' || operator == '>')
-			ft_simple_redir(cmd, array, file, operator);
-	/*		cmd = buildredir(cmd, array[0], array[1], O_RDONLY, 0);
-		else if (operator == '>')
+		{
+			printf("entro en operator\n");
+			ft_simple_redir(cmd, &ftoken, &eftoken, operator);
+		}
+	/*	else if (operator == '>')
 		{
 			if (access(file, F_OK) == 0)
-			cmd = buildredir(cmd, array[0], array[1], O_WRONLY |
+			cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY |
 			O_APPEND, 1);
 			else
-				cmd = buildredir(cmd, array[0], array[1], O_WRONLY | O_CREAT
+				cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY | O_CREAT
 				| O_TRUNC, 1);
 		}*/
 		else if (operator == '+')
 		{
 			if (access(file, F_OK) == 0)
-				cmd = buildredir(cmd, array[0], array[1], WCA, 1);
+				cmd = buildredir(cmd, ftoken, eftoken, WCA, 1);
 			else
-				cmd = buildredir(cmd, array[0], array[1], WCA, 1);
+				cmd = buildredir(cmd, ftoken, eftoken, WCA, 1);
 		}
 		else if (operator == '-')
-			cmd = buildredir(cmd, array[0], array[1], RDCE, 1);
+			cmd = buildredir(cmd, ftoken, eftoken, RDCE, 1);
 	}
 	return (cmd);
 }

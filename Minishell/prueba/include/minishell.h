@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/18 20:47:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:18:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ int			ft_quotes(char **pstr, char *estr, char **ftoken, char **eftoken);
 int			ft_quotes_simple(char **pstr, char *estr, char **ftoken, char **eftoken);
 void		p_struct(struct cmd *cmd, struct cmd *srcmd[]);
 void		ft_redir_exec(struct cmd *cmd);
-void		ft_simple_redir(struct cmd *cmd, char *array[2], char file[20], int operator);
+void		ft_simple_redir(struct cmd *cmd, char **ftoken, char **eftoken, int operator);
 
 #endif

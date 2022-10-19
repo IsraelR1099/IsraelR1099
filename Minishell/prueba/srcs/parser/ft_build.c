@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 20:04:56 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/17 20:13:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:36:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char *efile, int right, int fd)
 {
 	struct doredir	*cmd;
 
+	printf("right es %d y fd %d y file %s y efile %s\n", right, fd, file, efile);
+	printf("cmd address build %p\n", scmd);
 	cmd = malloc(sizeof(*cmd));
 	if (!cmd)
 		return (NULL);
@@ -40,6 +42,7 @@ char *efile, int right, int fd)
 	cmd->efile = efile;
 	cmd->right = right;
 	cmd->fd = fd;
+	printf("doredir address build %p\n", cmd);
 	return ((struct cmd *)cmd);
 }
 

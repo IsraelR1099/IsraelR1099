@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 21:18:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/03 14:13:25 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:24:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*ft_strchrnul(const char *s, int c)
 static int	ft_execve(char *file, char *argv[], char *envp[])
 {
 	char	*path;
-	char	tstr[126];
+	char	tstr[_POSIX_PATH_MAX];
 	char	*pstr;
 	char	*cpath;
 	int		ret;
