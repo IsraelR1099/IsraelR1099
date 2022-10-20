@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:39:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/19 13:58:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:20:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,29 +51,65 @@ void	ft_redir_exec(struct cmd *cmd)
 	}
 }
 
-void	ft_simple_redir(struct cmd *cmd, char **ftoken, char **eftoken, int operator)
+static void	ft_file(char *ftoken, char *eftoken, char *file)
+{
+	ft_memset(file, 0, sizeof(file));
+	ft_memcpy(file, ftoken, eftoken - ftoken);
+	file[eftoken - ftoken] = '\0';
+}
+
+struct cmd	*ft_simple_redir(struct cmd *cmd, char **ftoken,
+char **eftoken, int operator)
 {
 	char	file[20];
 	int		pointers[2];
 
-	printf("operator %d, *ftoken %s, *eftoken %s\n", operator, *ftoken, *eftoken);
-	printf("cmd address: %p\n", cmd);
-	ft_memset(file, 0, sizeof(file));
-	ft_memcpy(file, *ftoken, *eftoken - *ftoken);
-	file[*eftoken - *ftoken] = '\0';
-	printf("entro en simple file es %s, fotken %s\n", file, *ftoken);
+	ft_file(*ftoken, *eftoken, file);
 	if (operator == '<')
 	{
 		pointers[0] = O_RDONLY;
 		pointers[1] = 0;
-		cmd = buildredir(cmd, *ftoken, *eftoken, pointers[0], pointers[1]);
-		//cmd = buildredir(cmd, *ftoken, *eftoken, O_RDONLY, 0);
+		cmd = buildredir(cmd, *ftoken, *eftoken, pointers);
 	}
 	else if (operator == '>')
 	{
+		pointers[1] = 1;
 		if (access(file, F_OK) == 0)
-		cmd = buildredir(cmd, *ftoken, *eftoken, O_WRONLY | O_APPEND, 1);
+		{
+			pointers[0] = O_WRONLY | O_APPEND;
+			cmd = buildredir(cmd, *ftoken, *eftoken, pointers);
+		}
 		else
-			cmd = buildredir(cmd, *ftoken, *eftoken, O_WRONLY | O_CREAT | O_TRUNC, 1);
+		{
+			pointers[0] = O_WRONLY | O_CREAT | O_TRUNC;
+			cmd = buildredir(cmd, *ftoken, *eftoken, pointers);
+		}
 	}
+	return (cmd);
+}
+
+struct cmd	*ft_double_redir(struct cmd *cmd, char **ftoken,
+char **eftoken, int operator)
+{
+	char	file[20];
+	int		pointers[2];
+
+	ft_memset(file, 0, sizeof(file));
+	ft_memcpy(file, *ftoken, *eftoken - *ftoken);
+	file[*eftoken - *ftoken] = '\0';
+	pointers[1] = 1;
+	if (operator == '+')
+	{
+		pointers[0] = WCA;
+		if (access(file, F_OK) == 0)
+			cmd = buildredir(cmd, *ftoken, *eftoken, pointers);
+		else
+			cmd = buildredir(cmd, *ftoken, *eftoken, pointers);
+	}
+	else if (operator == '-')
+	{
+		pointers[0] = RDCE;
+		cmd = buildredir(cmd, *ftoken, *eftoken, pointers);
+	}
+	return (cmd);
 }

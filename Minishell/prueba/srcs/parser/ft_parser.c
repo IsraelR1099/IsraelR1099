@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/19 12:16:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:23:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,63 +56,16 @@ struct cmd	*parseredirs(char **pstr, char *estr, struct cmd *cmd)
 	char	*ftoken;
 	char	*eftoken;
 	int		operator;
-	char	file[20];
 
 	while (ft_find(pstr, estr, "<>"))
 	{
 		operator = gettoken(pstr, estr, 0, 0);
-/*		if (gettoken(pstr, estr, &ftoken, &eftoken) != 'z')
-			ft_error("syntax error near unexpected token 'newline'\n", 127);
-		ft_memcpy(file, ftoken, eftoken - ftoken);
-		file[eftoken - ftoken] = '\0';
-		if (operator == '<')
-			cmd = buildredir(cmd, ftoken, eftoken, O_RDONLY, 0);
-		else if (operator == '>')
-		{
-			if (access(file, F_OK) == 0)
-				cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY | O_APPEND, 1);
-			else
-				cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY | O_CREAT
-						| O_TRUNC, 1);
-		}
-		else if (operator == '+')
-		{
-			if (access(file, F_OK) == 0)
-				cmd = buildredir(cmd, ftoken, eftoken, WCA, 1);
-			else
-				cmd = buildredir(cmd, ftoken, eftoken, WCA, 1);
-		}
-		else if (operator == '-')
-				cmd = buildredir(cmd, ftoken, eftoken, RDCE, 1);*/
 		if (gettoken(pstr, estr, &ftoken, &eftoken) != 'z')
 			ft_error("syntax error near unexpected token 'newline'\n", 127);
-		ft_memcpy(file, ftoken, eftoken - ftoken);
-		file[eftoken - ftoken] = '\0';
-		printf("ftoken |%s|, eftoken |%s| y operator %d y file %s\n", ftoken, eftoken, operator, file);
-	//	cmd = buildredir(cmd, ftoken, eftoken, O_RDONLY, 0);
 		if (operator == '<' || operator == '>')
-		{
-			printf("entro en operator\n");
-			ft_simple_redir(cmd, &ftoken, &eftoken, operator);
-		}
-	/*	else if (operator == '>')
-		{
-			if (access(file, F_OK) == 0)
-			cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY |
-			O_APPEND, 1);
-			else
-				cmd = buildredir(cmd, ftoken, eftoken, O_WRONLY | O_CREAT
-				| O_TRUNC, 1);
-		}*/
-		else if (operator == '+')
-		{
-			if (access(file, F_OK) == 0)
-				cmd = buildredir(cmd, ftoken, eftoken, WCA, 1);
-			else
-				cmd = buildredir(cmd, ftoken, eftoken, WCA, 1);
-		}
-		else if (operator == '-')
-			cmd = buildredir(cmd, ftoken, eftoken, RDCE, 1);
+			cmd = ft_simple_redir(cmd, &ftoken, &eftoken, operator);
+		else if (operator == '+' || operator == '-')
+			cmd = ft_double_redir(cmd, &ftoken, &eftoken, operator);
 	}
 	return (cmd);
 }

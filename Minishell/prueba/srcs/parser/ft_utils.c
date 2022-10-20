@@ -6,21 +6,26 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/17 21:50:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/20 20:31:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../Libft/libft.h"
 
-/*static void	ft_case(char **tmp, char **estr, int *result)
+static int	ft_list_redir(char **tmp, int *result)
 {
 	if (**tmp == 0)
-		return ;
-	else if (**tmp == '|')
-		*tmp = *tmp + 1;
+		return (0);
 	else if (**tmp == '<')
+	{
 		*tmp = *tmp + 1;
+		if (**tmp == '<')
+		{
+			*result = '-';
+			*tmp = *tmp + 1;
+		}
+	}
 	else if (**tmp == '>')
 	{
 		*tmp = *tmp + 1;
@@ -30,19 +35,25 @@
 			*tmp = *tmp + 1;
 		}
 	}
+	return (1);
+}
+
+static int	ft_case(char **tmp, char **estr, int *result)
+{
+	if (**tmp == 0)
+		return (0);
+	else if (**tmp == '|')
+		*tmp = *tmp + 1;
+	else if (**tmp == '<' || **tmp == '>')
+		ft_list_redir(tmp, result);
 	else
 	{
 		*result = 'z';
-		while (*tmp < *estr && !ft_strchr("\t\r\n\v ", **tmp)
+		while (*tmp < *estr && !ft_strchr("\t\r\n\v\" ", **tmp)
 			&& !ft_strchr("<|>", **tmp))
 			*tmp = *tmp + 1;
 	}
-}*/
-
-void	ft_error(char *str, int exit_code)
-{
-	write(2, str, ft_strlen(str) + 1);
-	exit((unsigned char)exit_code);
+	return (1);
 }
 
 int	fork1(void)
@@ -74,10 +85,7 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	tmp = *pstr;
 	if (*tmp == 34 || *tmp == 39)
 	{
-		if (*tmp == 34)
-			ft_quotes(pstr, estr, ftoken, eftoken);
-		else if (*tmp == 39)
-			ft_quotes_simple(pstr, estr, ftoken, eftoken);
+		ft_quotes(pstr, estr, ftoken, eftoken);
 		result = 'z';
 		return (result);
 	}
@@ -86,36 +94,8 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	if (ftoken)
 		*ftoken = tmp;
 	result = *tmp;
-	if (*tmp == 0)
+	if (ft_case(&tmp, &estr, &result) == 0)
 		return (0);
-	else if (*tmp == '|')
-		tmp = tmp + 1;
-	else if (*tmp == '<')
-	{
-		tmp = tmp + 1;
-		if (*tmp == '<')
-		{
-			result = '-';
-			tmp = tmp + 1;
-		}
-	}
-	else if (*tmp == '>')
-	{
-		tmp = tmp + 1;
-		if (*tmp == '>')
-		{
-			result = '+';
-			tmp = tmp + 1;
-		}
-	}
-	else
-	{
-		result = 'z';
-		while (tmp < estr && !ft_strchr("\t\r\n\v\" ", *tmp)
-			&& !ft_strchr("<|>", *tmp))
-			tmp = tmp + 1;
-	}
-//	ft_case(&tmp, &estr, &result);
 	if (eftoken)
 		*eftoken = tmp;
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))

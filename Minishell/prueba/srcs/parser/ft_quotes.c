@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 13:48:44 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/17 21:43:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/20 20:12:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,25 @@ int	ft_quotes(char **pstr, char *estr, char **ftoken, char **eftoken)
 	int		count;
 
 	tmp = *pstr;
-	count = 0;
-	while (tmp < estr && ft_strchr("\"", *tmp) && count++ >= 0)
-		tmp++;
-	if (ftoken)
-		*ftoken = tmp;
-	while (tmp < estr && !ft_strchr("\"", *tmp))
-		tmp++;
-	if (eftoken)
-		*eftoken = tmp;
-	while (tmp < estr && ft_strchr("\"", *tmp) && count--)
-		tmp++;
-	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
-		tmp++;
-	*pstr = tmp;
+	if (*tmp == 39)
+		ft_quotes_simple(pstr, estr, ftoken, eftoken);
+	else
+	{
+		count = 0;
+		while (tmp < estr && ft_strchr("\"", *tmp) && count++ >= 0)
+			tmp++;
+		if (ftoken)
+			*ftoken = tmp;
+		while (tmp < estr && !ft_strchr("\"", *tmp))
+			tmp++;
+		if (eftoken)
+			*eftoken = tmp;
+		while (tmp < estr && ft_strchr("\"", *tmp) && count--)
+			tmp++;
+		while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
+			tmp++;
+		*pstr = tmp;
+	}
 	return (*tmp && ft_strchr("\"", *tmp));
 }
 

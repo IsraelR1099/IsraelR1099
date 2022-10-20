@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/19 12:18:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/20 20:45:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,16 @@ void		ft_runcmd(struct cmd *cmd);
 void		ft_heredoc(struct cmd *cmd);
 //Building tree structs
 struct cmd	*buildexec(void);
-struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile, int right, int fd);
+//struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile, int right, int fd);
+struct cmd	*buildredir(struct cmd *scmd, char *file, char *efile,
+int pointers[2]);
 struct cmd	*buildpipe(struct cmd *left, struct cmd *right);
 // Null terminate strings
 struct cmd	*terminate(struct cmd *cmd);
 //Signals
-void		ft_handler(int signo);
+//void		ft_handler(int signo);
 void		ft_info_handler(int signo, siginfo_t *info, void *context);
+void		ft_handler(int signo, siginfo_t *info, void *context);
 //Utils
 void		ft_error(char *str, int exit_code);
 int			fork1(void);
@@ -94,6 +97,7 @@ int			ft_quotes(char **pstr, char *estr, char **ftoken, char **eftoken);
 int			ft_quotes_simple(char **pstr, char *estr, char **ftoken, char **eftoken);
 void		p_struct(struct cmd *cmd, struct cmd *srcmd[]);
 void		ft_redir_exec(struct cmd *cmd);
-void		ft_simple_redir(struct cmd *cmd, char **ftoken, char **eftoken, int operator);
+struct cmd	*ft_simple_redir(struct cmd *cmd, char **ftoken, char **eftoken, int operator);
+struct cmd	*ft_double_redir(struct cmd *cmd, char **ftoken, char **eftoken, int operator);
 
 #endif

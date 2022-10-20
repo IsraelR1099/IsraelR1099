@@ -6,16 +6,24 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:17:51 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/13 17:44:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:25:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static void	ft_redir_terminate(struct cmd *cmd)
+{
+	struct doredir	*redircmd;
+
+	redircmd = (struct doredir *)cmd;
+	terminate(redircmd->cmd);
+	*redircmd->efile = 0;
+}
+
 struct cmd	*terminate(struct cmd *cmd)
 {
 	struct doexec	*execcmd;
-	struct doredir	*redircmd;
 	struct dopipe	*pipecmd;
 	int				iter;
 
@@ -32,11 +40,7 @@ struct cmd	*terminate(struct cmd *cmd)
 		}
 	}
 	else if (cmd->type == REDIR)
-	{
-		redircmd = (struct doredir *)cmd;
-		terminate(redircmd->cmd);
-		*redircmd->efile = 0;
-	}
+		ft_redir_terminate(cmd);
 	else if (cmd->type == PIPE)
 	{
 		pipecmd = (struct dopipe *)cmd;

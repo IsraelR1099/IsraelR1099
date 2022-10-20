@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/10/18 14:13:02 by irifarac         ###   ########.fr        #
+#    Updated: 2022/10/20 20:17:32 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCDIR = srcs/parser
 # Files
 LIBFT = Libft
 SRC = $(SRCDIR)/main.c \
+	  $(SRCDIR)/ft_error.c \
 	  $(SRCDIR)/ft_utils.c \
 	  $(SRCDIR)/ft_build.c \
 	  $(SRCDIR)/ft_builtin_parser.c \

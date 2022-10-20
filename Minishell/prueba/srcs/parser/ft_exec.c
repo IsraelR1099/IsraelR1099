@@ -6,12 +6,18 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/19 12:50:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:35:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../Libft/libft.h"
+
+static void	ft_close(int file_d[2])
+{
+	close(file_d[0]);
+	close(file_d[1]);
+}
 
 static void	ft_runpipecmd(struct cmd *cmd)
 {
@@ -37,8 +43,7 @@ static void	ft_runpipecmd(struct cmd *cmd)
 		close(file_d[1]);
 		ft_runcmd(pipecmd->right);
 	}
-	close(file_d[0]);
-	close(file_d[1]);
+	ft_close(file_d);
 	wait(0);
 	wait(0);
 }

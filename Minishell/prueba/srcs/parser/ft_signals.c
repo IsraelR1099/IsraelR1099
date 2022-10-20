@@ -6,30 +6,40 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/19 13:58:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/20 20:52:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_handler(int signo)
+void	ft_handler(int signo, siginfo_t *info, void *context)
 {
+	printf("entro en handler\n");
+	if (signo == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	(void)context;
+	(void)info;
 	printf("chield died with signo:%d\n", signo);
 }
 
 void	ft_info_handler(int signo, siginfo_t *info, void *context)
 {
-	int	child;
+//	int	child;
 	int	state;
-	int	status;
-	int	signo2;
+//	int	status;
+//	int	signo2;
 	pid_t	pid;
 
 	(void)context;
 	state = 0;
-	child = info->si_pid;
-	status = info->si_status;
-	signo2 = info->si_signo;
+	printf("entro en infor handler\n");
+//	child = info->si_pid;
+//	status = info->si_status;
+//	signo2 = info->si_signo;
 	pid = info->si_pid;
 //	printf("pid: %d status: %d y signo: %d, pid info: %d\n", child, status,
 //	signo2, pid);
