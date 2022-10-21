@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/20 20:52:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:08:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,35 @@ void	ft_handler(int signo, siginfo_t *info, void *context)
 
 void	ft_info_handler(int signo, siginfo_t *info, void *context)
 {
-//	int	child;
-	int	state;
-//	int	status;
-//	int	signo2;
+	int	child;
+	static int	state;
+	int	status;
+	int	signo2;
 	pid_t	pid;
 
 	(void)context;
-	state = 0;
-	printf("entro en infor handler\n");
-//	child = info->si_pid;
-//	status = info->si_status;
-//	signo2 = info->si_signo;
+	//printf("entro en info handler\n");
+	child = info->si_pid;
+	status = info->si_status;
+	signo2 = info->si_signo;
 	pid = info->si_pid;
-//	printf("pid: %d status: %d y signo: %d, pid info: %d\n", child, status,
-//	signo2, pid);
-	if (signo == SIGCHLD)
+//	printf("pid: %d status: %d y signo: %d, pid info: %d\n", child, status,	signo2, pid);
+	if (signo == SIGUSR1)
 	{
-//		printf("child died\n");
+//		printf("estoy en child\n");
 		state = 1;
-//	printf("state %d\n", state);
+	//	printf("state es %d\n", state);
 	}
-/*	else
-		printf("child alive\n");
-	printf("state2 %d\n", state);*/
-	if (state == 0 && pid != 6050)
+//	printf("state despues es %d\n", state);
+	if (signo == SIGUSR2)
 	{
+		state = 0;
+	//	printf("entro en sigusr2 y state %d\n", state);
+	}
+
+	if (state == 0)
+	{
+	//	write(1, "entro\n", 6);
 		if (signo == SIGINT)
 		{
 			printf("\n");

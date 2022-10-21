@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/20 20:54:00 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:08:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,13 @@ int	main(void)
 	static char	*buf;
 	struct sigaction	act;
 	struct sigaction	oact;
+	int					status;
 
 	buf = (char *)malloc(sizeof(char) * 100);
 	if (!buf)
 		exit (-1);
 	ft_termios();
-	act.sa_handler = SIG_IGN;
+	act.sa_handler = SIG_DFL;
 //	act.sa_mask = 0;
 	ft_memset(&act, 0, sizeof(act));
 //	sigemptyset(&act.sa_mask);
@@ -79,6 +80,11 @@ int	main(void)
 //		ft_error("sigaction error", 130);
 	if (sigaction(SIGINT, &act, &oact) < 0)
 		ft_error("sigaction error", 130);
+	if (sigaction(SIGUSR1, &act, &oact) < 0)
+		ft_error("sigaction error", 130);
+	if (sigaction(SIGUSR2, &act, &oact) < 0)
+		ft_error("sigaction error", 130);
+
 //	ft_signals();
 	while (getcmd(&buf, sizeof(buf)) >= 0)
 	{
@@ -91,16 +97,11 @@ int	main(void)
 		}
 		if (fork1() == 0)
 		{
-			act.sa_handler = SIG_DFL;
-			ft_memset(&act, 0, sizeof(act));
-			sigemptyset(&act.sa_mask);
-			act.sa_flags = SA_RESTART | SA_SIGINFO;
-			act.sa_sigaction = ft_handler;
-			if (sigaction(SIGINT, &act, NULL) < 0)
-				ft_error("sigaction child error", 130);
+			kill(0, SIGUSR1);
 			ft_runcmd(parsecmd(buf));
 		}
-		wait(0);
+		status = wait(0);
+		kill(0, SIGUSR2);
 	}
 	return (0);
 }
