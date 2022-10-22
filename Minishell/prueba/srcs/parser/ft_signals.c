@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/21 14:08:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/22 12:03:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,35 @@ void	ft_info_handler(int signo, siginfo_t *info, void *context)
 	signo2 = info->si_signo;
 	pid = info->si_pid;
 //	printf("pid: %d status: %d y signo: %d, pid info: %d\n", child, status,	signo2, pid);
+	if (signo == SIGTTIN)
+	{
+		exit(1);
+		printf("hola\n");
+	}
+	if (signo == SIGTTOU)
+	{
+		exit(1);
+		printf("hola2\n");
+	}
+
 	if (signo == SIGUSR1)
 	{
 //		printf("estoy en child\n");
 		state = 1;
-	//	printf("state es %d\n", state);
+		if (signo == SIGQUIT)
+		{
+			rl_replace_line("", 0);
+			rl_redisplay();
+			write(2, "Quit\n", 5);
+		}
+		//	printf("state es %d\n", state);
 	}
 //	printf("state despues es %d\n", state);
 	if (signo == SIGUSR2)
 	{
 		state = 0;
-	//	printf("entro en sigusr2 y state %d\n", state);
 	}
-
+//	printf("antes state %d\n", state);
 	if (state == 0)
 	{
 	//	write(1, "entro\n", 6);
@@ -64,5 +80,6 @@ void	ft_info_handler(int signo, siginfo_t *info, void *context)
 			rl_replace_line("", 0);
 			rl_redisplay();
 		}
+
 	}
 }

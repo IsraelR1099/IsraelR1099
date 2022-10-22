@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/21 14:08:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/22 12:08:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,50 +42,43 @@ static void	ft_termios(void)
 		ft_error("attributes wrongly set", 130);
 }
 
-/*static void	ft_signals(void)
+static void	ft_signals(void)
 {
 	struct sigaction	act;
 	struct sigaction	oact;
 
-	printf("entro en signals parent\n");
-	act.sa_handler = SIG_IGN;
-//	act.sa_mask = 0;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_RESTART | SA_SIGINFO; //| SA_NOCLDWAIT;
-	act.sa_sigaction = ft_info_handler;
-	if (sigaction(SIGCHLD, &act, &oact) < 0)
-		ft_error("sigaction error", 130);
-	if (sigaction(SIGINT, &act, &oact) < 0)
-		ft_error("sigaction error", 130);
-}
-*/
-int	main(void)
-{
-	static char	*buf;
-	struct sigaction	act;
-	struct sigaction	oact;
-	int					status;
-
-	buf = (char *)malloc(sizeof(char) * 100);
-	if (!buf)
-		exit (-1);
-	ft_termios();
 	act.sa_handler = SIG_DFL;
 //	act.sa_mask = 0;
-	ft_memset(&act, 0, sizeof(act));
-//	sigemptyset(&act.sa_mask);
+//	ft_memset(&act, 0, sizeof(act));
+	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_RESTART | SA_SIGINFO; //| SA_NOCLDWAIT;
 	act.sa_sigaction = ft_info_handler;
 //	if (sigaction(SIGCHLD, &act, &oact) < 0)
 //		ft_error("sigaction error", 130);
 	if (sigaction(SIGINT, &act, &oact) < 0)
 		ft_error("sigaction error", 130);
+//	if (sigaction(SIGQUIT, &act, &oact) < 0)
+//		ft_error("sigaction error", 130);
 	if (sigaction(SIGUSR1, &act, &oact) < 0)
 		ft_error("sigaction error", 130);
 	if (sigaction(SIGUSR2, &act, &oact) < 0)
 		ft_error("sigaction error", 130);
+	if (sigaction(SIGTTIN, &act, &oact) < 0)
+		ft_error("sigaction error", 130);
+	if (sigaction(SIGTTOU, &act, &oact) < 0)
+		ft_error("sigaction error", 130);
+}
 
-//	ft_signals();
+int	main(void)
+{
+	static char	*buf;
+	int			pid;
+
+	buf = (char *)malloc(sizeof(char) * 100);
+	if (!buf)
+		exit (-1);
+	ft_termios();
+	ft_signals();
 	while (getcmd(&buf, sizeof(buf)) >= 0)
 	{
 		if (buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' ')
@@ -95,13 +88,15 @@ int	main(void)
 				printf("cd: no such file or directory: %s\n", buf + 3);
 			continue ;
 		}
-		if (fork1() == 0)
+		if ((pid = fork1()) == 0)
 		{
-			kill(0, SIGUSR1);
+			if (kill(0, SIGUSR1) < 0)
+				ft_error("kill error\n", 1);
 			ft_runcmd(parsecmd(buf));
 		}
-		status = wait(0);
-		kill(0, SIGUSR2);
+		wait(0);
+		if (kill(0, SIGUSR2) < 0)
+			ft_error("kill error\n", 1);
 	}
 	return (0);
 }
