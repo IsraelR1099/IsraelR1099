@@ -6,19 +6,19 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:29:09 by irifarac          #+#    #+#             */
-/*   Updated: 2022/08/12 14:18:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:23:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isspace(char c)
+/*static int	ft_isspace(char c)
 {
 	if ((c == 9) || (c == 13) || (c == 32))
 		return (1);
 	return (0);
 }
-
+*/
 static int	ft_check_max(long number, int sign)
 {
 	if (number > MAX_INT && sign == 1)

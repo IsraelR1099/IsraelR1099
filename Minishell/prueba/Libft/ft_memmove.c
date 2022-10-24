@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:04:10 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/15 09:51:25 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:10:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	*ft_memmove(void *dest, const void *src, size_t count)
 		return (0);
 	if (new_dest > new_src)
 	{
+		printf("entro aqui\n");
 		while (count--)
 		{
 			*(new_dest + count) = *(new_src + count);
@@ -30,6 +31,7 @@ void	*ft_memmove(void *dest, const void *src, size_t count)
 	}
 	else
 	{
+		printf("entro alla\n");
 		while (count--)
 		{
 		*new_dest++ = *new_src++;

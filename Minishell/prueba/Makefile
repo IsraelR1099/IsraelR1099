@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/10/23 12:45:57 by irifarac         ###   ########.fr        #
+#    Updated: 2022/10/24 12:10:53 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRC = $(SRCDIR)/main.c \
 	  $(SRCDIR)/ft_signals.c \
 	  $(SRCDIR)/ft_quotes.c \
 	  $(SRCDIR)/ft_aux_redir.c \
-	  $(SRCDIR)/ft_heredoc.c
+	  $(SRCDIR)/ft_heredoc.c \
+	  $(SRCDIR)/ft_swap.c
 
 OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 DEPENDS = $(patsubst %.c, %.d, $(SRC))
