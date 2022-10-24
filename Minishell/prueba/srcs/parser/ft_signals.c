@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/23 14:27:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:21:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,18 @@ void	ft_handler(int signo, siginfo_t *info, void *context)
 
 void	ft_info_handler(int signo, siginfo_t *info, void *context)
 {
-	int	child;
+//	int	child;
 	static int	state;
 //	int	status;
-	int	signo2;
+//	int	signo2;
 //	pid_t	pid;
 
 	(void)context;
+	(void)info;
 	//printf("entro en info handler\n");
-	child = info->si_pid;
+//	child = info->si_pid;
 //	status = info->si_status;
-	signo2 = info->si_signo;
+//	signo2 = info->si_signo;
 //	pid = info->si_pid;
 //	printf("pid: %d status: %d y signo: %d, pid info: %d\n", child, status,	signo2, pid);
 //	printf("signo %d\n", signo2);

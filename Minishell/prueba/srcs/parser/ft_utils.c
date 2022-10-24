@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/24 13:52:18 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:02:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ static int	ft_list_redir(char **tmp, int *result)
 
 static int	ft_case(char **tmp, char **estr, int *result)
 {
-	char	*fptr;
-
-	fptr = *tmp;
 	if (**tmp == 0)
 		return (0);
 	else if (**tmp == '|')
@@ -56,9 +53,7 @@ static int	ft_case(char **tmp, char **estr, int *result)
 			&& !ft_strchr("<|>", **tmp))
 		{
 			if (**tmp == '"' && ft_isalpha(*(*tmp + 1)))
-			{
 				ft_swap(*tmp, *tmp + 1, 1);
-			}
 			if (**tmp == '"')
 				break ;
 			*tmp = *tmp + 1;
@@ -94,9 +89,10 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	int			result;
 
 	tmp = *pstr;
+	printf("gett tmp %s\n", tmp);
 	if (*tmp == 34 || *tmp == 39)
 	{
-		ft_quotes(pstr, estr, ftoken, eftoken);
+		ft_quotes(pstr, &estr, ftoken, eftoken);
 		result = 'z';
 		return (result);
 	}
@@ -109,7 +105,7 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 		return (0);
 	if (eftoken)
 		*eftoken = tmp;
-	while (tmp < estr && ft_strchr("\t\r\n\v\" ", *tmp))
+	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
 	return (result);
