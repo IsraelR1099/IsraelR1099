@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/24 18:02:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:56:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static int	ft_case(char **tmp, char **estr, int *result)
 		while (*tmp < *estr && !ft_strchr("\t\r\n\v ", **tmp)
 			&& !ft_strchr("<|>", **tmp))
 		{
-			if (**tmp == '"' && ft_isalpha(*(*tmp + 1)))
+			if ((**tmp == '"' && ft_isalpha(*(*tmp + 1))) || **tmp == '\'')
 				ft_swap(*tmp, *tmp + 1, 1);
-			if (**tmp == '"')
+			if (**tmp == '"' || **tmp == '\'')
 				break ;
 			*tmp = *tmp + 1;
 		}

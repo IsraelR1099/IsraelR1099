@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   ft_strchrflag.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 12:04:25 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/25 12:26:49 by irifarac         ###   ########.fr       */
+/*   Created: 2022/10/25 12:41:52 by irifarac          #+#    #+#             */
+/*   Updated: 2022/10/25 12:52:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-void	*ft_swap(void *dest, void *src, size_t count)
+char	*ft_strchrflag(const char *str, int ch, int flag)
 {
-	char	tmp;
-	char	*ptr;
-	char	*ptr_src;
+	int	position;
 
-	ptr = (char *)dest;
-	ptr_src = (char *)src;
-	tmp = *ptr;
-	while (count--)
+	position = 0;
+	while (str[position] != '\0')
 	{
-		*ptr = *ptr_src;
-		*ptr_src = tmp;
+		if (str[position] == (char)ch && flag == 0)
+			return ((char *)str + position);
+		position++;
 	}
-	return (dest);
+	if (str[position] == (char)ch && flag == 0)
+		return ((char *)str + position);
+	return (0);
 }
-
