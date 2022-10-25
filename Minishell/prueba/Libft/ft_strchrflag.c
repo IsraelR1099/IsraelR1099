@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 12:41:52 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/25 12:52:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/25 19:49:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*ft_strchrflag(const char *str, int ch, int flag)
 	position = 0;
 	while (str[position] != '\0')
 	{
-		if (str[position] == (char)ch && flag == 0)
+		if (str[position] == (char)ch && flag != 0)
 			return ((char *)str + position);
 		position++;
 	}
-	if (str[position] == (char)ch && flag == 0)
+	if (str[position] == (char)ch && flag != 0)
 		return ((char *)str + position);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 10:47:03 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/03 09:36:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/25 20:03:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*ft_strchr(const char *str, int ch)
 	int	position;
 
 	position = 0;
-//	printf("flag_quote en strchr es %d y tokens %s y ch %d\n", flag_quote, str, ch);
 	while (str[position] != '\0')
 	{
 		if (str[position] == (char)ch)

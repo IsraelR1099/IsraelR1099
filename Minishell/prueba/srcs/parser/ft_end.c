@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_end.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 12:16:26 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/25 19:41:50 by irifarac         ###   ########.fr       */
+/*   Created: 2022/10/25 20:27:29 by irifarac          #+#    #+#             */
+/*   Updated: 2022/10/25 20:41:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
+#include "../../Libft/libft.h"
 
-int	ft_isalpha(int c)
+int	ft_end(char **str, char **estr)
 {
-	if ((c >= 65) && (c <= 90))
+	char	*tmp;
+	char	*beginning;
+
+	tmp = *str;
+	beginning = tmp;
+	while (tmp < *estr && !ft_strchr("\t\r\n\v ", *tmp))
 	{
-		return (1);
+		tmp++;
 	}
-	else if ((c >= 97) && (c <= 122))
-	{
-		return (2);
-	}
-	else if ((c == '|') || (c == '>') || (c == '<'))
-		return (1);
-	else if ((c == '\t') || (c == '\r') || (c == '\n') || (c == '\v') || (c == ' '))
-		return (1);
-	else
-		return (0);
+	while (tmp > beginning && *tmp == '"')
+		tmp--;
+	*str = tmp;
+	return (0);
 }

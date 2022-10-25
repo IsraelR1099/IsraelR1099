@@ -6,14 +6,14 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 13:48:44 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/25 14:01:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/25 21:28:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "../../Libft/libft.h"
 
-static int	ft_in_find(char **pstr, char *estr)
+int	ft_in_find(char **pstr, char *estr)
 {
 	char	*tmp;
 
@@ -27,13 +27,31 @@ static int	ft_in_find(char **pstr, char *estr)
 	return (0);
 }
 
-static int	ft_in_quotes(char **tmp, char **estr)
+/*int	ft_true_quotes(char **equotes, char **estr)
+{
+	static unsigned char	in_quote = '"';
+
+	while (*equotes < *estr && !ft_strchrflag("\t\r\n\v ", **equotes, in_quote))
+	{
+		if (**equotes == '"' && (**equotes != in_quote) && !in_quote)
+		{
+			in_quote = **equotes;
+		}
+		else if (**equotes == in_quote)
+			in_quote = 0;
+		*equotes++;
+	}
+	return (in_quote);
+}
+*/
+int	ft_in_quotes(char **tmp, char **estr)
 {
 	char	*equotes;
 	char	*aux;
 	static unsigned char	in_quote = '"';
 
 	equotes = *tmp;
+//	ft_true_quotes(&equotes, estr);
 	while (equotes < *estr && !ft_strchrflag("\t\r\n\v ", *equotes, in_quote))
 	{
 		if (*equotes == '"' && (*equotes != in_quote) && !in_quote)
