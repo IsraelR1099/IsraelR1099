@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/25 12:56:29 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/26 13:29:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ static int	ft_list_redir(char **tmp, int *result)
 
 static int	ft_case(char **tmp, char **estr, int *result)
 {
+	char	*beginning;
+
+	beginning = *tmp;
 	if (**tmp == 0)
 		return (0);
 	else if (**tmp == '|')
@@ -52,10 +55,16 @@ static int	ft_case(char **tmp, char **estr, int *result)
 		while (*tmp < *estr && !ft_strchr("\t\r\n\v ", **tmp)
 			&& !ft_strchr("<|>", **tmp))
 		{
-			if ((**tmp == '"' && ft_isalpha(*(*tmp + 1))) || **tmp == '\'')
+			if (**tmp == '"' && ft_isalpha(*(*tmp + 1)))
 				ft_swap(*tmp, *tmp + 1, 1);
-			if (**tmp == '"' || **tmp == '\'')
+			if (**tmp == '"')
 				break ;
+		/*	if (**tmp == '"' || **tmp == '\'')
+			{
+				ft_in_quotes(&beginning, estr, **tmp);
+				beginning = *tmp;
+				break ;
+			}*/
 			*tmp = *tmp + 1;
 		}
 	}
@@ -89,7 +98,6 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	int			result;
 
 	tmp = *pstr;
-	printf("gett tmp %s\n", tmp);
 	if (*tmp == 34 || *tmp == 39)
 	{
 		ft_quotes(pstr, &estr, ftoken, eftoken);
