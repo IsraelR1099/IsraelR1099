@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/27 11:07:58 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 13:05:46 by irifarac         ###   ########.fr       */
 /*   Updated: 2022/10/25 21:28:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -88,17 +88,10 @@ struct cmd	*terminate(struct cmd *cmd);
 void		ft_info_handler(int signo, siginfo_t *info, void *context);
 void		ft_handler(int signo, siginfo_t *info, void *context);
 //Quotes
-int			ft_quotes(char **pstr, char **estr, char **ftoken, char **eftoken);
-int			ft_quotes_simple(char **pstr, char **estr, char **ftoken, char **eftoken);
-int			ft_in_quotes(char **tmp, char **estr, char token);
 int			ft_true_quotes(char **equotes, char *estr);
-//void		ft_change_token(char **pstr, char *estr, char **ftoken, char
-//**eftoken);
 int			ft_change_token(char **pstr, char *estr);
-int			ft_end(char **str, char **estr);
 //Utils
 void		ft_error(char *str, int exit_code);
-void		*ft_swap(void *dest, void *src, size_t count);
 int			fork1(void);
 int			ft_find(char **pstr, char *estr, char *tokens);
 int			gettoken(char **pstr, char *estr, char **ftoken, char **eftoken);

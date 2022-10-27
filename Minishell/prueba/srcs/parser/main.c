@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/27 11:24:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 14:12:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static void	ft_termios_child(void)
 int	main(void)
 {
 	static char	*buf;
+	int			status;
 
 //	buf = (char *)malloc(sizeof(char) * 100);
 //	if (!buf)
@@ -119,7 +120,7 @@ int	main(void)
 			ft_termios_child();
 			ft_runcmd(parsecmd(buf));
 		}
-		wait(0);
+		waitpid(0, &status, 0);
 		kill(0, SIGUSR2);
 	}
 	return (0);
