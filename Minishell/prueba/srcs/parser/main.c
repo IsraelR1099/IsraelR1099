@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/26 11:32:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 11:24:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static void	ft_termios_child(void)
 		ft_error("get attributes error", 130);
 	save_termios = term;
 	term.c_lflag |= (ECHOCTL);
+	//backlash number is 92
 	if (tcsetattr(STDIN_FILENO, TCSADRAIN, &term) < 0)
 		ft_error("set attributes error", 130);
 	if (term.c_lflag == (ECHOCTL))

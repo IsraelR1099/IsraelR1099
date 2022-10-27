@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/26 13:29:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 11:52:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,22 @@ static int	ft_list_redir(char **tmp, int *result)
 	return (1);
 }
 
-static int	ft_case(char **tmp, char **estr, int *result)
+static int	ft_case(char **tmp, char **estr, int *result, int flag)
 {
-	char	*beginning;
-
-	beginning = *tmp;
 	if (**tmp == 0)
 		return (0);
-	else if (**tmp == '|')
+	else if (**tmp == '|' && flag == 0)
 		*tmp = *tmp + 1;
-	else if (**tmp == '<' || **tmp == '>')
+	else if (flag == 0 && (**tmp == '<' || **tmp == '>'))
 		ft_list_redir(tmp, result);
 	else
 	{
 		*result = 'z';
-		while (*tmp < *estr && !ft_strchr("\t\r\n\v ", **tmp)
-			&& !ft_strchr("<|>", **tmp))
+		while (*tmp < *estr && !ft_strchrflag("\t\r\n\v ", **tmp, flag)
+			&& !ft_strchrflag("<|>", **tmp, flag))
 		{
-			if (**tmp == '"' && ft_isalpha(*(*tmp + 1)))
-				ft_swap(*tmp, *tmp + 1, 1);
-			if (**tmp == '"')
-				break ;
-		/*	if (**tmp == '"' || **tmp == '\'')
-			{
-				ft_in_quotes(&beginning, estr, **tmp);
-				beginning = *tmp;
-				break ;
-			}*/
+			if (flag > 0)
+				flag--;
 			*tmp = *tmp + 1;
 		}
 	}
@@ -96,20 +85,18 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 {
 	char		*tmp;
 	int			result;
+	int			flag;
 
+	flag = ft_true_quotes(pstr, estr);
+	if (flag != 0 )
+		flag = ft_change_token(pstr, estr);
 	tmp = *pstr;
-	if (*tmp == 34 || *tmp == 39)
-	{
-		ft_quotes(pstr, &estr, ftoken, eftoken);
-		result = 'z';
-		return (result);
-	}
-	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
+	while (tmp < estr && ft_strchrflag("\t\r\n\v ", *tmp, flag))
 		tmp++;
 	if (ftoken)
 		*ftoken = tmp;
 	result = *tmp;
-	if (ft_case(&tmp, &estr, &result) == 0)
+	if (ft_case(&tmp, &estr, &result, flag) == 0)
 		return (0);
 	if (eftoken)
 		*eftoken = tmp;
