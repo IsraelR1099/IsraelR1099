@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/27 14:12:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 20:43:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,14 @@ static int	getcmd(char **buf, int size)
 	ft_signals();
 	ft_termios();
 	(void)size;
-//	ft_memset(*buf, 0, size);
 	*buf = readline("$ ");
+	printf("*buf %s\n", *buf);
 	if (*buf && **buf)
 		add_history(*buf);
-	if (ft_strncmp(*buf, "exit", ft_strlen(*buf)) == 0)
+	if ((ft_strncmp(*buf, "exit", ft_strlen(*buf)) == 0)
+		|| !*buf)
 	{
+		printf("hola\n");
 		rl_clear_history();
 		free(*buf);
 		return (-1);
@@ -119,6 +121,8 @@ int	main(void)
 			kill(0, SIGUSR1);
 			ft_termios_child();
 			ft_runcmd(parsecmd(buf));
+			if (ft_strncmp("./minishell", buf, ft_strlen("./minishell") == 0))
+				kill(0, SIGUSR2);
 		}
 		waitpid(0, &status, 0);
 		kill(0, SIGUSR2);

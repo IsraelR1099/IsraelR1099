@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:40:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/27 13:05:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 19:59:56 by irifarac         ###   ########.fr       */
 /*   Updated: 2022/10/25 21:28:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -90,6 +90,7 @@ void		ft_handler(int signo, siginfo_t *info, void *context);
 //Quotes
 int			ft_true_quotes(char **equotes, char *estr);
 int			ft_change_token(char **pstr, char *estr);
+int			ft_in_quotes(char *tmp, unsigned char *in_quote, int *counter);
 //Utils
 void		ft_error(char *str, int exit_code);
 int			fork1(void);

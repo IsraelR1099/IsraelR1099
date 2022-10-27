@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_in_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 14:08:10 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/27 20:46:42 by irifarac         ###   ########.fr       */
+/*   Created: 2022/10/27 17:50:19 by irifarac          #+#    #+#             */
+/*   Updated: 2022/10/27 20:05:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
+#include "../../Libft/libft.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_in_quotes(char *tmp, unsigned char *in_quote, int *counter)
 {
-	int	position;
-
-	position = 0;
-	if (!str)
-		return (0);
-	while (str[position] != '\0')
+	if (ft_strchr("\"\'", *tmp) && (*tmp != *in_quote)
+		&& !*in_quote)
 	{
-		position++;
+		*in_quote = *tmp;
+		*counter = *counter + 1;
+		return (1);
 	}
-	return (position);
+	else if (*tmp == *in_quote)
+	{
+		*in_quote = 0;
+		*counter = *counter + 1;
+		return (1);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:39:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/20 14:20:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 20:23:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char **eftoken, int operator)
 		pointers[1] = 1;
 		if (access(file, F_OK) == 0)
 		{
-			pointers[0] = O_WRONLY | O_APPEND;
+			pointers[0] = O_WRONLY | O_TRUNC;
 			cmd = buildredir(cmd, *ftoken, *eftoken, pointers);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/23 14:27:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 20:29:06 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ static void	ft_runpipecmd(struct cmd *cmd)
 {
 	struct dopipe	*pipecmd;
 	int				file_d[2];
+	int				pid1;
+	int				pid2;
 
 	pipecmd = (struct dopipe *)cmd;
 	if (pipe(file_d) < 0)
 		ft_error("pipe error", 1);
-	if (fork1() == 0)
+	pid1 = fork1();
+	if (pid1== 0)
 	{
 		close(1);
 		dup(file_d[1]);
@@ -35,7 +38,8 @@ static void	ft_runpipecmd(struct cmd *cmd)
 		close(file_d[1]);
 		ft_runcmd(pipecmd->left);
 	}
-	if (fork1() == 0)
+	pid2 = fork1();
+	if (pid2 == 0)
 	{
 		close(0);
 		dup(file_d[0]);
@@ -44,8 +48,8 @@ static void	ft_runpipecmd(struct cmd *cmd)
 		ft_runcmd(pipecmd->right);
 	}
 	ft_close(file_d);
-	wait(0);
-	wait(0);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 }
 
 static void	ft_runredir(struct cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/24 17:21:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 20:22:23 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,6 @@ void	ft_info_handler(int signo, siginfo_t *info, void *context)
 //	pid = info->si_pid;
 //	printf("pid: %d status: %d y signo: %d, pid info: %d\n", child, status,	signo2, pid);
 //	printf("signo %d\n", signo2);
-	if (signo == SIGTTOU)
-		printf("hola\n");
-	if (signo == SIGTTIN)
-		write(2, "hola\n", 5);
 	if (signo == SIGUSR1)
 	{
 //		printf("estoy en child\n");
@@ -57,6 +53,7 @@ void	ft_info_handler(int signo, siginfo_t *info, void *context)
 //	printf("state despues es %d\n", state);
 	if (signo == SIGUSR2)
 	{
+	//	write(1, "hola\n", 5);
 		state = 0;
 	}
 //	printf("antes state %d child %d\n", state, child);

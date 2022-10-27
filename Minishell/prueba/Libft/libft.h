@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:30:04 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/25 12:43:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 20:14:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t count);
 void	*ft_memmove(void *dest, const void *src, size_t count);
 void	*ft_memset(void *dest, int ch, size_t count);
 char	*ft_strchr(const char *str, int ch);
+int		ft_strcmp(char *s1, char *s2);
 char	*ft_strchrflag(const char *str, int ch, int flag);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);

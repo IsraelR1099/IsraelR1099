@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 21:18:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/27 13:04:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:11:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	ft_execve(char *file, char *argv[], char *envp[])
 	char	tstr[_POSIX_PATH_MAX];
 	char	*pstr;
 	char	*cpath;
-	int		ret;
 	size_t		len;
 
 	path = getenv("PATH");
@@ -45,7 +44,7 @@ static int	ft_execve(char *file, char *argv[], char *envp[])
 		tstr[pstr - cpath] = '/';
 		ft_memcpy(tstr + (pstr - cpath) + (pstr>cpath), file, ft_strlen(file) +
 		1);
-		ret = execve(tstr, argv, envp);
+		execve(tstr, argv, envp);
 //		printf("ret %d y tstr %s\n", ret, tstr);
 		cpath = pstr + 1;
 		len++;
