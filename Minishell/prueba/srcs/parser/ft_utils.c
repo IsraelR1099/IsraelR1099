@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/27 23:05:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/28 10:03:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static int	ft_list_redir(char **tmp, int *result)
 
 static int	ft_case(char **tmp, char **estr, int *result, int flag)
 {
+//	printf("char es ##%c##\n", **tmp);
 	if (**tmp == 0)
 		return (0);
 	else if (**tmp == '|' && flag == 0)
@@ -52,6 +53,7 @@ static int	ft_case(char **tmp, char **estr, int *result, int flag)
 		while (*tmp < *estr && !ft_strchrflag("\t\r\n\v ", **tmp, flag)
 			&& !ft_strchrflag("<|>", **tmp, flag))
 		{
+		//	printf("entro tmp %c\n", **tmp);
 			if (flag > 0)
 				flag--;
 			*tmp = *tmp + 1;
@@ -99,14 +101,11 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 		tmp++;
 	if (ftoken)
 		*ftoken = tmp;
-//	printf("estr %p\n", estr);
-//	printf("ftoken %p, character %c\n", *ftoken, **ftoken);
 	result = *tmp;
 	if (ft_case(&tmp, &estr, &result, flag) == 0)
 		return (0);
 	if (eftoken)
 		*eftoken = tmp;
-//	printf("eftoken %p, character %c\n", *eftoken, **eftoken);
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	*pstr = tmp;
