@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 13:48:44 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/28 10:03:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/28 13:27:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ static int	ft_getcleaned(char **pstr, char *estr, char copy[256], int *counter)
 	unsigned char	in_quote;
 	int				len;
 	int				i;
+//	size_t			n;
 
-	ft_memset(copy, 0, sizeof(copy[256]));
+//	n = (int)(sizeof(copy)/sizeof(copy[0]));
+	ft_memset(copy, 0, 256);
 	tmp = *pstr;
 	len = 0;
 	i = 0;

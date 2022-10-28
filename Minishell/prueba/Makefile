@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/10/27 20:02:04 by irifarac         ###   ########.fr        #
+#    Updated: 2022/10/28 14:13:15 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ GREEN = \033[0;32m
 RESET = \033[0m
 
 NAME = minishell
-CFLAGS = -Wall -Werror -Wextra -MMD -g
+CFLAGS = -Wall -Werror -Wextra -MMD -g #-fsanitize=address
 LDFLAGS = /Users/${USER}/.brew/opt/readline/lib
 RFLAGS = /Users/${USER}/.brew/opt/readline/include
 

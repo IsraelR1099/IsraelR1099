@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:19:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/28 09:46:13 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:05:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,16 @@ struct cmd	*parseline(char **pstr, char *estr)
 struct cmd	*parsepipe(char **pstr, char *estr)
 {
 	struct cmd	*cmd;
+	struct dopipe	*pipe;
+	int			operator;
 
 	cmd = parseexec(pstr, estr);
+	pipe = (dopipe *)cmd;
 	if (ft_find(pstr, estr, "|"))
 	{
-		gettoken(pstr, estr, 0, 0);
+		operator = gettoken(pstr, estr, 0, 0);
+		printf("operator %d, pstr %s\n", operator, *pstr);
+		printf("names es %d\n", cmd->type);
 		cmd = buildpipe(cmd, parsepipe(pstr, estr));
 	}
 	return (cmd);
