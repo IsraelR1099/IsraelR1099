@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:22:00 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/28 13:59:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/29 17:40:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ static int	ft_case(char **tmp, char **estr, int *result, int flag)
 	if (**tmp == 0)
 		return (0);
 	else if (**tmp == '|' && flag == 0)
+	{
 		*tmp = *tmp + 1;
+		if (ft_find(tmp, *estr, "|"))
+			ft_error("syntax error near unexpected token\n", 258);
+	}
 	else if (flag == 0 && (**tmp == '<' || **tmp == '>'))
 		ft_list_redir(tmp, result);
 	else
@@ -88,7 +92,7 @@ int	gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 	int			flag;
 
 	flag = ft_true_quotes(pstr, estr);
-	if (flag != 0 )
+	if (flag != 0)
 	{
 		flag = ft_change_token(pstr, estr);
 		if (flag == 0)

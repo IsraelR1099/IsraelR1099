@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/28 12:35:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/28 17:54:23 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,6 @@ int	main(void)
 	static char	*buf;
 	int			status;
 
-//	buf = (char *)malloc(sizeof(char) * 100);
-//	if (!buf)
-//		exit (-1);
 	while (getcmd(&buf, sizeof(buf)) >= 0)
 	{
 		if (buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' ')
@@ -124,6 +121,7 @@ int	main(void)
 		}
 		waitpid(0, &status, 0);
 		kill(0, SIGUSR2);
+		free(buf);
 	}
 	return (0);
 }

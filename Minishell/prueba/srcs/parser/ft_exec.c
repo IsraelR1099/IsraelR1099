@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/27 20:29:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/29 18:10:54 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_runpipecmd(struct cmd *cmd)
 	if (pipe(file_d) < 0)
 		ft_error("pipe error", 1);
 	pid1 = fork1();
-	if (pid1== 0)
+	if (pid1 == 0)
 	{
 		close(1);
 		dup(file_d[1]);
@@ -87,6 +87,7 @@ void	ft_runcmd(struct cmd *cmd)
 
 	if (cmd == 0)
 		exit (1);
+	printf("cmd type %d\n", cmd->type);
 	if (cmd->type == EXEC)
 	{
 		execcmd = (struct doexec *)cmd;

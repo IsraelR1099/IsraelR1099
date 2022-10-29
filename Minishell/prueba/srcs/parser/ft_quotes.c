@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 13:48:44 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/28 13:27:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/28 17:39:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_fillspace(char copy[256], int len)
 	int	i;
 
 	i = ft_strlen(copy);
-	while (copy[i] < len)
+	while (i < len)
 	{
 		copy[i] = 32;
 		i++;
@@ -45,13 +45,12 @@ static int	ft_getcleaned(char **pstr, char *estr, char copy[256], int *counter)
 	unsigned char	in_quote;
 	int				len;
 	int				i;
-//	size_t			n;
 
-//	n = (int)(sizeof(copy)/sizeof(copy[0]));
 	ft_memset(copy, 0, 256);
 	tmp = *pstr;
 	len = 0;
 	i = 0;
+	in_quote = 0;
 	while (tmp < estr && !ft_strchrflag("\t\r\n\v ", *tmp, in_quote)
 		&& !ft_strchrflag("<|>", *tmp, in_quote))
 	{
