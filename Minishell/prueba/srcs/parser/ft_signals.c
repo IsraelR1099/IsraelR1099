@@ -6,11 +6,12 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/27 20:22:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/30 20:53:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include "../../Libft/libft.h"
 
 void	ft_handler(int signo, siginfo_t *info, void *context)
 {
@@ -29,7 +30,8 @@ void	ft_handler(int signo, siginfo_t *info, void *context)
 void	ft_info_handler(int signo, siginfo_t *info, void *context)
 {
 //	int	child;
-	static int	state;
+	static int	state = 0;
+//	char	stat;
 //	int	status;
 //	int	signo2;
 //	pid_t	pid;
@@ -53,9 +55,12 @@ void	ft_info_handler(int signo, siginfo_t *info, void *context)
 //	printf("state despues es %d\n", state);
 	if (signo == SIGUSR2)
 	{
-	//	write(1, "hola\n", 5);
+//		write(1, "hola signals\n", ft_strlen("hola signals\n"));
 		state = 0;
 	}
+//	stat = state + 48;
+//	write(1, "state is:", ft_strlen("state is:"));
+//	write(1, &stat, 1);
 //	printf("antes state %d child %d\n", state, child);
 	if (state == 0)
 	{

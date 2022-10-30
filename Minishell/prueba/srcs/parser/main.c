@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:17:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/28 17:54:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/30 20:21:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,6 @@ int	main(void)
 			kill(0, SIGUSR1);
 			ft_termios_child();
 			ft_runcmd(parsecmd(buf));
-			if (ft_strncmp("./minishell", buf, ft_strlen("./minishell") == 0))
-				kill(0, SIGUSR2);
 		}
 		waitpid(0, &status, 0);
 		kill(0, SIGUSR2);

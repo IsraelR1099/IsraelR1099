@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:24:22 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/29 18:10:54 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/30 20:24:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,12 @@ static void	ft_runredir(struct cmd *cmd)
 void	ft_runcmd(struct cmd *cmd)
 {
 	struct doexec	*execcmd;
+	struct doexec	*tmp;
 
 	if (cmd == 0)
 		exit (1);
-	printf("cmd type %d\n", cmd->type);
+	tmp = (struct doexec *)cmd;
+	printf("names 1 es %s\n", tmp->names[0]);
 	if (cmd->type == EXEC)
 	{
 		execcmd = (struct doexec *)cmd;
