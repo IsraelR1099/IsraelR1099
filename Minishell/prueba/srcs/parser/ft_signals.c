@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:30:38 by irifarac          #+#    #+#             */
-/*   Updated: 2022/10/30 20:53:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/10/31 09:50:54 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_info_handler(int signo, siginfo_t *info, void *context)
 	{
 		if (signo == SIGQUIT)
 		{
-			write(2, "Quit: 3", 7);
+			write(2, "Quit: 3\n", 8);
 			kill(0, SIGINT);
 		}
 	/*	else if (signo == SIGINT)
