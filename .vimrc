@@ -31,7 +31,6 @@ set tabstop	=4
 set softtabstop	=4
 set shiftwidth	=4
 set textwidth	=79
-set expandtab
 set autoindent
 
 " show the matching part of pairs [] {} and () "
@@ -44,7 +43,7 @@ endif
 " enable true colors support "
 set termguicolors
 " Vim colorscheme "
-colorscheme synthwave84
+" colorscheme synthwave84
 
 " Mark trailing spaces depending on whether we have a fancy terminal or not
 if &t_Co > 2
@@ -54,3 +53,6 @@ else
     set listchars=trail:~
     set list
 endif
+
+" set cmd command
+set showcmd
