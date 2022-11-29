@@ -129,3 +129,6 @@ https://blog.nelhage.com/2009/12/a-brief-introduction-to-termios-termios3-and-st
 
 https://stackoverflow.com/questions/70672456/how-here-document-works-in-shell
 https://askubuntu.com/questions/1120556/how-input-redirection-works
+
+Philosophers
+https://github.com/iciamyplant/Philosophers
