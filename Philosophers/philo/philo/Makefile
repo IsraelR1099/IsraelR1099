@@ -6,7 +6,7 @@
 #    By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/11/28 13:25:06 by irifarac         ###   ########.fr        #
+#    Updated: 2022/11/30 12:30:27 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCDIR = ./
 # Files
 SRC = src/ft_error.c \
 	  src/ft_utils.c \
+	  src/ft_set_param.c \
 	  src/main.c
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
@@ -35,13 +36,13 @@ all: $(NAME)
 
 #incluir dependencias
 -include $(DEPENDS)
-$(NAME): $(OBJ) include/philosopher.h
+$(NAME): $(OBJ) include/philo.h
 	@echo "$(GREEN)Creando ejecutable 🛠 $@ $(RESET)"
-	gcc $(CFLAGS) $(OBJ) -o $@
+	gcc $(CFLAGS) $(OBJ) -lpthread -o $@
 	@rm -f minishell.d
 	@echo "$(GREEN)Compilado ✅ $@ $(RESET)"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c include/philosopher.h
+$(OBJDIR)/%.o: $(SRCDIR)/%.c include/philo.h Makefile
 	@echo "$(GREEN)Compilando $< de $@ $(RESET)"
 	@mkdir -p $(@D)
 	gcc $(CFLAGS) -o $@ -c $<
