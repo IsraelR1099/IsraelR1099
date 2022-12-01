@@ -6,30 +6,55 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:31:55 by irifarac          #+#    #+#             */
-/*   Updated: 2022/11/30 14:27:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:34:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+int	ft_free_mutex(t_fork *forks, int counter)
+{
+	int	i;
+	int	err;
+
+	i = 0;
+	while (i <= counter)
+	{
+		err = pthread_mutex_destroy(&forks[i].left_fork);
+		if (err != 0)
+			return (ft_message("mutex destroy error\n", -1, forks));
+		err = pthread_mutex_destroy(&forks[i].right_fork);
+		if (err != 0)
+			return (ft_message("mutex destroy error\n", -1, forks));
+		i++;
+	}
+	free(forks);
+	return (0);
+}
+
 int	ft_init(char **str, int counter)
 {
 	t_philo	*philo;
 	t_fork	*forks;
+	int		nbr_phi;
 	int		i;
 
-	philo = (t_philo *)malloc(sizeof(*philo) * counter);
-	forks = (t_fork *)malloc(sizeof(*forks) * counter);
+	nbr_phi = ft_atoi(str[1]);
+	philo = (t_philo *)malloc(sizeof(*philo) * nbr_phi);
+	forks = (t_fork *)malloc(sizeof(*forks) * nbr_phi);
 	if (!philo || !forks)
 		return (ft_message("Malloc error", -1, philo));
 	ft_set_param(philo, str, counter);
-	ft_set_fork(forks, counter);
+	ft_set_fork(forks, str);
 	i = 0;
+	counter = ft_atoi(str[1]);
 	while (i < counter)
 	{
-		printf("philo %d es: td %d, te %d, ts %d, ne %d\n",i + 1 , philo[i].time_d, philo[i].time_e, philo[i].time_s, philo[i].nb_e);
+		printf("philo %d es: td %d, te %d, ts %d, ne %d\n",philo[i].tid , philo[i].time_d, philo[i].time_e, philo[i].time_s, philo[i].nb_e);
 		i++;
 	}
+//	ft_free_mutex(forks, ft_atoi(str[1]));
+	free(philo);
 	return (0);
 }
 
