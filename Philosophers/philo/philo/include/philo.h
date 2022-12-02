@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:35:52 by irifarac          #+#    #+#             */
-/*   Updated: 2022/11/30 20:33:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:59:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,27 @@
 # include <unistd.h>
 # include <pthread.h>
 
-typedef struct s_info
-{
-	int	tid;
-	int	time_d;
-	int	time_e;
-	int	time_s;
-	int	nb_e;
-}	t_philo;
-
 typedef struct s_fork
 {
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
 }	t_fork;
 
+typedef struct s_info
+{
+	int			id;
+	int			time_d;
+	int			time_e;
+	int			time_s;
+	int			nb_e;
+	pthread_t	tid;
+	t_fork		*forks;
+}	t_philo;
+
 int		ft_control(char **str, int counter);
 int		ft_set_param(t_philo *philo, char **str, int counter);
 int		ft_set_fork(t_fork *forks, char **str);
+void	ft_start(t_philo *philo, int nbr);
 
 //Utils
 int		ft_message(char *str, int ret, void *arg);

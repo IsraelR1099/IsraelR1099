@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:31:55 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/01 17:34:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:57:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,18 @@ int	ft_init(char **str, int counter)
 	forks = (t_fork *)malloc(sizeof(*forks) * nbr_phi);
 	if (!philo || !forks)
 		return (ft_message("Malloc error", -1, philo));
+	printf("size %ld, size one %ld\n", sizeof(*forks) * nbr_phi, sizeof(*forks));
 	ft_set_param(philo, str, counter);
 	ft_set_fork(forks, str);
+	printf("forks address %p\n", (void *)forks);
+	philo->forks = forks;
+	printf("philo forks address %p\n", (void *)philo->forks);
+	ft_start(philo, ft_atoi(str[1]));
 	i = 0;
 	counter = ft_atoi(str[1]);
 	while (i < counter)
 	{
-		printf("philo %d es: td %d, te %d, ts %d, ne %d\n",philo[i].tid , philo[i].time_d, philo[i].time_e, philo[i].time_s, philo[i].nb_e);
+		printf("philo %d es: td %d, te %d, ts %d, ne %d\n",philo[i].id , philo[i].time_d, philo[i].time_e, philo[i].time_s, philo[i].nb_e);
 		i++;
 	}
 //	ft_free_mutex(forks, ft_atoi(str[1]));
