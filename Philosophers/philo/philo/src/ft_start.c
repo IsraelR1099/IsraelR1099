@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:19:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/02 12:51:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/04 17:45:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 void	*ft_action(void *arg)
 {
-	t_philo	*philo;
 	int		err;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	printf("philo en action %d, address %p\n", philo->id,
+	&philo->left_fork);
 	if ((philo->id % 2) == 0)
 		usleep(1000);
-	err = pthread_mutex_lock(&philo->forks->left_fork);
+	err = pthread_mutex_lock(&philo->left_fork);
 	if (err != 0)
 		ft_message("Can't lock mutex\n", 1, NULL);
-	printf("hola soy %d\n", philo->id);
-	pthread_mutex_unlock(&philo->forks->left_fork);
+//	printf("hola soy %d y fork address %p\n", philo->id,
+//	&philo->forks->left_fork);
+	pthread_mutex_unlock(&philo->left_fork);
 	if (err != 0)
 		ft_message("Can't unlock mutex\n", 1, NULL);
-	return (0);
+	return (NULL);
 }
 
 void	ft_start(t_philo *philo, int nbr)
@@ -37,10 +40,10 @@ void	ft_start(t_philo *philo, int nbr)
 	void	*tret;
 
 	i = 0;
-	exit(0);
+	printf("nbr es %d\n", nbr);
 	while (i < nbr)
 	{
-		err = pthread_create(&philo[i].tid, NULL, ft_action, (void *)&philo[i]);
+		err = pthread_create(&philo[i].tid, NULL, ft_action, &(philo[i]));
 		if (err != 0)
 			ft_message("Can't create the thread", -1, philo);
 		i++;

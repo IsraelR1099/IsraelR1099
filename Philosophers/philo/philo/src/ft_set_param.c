@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:36:40 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/02 12:59:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/04 17:40:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_set_param(t_philo *philo, char **str, int nbr)
 	i = 0;
 	counter = ft_atoi(str[1]);
 	printf("counter es %d\n", counter);
-	while (i <= counter)
+	while (i < counter)
 	{
 		philo[i].id = i + 1;
 		philo[i].time_d = ft_atoi(str[2]);
@@ -36,7 +36,7 @@ int	ft_set_param(t_philo *philo, char **str, int nbr)
 	return (0);
 }
 
-int	ft_set_fork(t_fork *forks, char **str)
+int	ft_set_fork(t_philo *philo, char **str)
 {
 	int	i;
 	int	err;
@@ -44,16 +44,18 @@ int	ft_set_fork(t_fork *forks, char **str)
 
 	i = 0;
 	counter = ft_atoi(str[1]);
-	while (i <= counter)
+	printf("counter es %d\n", counter);
+	while (i < counter)
 	{
-		err = pthread_mutex_init(&forks[i].left_fork, NULL);
+		err = pthread_mutex_init(&philo[i].left_fork, NULL);
 		if (err != 0)
-			return (ft_message("mutex init error\n", -1, forks));
-		err = pthread_mutex_init(&forks[i].right_fork, NULL);
+			return (ft_message("mutex init error\n", -1, philo));
+		err = pthread_mutex_init(&philo[i].right_fork, NULL);
 		if (err != 0)
-			return (ft_message("mutex init error\n", -1, forks));
+			return (ft_message("mutex init error\n", -1, philo));
 		//forks[i].c = 'a' + i;
-		printf("philo %d, address left %p, address right %p\n", i, (void *)&forks[i].left_fork, (void *)&forks[i].right_fork);
+		printf("philo %d, address left %p, address right %p\n", i, (void
+		*)&philo[i].left_fork, (void *)&philo[i].right_fork);
 //		printf("c es %c\n", forks[i].c);
 		i++;
 	}

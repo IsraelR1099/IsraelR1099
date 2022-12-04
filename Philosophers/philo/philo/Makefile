@@ -6,7 +6,7 @@
 #    By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/12/02 11:48:38 by irifarac         ###   ########.fr        #
+#    Updated: 2022/12/03 20:36:42 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ GREEN = \033[0;32m
 RESET = \033[0m
 
 NAME = philo
-CFLAGS = -Wall -Werror -Wextra -MMD
+CFLAGS = -Wall -Werror -Wextra -MMD -g -O0
 
 # Folders
 OBJDIR = obj
