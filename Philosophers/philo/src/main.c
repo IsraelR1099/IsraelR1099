@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:31:55 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/04 17:43:27 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:29:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_init(char **str, int counter)
 	counter = ft_atoi(str[1]);
 	while (i < counter)
 	{
-		printf("philo %d es: td %d, te %d, ts %d, ne %d\n",philo[i].id , philo[i].time_d, philo[i].time_e, philo[i].time_s, philo[i].nb_e);
+		printf("philo %d es: td %d, te %d, ts %d, ne %d\n", philo[i].id , philo[i].time_d, philo[i]			.time_e, philo[i].time_s, philo[i].nb_e);
 		i++;
 	}
 //	ft_free_mutex(forks, ft_atoi(str[1]));

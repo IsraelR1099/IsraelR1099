@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:35:52 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/04 17:40:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:37:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <string.h>
+# include <sys/time.h>
 
 typedef struct s_info
 {
-	int			id;
-	int			time_d;
-	int			time_e;
-	int			time_s;
-	int			nb_e;
-	pthread_t	tid;
+	int				id;
+	int				time_d;
+	int				time_e;
+	int				time_s;
+	struct timeval	time_start;
+	int				nb_e;
+	pthread_t		tid;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
 }	t_philo;

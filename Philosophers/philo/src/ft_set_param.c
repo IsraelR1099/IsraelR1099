@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:36:40 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/04 17:40:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:27:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_set_param(t_philo *philo, char **str, int nbr)
 
 	i = 0;
 	counter = ft_atoi(str[1]);
-	printf("counter es %d\n", counter);
 	while (i < counter)
 	{
 		philo[i].id = i + 1;
@@ -32,7 +31,6 @@ int	ft_set_param(t_philo *philo, char **str, int nbr)
 			philo[i].nb_e = -1;
 		i++;
 	}
-	printf("i es %d\n", i);
 	return (0);
 }
 
@@ -44,7 +42,6 @@ int	ft_set_fork(t_philo *philo, char **str)
 
 	i = 0;
 	counter = ft_atoi(str[1]);
-	printf("counter es %d\n", counter);
 	while (i < counter)
 	{
 		err = pthread_mutex_init(&philo[i].left_fork, NULL);
@@ -53,12 +50,9 @@ int	ft_set_fork(t_philo *philo, char **str)
 		err = pthread_mutex_init(&philo[i].right_fork, NULL);
 		if (err != 0)
 			return (ft_message("mutex init error\n", -1, philo));
-		//forks[i].c = 'a' + i;
-		printf("philo %d, address left %p, address right %p\n", i, (void
-		*)&philo[i].left_fork, (void *)&philo[i].right_fork);
-//		printf("c es %c\n", forks[i].c);
+//		printf("philo %d, address left %p, address right %p\n", i, (void
+//		*)&philo[i].left_fork, (void *)&philo[i].right_fork);
 		i++;
 	}
 	return (0);
 }
-
