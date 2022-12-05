@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:31:55 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/05 11:29:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/05 12:46:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ int	ft_free_mutex(t_philo *philo, int counter)
 	while (i <= counter)
 	{
 		err = pthread_mutex_destroy(&philo[i].left_fork);
-		if (err != 0)
-			return (ft_message("mutex destroy error\n", -1, philo));
-		err = pthread_mutex_destroy(&philo[i].right_fork);
 		if (err != 0)
 			return (ft_message("mutex destroy error\n", -1, philo));
 		i++;

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:36:40 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/05 11:27:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:12:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ int	ft_set_fork(t_philo *philo, char **str)
 		err = pthread_mutex_init(&philo[i].left_fork, NULL);
 		if (err != 0)
 			return (ft_message("mutex init error\n", -1, philo));
-		err = pthread_mutex_init(&philo[i].right_fork, NULL);
-		if (err != 0)
-			return (ft_message("mutex init error\n", -1, philo));
 //		printf("philo %d, address left %p, address right %p\n", i, (void
 //		*)&philo[i].left_fork, (void *)&philo[i].right_fork);
+		printf("philo %d, address left %p\n", philo[i].id, &philo[i].left_fork);
 		i++;
 	}
 	return (0);
