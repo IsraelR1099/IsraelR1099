@@ -6,11 +6,19 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/02 09:34:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:23:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+long int	ft_mili(struct timeval time)
+{
+	long int	time_conv;
+
+	time_conv = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (time_conv);
+}
 
 int	ft_message(char *str, int ret, void *arg)
 {
@@ -46,4 +54,19 @@ int	ft_atoi(const char *str)
 		position++;
 	}
 	return (sign * number);
+}
+
+int	ft_check_death(t_philo *philo)
+{
+	long int		time;
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	time = ft_mili(now);
+	if (philo->last_eat > (philo->last_eat + philo->time_d))
+	{
+		printf("%ld %d died\n", time - philo->time_start, philo->id);
+		return (-1);
+	}
+	return (0);
 }

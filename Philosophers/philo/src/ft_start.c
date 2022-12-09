@@ -6,20 +6,31 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:19:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/08 20:26:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:51:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+void	printids(const char *s)
+{
+	pid_t		pid;
+	pthread_t	tid;
+
+	pid = getpid();
+	tid = pthread_self();
+	printf("%s pid %lu tid %lu (0x%lx)\n", s, (unsigned long)pid, (unsigned long)tid, (unsigned long)tid);
+}
+
 void	ft_set_time(t_philo *philo, int nbr)
 {
-	int	i;
+	int				i;
+	struct timeval	time;
 
 	i = -1;
-	gettimeofday(&philo[0].time_start, NULL);
+	gettimeofday(&time, NULL);
 	while (++i < nbr)
-		philo[i].time_start = philo[0].time_start;
+		philo[i].time_start = ft_mili(time);
 }
 
 void	*ft_action(void *arg)
@@ -30,30 +41,15 @@ void	*ft_action(void *arg)
 	if ((philo->id % 2) == 0)
 		usleep(1000);
 	ft_routine(philo);
-/*	philo->status = THINKING;
-	printf("%d is thinking\n", philo->id);
-//	printf("address %p\n", &philo);
-	err = pthread_mutex_lock(&philo->left_fork);
-	pthread_mutex_lock(philo->right_fork);
-	if (err != 0)
-		ft_message("Can't lock mutex\n", 1, NULL);
-	philo->status = EATING;
-	printf("%ld ms %d is eating\n", philo->time_start.tv_usec, philo->id);
-	usleep(philo->time_e);
-	pthread_mutex_unlock(&philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
-	printf("%d is sleeping\n", philo->id);
-	usleep(philo->time_s);
-	if (err != 0)
-		ft_message("Can't unlock mutex\n", 1, NULL);*/
 	return (NULL);
 }
 
 void	ft_start(t_philo *philo, int nbr)
 {
-	int				i;
+	int	i;
 
 	i = -1;
+	printids("main thread: ");
 	while (++i < nbr)
 	{
 		if (pthread_mutex_init(&(philo[i].left_fork), NULL) != 0)
@@ -76,4 +72,5 @@ void	ft_start(t_philo *philo, int nbr)
 		if (pthread_join(philo[i].tid, NULL) != 0)
 			ft_message("Can't join with thread\n", -1, philo);
 	}
+	printids("thread: ");
 }

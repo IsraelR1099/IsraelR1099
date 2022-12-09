@@ -133,3 +133,4 @@ https://askubuntu.com/questions/1120556/how-input-redirection-works
 Philosophers
 https://github.com/iciamyplant/Philosophers
 https://patches.linaro.org/project/ltp/patch/1406585102-31700-1-git-send-email-gary.robertson@linaro.org/
+https://pubs.opengroup.org/onlinepubs/9699919799/functions/V2_chap02.html#tag_15_09
