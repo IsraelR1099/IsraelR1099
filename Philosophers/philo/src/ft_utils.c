@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/09 13:23:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/10 20:15:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	ft_check_death(t_philo *philo)
 
 	gettimeofday(&now, NULL);
 	time = ft_mili(now);
-	if (philo->last_eat > (philo->last_eat + philo->time_d))
+//	printf("tim es %ld y last eat %ld\n", time, philo->last_eat);
+	if (time - philo->last_eat >= philo->time_d)
 	{
 		printf("%ld %d died\n", time - philo->time_start, philo->id);
 		return (-1);

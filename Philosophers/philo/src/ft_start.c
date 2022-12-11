@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:19:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/09 13:51:05 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/10 20:34:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	ft_set_time(t_philo *philo, int nbr)
 	i = -1;
 	gettimeofday(&time, NULL);
 	while (++i < nbr)
+	{
 		philo[i].time_start = ft_mili(time);
+		philo[i].last_eat = ft_mili(time);
+	}
 }
 
 void	*ft_action(void *arg)
@@ -39,7 +42,7 @@ void	*ft_action(void *arg)
 
 	philo = (t_philo *)arg;
 	if ((philo->id % 2) == 0)
-		usleep(1000);
+		usleep(15000);
 	ft_routine(philo);
 	return (NULL);
 }
@@ -49,7 +52,7 @@ void	ft_start(t_philo *philo, int nbr)
 	int	i;
 
 	i = -1;
-	printids("main thread: ");
+	//printids("main thread: ");
 	while (++i < nbr)
 	{
 		if (pthread_mutex_init(&(philo[i].left_fork), NULL) != 0)
@@ -72,5 +75,5 @@ void	ft_start(t_philo *philo, int nbr)
 		if (pthread_join(philo[i].tid, NULL) != 0)
 			ft_message("Can't join with thread\n", -1, philo);
 	}
-	printids("thread: ");
+//	printids("thread: ");
 }

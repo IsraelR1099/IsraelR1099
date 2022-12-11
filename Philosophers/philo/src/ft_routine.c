@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:23:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/09 13:50:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/10 20:12:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ static void	ft_sleep(t_philo *philo)
 
 void	ft_routine(t_philo *philo)
 {
-	int	i;
+//	int	i;
 
-	i = -1;
-	printids("philo ");
-	while (++i < 5)
+	//i = -1;
+//	printids("philo ");
+	while (ft_check_death(philo) >= 0)
 	{
 		ft_take_fork(philo);
 		ft_eat(philo);
