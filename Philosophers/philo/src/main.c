@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:31:55 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/08 20:20:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:43:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,11 @@ int	ft_free_mutex(t_philo *philo, int counter)
 
 int	ft_init(char **str, int counter)
 {
-	t_philo	*philo;
+	t_info	info;
 	int		nbr_phi;
-//	int		i;
 
-	nbr_phi = ft_atoi(str[1]);
-	philo = (t_philo *)malloc(sizeof(*philo) * nbr_phi);
-	if (!philo)
-		return (ft_message("Malloc error", -1, philo));
-	memset(philo, 0, (sizeof(*philo)));
-	ft_set_param(philo, str, counter);
-//	ft_set_fork(philo, str);
-	ft_start(philo, ft_atoi(str[1]));
-/*	i = 0;
-	counter = ft_atoi(str[1]);
-	while (i < counter)
-	{
-		printf("philo %d es: td %d, te %d, ts %d, ne %d\n", philo[i].id , philo[i].time_d, philo[i]			.time_e, philo[i].time_s, philo[i].nb_e);
-		i++;
-	}*/
-//	ft_free_mutex(forks, ft_atoi(str[1]));
+	ft_set_param(&info, str, counter);
+	ft_start(&info, ft_atoi(str[1]));
 	free(philo);
 	return (0);
 }

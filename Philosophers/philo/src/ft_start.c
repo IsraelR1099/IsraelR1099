@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:19:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/10 20:34:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:40:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	printids(const char *s)
 	printf("%s pid %lu tid %lu (0x%lx)\n", s, (unsigned long)pid, (unsigned long)tid, (unsigned long)tid);
 }
 
-void	ft_set_time(t_philo *philo, int nbr)
+void	ft_set_time(t_info *info, int nbr)
 {
 	int				i;
 	struct timeval	time;
@@ -31,8 +31,8 @@ void	ft_set_time(t_philo *philo, int nbr)
 	gettimeofday(&time, NULL);
 	while (++i < nbr)
 	{
-		philo[i].time_start = ft_mili(time);
-		philo[i].last_eat = ft_mili(time);
+		info->philo[i].time_start = ft_mili(time);
+		info->philo[i].last_eat = ft_mili(time);
 	}
 }
 
@@ -47,7 +47,7 @@ void	*ft_action(void *arg)
 	return (NULL);
 }
 
-void	ft_start(t_philo *philo, int nbr)
+void	ft_start(t_info *info, int nbr)
 {
 	int	i;
 
@@ -55,24 +55,24 @@ void	ft_start(t_philo *philo, int nbr)
 	//printids("main thread: ");
 	while (++i < nbr)
 	{
-		if (pthread_mutex_init(&(philo[i].left_fork), NULL) != 0)
+		if (pthread_mutex_init(&(info->philo[i].left_fork), NULL) != 0)
 			ft_message("Mutex init error\n", -1, philo);
 		if (i == (nbr - 1))
-			philo[i].right_fork = &philo[0].left_fork;
+			info->philo[i].right_fork = &(info->philo[0].left_fork);
 		else
-			philo[i].right_fork = &philo[(i + 1) % nbr].left_fork;
+			info->philo[i].right_fork = &(info->philo[(i + 1) % nbr].left_fork);
 	}
 	i = -1;
-	ft_set_time(philo, nbr);
+	ft_set_time(info, nbr);
 	while (++i < nbr)
 	{
-		if (pthread_create(&philo[i].tid, NULL, ft_action, &(philo[i])) != 0)
+		if (pthread_create(&info->philo[i].tid, NULL, ft_action, &(info->philo[i])) != 0)
 			ft_message("Can't create the thread", -1, philo);
 	}
 	i = -1;
 	while (++i < nbr)
 	{
-		if (pthread_join(philo[i].tid, NULL) != 0)
+		if (pthread_join(info->philo[i].tid, NULL) != 0)
 			ft_message("Can't join with thread\n", -1, philo);
 	}
 //	printids("thread: ");

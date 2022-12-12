@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:23:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/10 20:12:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:43:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ static void	ft_take_fork(t_philo *philo)
 	gettimeofday(&now, NULL);
 	time = ft_mili(now);
 	err = pthread_mutex_lock(&philo->left_fork);
-	printf("%ld ms %d has taken a fork\n", time - philo->time_start, philo->id);
 	if (err != 0)
-		ft_message("Can't lock mutex\n", 1, philo);
+		ft_message("Can't lock mutex left\n", 1, philo);
+	else
+		printf("%ld ms %d has taken a fork left\n", time - philo->time_start, philo->id);
 	err = pthread_mutex_lock(philo->right_fork);
-	printf("%ld ms %d has taken a fork\n", time - philo->time_start, philo->id);
 	if (err != 0)
-		ft_message("Can't lock mutex\n", 1, philo);
+		ft_message("Can't lock mutex right\n", 1, philo);
+	else
+		printf("%ld ms %d has taken a fork right\n", time - philo->time_start, philo->id);
 	philo->last_eat = time;
 }
 

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/10 20:15:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:43:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@ int	ft_check_death(t_philo *philo)
 //	printf("tim es %ld y last eat %ld\n", time, philo->last_eat);
 	if (time - philo->last_eat >= philo->time_d)
 	{
-		printf("%ld %d died\n", time - philo->time_start, philo->id);
+		printf("%ld ms %d died\n", time - info->time_start, info->philo->id);
+		if (pthread_detach(philo->tid) != 0)
+			ft_message("Thread could not set to detach mode\n", -1, philo);
+		else
+			exit (1);
 		return (-1);
 	}
 	return (0);

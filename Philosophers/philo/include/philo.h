@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:35:52 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/09 13:50:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:17:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@
 # define SLEEPING 2
 # define THINKING 3
 
-typedef struct s_info
+typedef struct s_philo
 {
 	int				id;
 	int				time_d;
 	int				time_e;
 	int				time_s;
-	long int		time_start;
 	long int		last_eat;
 	int				nb_e;
 	int				status;
@@ -39,9 +38,14 @@ typedef struct s_info
 	pthread_mutex_t	*right_fork;
 }	t_philo;
 
+typedef struct	s_info
+{
+	long int	time_start;
+	t_philo		*philo;
+}	t_info;
+
 int			ft_control(char **str, int counter);
 int			ft_set_param(t_philo *philo, char **str, int counter);
-int			ft_set_fork(t_philo *philo, char **str);
 void		ft_start(t_philo *philo, int nbr);
 void		ft_routine(t_philo *philo);
 int			ft_check_death(t_philo *philo);
