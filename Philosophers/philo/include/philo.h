@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:35:52 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/12 13:17:05 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:03:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_philo
 	long int		last_eat;
 	int				nb_e;
 	int				status;
+	struct s_info	*info;
 	pthread_t		tid;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	*right_fork;
@@ -45,8 +46,8 @@ typedef struct	s_info
 }	t_info;
 
 int			ft_control(char **str, int counter);
-int			ft_set_param(t_philo *philo, char **str, int counter);
-void		ft_start(t_philo *philo, int nbr);
+int			ft_set_param(t_info *info, char **str, int counter);
+void		ft_start(t_info *info, int nbr);
 void		ft_routine(t_philo *philo);
 int			ft_check_death(t_philo *philo);
 //Utils

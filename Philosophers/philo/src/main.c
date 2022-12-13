@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:31:55 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/12 13:43:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:20:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ int	ft_free_mutex(t_philo *philo, int counter)
 int	ft_init(char **str, int counter)
 {
 	t_info	info;
-	int		nbr_phi;
 
 	ft_set_param(&info, str, counter);
 	ft_start(&info, ft_atoi(str[1]));
-	free(philo);
+	free(info.philo);
 	return (0);
 }
 

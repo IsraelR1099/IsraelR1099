@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/12 13:43:38 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:15:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ long int	ft_mili(struct timeval time)
 
 int	ft_message(char *str, int ret, void *arg)
 {
+	t_info	*info;
+
+	info = (t_info *)arg;
 	printf("%s", str);
 	if (ret == -1)
 	{
-		free(arg);
+		free(info->philo);
 	}
 	return (ret);
 }
@@ -66,7 +69,7 @@ int	ft_check_death(t_philo *philo)
 //	printf("tim es %ld y last eat %ld\n", time, philo->last_eat);
 	if (time - philo->last_eat >= philo->time_d)
 	{
-		printf("%ld ms %d died\n", time - info->time_start, info->philo->id);
+		printf("%ld ms %d died\n", time - philo->info->time_start, philo->id);
 		if (pthread_detach(philo->tid) != 0)
 			ft_message("Thread could not set to detach mode\n", -1, philo);
 		else
