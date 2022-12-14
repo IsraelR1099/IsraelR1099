@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:35:52 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/12 18:03:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:07:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 }	t_philo;
 
-typedef struct	s_info
+typedef struct s_info
 {
 	long int	time_start;
+	int			nb_e;
 	t_philo		*philo;
 }	t_info;
 
@@ -49,11 +50,12 @@ int			ft_control(char **str, int counter);
 int			ft_set_param(t_info *info, char **str, int counter);
 void		ft_start(t_info *info, int nbr);
 void		ft_routine(t_philo *philo);
-int			ft_check_death(t_philo *philo);
+int			ft_timeout(t_philo *philo);
 //Utils
 int			ft_message(char *str, int ret, void *arg);
 int			ft_atoi(const char *str);
 long int	ft_mili(struct timeval time);
 void		printids(const char *s);
+int			ft_usleep(unsigned long long int microsec);
 
 #endif

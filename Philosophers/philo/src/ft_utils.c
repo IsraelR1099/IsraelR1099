@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/12 20:15:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:24:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,14 @@ int	ft_atoi(const char *str)
 	return (sign * number);
 }
 
-int	ft_check_death(t_philo *philo)
+int	ft_timeout(t_philo *philo)
 {
 	long int		time;
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
 	time = ft_mili(now);
-//	printf("tim es %ld y last eat %ld\n", time, philo->last_eat);
-	if (time - philo->last_eat >= philo->time_d)
+	if ((time - philo->last_eat) >= philo->time_d)
 	{
 		printf("%ld ms %d died\n", time - philo->info->time_start, philo->id);
 		if (pthread_detach(philo->tid) != 0)
@@ -75,6 +74,25 @@ int	ft_check_death(t_philo *philo)
 		else
 			exit (1);
 		return (-1);
+	}
+	return (0);
+}
+
+int	ft_usleep(unsigned long long microsec)
+{
+	struct timeval	now;
+	unsigned long long int	wait;
+	int	i = 0;
+
+	gettimeofday(&now, NULL);
+	wait = ft_mili(now);
+	printf("micro es %llu y wait %llu\n", microsec, wait);
+	while (wait <= (wait + microsec) && ++i < 5)
+	{
+		gettimeofday(&now, NULL);
+		wait = ft_mili(now);
+		printf("wait ahora %llu\n", wait);
+		usleep(50);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:36:40 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/12 20:39:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/14 11:43:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ int	ft_set_param(t_info *info, char **str, int nbr)
 		info->philo[i].right_fork = NULL;
 		info->philo[i].status = 0;
 		info->philo[i].info = info;
-		if (nbr == 5)
-			info->philo[i].nb_e = ft_atoi(str[5]);
-		else
-			info->philo[i].nb_e = -1;
+		info->philo[i].nb_e = 0;
 		i++;
 	}
+	if (nbr == 5)
+		info->nb_e = ft_atoi(str[5]);
+	else
+		info->nb_e = -1;
 	return (0);
 }
