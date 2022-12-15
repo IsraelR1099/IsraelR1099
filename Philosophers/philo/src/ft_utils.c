@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/14 13:24:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/15 21:40:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,38 @@ int	ft_atoi(const char *str)
 int	ft_timeout(t_philo *philo)
 {
 	long int		time;
+	static int		i = 0;
 	struct timeval	now;
 
+	pthread_mutex_lock(&philo->info->is_dead);
 	gettimeofday(&now, NULL);
 	time = ft_mili(now);
 	if ((time - philo->last_eat) >= philo->time_d)
 	{
-		printf("%ld ms %d died\n", time - philo->info->time_start, philo->id);
-		if (pthread_detach(philo->tid) != 0)
-			ft_message("Thread could not set to detach mode\n", -1, philo);
-		else
-			exit (1);
+		philo->status = DEAD;
+		philo->info->dead = 1;
+		i++;
+		if (philo->info->dead == 1 && i == 1)
+			printf("%ld ms %d died\n", time - philo->info->time_start, philo->id);
+		//if (pthread_detach(philo->tid) != 0)
+		//	ft_message("Thread could not set to detach mode\n", -1, philo);
+		//else
 		return (-1);
 	}
+	pthread_mutex_unlock(&philo->info->is_dead);
 	return (0);
 }
 
-int	ft_usleep(unsigned long long microsec)
+void	ft_usleep(int milisec)
 {
+	long int		time;
 	struct timeval	now;
-	unsigned long long int	wait;
-	int	i = 0;
 
 	gettimeofday(&now, NULL);
-	wait = ft_mili(now);
-	printf("micro es %llu y wait %llu\n", microsec, wait);
-	while (wait <= (wait + microsec) && ++i < 5)
+	time = ft_mili(now);
+	while ((ft_mili(now) - time) < milisec)
 	{
-		gettimeofday(&now, NULL);
-		wait = ft_mili(now);
-		printf("wait ahora %llu\n", wait);
 		usleep(50);
+		gettimeofday(&now, NULL);
 	}
-	return (0);
 }

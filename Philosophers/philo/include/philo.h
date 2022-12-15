@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:35:52 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/14 13:07:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:48:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define EATING 1
 # define SLEEPING 2
 # define THINKING 3
+# define DEAD 4
 
 typedef struct s_philo
 {
@@ -41,9 +42,12 @@ typedef struct s_philo
 
 typedef struct s_info
 {
-	long int	time_start;
-	int			nb_e;
-	t_philo		*philo;
+	long int		time_start;
+	int				nb_e;
+	int				nb_phi;
+	int				dead;
+	pthread_mutex_t	is_dead;
+	t_philo			*philo;
 }	t_info;
 
 int			ft_control(char **str, int counter);
@@ -56,6 +60,7 @@ int			ft_message(char *str, int ret, void *arg);
 int			ft_atoi(const char *str);
 long int	ft_mili(struct timeval time);
 void		printids(const char *s);
-int			ft_usleep(unsigned long long int microsec);
+void		ft_usleep(int milisec);
+void		ft_unlock(t_philo *philo);
 
 #endif
