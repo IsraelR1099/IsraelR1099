@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/15 21:40:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/18 20:41:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,19 @@ int	ft_timeout(t_philo *philo)
 	pthread_mutex_lock(&philo->info->is_dead);
 	gettimeofday(&now, NULL);
 	time = ft_mili(now);
-	if ((time - philo->last_eat) >= philo->time_d)
+	printf("time %ld and last eat es %ld, philo %d\n", time, philo->last_eat,
+	philo->id);
+	if ((time - philo->last_eat) > philo->time_d)
 	{
 		philo->status = DEAD;
 		philo->info->dead = 1;
 		i++;
 		if (philo->info->dead == 1 && i == 1)
-			printf("%ld ms %d died\n", time - philo->info->time_start, philo->id);
-		//if (pthread_detach(philo->tid) != 0)
-		//	ft_message("Thread could not set to detach mode\n", -1, philo);
-		//else
-		return (-1);
+		{
+			philo->info->time_dead = time;
+			return (-1);
+		}
+		//	printf("%ld ms %d died\n", time - philo->info->time_start, philo->id);
 	}
 	pthread_mutex_unlock(&philo->info->is_dead);
 	return (0);

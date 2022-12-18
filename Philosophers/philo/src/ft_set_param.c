@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:36:40 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/15 14:22:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/16 18:51:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ int	ft_set_param(t_info *info, char **str, int nbr)
 	return (0);
 }
 
-void	ft_unlock(t_philo *philo)
+int	ft_unlock(pthread_mutex_t *mutex, t_philo *philo, int ret)
 {
-	int	i;
-
-	i  = -1;
-	while (++i < philo->info->nb_phi)
-		pthread_mutex_unlock(&philo->right_fork[i]);
+	if (pthread_mutex_unlock(mutex) != 0)
+		return (ft_message("Cannot unlock mutex\n", -1, philo));
+	return (ret);
 }
