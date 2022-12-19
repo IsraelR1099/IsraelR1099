@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/18 20:41:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:41:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,6 @@ long int	ft_mili(struct timeval time)
 
 	time_conv = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (time_conv);
-}
-
-int	ft_message(char *str, int ret, void *arg)
-{
-	t_info	*info;
-
-	info = (t_info *)arg;
-	printf("%s", str);
-	if (ret == -1)
-	{
-		free(info->philo);
-	}
-	return (ret);
 }
 
 int	ft_atoi(const char *str)
@@ -59,30 +46,36 @@ int	ft_atoi(const char *str)
 	return (sign * number);
 }
 
-int	ft_timeout(t_philo *philo)
+long long int	ft_gettime(void)
 {
-	long int		time;
-	static int		i = 0;
 	struct timeval	now;
+	long int		time;
 
-	pthread_mutex_lock(&philo->info->is_dead);
 	gettimeofday(&now, NULL);
-	time = ft_mili(now);
-	printf("time %ld and last eat es %ld, philo %d\n", time, philo->last_eat,
-	philo->id);
-	if ((time - philo->last_eat) > philo->time_d)
+	time = (now.tv_sec * 1000) + (now.tv_usec / 1000);
+	return (time);
+}
+
+int	ft_timeout(t_info *info)
+{
+	static int		i = 0;
+	int				j;
+
+	pthread_mutex_lock(&info->is_dead);
+	j = 0;
+	if ((ft_gettime() - info->philo[i].last_eat) > info->philo->time_d)
 	{
-		philo->status = DEAD;
-		philo->info->dead = 1;
+		info->philo[i].status = DEAD;
+		info->dead = 1;
 		i++;
-		if (philo->info->dead == 1 && i == 1)
+		if (info->dead != 0 && i == 1)
 		{
-			philo->info->time_dead = time;
+			info->time_dead = ft_gettime();
 			return (-1);
 		}
-		//	printf("%ld ms %d died\n", time - philo->info->time_start, philo->id);
+		j++;
 	}
-	pthread_mutex_unlock(&philo->info->is_dead);
+	pthread_mutex_unlock(&info->is_dead);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:35:52 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/17 20:52:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:15:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ int			ft_control(char **str, int counter);
 int			ft_set_param(t_info *info, char **str, int counter);
 void		ft_start(t_info *info, int nbr);
 void		ft_routine(t_philo *philo);
-int	ft_timeout(t_philo *philo);
+int			ft_timeout(t_info *info);
 //Utils
 int			ft_message(char *str, int ret, void *arg);
 int			ft_atoi(const char *str);
 long int	ft_mili(struct timeval time);
 void		printids(const char *s);
 void		ft_usleep(int milisec);
-int			ft_unlock(pthread_mutex_t *mutex, t_philo *philo, int ret);
+int			ft_unlock(t_philo *philo);
+void		ft_print(t_philo *philo, const char *str, long int time);
 
 #endif

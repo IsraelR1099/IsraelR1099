@@ -6,11 +6,19 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:36:40 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/16 18:51:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:29:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+static void	ft_case(t_info *info, char **str, int nbr)
+{
+	if (nbr == 5)
+		info->nb_e = ft_atoi(str[5]);
+	else
+		info->nb_e = -1;
+}
 
 int	ft_set_param(t_info *info, char **str, int nbr)
 {
@@ -36,16 +44,6 @@ int	ft_set_param(t_info *info, char **str, int nbr)
 		info->philo[i].nb_e = 0;
 		i++;
 	}
-	if (nbr == 5)
-		info->nb_e = ft_atoi(str[5]);
-	else
-		info->nb_e = -1;
+	ft_case(info, str, nbr);
 	return (0);
-}
-
-int	ft_unlock(pthread_mutex_t *mutex, t_philo *philo, int ret)
-{
-	if (pthread_mutex_unlock(mutex) != 0)
-		return (ft_message("Cannot unlock mutex\n", -1, philo));
-	return (ret);
 }
