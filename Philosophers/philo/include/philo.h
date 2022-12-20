@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:35:52 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/19 11:15:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:52:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,21 @@ typedef struct s_info
 	t_philo			*philo;
 }	t_info;
 
-int			ft_control(char **str, int counter);
-int			ft_set_param(t_info *info, char **str, int counter);
-void		ft_start(t_info *info, int nbr);
-void		ft_routine(t_philo *philo);
-int			ft_timeout(t_info *info);
+int				ft_control(char **str, int counter);
+int				ft_set_param(t_info *info, char **str, int counter);
+void			ft_start(t_info *info, int nbr);
+void			ft_routine(t_philo *philo);
+int				ft_timeout(t_info *info);
+int				ft_take_fork(t_philo *philo);
+void			*ft_one(t_philo *philo);
 //Utils
-int			ft_message(char *str, int ret, void *arg);
-int			ft_atoi(const char *str);
-long int	ft_mili(struct timeval time);
-void		printids(const char *s);
-void		ft_usleep(int milisec);
-int			ft_unlock(t_philo *philo);
-void		ft_print(t_philo *philo, const char *str, long int time);
+int				ft_message(char *str, int ret, void *arg);
+int				ft_atoi(const char *str);
+long int		ft_mili(struct timeval time);
+void			printids(const char *s);
+void			ft_usleep(int milisec);
+long long int	ft_gettime(void);
+int				ft_unlock(t_philo *philo);
+void			ft_print(t_philo *philo, const char *str, long int time);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:23:24 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/19 11:20:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/20 20:29:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_think(t_philo *philo)
 	return (0);
 }
 
-static int	ft_take_fork(t_philo *philo)
+int	ft_take_fork(t_philo *philo)
 {
 	long int		time;
 	struct timeval	now;
@@ -118,10 +118,14 @@ void	ft_routine(t_philo *philo)
 		if (philo->info->nb_e != -1 && philo->nb_e >= philo->info->nb_e)
 			break ;
 	}
-	usleep(1000);
+	if (usleep(1000) < 0)
+		ft_message("Usleep failed\n", -1, philo);
 	i++;
 	if (i == 1 && philo->info->dead != 0)
+	{
 		printf("%ld ms %d died\n",
 			philo->info->time_dead - philo->info->time_start, philo->id);
-	pthread_mutex_unlock(&philo->info->is_dead);
+	}
+	if (pthread_mutex_unlock(&philo->info->is_dead) != 0)
+		ft_message("Cannot unlock mutex\n", -1, philo);
 }

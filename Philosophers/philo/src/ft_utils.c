@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/19 11:41:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:03:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ long long int	ft_gettime(void)
 	struct timeval	now;
 	long int		time;
 
-	gettimeofday(&now, NULL);
+	if (gettimeofday(&now, NULL) != 0)
+		ft_message("Gettimeofday failed\n", 1, NULL);
 	time = (now.tv_sec * 1000) + (now.tv_usec / 1000);
 	return (time);
 }
@@ -61,7 +62,8 @@ int	ft_timeout(t_info *info)
 	static int		i = 0;
 	int				j;
 
-	pthread_mutex_lock(&info->is_dead);
+	if (pthread_mutex_lock(&info->is_dead) != 0)
+		ft_message("Lock failed\n", -1, info->philo);
 	j = 0;
 	if ((ft_gettime() - info->philo[i].last_eat) > info->philo->time_d)
 	{
@@ -75,7 +77,8 @@ int	ft_timeout(t_info *info)
 		}
 		j++;
 	}
-	pthread_mutex_unlock(&info->is_dead);
+	if (pthread_mutex_unlock(&info->is_dead) != 0)
+		ft_message("Unlock failed\n", -1, info->philo);
 	return (0);
 }
 
@@ -84,11 +87,14 @@ void	ft_usleep(int milisec)
 	long int		time;
 	struct timeval	now;
 
-	gettimeofday(&now, NULL);
+	if (gettimeofday(&now, NULL) != 0)
+		ft_message("Gettimeofday failed\n", 1, NULL);
 	time = ft_mili(now);
 	while ((ft_mili(now) - time) < milisec)
 	{
-		usleep(50);
-		gettimeofday(&now, NULL);
+		if (usleep(50) != 0)
+			ft_message("Cannot usleep\n", 1, NULL);
+		if (gettimeofday(&now, NULL) != 0)
+			ft_message("Gettimeofday error\n", 1, NULL);
 	}
 }

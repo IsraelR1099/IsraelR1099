@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:19:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/19 11:39:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/20 20:26:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ static int	ft_mutex_init(t_info *info, int nbr)
 	{
 		if (pthread_mutex_init(&(info->philo[i].left_fork), NULL) != 0)
 			return (ft_message("Mutex init error\n", -1, info));
-		if (i == (nbr - 1))
-			info->philo[i].right_fork = &(info->philo[0].left_fork);
-		else
-			info->philo[i].right_fork = &(info->philo[(i + 1) % nbr].left_fork);
+		if (nbr > 1)
+		{
+			if (i == (nbr - 1))
+				info->philo[i].right_fork = &(info->philo[0].left_fork);
+			else
+				info->philo[i].right_fork = &(info->philo[(i + 1) % nbr].left_fork);
+		}
 	}
 	return (0);
 }
@@ -37,7 +40,8 @@ static void	ft_set_time(t_info *info, int nbr)
 	struct timeval	time;
 
 	i = -1;
-	gettimeofday(&time, NULL);
+	if (gettimeofday(&time, NULL) != 0)
+		ft_message("Gettimeofday failed\n", -1, info->philo);
 	while (++i < nbr)
 	{
 		info->time_start = ft_mili(time);
@@ -52,7 +56,12 @@ static void	*ft_action(void *arg)
 	philo = (t_philo *)arg;
 	if ((philo->id % 2) == 0)
 		ft_usleep(philo->time_e);
-	ft_routine(philo);
+	if (philo->info->nb_phi == 1)
+	{
+		ft_one(philo);
+	}
+	else
+		ft_routine(philo);
 	return (NULL);
 }
 

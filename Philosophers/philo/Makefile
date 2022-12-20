@@ -6,7 +6,7 @@
 #    By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 13:42:29 by irifarac          #+#    #+#              #
-#    Updated: 2022/12/19 10:58:38 by irifarac         ###   ########.fr        #
+#    Updated: 2022/12/20 17:28:47 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = src/ft_error.c \
 	  src/ft_start.c \
 	  src/ft_routine.c \
 	  src/ft_print.c \
+	  src/ft_one.c \
 	  src/main.c
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
