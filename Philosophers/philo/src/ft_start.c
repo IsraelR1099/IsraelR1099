@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:19:48 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/20 20:26:58 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/21 09:44:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	ft_mutex_init(t_info *info, int nbr)
 			if (i == (nbr - 1))
 				info->philo[i].right_fork = &(info->philo[0].left_fork);
 			else
-				info->philo[i].right_fork = &(info->philo[(i + 1) % nbr].left_fork);
+				info->philo[i].right_fork
+					= &(info->philo[(i + 1) % nbr].left_fork);
 		}
 	}
 	return (0);

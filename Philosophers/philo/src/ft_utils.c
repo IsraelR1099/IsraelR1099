@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:16:32 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/20 18:03:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/21 10:04:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ long int	ft_mili(struct timeval time)
 
 int	ft_atoi(const char *str)
 {
-	int	position;
-	int	number;
-	int	sign;
+	int			position;
+	long int	number;
+	int			sign;
 
 	position = 0;
 	number = 0;
@@ -43,6 +43,8 @@ int	ft_atoi(const char *str)
 		number = number * 10 + str[position] - 48;
 		position++;
 	}
+	if (number > 2147483647 || (number * sign) < -2147483648)
+		return (-1);
 	return (sign * number);
 }
 

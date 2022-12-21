@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:31:55 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/12 20:20:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/21 10:12:27 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@ int	ft_init(char **str, int counter)
 {
 	t_info	info;
 
-	ft_set_param(&info, str, counter);
+	if (ft_set_param(&info, str, counter) < 0)
+	{
+		ft_message("Wrong argument\n", 1, NULL);
+		free (info.philo);
+		return (-1);
+	}
 	ft_start(&info, ft_atoi(str[1]));
 	free(info.philo);
 	return (0);
@@ -48,7 +53,7 @@ int	main(int counter, char **str)
 	{
 		if (ft_control(str, counter))
 			if (ft_init(str, counter - 1) < 0)
-				ret = ft_message("Initialization error", 1, NULL);
+				return (-1);
 	}
 	else
 		ret = ft_message("Wrong number of arguments\n", 1, NULL);

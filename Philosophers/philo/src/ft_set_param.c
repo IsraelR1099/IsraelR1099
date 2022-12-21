@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:36:40 by irifarac          #+#    #+#             */
-/*   Updated: 2022/12/19 11:29:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2022/12/21 10:05:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,25 @@ static void	ft_case(t_info *info, char **str, int nbr)
 		info->nb_e = ft_atoi(str[5]);
 	else
 		info->nb_e = -1;
+}
+
+static int	ft_check(t_info *info, int counter)
+{
+	int	i;
+
+	i = -1;
+	while (++i < counter)
+	{
+		if (info->nb_phi == -1)
+			return (-1);
+		else if (info->philo[i].time_d == -1)
+			return (-1);
+		else if (info->philo[i].time_e == -1)
+			return (-1);
+		else if (info->philo[i].time_s == -1)
+			return (-1);
+	}
+	return (0);
 }
 
 int	ft_set_param(t_info *info, char **str, int nbr)
@@ -45,5 +64,5 @@ int	ft_set_param(t_info *info, char **str, int nbr)
 		i++;
 	}
 	ft_case(info, str, nbr);
-	return (0);
+	return (ft_check(info, counter));
 }
