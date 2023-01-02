@@ -138,3 +138,6 @@ https://pubs.opengroup.org/onlinepubs/9699919799/functions/V2_chap02.html#tag_15
 Net_practice
 https://www.routeralley.com/guides/ipv4.pdf
 https://networklessons.com/subnetting/subnetting-in-binary
+
+#miniRt
+https://www.realtimerendering.com/raytracing/An-Introduction-to-Ray-Tracing-The-Morgan-Kaufmann-Series-in-Computer-Graphics-.pdf
