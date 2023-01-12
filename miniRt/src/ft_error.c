@@ -1,32 +1,31 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   ft_error.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/12 18:32:03 by irifarac         ###   ########.fr       */
+/*   Created: 2023/01/11 20:40:31 by irifarac          #+#    #+#             */
+/*   Updated: 2023/01/11 20:43:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "../include/miniRT.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-
-typedef struct s_win
+static int	ft_format(char **str)
 {
-	void	*mlx;
-	void	*mlx_win;
-}	t_window;
+	int	len;
 
-//Errors
-int	ft_error(char **str);
-//Utils
-size_t	ft_strlen(const char *str);
-int		ft_strcmp(const char *str1, const char *str2);
+	len = ft_strlen(*str);
+	if (ft_strcmp(*str + (len - 2), "rt"))
+		return (-1);
+	return (0);
+}
 
-#endif
+int	ft_error(char **str)
+{
+	if (ft_format(str) < 0)
+		return (-1);
+	return (0);
+}
