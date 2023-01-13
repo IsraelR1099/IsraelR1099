@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/12 18:37:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:16:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int counter, char **str)
 	mlx_loop(mlx->mlx);*/
 	if (counter == 2)
 	{
-		if (ft_error(str) >= 0)
+		if (ft_check_error(str) >= 0)
 			printf("hola\n");
 	}
 	else
