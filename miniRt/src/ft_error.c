@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:25:01 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/13 13:51:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/15 15:02:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	ft_check_error(char **str)
 	if (ft_format(str[1]) < 0)
 		return (ft_error("Wrong format", -1));
 	else if (ft_grammar(str[1]) < 0)
-		return (ft_error("Wrong identifier", -1));
+		return (-1);
 	return (0);
 }
