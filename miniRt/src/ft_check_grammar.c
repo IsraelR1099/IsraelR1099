@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:43:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/15 14:57:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:11:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,29 @@ static int	ft_check_ident(char *str)
 	return (0);
 }
 
+static int	ft_repeat(char c)
+{
+	static int	bin_hash[256] = {0};
+	int			temp;
+
+	temp = (int)c;
+	if (bin_hash[temp] == 0)
+		bin_hash[temp] = 1;
+	else
+		return (ft_error("Wrong identifier", -1));
+	return (0);
+}
+
 static int	ft_check_param(char *str)
 {
-	printf("check line %s\n", str);
-	printf("first char es %d\n", (int)*str);
 	while (str && ft_strchr("\t ", *str))
 		str++;
 	if (*str == 'A')
-		return (0);
+		return (ft_repeat(*str));
 	else if (*str == 'C')
-		return (0);
+		return (ft_repeat(*str));
 	else if (*str == 'L')
-		return (0);
+		return (ft_repeat(*str));
 	else if (*str == 'p' && *(str + 1) == 'l')
 		return (0);
 	else if (*str == 's' && *(str + 1) == 'p')

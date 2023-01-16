@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/13 13:43:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:28:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,64 @@ enum	e_ident
 	cy
 };
 
+typedef struct s_ambient
+{
+	int	type;
+}	t_ambient;
+
+typedef struct s_object
+{
+	int	type;
+}	t_object;
+
+typedef struct s_alight
+{
+	int		type;
+	int		r;
+	int		g;
+	int		b;
+	float	ratio;
+}	t_alight;
+
+typedef struct s_light
+{
+	int		type;
+	float	x;
+	float	y;
+	float	z;
+	int		r;
+	int		g;
+	int		b;
+	float	ratio;
+}	t_light;
+
+typedef struct s_cam
+{
+	int		type;
+	float	x;
+	float	y;
+	float	z;
+	int		x_normal;
+	int		y_normal;
+	int		z_normal;
+	int		fov;
+}	t_cam;
+
 typedef struct s_win
 {
 	void	*mlx;
 	void	*mlx_win;
 }	t_window;
 
+//Parser ambient
+t_ambient	*parseamb(char **str);
+
 //Errors
 int		ft_check_error(char **str);
 int		ft_error(const char *str, int ret);
 int		ft_check_grammar(int fd);
 //Utils
+char	**ft_lines(char *str, int fd);
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(const char *str1, const char *str2);
 int		ft_strncmp(const char *str1, const char *str2, size_t number);

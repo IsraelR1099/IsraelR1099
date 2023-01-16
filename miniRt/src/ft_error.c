@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:25:01 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/15 15:02:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:12:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	ft_grammar(char *str)
 		return (ft_error("File does not exist", -1));
 	if (ft_check_grammar(fd) < 0)
 		return (-1);
+	close(fd);
 	return (0);
 }
 
