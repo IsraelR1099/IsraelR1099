@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/16 12:28:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/18 20:31:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ typedef struct s_win
 }	t_window;
 
 //Parser ambient
-t_ambient	*parseamb(char **str);
+t_ambient	*ft_parseamb(char *str);
 
 //Errors
 int		ft_check_error(char **str);
 int		ft_error(const char *str, int ret);
 int		ft_check_grammar(int fd);
 //Utils
-char	**ft_lines(char *str, int fd);
+char	*ft_lines(char *str, int fd);
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(const char *str1, const char *str2);
 int		ft_strncmp(const char *str1, const char *str2, size_t number);

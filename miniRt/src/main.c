@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/16 12:28:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/18 20:30:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,37 @@
 	return (1);
 }*/
 
-static int	ft_len(int fd)
+static char	*ft_delnul(char **ret, int len)
+{
+	char	*str;
+	int		i;
+	int		j;
+	int		k;
+
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		exit(ft_error("Malloc error", -1));
+	i = 0;
+	j = 0;
+	k = 0;
+	while (ret[i])
+	{
+		while (ret[i][j])
+		{
+			str[k] = ret[i][j];
+			if (str[k] == 10)
+				str[k] = 32;
+			k++;
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	str[k] = '\0';
+	return (str);
+}
+
+static int	ft_len(int fd, int *bytes)
 {
 	int		nbr_bytes;
 	int		len;
@@ -31,6 +61,7 @@ static int	ft_len(int fd)
 	while (nbr_bytes > 0)
 	{
 		tmp[nbr_bytes] = '\0';
+		*bytes += nbr_bytes;
 		if (ft_strchr(tmp, '\n'))
 			len++;
 		nbr_bytes = read(fd, tmp, BUFFER_SIZE);
@@ -38,13 +69,16 @@ static int	ft_len(int fd)
 	return (len);
 }
 
-char	**ft_lines(char *str,int fd)
+char	*ft_lines(char *str,int fd)
 {
 	char	**ret;
 	int		i;
 	int		len;
+	int		bytes;
+	char	*new_str;
 
-	len = ft_len(fd);
+	bytes = 0;
+	len = ft_len(fd, &bytes);
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		exit(ft_error("Open error", -1));
@@ -53,15 +87,14 @@ char	**ft_lines(char *str,int fd)
 		exit(ft_error("Malloc error", -1));
 	ret[0] = ft_get_next_line(fd);
 	i = 1;
-	while (len)
+	while (len--)
 	{
 		ret[i] = ft_get_next_line(fd);
-		printf("str es %s\n", ret[i]);
 		i++;
-		len--;
 	}
 	ret[i] = NULL;
-	return (ret);
+	new_str = ft_delnul(ret, bytes);
+	return (new_str);
 }
 
 
@@ -69,7 +102,6 @@ int	main(int counter, char **str)
 {
 //	t_ambient	*test;
 	int			fd;
-	char	**test;
 /*	t_window	*mlx;
 
 	mlx = (t_window *)malloc(sizeof(t_window));
@@ -84,10 +116,13 @@ int	main(int counter, char **str)
 			fd = open(str[1], O_RDONLY);
 			if (fd < 0)
 				return (ft_error("Open error", -1));
-			test = ft_lines(str[1], fd);
-			int i = 0;
-			while (i++ < 8)
-				printf("str[%d] es %s\n", i, test[i]);
+		//	int	i = 0;
+		/*	while (test[i])
+			{
+				printf("str[%d], %s\n", i, test[i]);
+				i++;
+			}*/
+			ft_parseamb(ft_lines(str[1], fd));
 		}
 	}
 	else

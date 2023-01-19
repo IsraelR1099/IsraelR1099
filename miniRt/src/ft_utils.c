@@ -6,11 +6,26 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:53:28 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/16 09:47:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/19 14:55:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
+
+static int	ft_search(char **str, char *estr, char *tokens)
+{
+	
+
+int	ft_find(char **str, char *estr, char *tokens)
+{
+	char	*tmp;
+
+	tmp = *str;
+	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
+		tmp++;
+	*str = tmp;
+	return (ft_search(str, estr, tokens));
+}
 
 size_t	ft_strlen(const char *str)
 {
