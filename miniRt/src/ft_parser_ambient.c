@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:13:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/19 14:55:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:42:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,27 @@
 
 static t_ambient	*ft_parse(char **str, char *estr)
 {
-	t_ambient		*ret;
-	struct doamb	*amb;
+	t_ambient		*amb;
+	int				token;
+	char			*ftoken;
+	char			*eftoken;
 
 	while (ft_find(str, estr, "ACL"))
 	{
-		
+		printf("str es %s, caracter %c\n", *str, **str);
+		token = ft_getident(str, estr, &ftoken, &eftoken);
+		if (token == 'A')
+			amb = ft_build_alight(ftoken, eftoken);
+		else if (token == 'C')
+			amb = ft_build_cam(ftoken, eftoken);
+		else if (token == 'L')
+			amb = ft_build_light(ftoken, eftoken);
+		printf("token es %d, ftoken %s y final |%s|\n", token, ftoken, eftoken);
+	}
+	return (amb);
 }
 
-static t_ambient	*parseline(char **str, char *estr)
+static t_ambient	*ft_parseline(char **str, char *estr)
 {
 	t_ambient	*amb;
 

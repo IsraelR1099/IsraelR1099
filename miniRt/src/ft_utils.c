@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:53:28 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/19 14:55:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/20 09:38:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,17 @@
 
 static int	ft_search(char **str, char *estr, char *tokens)
 {
-	
+	char	*tmp;
+
+	tmp = *str;
+	while (tmp < estr)
+	{
+		if (ft_strchr(tokens, *tmp))
+			return (-1);
+		tmp++;
+	}
+	return (0);
+}
 
 int	ft_find(char **str, char *estr, char *tokens)
 {

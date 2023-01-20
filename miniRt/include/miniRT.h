@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/18 20:31:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:01:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		ft_error(const char *str, int ret);
 int		ft_check_grammar(int fd);
 //Utils
 char	*ft_lines(char *str, int fd);
+int		ft_find(char **str, char *estr, char *tokens);
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(const char *str1, const char *str2);
 int		ft_strncmp(const char *str1, const char *str2, size_t number);
@@ -97,5 +98,6 @@ char	*ft_strchr(const char *str, int ch);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_get_next_line(int fd);
+int		ft_getident(char **str, char *estr, char **ftoken, char **eftoken);
 
 #endif
