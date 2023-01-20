@@ -1,8 +1,6 @@
-hola
 https://programmerclick.com/article/58421000871/
 https://programmersought.com/article/32124805918/
 https://cs50.stackexchange.com/questions/14615/memory-overlap-in-c/14729
-
 https://www.educative.io/edpresso/how-to-convert-a-string-to-an-integer-in-c
 atoi:
 https://www.geeksforgeeks.org/write-your-own-atoi/
@@ -21,7 +19,6 @@ https://github.com/pbie42/libft42commented
 https://github.com/lattera/freebsd/blob/master/lib/libc/string/memcmp.c
 
 malloc
-
 https://programmerclick.com/article/5645523514/
 
 valgrind(testear memoria)
