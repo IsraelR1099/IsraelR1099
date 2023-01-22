@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/20 14:01:27 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:01:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ambient	*ft_build_alight(char *ftoken, char *eftoken)
 		return (NULL);
 	ft_memset(alight, 0, sizeof(*alight));
 	alight->type = A;
-	alight->ratio = ft_ratio(ftoken, eftoken);
+	alight->ratio = ft_ratio(&ftoken, eftoken);
 	alight->r = ft_color(&ftoken, eftoken);
 	alight->g = ft_color(&ftoken, eftoken);
 	alight->b = ft_color(&ftoken, eftoken);
