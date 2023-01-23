@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/18 20:30:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:35:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ char	*ft_lines(char *str,int fd)
 
 int	main(int counter, char **str)
 {
-//	t_ambient	*test;
+	t_ambient	*amb;
+	t_object	*objs;
 	int			fd;
 /*	t_window	*mlx;
 
@@ -122,7 +123,8 @@ int	main(int counter, char **str)
 				printf("str[%d], %s\n", i, test[i]);
 				i++;
 			}*/
-			ft_parseamb(ft_lines(str[1], fd));
+			amb = ft_parseamb(ft_lines(str[1], fd));
+			objs = ft_parseobj(ft_lines(str[1], fd));
 		}
 	}
 	else

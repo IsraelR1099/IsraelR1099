@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/22 15:26:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/23 11:00:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,54 +27,55 @@ void	*ft_memset(void *dest, int ch, size_t count)
 	return (new_dest);
 }
 
-float	ft_fatoi(char *str)
+float	ft_fatoi(char **str)
 {
 	float	nbr;
-	int		i;
 	int		sign;
 	int		exp;
+	int		flag;
 
 	sign = 1;
-	i = 0;
 	exp = 0;
 	nbr = 0;
-	if (str[i] == '-')
+	flag = 0;
+	if (**str == '-')
 	{
+		*str = *str + 1;
 		sign = -1;
-		i++;
 	}
-	while ((str[i] >= 48 && str[i] <= 57 && str[i] != '\0'))
+	while ((**str >= 48 && **str <= 57 && **str != '\0'))
 	{
-		printf("nbr es %f, y caracter %c\n", nbr, str[i]);
-		nbr = (nbr * 10) + str[i] - 48;
-		i++;
-		if (str[i] == 46)
-			i++;
+		nbr = (nbr * 10) + **str - 48;
+		*str = *str + 1;
+		if (**str == 46)
+		{
+			*str = *str + 1;
+			flag = 1;
+		}
 		exp++;
 	}
+	if (flag == 0)
+		exp--;
 	nbr /= pow(10, exp - 1);
 	return (sign * nbr);
 }
 
-int	ft_atoi(char *str)
+int	ft_atoi(char **str)
 {
 	long	nbr;
-	int		i;
 	int		sign;
 
-	i = 0;
 	nbr = 0;
 	sign = 1;
-	if (str[i] == '-')
+	if (**str == '-')
 	{
 		sign = -1;
-		i++;
+		*str = *str + 1;
 	}
-	while ((str[i] >= 48 && str[i] <= 57 && str[i]))
+	while (**str >= 48 && **str <= 57 && **str != '\0')
 	{
-		nbr = (nbr * 10) + str[i] - 48;
-		i++;
+		nbr = (nbr * 10) + **str - 48;
+		*str = *str + 1;
 	}
 	return (sign * nbr);
 }
-

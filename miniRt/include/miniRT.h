@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/22 13:59:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:00:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ enum	e_ident
 
 typedef struct s_ambient
 {
-
 	int	type;
 }	t_ambient;
 
@@ -44,36 +43,84 @@ typedef struct s_object
 
 typedef struct s_alight
 {
-	int		type;
-	int		r;
-	int		g;
-	int		b;
-	float	ratio;
+	int			type;
+	int			r;
+	int			g;
+	int			b;
+	float		ratio;
+	t_ambient	*amb;
 }	t_alight;
 
 typedef struct s_light
 {
-	int		type;
-	float	x;
-	float	y;
-	float	z;
-	int		r;
-	int		g;
-	int		b;
-	float	ratio;
+	int			type;
+	float		x;
+	float		y;
+	float		z;
+	int			r;
+	int			g;
+	int			b;
+	float		ratio;
+	t_ambient	*amb;
 }	t_light;
 
 typedef struct s_cam
 {
-	int		type;
-	float	x;
-	float	y;
-	float	z;
-	int		x_normal;
-	int		y_normal;
-	int		z_normal;
-	int		fov;
+	int			type;
+	float		x;
+	float		y;
+	float		z;
+	int			x_normal;
+	int			y_normal;
+	int			z_normal;
+	int			fov;
+	t_ambient	*amb;
 }	t_cam;
+
+typedef struct	s_plane
+{
+	int			type;
+	float		x;
+	float		y;
+	float		z;
+	int			x_normal;
+	int			y_normal;
+	int			z_normal;
+	int			r;
+	int			g;
+	int			b;
+	t_object	*obj;
+}	t_plane;
+
+typedef struct	s_sphere
+{
+	int			type;
+	float		x;
+	float		y;
+	float		z;
+	float		diameter;
+	int			r;
+	int			g;
+	int			b;
+	t_object	*obj;
+}	t_sphere;
+
+typedef struct	s_cylinder
+{
+	int			type;
+	float		x;
+	float		y;
+	float		z;
+	int			x_normal;
+	int			y_normal;
+	int			z_normal;
+	float		diameter;
+	float		height;
+	int			r;
+	int			g;
+	int			b;
+	t_object	*obj;
+}	t_cylinder;
 
 typedef struct s_win
 {
@@ -83,17 +130,19 @@ typedef struct s_win
 
 //Parser ambient
 t_ambient	*ft_parseamb(char *str);
-t_ambient	*ft_build_alight(char *ftoken, char *eftoken);
-t_ambient	*ft_build_cam(char *ftoken, char *eftoken);
-t_ambient	*ft_build_light(char *ftoken, char *eftoken);
+t_ambient	*ft_build_alight(t_ambient *amb, char *ftoken, char *eftoken);
+t_ambient	*ft_build_cam(t_ambient *amb, char *ftoken, char *eftoken);
+t_ambient	*ft_build_light(t_ambient *amb, char *ftoken, char *eftoken);
+//Parser objects
+t_object	*ft_parseobj(char *str);
 //Errors
 int			ft_check_error(char **str);
 int			ft_error(const char *str, int ret);
 int			ft_check_grammar(int fd);
 //Utils
 char		*ft_lines(char *str, int fd);
-float		ft_fatoi(char *str);
-int			ft_atoi(char *str);
+float		ft_fatoi(char **str);
+int			ft_atoi(char **str);
 int			ft_find(char **str, char *estr, char *tokens);
 size_t		ft_strlen(const char *str);
 int			ft_strcmp(const char *str1, const char *str2);

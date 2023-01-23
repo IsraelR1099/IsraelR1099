@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/22 15:08:18 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:25:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ float	ft_ratio(char **ftoken, char *eftoken)
 		tmp++;
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
-	printf("ftoken ratio es %s\n", tmp);
-	ret = ft_fatoi(tmp);
-	printf("ret es %f\n", ret);
-	if (ret == -1)
+	ret = ft_fatoi(&tmp);
+	*ftoken = tmp;
+	if (ret == -1 || ret > 1 || ret < 0)
 		exit(ft_error("Wrong ratio", -1));
 	return (ret);
 }
@@ -40,8 +39,11 @@ int	ft_color(char **ftoken, char *eftoken)
 		tmp++;
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
-	ret = ft_atoi(*ftoken);
-	if (ret < 0)
+	ret = ft_atoi(&tmp);
+	if (*tmp == ',')
+		tmp++;
+	*ftoken = tmp;
+	if (ret < 0 || ret > 255)
 		exit(ft_error("Wrong color value", -1));
 	return (ret);
 }
@@ -49,14 +51,17 @@ int	ft_color(char **ftoken, char *eftoken)
 float	ft_coord(char **ftoken, char *eftoken)
 {
 	char	*tmp;
-	int		ret;
+	float	ret;
 
 	tmp = *ftoken;
 	if (ft_strchr("ACL", *tmp))
 		tmp++;
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
-	ret = ft_fatoi(tmp);
+	ret = ft_fatoi(&tmp);
+	if (*tmp == ',')
+		tmp++;
+	*ftoken = tmp;
 	if (ret == 1)
 		exit(ft_error("Wrong coordinates", -1));
 	return (ret);
@@ -72,8 +77,11 @@ int	ft_normal(char **ftoken, char *eftoken)
 		tmp++;
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
-	ret = ft_atoi(tmp);
-	if (ret == -1)
+	ret = ft_atoi(&tmp);
+	if (*tmp == ',')
+		tmp++;
+	*ftoken = tmp;
+	if (ret < -1 || ret > 1)
 		exit(ft_error("Wrong normal", -1));
 	return (ret);
 }
@@ -88,10 +96,9 @@ int	ft_fov(char **ftoken, char *eftoken)
 		tmp++;
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
-	ret = ft_atoi(tmp);
-	if (ret < 0)
+	ret = ft_atoi(&tmp);
+	*ftoken = tmp;
+	if (ret < 0 || ret > 180)
 		exit(ft_error("Wrong fov", -1));
 	return (ret);
 }
-
-

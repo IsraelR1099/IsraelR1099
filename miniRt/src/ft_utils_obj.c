@@ -1,47 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getident.c                                      :+:      :+:    :+:   */
+/*   ft_utils_obj.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 10:30:16 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/23 12:33:46 by irifarac         ###   ########.fr       */
+/*   Created: 2023/01/23 13:02:00 by irifarac          #+#    #+#             */
+/*   Updated: 2023/01/23 13:46:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
 
-int	ft_getident(char **str, char *estr, char **ftoken, char **eftoken)
+static int	ft_search(char **str, char *estr, char *tokens, int len)
 {
 	char	*tmp;
-	int		ret;
+
+	tmp = *str;
+	while (tmp < estr)
+	{
+		while (len)
+		{
+
+
+
+
+int	ft_find_obj(char **str, char *estr, char *tokens, int len)
+{
+	char	*tmp;
 
 	tmp = *str;
 	while (tmp < estr && ft_strchr("\t\r\n\v ", *tmp))
-			tmp++;
-	if (ftoken)
-		*ftoken = tmp;
-	ret = *tmp;
-	if (*tmp == 0)
-		return (0);
-	else if (*tmp == 'A')
 		tmp++;
-	else if (*tmp == 'C')
-		tmp++;
-	else if (*tmp == 'L')
-		tmp++;
-	else
-	{
-		ret = 0;
-		while (tmp < estr && !ft_strchr("ACL", *tmp))
-			tmp++;
-		printf("no ambient case\n");
-	}
-	while (tmp < estr && !ft_strchr("ACL", *tmp))
-			tmp++;
-	if (eftoken)
-		*eftoken = tmp;
 	*str = tmp;
-	return (ret);
+	return (ft_search(str, estr, tokens, len));
 }
