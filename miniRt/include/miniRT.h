@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/23 13:00:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/24 20:29:27 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ t_ambient	*ft_build_cam(t_ambient *amb, char *ftoken, char *eftoken);
 t_ambient	*ft_build_light(t_ambient *amb, char *ftoken, char *eftoken);
 //Parser objects
 t_object	*ft_parseobj(char *str);
+t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken);
+t_object	*ft_build_plane(t_object *obj, char *ftoken, char *eftoken);
 //Errors
 int			ft_check_error(char **str);
 int			ft_error(const char *str, int ret);
@@ -144,6 +146,7 @@ char		*ft_lines(char *str, int fd);
 float		ft_fatoi(char **str);
 int			ft_atoi(char **str);
 int			ft_find(char **str, char *estr, char *tokens);
+int			ft_find_obj(char **str, char *estr, char *tokens);
 size_t		ft_strlen(const char *str);
 int			ft_strcmp(const char *str1, const char *str2);
 int			ft_strncmp(const char *str1, const char *str2, size_t number);
@@ -154,6 +157,7 @@ char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_get_next_line(int fd);
 int			ft_getident(char **str, char *estr, char **ftoken, char **eftoken);
+int			ft_getobj(char **str, char *estr, char **ftoken, char **eftoken);
 void		*ft_memset(void *dest, int ch, size_t count);
 //Utils parameters
 float		ft_ratio(char **ftoken, char *eftoken);

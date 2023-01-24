@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/23 12:35:56 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:46:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ int	main(int counter, char **str)
 			}*/
 			amb = ft_parseamb(ft_lines(str[1], fd));
 			objs = ft_parseobj(ft_lines(str[1], fd));
+			(void)amb;
+			(void)objs;
 		}
 	}
 	else

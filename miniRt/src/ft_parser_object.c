@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:36:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/23 12:50:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/23 21:02:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ static t_object	*ft_parse(char **str, char *estr)
 	char		*ftoken;
 	char		*eftoken;
 
-	while (ft_find_obj(str, estr, "spplcy", 2))
+	while (ft_find_obj(str, estr, "sp")
+		|| ft_find_obj(str, estr, "pl")
+		|| ft_find_obj(str, estr, "cy"))
 	{
-		token = ft_getobj(str, estr, &foken, &eftoken);
+		token = ft_getobj(str, estr, &ftoken, &eftoken);
 		if (token == 's')
 			obj = ft_build_sphere(obj, ftoken, eftoken);
 		else if (token == 'p')
@@ -38,6 +40,6 @@ t_object	*ft_parseobj(char *str)
 	char		*estr;
 
 	estr = str + ft_strlen(str);
-	obj = ft_parseline(&str, estr);
+	obj = ft_parse(&str, estr);
 	return (obj);
 }
