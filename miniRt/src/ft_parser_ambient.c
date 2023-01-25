@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:13:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/23 12:51:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:30:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,5 @@ t_ambient	*ft_parseamb(char *str)
 		else
 			printf("no type\n");
 	}
-	printf("str es %s\n", str);
 	return (amb);
 }

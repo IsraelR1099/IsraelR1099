@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getident.c                                      :+:      :+:    :+:   */
+/*   ft_getobj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 10:30:16 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/25 11:10:23 by irifarac         ###   ########.fr       */
+/*   Created: 2023/01/25 11:10:31 by irifarac          #+#    #+#             */
+/*   Updated: 2023/01/25 13:08:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
 
-int	ft_getident(char **str, char *estr, char **ftoken, char **eftoken)
+int	ft_getobj(char **str, char *estr, char **ftoken, char **eftoken)
 {
 	char	*tmp;
 	int		ret;
@@ -25,21 +25,23 @@ int	ft_getident(char **str, char *estr, char **ftoken, char **eftoken)
 	ret = *tmp;
 	if (*tmp == 0)
 		return (0);
-	else if (*tmp == 'A')
-		tmp++;
-	else if (*tmp == 'C')
-		tmp++;
-	else if (*tmp == 'L')
-		tmp++;
+	else if (*tmp == 's' && *(tmp + 1) == 'p')
+		tmp += 2;
+	else if (*tmp == 'p' && *(tmp + 1) == 'l')
+		tmp +=2;
+	else if (*tmp == 'c' && *(tmp + 1) == 'y')
+		tmp +=2;
 	else
 	{
 		ret = 0;
-		while (tmp < estr && !ft_strchr("ACL", *tmp))
+		while ((tmp < estr && !ft_compare(tmp, "sp"))
+			&& !ft_compare(tmp, "pl") && !ft_compare(tmp, "cy"))
 			tmp++;
-		printf("no ambient case\n");
+		printf("no object case\n");
 	}
-	while (tmp < estr && !ft_strchr("ACL", *tmp))
-			tmp++;
+	while ((tmp < estr && !ft_compare(tmp, "sp"))
+		&& !ft_compare(tmp, "pl") && !ft_compare(tmp, "cy"))
+		tmp++;
 	if (eftoken)
 		*eftoken = tmp;
 	*str = tmp;

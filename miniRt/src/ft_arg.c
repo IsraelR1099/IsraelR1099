@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/23 12:25:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:09:00 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,16 @@ float	ft_coord(char **ftoken, char *eftoken)
 	float	ret;
 
 	tmp = *ftoken;
+	printf("coord en tmp es %s\n", tmp);
 	if (ft_strchr("ACL", *tmp))
 		tmp++;
+	else if (ft_compare(tmp, "sp") || ft_compare(tmp, "pl")
+			|| ft_compare(tmp, "cy"))
+		tmp += 2;
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	ret = ft_fatoi(&tmp);
+	printf("ret es %f\n", ret);
 	if (*tmp == ',')
 		tmp++;
 	*ftoken = tmp;

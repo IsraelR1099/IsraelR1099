@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/23 17:46:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:36:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,10 @@ int	main(int counter, char **str)
 			fd = open(str[1], O_RDONLY);
 			if (fd < 0)
 				return (ft_error("Open error", -1));
-		//	int	i = 0;
-		/*	while (test[i])
-			{
-				printf("str[%d], %s\n", i, test[i]);
-				i++;
-			}*/
 			amb = ft_parseamb(ft_lines(str[1], fd));
+			fd = open(str[1], O_RDONLY);
+			if (fd < 0)
+				return (ft_error("Open error", -1));
 			objs = ft_parseobj(ft_lines(str[1], fd));
 			(void)amb;
 			(void)objs;

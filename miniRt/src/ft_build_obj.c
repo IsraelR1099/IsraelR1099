@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/24 20:40:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:12:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken)
 {
 	t_sphere	*sphere;
 
-	spehere = malloc(sizeof(*sphere));
+	sphere = malloc(sizeof(*sphere));
 	if (!sphere)
 		return (NULL);
 	ft_memset(sphere, 0, sizeof(*sphere));
@@ -29,9 +29,9 @@ t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken)
 	return ((t_object *)sphere);
 }
 
-t_object	*ft_build_plane(t_object *amb, char *ftoken, char *eftoken)
+t_object	*ft_build_plane(t_object *obj, char *ftoken, char *eftoken)
 {
-	t_plan	*plane;
+	t_plane	*plane;
 
 	plane = malloc(sizeof(*plane));
 	if (!plane)
@@ -51,7 +51,7 @@ t_object	*ft_build_plane(t_object *amb, char *ftoken, char *eftoken)
 	return ((t_object *)plane);
 }
 
-t_object	*ft_build_cylinder(t_object *amb, char *ftoken, char *eftoken)
+t_object	*ft_build_cylinder(t_object *obj, char *ftoken, char *eftoken)
 {
 	t_cylinder	*cylinder;
 

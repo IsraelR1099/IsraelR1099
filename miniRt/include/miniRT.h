@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/24 20:29:27 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:37:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ t_ambient	*ft_build_light(t_ambient *amb, char *ftoken, char *eftoken);
 t_object	*ft_parseobj(char *str);
 t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken);
 t_object	*ft_build_plane(t_object *obj, char *ftoken, char *eftoken);
+t_object	*ft_build_cylinder(t_object *obj, char *ftoken, char *eftoken);
 //Errors
 int			ft_check_error(char **str);
 int			ft_error(const char *str, int ret);
@@ -144,6 +145,7 @@ int			ft_check_grammar(int fd);
 //Utils
 char		*ft_lines(char *str, int fd);
 float		ft_fatoi(char **str);
+int			ft_compare(char *str, char *tokens);
 int			ft_atoi(char **str);
 int			ft_find(char **str, char *estr, char *tokens);
 int			ft_find_obj(char **str, char *estr, char *tokens);
@@ -165,5 +167,6 @@ int			ft_color(char **ftoken, char *eftoken);
 float		ft_coord(char **ftoken, char *eftoken);
 int			ft_normal(char **ftoken, char *eftoken);
 int			ft_fov(char **ftoken, char *eftoken);
+float		ft_diameter(char **ftoken, char *eftoken);
 
 #endif

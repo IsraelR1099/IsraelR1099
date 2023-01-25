@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:36:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/23 21:02:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:08:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ static t_object	*ft_parse(char **str, char *estr)
 		else if (token == 'c')
 			obj = ft_build_cylinder(obj, ftoken, eftoken);
 	}
+	printf("obj type es %d\n", obj->type);
 	return (obj);
 }
 
 t_object	*ft_parseobj(char *str)
 {
 	t_object	*obj;
+	t_plane		*plane;
+	t_cylinder	*cyl;
 	char		*estr;
 
 	estr = str + ft_strlen(str);
