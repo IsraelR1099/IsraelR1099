@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/23 11:00:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/26 20:50:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ float	ft_fatoi(char **str)
 	}
 	if (flag == 0)
 		exp--;
+	printf("nbr fatoi es %f, y exp es %d, flag %d\n", nbr, exp, flag);
 	nbr /= pow(10, exp - 1);
 	return (sign * nbr);
 }

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/25 13:09:00 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/26 20:45:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ float	ft_ratio(char **ftoken, char *eftoken)
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	ret = ft_fatoi(&tmp);
+	printf("ratio es %f\n", ret);
 	*ftoken = tmp;
 	if (ret == -1 || ret > 1 || ret < 0)
 		exit(ft_error("Wrong ratio", -1));
@@ -40,6 +41,7 @@ int	ft_color(char **ftoken, char *eftoken)
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	ret = ft_atoi(&tmp);
+	printf("ret color es %d\n", ret);
 	if (*tmp == ',')
 		tmp++;
 	*ftoken = tmp;
@@ -62,27 +64,30 @@ float	ft_coord(char **ftoken, char *eftoken)
 		tmp += 2;
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
+	printf("tmp despues de compare %s\n", tmp);
 	ret = ft_fatoi(&tmp);
-	printf("ret es %f\n", ret);
+	printf("ret coord es %f\n", ret);
 	if (*tmp == ',')
 		tmp++;
 	*ftoken = tmp;
+	printf("coord en tmp despues es %s\n", tmp);
 	if (ret == 1)
 		exit(ft_error("Wrong coordinates", -1));
 	return (ret);
 }
 
-int	ft_normal(char **ftoken, char *eftoken)
+float	ft_normal(char **ftoken, char *eftoken)
 {
 	char	*tmp;
-	int		ret;
+	float	ret;
 
 	tmp = *ftoken;
 	if (ft_strchr("ACL", *tmp))
 		tmp++;
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
-	ret = ft_atoi(&tmp);
+	ret = ft_fatoi(&tmp);
+	printf("¨ret normal es %f\n", ret);
 	if (*tmp == ',')
 		tmp++;
 	*ftoken = tmp;

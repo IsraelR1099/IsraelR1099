@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/25 11:37:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/26 20:10:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void		*ft_memset(void *dest, int ch, size_t count);
 float		ft_ratio(char **ftoken, char *eftoken);
 int			ft_color(char **ftoken, char *eftoken);
 float		ft_coord(char **ftoken, char *eftoken);
-int			ft_normal(char **ftoken, char *eftoken);
+float		ft_normal(char **ftoken, char *eftoken);
 int			ft_fov(char **ftoken, char *eftoken);
 float		ft_diameter(char **ftoken, char *eftoken);
 

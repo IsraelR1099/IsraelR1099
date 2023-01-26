@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:02:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/25 12:40:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/26 20:20:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ float	ft_diameter(char **ftoken, char *eftoken)
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	ret = ft_fatoi(&tmp);
+	printf("diameter ret es %f\n", ret);
 	*ftoken = tmp;
 	return (ret);
 }
