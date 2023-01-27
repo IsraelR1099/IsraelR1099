@@ -6,19 +6,12 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/25 12:36:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:56:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
 #include "../mlx/mlx.h"
-
-/*int	destroy(t_window *mlx)
-{
-	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
-	exit(0);
-	return (1);
-}*/
 
 static char	*ft_delnul(char **ret, int len)
 {
@@ -92,6 +85,7 @@ char	*ft_lines(char *str,int fd)
 		ret[i] = ft_get_next_line(fd);
 		i++;
 	}
+
 	ret[i] = NULL;
 	new_str = ft_delnul(ret, bytes);
 	return (new_str);
@@ -103,13 +97,7 @@ int	main(int counter, char **str)
 	t_ambient	*amb;
 	t_object	*objs;
 	int			fd;
-/*	t_window	*mlx;
 
-	mlx = (t_window *)malloc(sizeof(t_window));
-	mlx->mlx = mlx_init();
-	mlx->mlx_win = mlx_new_window(mlx->mlx, 1080, 720, "Ejemplo");
-	mlx_hook(mlx->mlx_win, 17,0, destroy, mlx);
-	mlx_loop(mlx->mlx);*/
 	if (counter == 2)
 	{
 		if (ft_check_error(str) >= 0)
@@ -122,6 +110,7 @@ int	main(int counter, char **str)
 			if (fd < 0)
 				return (ft_error("Open error", -1));
 			objs = ft_parseobj(ft_lines(str[1], fd));
+			ft_init(amb, objs);
 			(void)amb;
 			(void)objs;
 		}

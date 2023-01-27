@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/27 13:26:13 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:55:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ typedef struct s_win
 	void	*mlx;
 	void	*mlx_win;
 }	t_window;
+
+//mlx functions
+void	ft_init(t_ambient *amb, t_object *obj);
 
 //Parser ambient
 t_ambient	*ft_parseamb(char *str);
