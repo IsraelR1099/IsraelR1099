@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:36:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/25 17:27:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:01:25 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static t_object	*ft_parse(char **str, char *estr)
 		else if (token == 'c')
 			obj = ft_build_cylinder(obj, ftoken, eftoken);
 	}
-	printf("obj type es %d\n", obj->type);
 	return (obj);
 }
 
@@ -53,20 +52,22 @@ t_object	*ft_parseobj(char *str)
 			sph = (t_sphere *)obj;
 			printf("diameter sphere is %f\n", sph->diameter);
 			printf("color spehre r %d, g %d, b%d\n", sph->r, sph->g, sph->b);
+			printf("coord sphere x %f, y %f, z %f\n", sph->x, sph->y, sph->z);
 			obj = sph->obj;
 		}
 		else if (obj->type == 4)
 		{
 			plane = (t_plane *)obj;
 			printf("plane x normal %d\n", plane->x_normal);
-			printf("plane color r %d, g %d, b %d\n", plane->r, plane->g,
-			plane->b);
+			printf("plane color r %d, g %d, b %d\n", plane->r, plane->g, plane->b);
+			printf("coord plane x %f, y %f, z %f\n", plane->x, plane->y, plane->z);
 			obj = plane->obj;
 		}
 		else if (obj->type == 5)
 		{
 			cyl = (t_cylinder *)obj;
 			printf("diameter cylinder %f\n", cyl->diameter);
+			printf("coord cylinder x %f, y %f, z %f\n", cyl->x, cyl->y, cyl->z);
 			obj = cyl->obj;
 		}
 	}

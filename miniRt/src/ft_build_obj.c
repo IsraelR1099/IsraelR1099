@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/26 20:24:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:00:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken)
 	sphere->type = sp;
 	sphere->x = ft_coord(&ftoken, eftoken);
 	sphere->y = ft_coord(&ftoken, eftoken);
-	sphere->x = ft_coord(&ftoken, eftoken);
+	sphere->z = ft_coord(&ftoken, eftoken);
 	sphere->diameter = ft_diameter(&ftoken, eftoken);
 	sphere->r = ft_color(&ftoken, eftoken);
 	sphere->g = ft_color(&ftoken, eftoken);

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/26 20:50:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:37:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,46 @@ float	ft_fatoi(char **str)
 	int		sign;
 	int		exp;
 	int		flag;
+	int		j;
 
 	sign = 1;
 	exp = 0;
 	nbr = 0;
 	flag = 0;
+	j = 0;
 	if (**str == '-')
 	{
 		*str = *str + 1;
 		sign = -1;
 	}
-	while ((**str >= 48 && **str <= 57 && **str != '\0'))
+	while ((**str >= 48 && **str <= 57 && **str != '\0') || **str == '.' )
 	{
-		nbr = (nbr * 10) + **str - 48;
+	/*	nbr = (nbr * 10) + **str - 48;
 		*str = *str + 1;
 		if (**str == 46)
 		{
 			*str = *str + 1;
 			flag = 1;
 		}
-		exp++;
+		exp++;*/
+		if (**str != '.')
+		{
+			nbr = (nbr * 10) + **str - '0';
+			if (flag == 1)
+				j--;
+		}
+		if (**str == '.')
+		{
+			if (flag == 1)
+				return (0);
+			flag = 1;
+		}
+		*str = *str + 1;
 	}
 	if (flag == 0)
 		exp--;
-	printf("nbr fatoi es %f, y exp es %d, flag %d\n", nbr, exp, flag);
-	nbr /= pow(10, exp - 1);
+//	nbr /= pow(10, exp - 1);
+	nbr = nbr * pow(10, j);
 	return (sign * nbr);
 }
 
