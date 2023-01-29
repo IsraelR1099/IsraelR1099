@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 11:52:04 by irifarac          #+#    #+#              #
-#    Updated: 2022/12/30 12:42:25 by irifarac         ###   ########.fr        #
+#    Updated: 2023/01/27 20:56:48 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,22 @@ OBJDIR = obj
 SRCDIR = ./
 
 #Archivos
-SRC = src/main.c
+SRC = 	src/parser/ft_error.c \
+		src/parser/ft_utils.c \
+		src/parser/ft_check_grammar.c \
+		src/parser/get_next_line.c \
+		src/parser/get_next_line_utils.c \
+		src/parser/ft_parser_ambient.c \
+		src/parser/ft_parser_object.c \
+		src/parser/ft_utils_obj.c \
+		src/parser/ft_build.c \
+		src/parser/ft_build_obj.c \
+		src/parser/ft_getident.c \
+		src/parser/ft_getobj.c \
+		src/parser/ft_help_func.c \
+		src/parser/ft_arg.c \
+		src/ft_init.c \
+		src/main.c
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
@@ -34,9 +49,10 @@ all: $(NAME)
 -include $(DEPENDS)
 $(NAME): $(OBJ)
 	@echo "$(GREEN)Compilando libreria mlx$(RESET)"
-	cd mlx && make all
+	#cd MLX42 && make all
 	@echo "$(GREEN)Creando ejecutable $@ 🛠  $(RESET)"
-	gcc $(CFLAGS) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
+	#gcc $(CFLAGS) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
+	gcc $(CFLAGS) $(OBJ) -ldl -lglfw -pthread -lm -o $@
 	@echo "$(GREEN)Compilacion acabada ✅ $@ $(RESET)"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c include/miniRT.h
