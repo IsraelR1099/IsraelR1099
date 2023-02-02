@@ -110,6 +110,7 @@ int	main(int counter, char **str)
 			if (fd < 0)
 				return (ft_error("Open error", -1));
 			objs = ft_parseobj(ft_lines(str[1], fd));
+			printf("amb type en main es %d\n", amb->type);
 			ft_init(amb, objs);
 			(void)amb;
 			(void)objs;

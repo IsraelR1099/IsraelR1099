@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init.c                                             :+:      :+:    :+:   */
+/*   ft_utils_generate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,25 +13,15 @@
 #include "../include/miniRT.h"
 #include "../mlx/mlx.h"
 
-static int	ft_destroy(t_window *mlx)
+int	ft_color_value(t_light *light)
 {
-	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
-	exit(0);
-	return (1);
+	return (light->r << 16 | light->g << 8 | light->b);
 }
 
-void	ft_init(t_ambient *amb, t_object *obj)
+void	ft_my_mlx_pxput(t_window *mlx, int x, int y, int color)
 {
-	t_window	*mlx;
+	char	*dst;
 
-	mlx = (t_window *)malloc(sizeof(*mlx));
-	if (!mlx)
-		exit(ft_error("Malloc error", 0));
-	mlx->mlx = mlx_init();
-	mlx->mlx_win = mlx_new_window(mlx->mlx, 1920, 1080, "miniRT");
-	mlx->img = mlx_new_image(mlx->mlx, 1920, 1080);
-	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->b, &mlx->ll, &mlx->end);
-	ft_generate(amb, obj, mlx);
-	mlx_hook(mlx->mlx_win, 17, 0, ft_destroy, mlx);
-	mlx_loop(mlx->mlx);
-}
+	dst = mlx->addr + (y * mlx->ll + x * (mlx->b / 8));
+	*(unsigned int *)dst = color;
+}	

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init.c                                             :+:      :+:    :+:   */
+/*   ft_generate.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,25 +13,27 @@
 #include "../include/miniRT.h"
 #include "../mlx/mlx.h"
 
-static int	ft_destroy(t_window *mlx)
-{
-	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
-	exit(0);
-	return (1);
-}
 
-void	ft_init(t_ambient *amb, t_object *obj)
+void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 {
-	t_window	*mlx;
+	int	i;
+	int	j;
+	t_light	*light;
 
-	mlx = (t_window *)malloc(sizeof(*mlx));
-	if (!mlx)
-		exit(ft_error("Malloc error", 0));
-	mlx->mlx = mlx_init();
-	mlx->mlx_win = mlx_new_window(mlx->mlx, 1920, 1080, "miniRT");
-	mlx->img = mlx_new_image(mlx->mlx, 1920, 1080);
-	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->b, &mlx->ll, &mlx->end);
-	ft_generate(amb, obj, mlx);
-	mlx_hook(mlx->mlx_win, 17, 0, ft_destroy, mlx);
-	mlx_loop(mlx->mlx);
+	i = 0;
+	printf("amb type es %d\n", amb->type);
+	light = (t_light *)amb;
+	printf("alight->r es %d\n", light->r);
+	while (i < 1080)
+	{
+		j = 0;
+		while (j < 1920)
+		{
+			ft_my_mlx_pxput(mlx, j, i, ft_color_value(light));
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
+	(void)obj;
 }

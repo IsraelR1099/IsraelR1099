@@ -19,6 +19,9 @@ static t_object	*ft_parse(char **str, char *estr)
 	char		*ftoken;
 	char		*eftoken;
 
+	obj = malloc(sizeof(*obj));
+	if (!obj)
+		return (NULL);
 	while (ft_find_obj(str, estr, "sp")
 		|| ft_find_obj(str, estr, "pl")
 		|| ft_find_obj(str, estr, "cy"))

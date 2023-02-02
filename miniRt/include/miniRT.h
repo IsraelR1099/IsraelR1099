@@ -126,10 +126,20 @@ typedef struct s_win
 {
 	void	*mlx;
 	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int	b;
+	int	ll;
+	int	end;
 }	t_window;
 
 //mlx functions
-void	ft_init(t_ambient *amb, t_object *obj);
+void		ft_init(t_ambient *amb, t_object *obj);
+void		ft_generate(t_ambient *amb, t_object *obj, t_window *mlx);
+
+//mlx util functions
+int		ft_color_value(t_light *light);
+void		ft_my_mlx_pxput(t_window *mlx, int x, int y, int color);
 
 //Parser ambient
 t_ambient	*ft_parseamb(char *str);

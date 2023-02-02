@@ -19,6 +19,9 @@ static t_ambient	*ft_parse(char **str, char *estr)
 	char			*ftoken;
 	char			*eftoken;
 
+	amb = malloc(sizeof(*amb));
+	if (!amb)
+		return (NULL);
 	while (ft_find(str, estr, "ACL"))
 	{
 //		printf("str es %s, caracter %c\n", *str, **str);
@@ -51,6 +54,7 @@ static t_ambient	*ft_parseline(char **str, char *estr)
 t_ambient	*ft_parseamb(char *str)
 {
 	t_ambient	*amb;
+	t_ambient	*tmp;
 	t_light		*light;
 	t_alight	*alight;
 	t_cam		*cam;
@@ -59,24 +63,25 @@ t_ambient	*ft_parseamb(char *str)
 	estr = str + ft_strlen(str);
 	amb = ft_parseline(&str, estr);
 	int i = 0;
-	while (amb && i++ < 4)
+	tmp = amb;
+	while (tmp && i++ < 4)
 	{
-		if (amb->type == 0)
+		if (tmp->type == 0)
 		{
-			alight = (t_alight *)amb;
+			alight = (t_alight *)tmp;
 			printf("alight r %d\n", alight->r);
-			amb = alight->amb;
+			tmp = alight->amb;
 		}
-		else if (amb->type == 1)
+		else if (tmp->type == 1)
 		{
-			cam = (t_cam *)amb;
+			cam = (t_cam *)tmp;
 			printf("cam fov es %d\n", cam->fov);
-			amb = cam->amb;
+			tmp = cam->amb;
 		}
-		else if (amb->type == 2)
+		else if (tmp->type == 2)
 		{
-			light = (t_light *)amb;
-			amb = light->amb;
+			light = (t_light *)tmp;
+			tmp = light->amb;
 			printf("cood x light es %f\n", light->x);
 			printf("light ratio es %f\n", light->ratio);
 		}
