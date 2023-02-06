@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/27 20:55:56 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:12:57 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void		ft_init(t_ambient *amb, t_object *obj);
 void		ft_generate(t_ambient *amb, t_object *obj, t_window *mlx);
 
 //mlx util functions
-int		ft_color_value(t_light *light);
+int			ft_color_value(t_ambient *amb, int type);
 void		ft_my_mlx_pxput(t_window *mlx, int x, int y, int color);
 
 //Parser ambient

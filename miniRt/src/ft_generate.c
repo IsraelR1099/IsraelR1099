@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/27 20:40:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:57:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 		j = 0;
 		while (j < 1920)
 		{
-			ft_my_mlx_pxput(mlx, j, i, ft_color_value(light));
+		//	color = ft_intersects(amb, obj);
+		//	ft_my_mlx_pxput(mlx, j, i, color);
+			ft_my_mlx_pxput(mlx, j, i, ft_color_value(amb, A));
 			j++;
 		}
 		i++;
