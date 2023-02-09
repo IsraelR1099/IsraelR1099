@@ -30,7 +30,9 @@ static double	ft_b_value(t_ambient *amb, t_object *obj, t_vector ray_dir)
 	cam_pos.x = cam->x;
 	cam_pos.y = cam->y;
 	cam_pos.z = cam->z;
+	printf("cam pos es %f\n", cam->x);
 	sphere = (t_sphere *)ft_find_lst_obj(obj, sp);
+	printf("sphere x es %f\n", sphere->x);
 	sphere_pos.x = sphere->x;
 	sphere_pos.y = sphere->y;
 	sphere_pos.z = sphere->z;
@@ -81,14 +83,13 @@ int	ft_inter_sphere(t_ambient *amb, t_object *obj, t_vector ray_dir)
 	double	calc_t;
 
 
-	printf("ray dir x %f, y %f, z %f\n", ray_dir.x, ray_dir.y, ray_dir.z);
 	scalar_a = ft_a_value(ray_dir);
 	scalar_b = ft_b_value(amb, obj, ray_dir);
-	printf("scalar b es %f\n", scalar_a);
 	scalar_c = ft_c_value(amb, obj);
 	ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
 	if (ret < 0)
 		return (0);
 	calc_t = ft_calc_t(scalar_a, scalar_b, scalar_c);
+	(void)calc_t;
 	return (1);
 }

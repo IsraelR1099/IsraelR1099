@@ -49,5 +49,6 @@ int	ft_inter_plane(t_ambient *amb, t_object *obj, t_vector ray_dir)
 	if (ret_b == 0)
 		return (0);
 	t = ft_a_value(amb, plane) / ret_b;
+	(void)t;
 	return (1);
 }

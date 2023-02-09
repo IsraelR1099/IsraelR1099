@@ -20,6 +20,8 @@
 # include <math.h>
 
 # define BUFFER_SIZE 1
+# define WIDTH 1080
+# define HEIGHT 720
 
 enum	e_ident
 {
@@ -128,9 +130,9 @@ typedef struct s_win
 	void	*mlx_win;
 	void	*img;
 	char	*addr;
-	int	b;
-	int	ll;
-	int	end;
+	int		b;
+	int		ll;
+	int		end;
 }	t_window;
 
 typedef struct s_vector
@@ -139,6 +141,15 @@ typedef struct s_vector
 	double	y;
 	double	z;
 }	t_vector;
+
+typedef struct s_colour
+{
+	int	c_ambient;
+	int	c_light;
+	int	c_sphere;
+	int	c_plane;
+	int	c_cylinder;
+}	t_colours;
 
 //Intersections
 int			ft_intersects(t_ambient *amb, t_object *obj, t_vector ray_dir);
@@ -199,4 +210,6 @@ t_ambient	*ft_find_lst(t_ambient *amb, int type);
 //Maths functions
 double		ft_dot_product_vect(t_vector vector_left, t_vector vector_right);
 t_vector	ft_rest_vect(t_vector origin, t_vector obj);
+//Colors
+int			ft_set_colour(t_ambient *amb, t_object *obj, t_colours *colours, int type);
 #endif

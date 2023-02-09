@@ -40,15 +40,14 @@ static t_object	*ft_parse(char **str, char *estr)
 t_object	*ft_parseobj(char *str)
 {
 	t_object	*obj;
-	t_plane		*plane;
-	t_cylinder	*cyl;
-	t_sphere	*sph;
+//	t_plane		*plane;
+//	t_cylinder	*cyl;
+//	t_sphere	*sph;
 	char		*estr;
 
 	estr = str + ft_strlen(str);
 	obj = ft_parse(&str, estr);
-	int i = 0;
-	while (obj && i++ < 3)
+/*	while (obj && i++ < 6)
 	{
 		if (obj->type == 3)
 		{
@@ -74,5 +73,7 @@ t_object	*ft_parseobj(char *str)
 			obj = cyl->obj;
 		}
 	}
+	(void)i;
+	exit (0);*/
 	return (obj);
 }

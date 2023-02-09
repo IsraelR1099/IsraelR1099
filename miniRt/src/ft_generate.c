@@ -21,14 +21,17 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 	float		len;
 	t_vector	ray_dir;
 	int			type;
+	t_colours	colours;
 
 	i = 0;
 	t = 100;
 	len = 0;
-	while (i < 1080)
+	ft_set_colour(amb, obj, &colours, 6);
+	int k = 0;
+	while (i < HEIGHT)
 	{
 		j = 0;
-		while (j < 1920)
+		while (j < WIDTH)
 		{
 			//calculate ray direction
 			ray_dir.x = j;
@@ -40,20 +43,22 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 			ray_dir.y /= len;
 			ray_dir.z /= len;
 			type = ft_intersects(amb, obj, ray_dir);
-			printf("type es %d\n", type);
-		/*	if (type == sp)
-				color = sphere color;
+			if (type == sp)
+			{
+				ft_my_mlx_pxput(mlx, j, i, colours.c_sphere);
+				k++;
+			}
 			else if (type == pl)
-				color = plane color;
+				ft_my_mlx_pxput(mlx, j, i, colours.c_plane);
 			else if (type == cy)
-				color = cylinder color;
+				ft_my_mlx_pxput(mlx, j, i, colours.c_cylinder);
 			else
-				color = ambient color;*/
-		//	ft_my_mlx_pxput(mlx, j, i, color);
-			ft_my_mlx_pxput(mlx, j, i, ft_color_value(amb, A));
+				ft_my_mlx_pxput(mlx, j, i, colours.c_ambient);
+		//	ft_my_mlx_pxput(mlx, j, i, ft_colour_value(amb, A));
 			j++;
 		}
 		i++;
 	}
+	printf("k es %d\n", k);
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
 }
