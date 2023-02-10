@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/08 13:49:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:22:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,77 +74,3 @@ void	ft_my_mlx_pxput(t_window *mlx, int x, int y, int color)
 	dst = mlx->addr + (y * mlx->ll + x * (mlx->b / 8));
 	*(unsigned int *)dst = color;
 }
-
-t_object	*ft_find_lst_obj(t_object *obj, int type)
-{
-	t_sphere	*sphere;
-	t_plane		*plane;
-	t_cylinder	*cyl;
-	t_object	*tmp;
-
-	tmp = obj;
-	while (tmp)
-	{
-		if (tmp->type == type)
-			return (tmp);
-		else
-		{
-			if (tmp->type == 3)
-			{
-				sphere = (t_sphere *)tmp;
-				tmp = sphere->obj;
-			}
-			else if (tmp->type == 4)
-			{
-				plane = (t_plane *)tmp;
-				tmp = plane->obj;
-			}
-			else if (tmp->type == 5)
-			{
-				cyl = (t_cylinder *)tmp;
-				tmp = cyl->obj;
-			}
-			else
-				break ;
-		}
-	}
-	return (0);
-}
-
-t_ambient	*ft_find_lst(t_ambient *amb, int type)
-{
-	t_light		*light;
-	t_alight	*alight;
-	t_cam		*cam;
-	t_ambient	*tmp;
-
-	tmp = amb;
-	while (tmp)
-	{
-		if (tmp->type == type)
-			return (tmp);
-		else
-		{
-			if (tmp->type == 0)
-			{
-				alight = (t_alight *)tmp;
-				tmp = alight->amb;
-			}
-			else if (tmp->type == 1)
-			{
-				cam = (t_cam *)tmp;
-				tmp = cam->amb;
-			}
-			else if (tmp->type == 2)
-			{
-				light = (t_light *)tmp;
-				tmp = light->amb;
-			}
-			else
-				break ;
-		}
-	}
-	return (0);
-}
-
-

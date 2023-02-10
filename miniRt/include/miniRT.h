@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/08 14:02:42 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:09:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ typedef struct s_colour
 
 //Intersections
 int			ft_intersects(t_ambient *amb, t_object *obj, t_vector ray_dir);
-int			ft_inter_sphere(t_ambient *amb, t_object *obj, t_vector ray_dir);
+int			ft_inter_sphere(t_ambient *amb, t_sphere **sphere, t_vector ray_dir);
 int			ft_inter_plane(t_ambient *amb, t_object *obj, t_vector ray_dir);
 //mlx functions
 void		ft_init(t_ambient *amb, t_object *obj);
@@ -205,7 +205,7 @@ float		ft_normal(char **ftoken, char *eftoken);
 int			ft_fov(char **ftoken, char *eftoken);
 float		ft_diameter(char **ftoken, char *eftoken);
 //Utils list
-t_object	*ft_find_lst_obj(t_object *obj, int type);
+t_object	**ft_find_lst_obj(t_object *obj, int type);
 t_ambient	*ft_find_lst(t_ambient *amb, int type);
 //Maths functions
 double		ft_dot_product_vect(t_vector vector_left, t_vector vector_right);

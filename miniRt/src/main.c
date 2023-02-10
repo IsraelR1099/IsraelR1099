@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/01 12:54:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:01:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	ft_len(int fd, int *bytes)
 			len++;
 		nbr_bytes = read(fd, tmp, BUFFER_SIZE);
 	}
+	close(fd);
 	return (len);
 }
 
@@ -78,16 +79,15 @@ char	*ft_lines(char *str,int fd)
 	ret = malloc(sizeof(char *) * (len + 1));
 	if (!ret)
 		exit(ft_error("Malloc error", -1));
-	ret[0] = ft_get_next_line(fd);
-	i = 1;
+	i = 0;
 	while (len--)
 	{
 		ret[i] = ft_get_next_line(fd);
 		i++;
 	}
-
 	ret[i] = NULL;
 	new_str = ft_delnul(ret, bytes);
+	printf("new str es %s\n", new_str);
 	return (new_str);
 }
 
@@ -106,14 +106,14 @@ int	main(int counter, char **str)
 			if (fd < 0)
 				return (ft_error("Open error", -1));
 			amb = ft_parseamb(ft_lines(str[1], fd));
+			close(fd);
 			fd = open(str[1], O_RDONLY);
 			if (fd < 0)
 				return (ft_error("Open error", -1));
 			objs = ft_parseobj(ft_lines(str[1], fd));
+			close(fd);
 			printf("amb type en main es %d\n", amb->type);
 			ft_init(amb, objs);
-			(void)amb;
-			(void)objs;
 		}
 	}
 	else

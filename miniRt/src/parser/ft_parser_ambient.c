@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:13:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/27 20:37:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:46:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,19 @@ static t_ambient	*ft_parse(char **str, char *estr)
 	char			*eftoken;
 
 	amb = malloc(sizeof(*amb));
+	amb->type = 10;
 	if (!amb)
 		return (NULL);
 	while (ft_find(str, estr, "ACL"))
 	{
-//		printf("str es %s, caracter %c\n", *str, **str);
 		token = ft_getident(str, estr, &ftoken, &eftoken);
-//		printf("str despues getident %s\n", *str);
+		printf("token es %c\n", (char)token);
 		if (token == 'A')
 			amb = ft_build_alight(amb, ftoken, eftoken);
 		else if (token == 'C')
 			amb = ft_build_cam(amb, ftoken, eftoken);
 		else if (token == 'L')
 			amb = ft_build_light(amb, ftoken, eftoken);
-//		printf("token es %d, ftoken %s y final |%s|\n", token, ftoken, eftoken);
 	}
 	return (amb);
 }
@@ -43,11 +42,6 @@ static t_ambient	*ft_parseline(char **str, char *estr)
 	t_ambient	*amb;
 
 	amb = ft_parse(str, estr);
-/*	if (ft_find(str, estr, )
-	{
-		ft_getparam(str, estr);
-		amb = ft_buildamb(amb, ft_parseline(str, estr));
-	}*/
 	return (amb);
 }
 
@@ -88,5 +82,6 @@ t_ambient	*ft_parseamb(char *str)
 		else
 			printf("no type\n");
 	}
+	exit(1);
 	return (amb);
 }

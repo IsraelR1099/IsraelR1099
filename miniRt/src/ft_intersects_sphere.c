@@ -6,22 +6,21 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:05:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/08 13:59:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:28:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
-#include "../mlx/mlx.h"
 
 static double	ft_a_value(t_vector ray_dir)
 {
 	return (ft_dot_product_vect(ray_dir, ray_dir));
 }
 
-static double	ft_b_value(t_ambient *amb, t_object *obj, t_vector ray_dir)
+static double	ft_b_value(t_ambient *amb, t_sphere *sphere, t_vector ray_dir)
 {
 	t_cam		*cam;
-	t_sphere	*sphere;
+//	t_sphere	*sphere;
 	t_vector	sphere_pos;
 	t_vector	cam_pos;
 	t_vector	res_cam_sphere;
@@ -30,9 +29,7 @@ static double	ft_b_value(t_ambient *amb, t_object *obj, t_vector ray_dir)
 	cam_pos.x = cam->x;
 	cam_pos.y = cam->y;
 	cam_pos.z = cam->z;
-	printf("cam pos es %f\n", cam->x);
-	sphere = (t_sphere *)ft_find_lst_obj(obj, sp);
-	printf("sphere x es %f\n", sphere->x);
+//	sphere = (t_sphere *)ft_find_lst_obj(obj, sp);
 	sphere_pos.x = sphere->x;
 	sphere_pos.y = sphere->y;
 	sphere_pos.z = sphere->z;
@@ -40,24 +37,24 @@ static double	ft_b_value(t_ambient *amb, t_object *obj, t_vector ray_dir)
 	return (2 * ft_dot_product_vect(ray_dir, res_cam_sphere));
 }
 
-static double	ft_c_value(t_ambient *amb, t_object *obj)
+static double	ft_c_value(t_ambient *amb, t_sphere *sphere)
 {
 	t_vector	res_cam_sph;
 	t_vector	cam_pos;
 	t_vector	sphere_pos;
 	t_cam		*cam;
-	t_sphere	*sphere;
+//	t_sphere	*sphere;
 
 	cam = (t_cam *)ft_find_lst(amb, C);
 	cam_pos.x = cam->x;
 	cam_pos.y = cam->y;
 	cam_pos.z = cam->z;
-	sphere = (t_sphere *)ft_find_lst_obj(obj, sp);
+//	sphere = (t_sphere *)ft_find_lst_obj(obj, sp);
 	sphere_pos.x = sphere->x;
 	sphere_pos.y = sphere->y;
 	sphere_pos.z = sphere->z;
 	res_cam_sph = ft_rest_vect(cam_pos, sphere_pos);
-	return (ft_dot_product_vect(res_cam_sph, res_cam_sph) - (sphere->diameter / 2));
+	return (ft_dot_product_vect(res_cam_sph, res_cam_sph) - (sphere->diameter / 2) * (sphere->diameter / 2));
 }
 
 static double	ft_calc_t(double scalar_a, double scalar_b, double scalar_c)
@@ -74,19 +71,24 @@ static double	ft_calc_t(double scalar_a, double scalar_b, double scalar_c)
 	return (ret_negative);
 }
 
-int	ft_inter_sphere(t_ambient *amb, t_object *obj, t_vector ray_dir)
+int	ft_inter_sphere(t_ambient *amb, t_sphere **sphere, t_vector ray_dir)
 {
 	double	scalar_a;
 	double	scalar_b;
 	double	scalar_c;
 	double	ret;
 	double	calc_t;
+	int		i;
 
-
-	scalar_a = ft_a_value(ray_dir);
-	scalar_b = ft_b_value(amb, obj, ray_dir);
-	scalar_c = ft_c_value(amb, obj);
-	ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
+	i = 0;
+	while (sphere[i])
+	{
+		scalar_a = ft_a_value(ray_dir);
+		scalar_b = ft_b_value(amb, sphere[i], ray_dir);
+		scalar_c = ft_c_value(amb, sphere[i]);
+		ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
+		i++;
+	}
 	if (ret < 0)
 		return (0);
 	calc_t = ft_calc_t(scalar_a, scalar_b, scalar_c);

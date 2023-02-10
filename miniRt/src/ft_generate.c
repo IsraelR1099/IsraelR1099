@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/08 13:54:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:22:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 	t_colours	colours;
 
 	i = 0;
-	t = 100;
+	t = 1000;
 	len = 0;
 	ft_set_colour(amb, obj, &colours, 6);
 	int k = 0;
@@ -59,6 +59,5 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 		}
 		i++;
 	}
-	printf("k es %d\n", k);
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
 }
