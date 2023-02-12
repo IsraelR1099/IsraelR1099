@@ -17,14 +17,14 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 {
 	int			i;
 	int			j;
-	int			t;
+//	int			t;
 	float		len;
 	t_vector	ray_dir;
 	int			type;
 	t_colours	colours;
 
 	i = 0;
-	t = 1000;
+//	t = 400;
 	len = 0;
 	ft_set_colour(amb, obj, &colours, 6);
 	int k = 0;
@@ -34,9 +34,10 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 		while (j < WIDTH)
 		{
 			//calculate ray direction
-			ray_dir.x = j;
-			ray_dir.y = i;
-			ray_dir.z = -1 * t;
+			ray_dir.x = j - (WIDTH / 2);
+			ray_dir.y = i - (HEIGHT / 2);
+			//ray_dir.z = (-1 * t);
+			ray_dir.z = -WIDTH / 2 * tan(80/2);
 			//normalize direction vector
 			len = sqrt(ray_dir.x * ray_dir.x + ray_dir.y * ray_dir.y + ray_dir.z * ray_dir.z);
 			ray_dir.x /= len;

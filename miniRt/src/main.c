@@ -87,7 +87,6 @@ char	*ft_lines(char *str,int fd)
 	}
 	ret[i] = NULL;
 	new_str = ft_delnul(ret, bytes);
-	printf("new str es %s\n", new_str);
 	return (new_str);
 }
 
@@ -112,7 +111,6 @@ int	main(int counter, char **str)
 				return (ft_error("Open error", -1));
 			objs = ft_parseobj(ft_lines(str[1], fd));
 			close(fd);
-			printf("amb type en main es %d\n", amb->type);
 			ft_init(amb, objs);
 		}
 	}

@@ -71,27 +71,22 @@ static double	ft_calc_t(double scalar_a, double scalar_b, double scalar_c)
 	return (ret_negative);
 }
 
-int	ft_inter_sphere(t_ambient *amb, t_sphere **sphere, t_vector ray_dir)
+double	ft_distance_sphere(t_ambient *amb, t_sphere *sphere, t_vector ray_dir)
 {
-	double	scalar_a;
-	double	scalar_b;
-	double	scalar_c;
-	double	ret;
-	double	calc_t;
-	int		i;
+	double		scalar_a;
+	double		scalar_b;
+	double		scalar_c;
+	double		ret;
+	double		calc_t;
 
-	i = 0;
-	while (sphere[i])
-	{
-		scalar_a = ft_a_value(ray_dir);
-		scalar_b = ft_b_value(amb, sphere[i], ray_dir);
-		scalar_c = ft_c_value(amb, sphere[i]);
-		ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
-		i++;
-	}
+	scalar_a = ft_a_value(ray_dir);
+	scalar_b = ft_b_value(amb, sphere, ray_dir);
+	scalar_c = ft_c_value(amb, sphere);
+	ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
 	if (ret < 0)
 		return (0);
 	calc_t = ft_calc_t(scalar_a, scalar_b, scalar_c);
-	(void)calc_t;
-	return (1);
+	if (calc_t < 0)
+		calc_t *= -1;
+	return (calc_t);
 }

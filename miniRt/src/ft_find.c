@@ -12,7 +12,7 @@
 
 #include "../include/miniRT.h"
 
-static t_object	*ft_util_find(t_object *tmp, int type)
+t_object	*ft_util_find(t_object *tmp, int type)
 {
 	t_sphere	*sphere;
 	t_plane		*plane;
@@ -36,19 +36,15 @@ static t_object	*ft_util_find(t_object *tmp, int type)
 	return (tmp);
 }
 
-t_object	**ft_find_lst_obj(t_object *obj, int type)
+t_object	*ft_find_lst_obj(t_object *obj, int type)
 {
 	t_object	*tmp;
-	t_object	**ret;
-	int			i;
 
 	tmp = obj;
-	i = 0;
-	ret = NULL;
 	while (tmp)
 	{
 		if (tmp->type == type)
-			ret[i] = tmp;
+			return (tmp);
 		else
 		{
 			if (tmp->type == 3)
@@ -60,10 +56,8 @@ t_object	**ft_find_lst_obj(t_object *obj, int type)
 			else
 				break ;
 		}
-		i++;
 	}
-	printf("salgo\n");
-	return (ret);
+	return (0);
 }
 
 t_ambient	*ft_find_lst(t_ambient *amb, int type)

@@ -48,15 +48,15 @@ static t_ambient	*ft_parseline(char **str, char *estr)
 t_ambient	*ft_parseamb(char *str)
 {
 	t_ambient	*amb;
-	t_ambient	*tmp;
-	t_light		*light;
-	t_alight	*alight;
-	t_cam		*cam;
+//	t_ambient	*tmp;
+//	t_light		*light;
+//	t_alight	*alight;
+//	t_cam		*cam;
 	char		*estr;
 
 	estr = str + ft_strlen(str);
 	amb = ft_parseline(&str, estr);
-	int i = 0;
+/*	int i = 0;
 	tmp = amb;
 	while (tmp && i++ < 4)
 	{
@@ -82,6 +82,6 @@ t_ambient	*ft_parseamb(char *str)
 		else
 			printf("no type\n");
 	}
-	exit(1);
+	exit(1);*/
 	return (amb);
 }
