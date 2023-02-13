@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 10:17:26 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/10 13:35:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/13 09:50:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_object	*ft_util_find(t_object *tmp, int type)
 	t_plane		*plane;
 	t_cylinder	*cyl;
 
+	if (!tmp)
+		return (NULL);
 	if (type == 3)
 	{
 		sphere = (t_sphere *)tmp;
