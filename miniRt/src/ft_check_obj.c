@@ -12,7 +12,7 @@
 
 #include "../include/miniRT.h"
 
-t_object	*ft_ret_sphere(t_object *obj, int type)
+t_sphere	*ft_ret_sphere(t_object *obj, int type)
 {
 	t_object		*tmp;
 
@@ -20,7 +20,7 @@ t_object	*ft_ret_sphere(t_object *obj, int type)
 	while (tmp)
 	{
 		if (tmp->type == type)
-			return (tmp);
+			return ((t_sphere *)tmp);
 		else
 		{
 			if (tmp->type == 3)
@@ -36,16 +36,15 @@ t_object	*ft_ret_sphere(t_object *obj, int type)
 	return (0);
 }
 
-t_object	*ft_ret_plane(t_object *obj, int type)
+t_plane	*ft_ret_plane(t_object *obj, int type)
 {
-	static t_object		*tmp = NULL;
+	t_object		*tmp;
 
-	if (!tmp)
-		tmp = obj;
+	tmp = obj;
 	while (tmp)
 	{
 		if (tmp->type == type)
-			return (tmp);
+			return ((t_plane *)tmp);
 		else
 		{
 			if (tmp->type == 3)

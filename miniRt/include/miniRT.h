@@ -154,7 +154,7 @@ typedef struct s_colour
 //Intersections
 int			ft_intersects(t_ambient *amb, t_object *obj, t_vector ray_dir);
 int			ft_inter_sphere(t_ambient *amb, t_object *obj, t_vector ray_dir);
-int			ft_inter_plane(t_ambient *amb, t_object *obj, t_vector ray_dir);
+int			ft_inter_plane(t_ambient *amb, t_plane *plane, t_vector ray_dir);
 double		ft_distance_sphere(t_ambient *amb, t_sphere *sphere, t_vector
 ray_dir);
 //mlx functions
@@ -210,6 +210,8 @@ float		ft_diameter(char **ftoken, char *eftoken);
 t_object	*ft_find_lst_obj(t_object *obj, int type);
 t_ambient	*ft_find_lst(t_ambient *amb, int type);
 t_object	*ft_util_find(t_object *tmp, int type);
+t_sphere	*ft_ret_sphere(t_object *obj, int type);
+t_plane		*ft_ret_plane(t_object *obj, int type);
 //Maths functions
 double		ft_dot_product_vect(t_vector vector_left, t_vector vector_right);
 t_vector	ft_rest_vect(t_vector origin, t_vector obj);

@@ -79,6 +79,8 @@ double	ft_distance_sphere(t_ambient *amb, t_sphere *sphere, t_vector ray_dir)
 	double		ret;
 	double		calc_t;
 
+	if (!sphere)
+		return (0);
 	scalar_a = ft_a_value(ray_dir);
 //	printf("dentro de distance x %f, y %f, z %f\n", sphere->x, sphere->y, sphere->z);
 	scalar_b = ft_b_value(amb, sphere, ray_dir);

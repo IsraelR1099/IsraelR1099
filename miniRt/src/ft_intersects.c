@@ -36,21 +36,25 @@ int	ft_intersects(t_ambient *amb, t_object *obj, t_vector ray_dir)
 	t_object	*tmp;
 	double		distance_sph;
 	double		distance_pla;
-	double		distance_cyl;
+	t_sphere	*sphere;
+	t_plane		*plane;
 
 	tmp = obj;
+	color = 0;
 	while (tmp)
 	{
-		distance_sph = ft_distance_sphere(amb, ft_ret_sphere(tmp), ray_dir);
-		distance_pla = ft_inter_plane(amb, ft_ret_plane(tmp), ray_dir);
-		if (distance_sph == 0 && distance_pla == 0)
-			break;
+		sphere = ft_ret_sphere(tmp, sp);
+		plane = ft_ret_plane(tmp, pl);
+		if (!sphere || !plane)
+			break ;
+		distance_sph = ft_distance_sphere(amb, sphere, ray_dir);
+		distance_pla = ft_inter_plane(amb, plane, ray_dir);
 		if (distance_sph < distance_pla)
 			color = sp;
 		else if (distance_pla < distance_sph)
 			color = pl;
 		tmp = ft_util_find(tmp, tmp->type);
 	}
-	return (0);
+	return (color);
 }
 

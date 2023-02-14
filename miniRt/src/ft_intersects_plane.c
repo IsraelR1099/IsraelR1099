@@ -34,14 +34,14 @@ static double	ft_a_value(t_ambient *amb, t_plane *plane)
 	return (ft_dot_product_vect(normal_plane, res_point_orig));
 }
 
-int	ft_inter_plane(t_ambient *amb, t_object *obj, t_vector ray_dir)
+int	ft_inter_plane(t_ambient *amb, t_plane *plane, t_vector ray_dir)
 {
 	t_vector	normal_plane;
-	t_plane		*plane;
+//	t_plane		*plane;
 	double		ret_b;
 	double		t;
 
-	plane = (t_plane *)ft_find_lst_obj(obj, pl);
+//	plane = (t_plane *)ft_find_lst_obj(obj, pl);
 	normal_plane.x = plane->x_normal;
 	normal_plane.y = plane->y_normal;
 	normal_plane.z = plane->z_normal;
