@@ -22,6 +22,7 @@
 # define BUFFER_SIZE 1
 # define WIDTH 1080
 # define HEIGHT 720
+# define PI 3.14
 
 enum	e_ident
 {
@@ -151,12 +152,27 @@ typedef struct s_colour
 	int	c_cylinder;
 }	t_colours;
 
+typedef struct	s_frustum
+{
+	double	left;
+	double	right;
+	double	top;
+	double	bottom;
+	double	far;
+	double	near;
+}	t_frustrum;
+
 //Intersections
 int			ft_intersects(t_ambient *amb, t_object *obj, t_vector ray_dir);
 int			ft_inter_sphere(t_ambient *amb, t_object *obj, t_vector ray_dir);
 int			ft_inter_plane(t_ambient *amb, t_plane *plane, t_vector ray_dir);
 double		ft_distance_sphere(t_ambient *amb, t_sphere *sphere, t_vector
 ray_dir);
+//Frustrum
+void		ft_set_frustrum(double aspect_ratio, double fov, t_frustrum *frustrum);
+void		ft_ortographic_view(t_frustrum frustrum, t_vector *ray_dir, int x,
+int y, int z);
+
 //mlx functions
 void		ft_init(t_ambient *amb, t_object *obj);
 void		ft_generate(t_ambient *amb, t_object *obj, t_window *mlx);

@@ -17,32 +17,37 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 {
 	int			i;
 	int			j;
-	int			t;
-	float		len;
+//	int			t;
+//	float		len;
 	t_vector	ray_dir;
 	int			type;
 	t_colours	colours;
+	t_frustrum	frustrum;
 
 	i = 0;
-	t = 400;
-	len = 0;
+//	t = 400;
+//	len = 0;
 	ft_set_colour(amb, obj, &colours, 6);
 	int k = 0;
+	ft_set_frustrum(WIDTH / HEIGHT, 80, &frustrum);
+	printf("frustrum near %f, left %f, right %f, top %f, bottom %f\n",
+	frustrum.near, frustrum.left, frustrum.right, frustrum.top, frustrum.bottom);
 	while (i < HEIGHT)
 	{
 		j = 0;
 		while (j < WIDTH)
 		{
+			ft_ortographic_view(frustrum, &ray_dir, j, i, -1);
 			//calculate ray direction
-			ray_dir.x = j - (WIDTH / 2);
-			ray_dir.y = i - (HEIGHT / 2);
-			ray_dir.z = (-1 * t);
+		//	ray_dir.x = j - (WIDTH / 2);
+		//	ray_dir.y = i - (HEIGHT / 2);
+		//	ray_dir.z = (-1 * t);
 		//	ray_dir.z = -WIDTH / 2 * tan(80/2);
 			//normalize direction vector
-			len = sqrt(ray_dir.x * ray_dir.x + ray_dir.y * ray_dir.y + ray_dir.z * ray_dir.z);
+	/*		len = sqrt(ray_dir.x * ray_dir.x + ray_dir.y * ray_dir.y + ray_dir.z * ray_dir.z);
 			ray_dir.x /= len;
 			ray_dir.y /= len;
-			ray_dir.z /= len;
+			ray_dir.z /= len;*/
 			type = ft_intersects(amb, obj, ray_dir);
 			if (type == sp)
 			{
