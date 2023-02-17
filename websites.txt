@@ -138,3 +138,6 @@ https://networklessons.com/subnetting/subnetting-in-binary
 #miniRt
 https://www.realtimerendering.com/raytracing/An-Introduction-to-Ray-Tracing-The-Morgan-Kaufmann-Series-in-Computer-Graphics-.pdf
 https://www.scratchapixel.com/lessons/3d-basic-rendering/computing-pixel-coordinates-of-3d-point/mathematics-computing-2d-coordinates-of-3d-points.html
+https://learnopengl.com/Getting-started/Camera
+http://merlot.ijs.si/~matevz/docs/PovRay-3.50b/povdoc_181.html
+https://www.geogebra.org/3d
