@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:36:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/13 12:12:59 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:39:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,16 @@ int	ft_intersects(t_ambient *amb, t_object *obj, t_vector ray_dir)
 	while (tmp)
 	{
 		sphere = ft_ret_sphere(tmp, sp);
+		if (!sphere)
+			break ;
 		plane = ft_ret_plane(tmp, pl);
 		if (!sphere || !plane)
 			break ;
 		distance_sph = ft_distance_sphere(amb, sphere, ray_dir);
 		distance_pla = ft_inter_plane(amb, plane, ray_dir);
-		if (distance_sph < distance_pla)
+		if (distance_sph != 0 && distance_pla != 0)
+			printf("dist sphere %f, dist pla %f\n", distance_sph, distance_pla);
+		else if (distance_sph < distance_pla)
 			color = sp;
 		else if (distance_pla < distance_sph)
 			color = pl;

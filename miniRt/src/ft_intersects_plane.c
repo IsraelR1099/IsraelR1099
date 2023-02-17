@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:38:13 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/08 13:53:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:02:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	ft_inter_plane(t_ambient *amb, t_plane *plane, t_vector ray_dir)
 	if (ret_b == 0)
 		return (0);
 	t = ft_a_value(amb, plane) / ret_b;
-	(void)t;
-	return (1);
+	if (t < 0)
+		t *= -1;
+	return (t);
 }

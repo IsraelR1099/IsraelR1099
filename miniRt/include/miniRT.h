@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/10 13:09:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:14:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ ray_dir);
 void		ft_set_frustrum(double aspect_ratio, double fov, t_frustrum *frustrum);
 void		ft_ortographic_view(t_frustrum frustrum, t_vector *ray_dir, int x,
 int y, int z);
+void		ft_perspective(t_frustrum frustrum, t_vector *ray_dir, double x, double y, double z);
 
 //mlx functions
 void		ft_init(t_ambient *amb, t_object *obj);

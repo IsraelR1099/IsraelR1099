@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 11:52:04 by irifarac          #+#    #+#              #
-#    Updated: 2023/02/10 13:33:43 by irifarac         ###   ########.fr        #
+#    Updated: 2023/02/15 11:22:24 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ SRC = src/parser/ft_error.c \
 		src/ft_intersects_plane.c \
 		src/maths/ft_vector_operation.c \
 		src/ft_init.c \
+		src/ft_find.c \
+		src/ft_check_obj.c \
 		src/main.c
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
