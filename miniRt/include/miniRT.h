@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/10 13:09:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:14:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,16 @@ ray_dir);
 void		ft_set_frustrum(double aspect_ratio, double fov, t_frustrum *frustrum);
 void		ft_ortographic_view(t_frustrum frustrum, t_vector *ray_dir, int x,
 int y, int z);
+<<<<<<< HEAD
+t_vector	ft_forwardVector(t_vector cameraPos, t_vector direction);
+t_vector	ft_rightAxis(t_vector UpVector, t_vector forward_normal);
+t_vector	ft_UpAxis(t_vector forward_normal, t_vector right_normal);
+double		ft_translationX(t_vector cameraPos, t_vector rightVector);
+double		ft_translationY(t_vector cameraPos, t_vector UpVector);
+double		ft_translationZ(t_vector cameraPos, t_vector forwardVector);
+=======
+void		ft_perspective(t_frustrum frustrum, t_vector *ray_dir, double x, double y, double z);
+>>>>>>> 1d5c9df34d081d7c85b53032770c89b068943979
 
 //mlx functions
 void		ft_init(t_ambient *amb, t_object *obj);
@@ -231,6 +241,7 @@ t_plane		*ft_ret_plane(t_object *obj, int type);
 //Maths functions
 double		ft_dot_product_vect(t_vector vector_left, t_vector vector_right);
 t_vector	ft_rest_vect(t_vector origin, t_vector obj);
+t_vector	ft_vectorial_product(t_vector vector_left, t_vector vector_right);
 //Colors
 int			ft_set_colour(t_ambient *amb, t_object *obj, t_colours *colours, int type);
 #endif

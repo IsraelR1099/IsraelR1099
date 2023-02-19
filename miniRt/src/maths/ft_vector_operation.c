@@ -27,6 +27,19 @@ double	ft_dot_product_vect(t_vector vector_left, t_vector vector_right)
 	return (ret);
 }
 
+t_vector	ft_vectorial_product(t_vector vector_left, t_vector vector_right)
+{
+	t_vector	crossVector;
+
+	crossVector.x = vector_left.y * vector_right.z - vector_left.z *
+	vector_right.y;
+	crossVector.y = vector_right.x * vector_left.z - vector_right.z *
+	vector_left.x;
+	crossVector.z = vector_left.x * vector_right.y - vector_right.x *
+	vector_left.y;
+	return (crossVector);
+}
+
 t_vector	ft_rest_vect(t_vector origin, t_vector obj)
 {
 	t_vector	ret;
