@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:36:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/17 10:39:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:54:57 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_intersects(t_ambient *amb, t_object *obj, t_vector ray_dir)
 	while (tmp)
 	{
 		sphere = ft_ret_sphere(tmp, sp);
+		printf("x spehre es %f\n", sphere->x);
 		if (!sphere)
 			break ;
 		plane = ft_ret_plane(tmp, pl);

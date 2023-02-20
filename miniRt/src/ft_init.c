@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/10 13:39:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:54:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_init(t_ambient *amb, t_object *obj)
 	mlx->mlx_win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "miniRT");
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->b, &mlx->ll, &mlx->end);
+	ft_obj_transform(amb, obj);
 	ft_generate(amb, obj, mlx);
 	mlx_hook(mlx->mlx_win, 17, 0, ft_destroy, mlx);
 	mlx_loop(mlx->mlx);
