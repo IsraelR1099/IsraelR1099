@@ -190,6 +190,7 @@ double		ft_translationX(t_vector cameraPos, t_vector direction, t_4dvector *look
 double		ft_translationY(t_vector cameraPos, t_vector direction, t_4dvector *look_at);
 double		ft_translationZ(t_vector cameraPos, t_vector direction);
 void		ft_obj_transform(t_ambient *amb, t_object *obj);
+void		ft_pixel_to_world(t_vector *ray_dir, int x, int y);
 
 //mlx functions
 void		ft_init(t_ambient *amb, t_object *obj);

@@ -34,20 +34,21 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 	printf("lookat right x %f, up y %f, forward.z %f\n", look_at[0].x, look_at[1].y, look_at[2].z);
 	printf("frustrum near %f, far %f, left %f, right %f, top %f, bottom %f\n",
 	frustrum.near, frustrum.far, frustrum.left, frustrum.right, frustrum.top, frustrum.bottom);
-	exit(1);
 	(void)len;
 	while (i < HEIGHT)
 	{
 		j = 0;
 		while (j < WIDTH)
 		{
+			ft_pixel_to_world(&ray_dir, j, i);
 			ft_perspective(frustrum, &ray_dir, j, i, -1 *t);
 			ft_ortographic_view(frustrum, &ray_dir, j, i, -1 * t);
 			//calculate ray direction
 		//	ray_dir.x = j - (WIDTH / 2);
 		//	ray_dir.y = i - (HEIGHT / 2);
 		//	ray_dir.z = (-1 * t);
-		//	ray_dir.z = -WIDTH / 2 * tan(80/2);
+//			ray_dir.z = -WIDTH / 2 * tan(80/2);
+			ray_dir.z = -1 * 2500;
 			//normalize direction vector
 		/*	len = sqrt(ray_dir.x * ray_dir.x + ray_dir.y * ray_dir.y + ray_dir.z * ray_dir.z);
 			ray_dir.x /= len;

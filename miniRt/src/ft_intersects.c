@@ -44,7 +44,6 @@ int	ft_intersects(t_ambient *amb, t_object *obj, t_vector ray_dir)
 	while (tmp)
 	{
 		sphere = ft_ret_sphere(tmp, sp);
-		printf("x spehre es %f\n", sphere->x);
 		if (!sphere)
 			break ;
 		plane = ft_ret_plane(tmp, pl);
