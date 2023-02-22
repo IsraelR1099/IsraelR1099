@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/20 13:56:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:14:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 	printf("lookat right x %f, up y %f, forward.z %f\n", look_at[0].x, look_at[1].y, look_at[2].z);
 	printf("frustrum near %f, far %f, left %f, right %f, top %f, bottom %f\n",
 	frustrum.near, frustrum.far, frustrum.left, frustrum.right, frustrum.top, frustrum.bottom);
-	(void)len;
 	while (i < HEIGHT)
 	{
 		j = 0;
@@ -48,12 +47,12 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 		//	ray_dir.y = i - (HEIGHT / 2);
 		//	ray_dir.z = (-1 * t);
 //			ray_dir.z = -WIDTH / 2 * tan(80/2);
-			ray_dir.z = -1 * 2500;
+		//	ray_dir.z = -1 * 2500;
 			//normalize direction vector
-		/*	len = sqrt(ray_dir.x * ray_dir.x + ray_dir.y * ray_dir.y + ray_dir.z * ray_dir.z);
+			len = sqrt(ray_dir.x * ray_dir.x + ray_dir.y * ray_dir.y + ray_dir.z * ray_dir.z);
 			ray_dir.x /= len;
 			ray_dir.y /= len;
-			ray_dir.z /= len;*/
+			ray_dir.z /= len;
 			type = ft_intersects(amb, obj, ray_dir);
 			if (type == sp)
 				ft_my_mlx_pxput(mlx, j, i, colours.c_sphere);
@@ -65,6 +64,7 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 				ft_my_mlx_pxput(mlx, j, i, colours.c_ambient);
 		//	ft_my_mlx_pxput(mlx, j, i, ft_colour_value(amb, A));
 			j++;
+			exit(1);
 		}
 		i++;
 	}
