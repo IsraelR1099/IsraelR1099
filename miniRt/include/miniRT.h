@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:22:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/20 13:47:51 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:43:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ double		ft_translationX(t_vector cameraPos, t_vector direction, t_4dvector *look
 double		ft_translationY(t_vector cameraPos, t_vector direction, t_4dvector *look_at);
 double		ft_translationZ(t_vector cameraPos, t_vector direction);
 void		ft_obj_transform(t_ambient *amb, t_object *obj);
-void		ft_pixel_to_world(t_vector *ray_dir, int x, int y);
+void		ft_makeray(t_vector *ray_dir, t_4dvector *look_at, int x, int y);
 
 //mlx functions
 void		ft_init(t_ambient *amb, t_object *obj);
@@ -251,6 +251,8 @@ t_plane		*ft_ret_plane(t_object *obj, int type);
 double		ft_dot_product_vect(t_vector vector_left, t_vector vector_right);
 t_vector	ft_rest_vect(t_vector origin, t_vector obj);
 t_vector	ft_vectorial_product(t_vector vector_left, t_vector vector_right);
+t_vector	ft_sum_vect(t_vector first, t_vector second);
+t_vector	ft_product_vect_scalar(t_vector vector, double scalar);
 //Colors
 int			ft_set_colour(t_ambient *amb, t_object *obj, t_colours *colours, int type);
 #endif

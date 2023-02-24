@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:05:48 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/20 12:55:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:52:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,25 @@ t_vector	ft_rest_vect(t_vector origin, t_vector obj)
 	ret.x = origin.x - obj.x;
 	ret.y = origin.y - obj.y;
 	ret.z = origin.z - obj.z;
+	return (ret);
+}
+
+t_vector	ft_sum_vect(t_vector first, t_vector second)
+{
+	t_vector	ret;
+
+	ret.x = first.x + second.x;
+	ret.y = first.y + second.y;
+	ret.y = first.z + second.z;
+	return (ret);
+}
+
+t_vector	ft_product_vect_scalar(t_vector vector, double scalar)
+{
+	t_vector	ret;
+
+	ret.x = vector.x * scalar;
+	ret.y = vector.y * scalar;
+	ret.z = vector.z * scalar;
 	return (ret);
 }

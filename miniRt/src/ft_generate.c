@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/22 11:14:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:54:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 		j = 0;
 		while (j < WIDTH)
 		{
-			ft_pixel_to_world(&ray_dir, j, i);
-			ft_perspective(frustrum, &ray_dir, j, i, -1 *t);
+			ft_makeray(&ray_dir, look_at, j, i);
+	//		ft_perspective(frustrum, &ray_dir, j, i, -1 * t);
+	//		ft_ortographic_view(frustrum, &ray_dir, j, i, -1 * t);
+			ft_perspective(frustrum, &ray_dir, j, i, -1 * t);
 			ft_ortographic_view(frustrum, &ray_dir, j, i, -1 * t);
 			//calculate ray direction
 		//	ray_dir.x = j - (WIDTH / 2);
@@ -64,7 +66,6 @@ void	ft_generate(t_ambient *amb, t_object *obj, t_window *mlx)
 				ft_my_mlx_pxput(mlx, j, i, colours.c_ambient);
 		//	ft_my_mlx_pxput(mlx, j, i, ft_colour_value(amb, A));
 			j++;
-			exit(1);
 		}
 		i++;
 	}
