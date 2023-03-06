@@ -1,39 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_render.c                                        :+:      :+:    :+:   */
+/*   ft_cameras.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 09:39:50 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/06 13:59:50 by irifarac         ###   ########.fr       */
+/*   Created: 2023/03/06 12:54:24 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/06 13:59:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
-#include "../../mlx/mlx.h"
 
-void	ft_render(t_ambient *amb, t_object *obj, t_window *mlx)
+t_camera	*ft_build_camera(t_ambient *amb)
 {
-	int	x;
-	int	y;
-	int	colour;
-	t_ray	ray;
-	t_cam	*cam;
 
-	y = 0;
-	colour = 0;
-	cam = ft_find_amb(amb, C);
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			colour = ft_samplers(&ray,(float)x, (float)y);
-			ft_my_mlx_pxput(mlx, x, y, colour);
-			x++;
-		}
-		y++;
-	}
-	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, 0, 0);
-}

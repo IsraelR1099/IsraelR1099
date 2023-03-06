@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_my_mlx_pxput.c                                  :+:      :+:    :+:   */
+/*   cameras.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 09:40:33 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/06 14:00:41 by irifarac         ###   ########.fr       */
+/*   Created: 2023/03/06 12:56:12 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/06 13:59:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
-#include "../../mlx/mlx.h"
+#ifndef CAMERAS_H
+# define CAMERAS_H
 
-void	ft_my_mlx_pxput(t_window *mlx, int x, int y, int colour)
+# include "../parser/parser.h"
+# include "../../include/miniRT.h"
+
+typedef struct s_cameras
 {
-	char	*dst;
+	t_point3d	eye;
+	t_point3d	lookat;
+	t_vector3d	right;
+	t_vector3d	up;
+	t_vector3d	forward;
+}	t_cameras;
 
-	dst = mlx->addr + (y * mlx->ll + x *(mlx->b / 8));
-	*(unsigned int *)dst = colour;
-}
+#endif

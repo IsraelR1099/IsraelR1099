@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 09:40:54 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/06 13:59:40 by irifarac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSER_H
 # define PARSER_H
 
@@ -19,7 +31,7 @@ enum	e_ident
 	cy
 };
 
-typedef struct	s_ambient
+typedef struct s_ambient
 {
 	int	type;
 }	t_ambient;
@@ -65,7 +77,7 @@ typedef struct s_cam
 	t_ambient	*amb;
 }	t_cam;
 
-typedef struct	s_plane
+typedef struct s_plane
 {
 	int			type;
 	float		x;
@@ -80,7 +92,7 @@ typedef struct	s_plane
 	t_object	*obj;
 }	t_plane;
 
-typedef struct	s_sphere
+typedef struct s_sphere
 {
 	int			type;
 	float		x;
@@ -93,7 +105,7 @@ typedef struct	s_sphere
 	t_object	*obj;
 }	t_sphere;
 
-typedef struct	s_cylinder
+typedef struct s_cylinder
 {
 	int			type;
 	float		x;
@@ -137,7 +149,7 @@ typedef struct s_colour
 	int	c_cylinder;
 }	t_colours;
 
-typedef struct	s_frustum
+typedef struct s_frustum
 {
 	double	left;
 	double	right;
@@ -147,7 +159,7 @@ typedef struct	s_frustum
 	double	near;
 }	t_frustrum;
 
-typedef struct	s_4dvector
+typedef struct s_4dvector
 {
 	double	x;
 	double	y;

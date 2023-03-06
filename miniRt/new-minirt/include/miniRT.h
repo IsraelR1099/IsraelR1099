@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 12:56:32 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/06 13:59:13 by irifarac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -184,7 +196,8 @@ typedef struct	s_ray
 	t_vector3d	direction;
 }	t_ray;
 
-void	ft_init(t_ambient *amb, t_object *obj);
-void	ft_render(t_ambient *amb, t_object *obj, t_window *mlx);
-void	ft_my_mlx_pxput(t_window *mlx, int x, int y, int colour);
+void		ft_init(t_ambient *amb, t_object *obj);
+void		ft_render(t_ambient *amb, t_object *obj, t_window *mlx);
+void		ft_my_mlx_pxput(t_window *mlx, int x, int y, int colour);
+t_ambient	*ft_find_amb(t_ambient *amb, int type);
 #endif
