@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
+#include "window.h"
 #include "../../mlx/mlx.h"
 
 void	ft_my_mlx_pxput(t_window *mlx, int x, int y, int colour)

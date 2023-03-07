@@ -10,4 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef WORLD_H
+# define WORLD_H
 
+# include "../../include/miniRT.h"
+# include "../cameras/cameras.h"
+# include "../window/window.h"
+# include "../world/world.h"
+
+typedef struct s_world
+{
+	t_cameras	*camera;
+	t_window	*mlx;
+}	t_world;
+
+void	ft_set_world(t_ambient *amb, t_world *world);
+#endif

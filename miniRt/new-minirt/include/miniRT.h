@@ -19,6 +19,9 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../src/parser/parser.h"
+# include "../src/window/window.h"
+# include "../src/world/world.h"
+# include "../src/cameras/cameras.h"
 
 # define WIDTH 1080
 # define HEIGHT 720
@@ -39,7 +42,7 @@ typedef struct	s_ambient
 	int	type;
 }	t_ambient;
 
-typedef struct s_object
+typedef struct s_object t_window *mlx
 {
 	int	type;
 }	t_object;
@@ -52,7 +55,7 @@ ypedef struct s_alight
 	int			b;
 	float		ratio;
 	t_ambient	*amb;
-}	t_alight;
+}	t_alight; t_window *mlx
 
 typedef struct s_light
 {
@@ -119,7 +122,7 @@ typedef struct	s_cylinder
 	int			z_normal;
 	float		diameter;
 	float		height;
-	int			r;
+	int			r; t_window *mlx
 	int			g;
 	int			b;
 	t_object	*obj;
@@ -137,7 +140,7 @@ typedef struct s_win
 }	t_window;
 
 typedef struct s_vector
-{
+{ t_window *mlx
 	double	x;
 	double	y;
 	double	z;
@@ -197,7 +200,6 @@ typedef struct	s_ray
 }	t_ray;
 
 void		ft_init(t_ambient *amb, t_object *obj);
-void		ft_render(t_ambient *amb, t_object *obj, t_window *mlx);
-void		ft_my_mlx_pxput(t_window *mlx, int x, int y, int colour);
+void		ft_render(t_ambient *amb, t_object *obj, t_world *world);
 t_ambient	*ft_find_amb(t_ambient *amb, int type);
 #endif

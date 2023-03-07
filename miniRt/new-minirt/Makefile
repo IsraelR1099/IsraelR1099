@@ -21,6 +21,11 @@ NAMEMLX = libmlx.a
 NAMEBMP = libbmp.a
 CFLAGS = -Wall -Wextra -Werror -MMD -lmlx -lbmp -lm -lbsd -lX11 -lXext -g
 DEPENDS =$(patsubst %.c, %.d, $(SRC))
+LINK = -L./src/parser -lparser -L$(DIRMLX) -lmlx -L./src/maths -lmaths \
+		-L./src/window -lwindow
+INCLUDE =  $(OBJ) src/world/libworld.a src/cameras/libcameras.a \
+			include/miniRT.h src/parser/libparser.a \
+			src/maths/libmaths.a src/window/libwindow.a \
 
 #Carpetas
 OBJDIR = obj
@@ -30,6 +35,8 @@ DIRBMP = ./libbmp/
 #DIRINC = ./include/
 DIRINC = /usr/include
 PARSER = src/parser
+MATHS = src/maths
+WINDOW = src/window
 
 #Archivos
 SRC =	src/main.c \
@@ -60,10 +67,12 @@ all: makelibs $(NAME)
 
 makelibs:
 	@$(MAKE) -C $(PARSER)
+	@$(MAKE) -C $(MATHS)
+	@$(MAKE) -C $(WINDOW)
 
 #incluir dependencia
 -include $(DEPENDS)
-$(NAME): $(OBJ) include/miniRT.h src/parser/libparser.a
+$(NAME): $(INCLUDE)
 	@echo "$(GREEN)Compilando libreria mlx$(RESET)"
 	cd mlx && make all
 	cd libbmp && make all
@@ -71,7 +80,7 @@ $(NAME): $(OBJ) include/miniRT.h src/parser/libparser.a
 	#gcc $(CFLAGS) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
 #	gcc $(CFLAGS) $(OBJ) -ldl -lglfw -pthread -lm -o $@
 #	gcc -o $(NAME) -I$(DIRINC) -I$(DIRMLX) $(OBJ) -L$(DIRMLX) -L$(DIRBMP) $(CFLAGS)	
-	gcc $(OBJ) -L./src/parser -lparser -L$(DIRMLX) -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
+	gcc $(OBJ) $(LINK) -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
 	@echo "$(GREEN)Compilacion acabada ✅ $@ $(RESET)"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
@@ -87,6 +96,8 @@ ifneq ("$(wildcard $(OBJ) $(DEPENDS) $(OBJDIR))", "")
 	rm -f $(OBJ) $(DEPENDS)
 	rm -rf $(OBJDIR)
 	@make clean -C src/parser/
+	@make clean -C src/maths/
+	@make clean -C src/window/
 	cd mlx && make $@
 	@echo "$(GREEN)Objetos borrados 🗑 $(RESET)"
 else
@@ -96,6 +107,8 @@ endif
 fclean: clean
 ifneq ("$(wildcard $(NAME))", "")
 	cd src/parser && make fclean
+	cd src/maths && make fclean
+	cd src/window && make fclean
 	rm -f $(NAME)
 	@echo "$(GREEN)Ejecutables borrados ✅ $(RESET)"
 else
