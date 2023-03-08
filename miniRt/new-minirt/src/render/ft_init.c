@@ -6,14 +6,14 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/06 12:53:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:47:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
 #include "../parser/parser.h"
 #include "../world/world.h"
-#include "../mlx/mlx.h"
+#include "../../mlx/mlx.h"
 
 static int	ft_destroy(t_window *mlx)
 {
@@ -29,6 +29,9 @@ void	ft_init(t_ambient *amb, t_object *obj)
 
 	mlx = (t_window *)malloc(sizeof(*mlx));
 	if (!mlx)
+		exit(ft_error("Malloc error", 0));
+	world = (t_world *)malloc(sizeof(*world));
+	if (!world)
 		exit(ft_error("Malloc error", 0));
 	mlx->mlx = mlx_init();
 	mlx->mlx_win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "miniRT");

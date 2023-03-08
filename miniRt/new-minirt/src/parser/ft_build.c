@@ -6,12 +6,12 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/10 13:39:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:55:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../../include/miniRT.h"
+//#include "../../include/miniRT.h"
 
 t_ambient	*ft_build_alight(t_ambient *amb, char *ftoken, char *eftoken)
 {
@@ -69,4 +69,3 @@ t_ambient	*ft_build_light(t_ambient *amb, char *ftoken, char *eftoken)
 	light->amb = amb;
 	return ((t_ambient *)light);
 }
-

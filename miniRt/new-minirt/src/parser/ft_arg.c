@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/01 09:35:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:55:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ float	ft_coord(char **ftoken, char *eftoken)
 	if (ft_strchr("ACL", *tmp))
 		tmp++;
 	else if (ft_compare(tmp, "sp") || ft_compare(tmp, "pl")
-			|| ft_compare(tmp, "cy"))
+		|| ft_compare(tmp, "cy"))
 		tmp += 2;
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
@@ -65,8 +65,6 @@ float	ft_coord(char **ftoken, char *eftoken)
 	if (*tmp == ',')
 		tmp++;
 	*ftoken = tmp;
-//	if (ret == 1)
-//		exit(ft_error("Wrong coordinates", -1));
 	return (ret);
 }
 

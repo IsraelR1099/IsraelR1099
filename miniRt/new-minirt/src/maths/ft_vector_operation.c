@@ -1,16 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector3d_operation.c                              :+:      :+:    :+:   */
+/*   ft_vector3d_operation.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:05:48 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/24 11:52:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:14:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
 #include "maths.h"
 
 double	ft_dot_product_vect(t_vector3d vector_left, t_vector3d vector_right)
@@ -29,15 +28,15 @@ double	ft_dot_product_vect(t_vector3d vector_left, t_vector3d vector_right)
 
 t_vector3d	ft_vectorial_product(t_vector3d vector_left, t_vector3d vector_right)
 {
-	t_vector3d	crossVector;
+	t_vector3d	crossvector;
 
-	crossVector.x = vector_left.y * vector_right.z - vector_left.z *
-	vector_right.y;
-	crossVector.y = vector_right.x * vector_left.z - vector_right.z *
-	vector_left.x;
-	crossVector.z = vector_left.x * vector_right.y - vector_right.x *
-	vector_left.y;
-	return (crossVector);
+	crossvector.x = vector_left.y * vector_right.z - vector_left.z
+		* vector_right.y;
+	crossvector.y = vector_right.x * vector_left.z - vector_right.z
+		* vector_left.x;
+	crossvector.z = vector_left.x * vector_right.y - vector_right.x
+		* vector_left.y;
+	return (crossvector);
 }
 
 t_vector3d	ft_rest_vect(t_vector3d origin, t_vector3d obj)

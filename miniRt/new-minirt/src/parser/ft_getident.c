@@ -6,12 +6,11 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:30:16 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/27 20:37:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:56:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../../include/miniRT.h"
 
 int	ft_getident(char **str, char *estr, char **ftoken, char **eftoken)
 {

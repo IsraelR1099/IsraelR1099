@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:40:54 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/06 13:59:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:06:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,24 @@ typedef struct s_cylinder
 	t_object	*obj;
 }	t_cylinder;
 
-/*typedef struct s_vector
+/*typedef struct s_win
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		b;
+	int		ll;
+	int		end;
+}	t_window;*/
+
+typedef struct s_vector
 {
 	double	x;
 	double	y;
 	double	z;
 }	t_vector;
-*/
+
 typedef struct s_colour
 {
 	int	c_ambient;
@@ -155,6 +166,7 @@ typedef struct s_4dvector
 	double	z;
 	double	w;
 }	t_4dvector;
+
 //Parser ambient
 t_ambient	*ft_parseamb(char *str);
 t_ambient	*ft_build_alight(t_ambient *amb, char *ftoken, char *eftoken);
