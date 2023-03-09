@@ -15,6 +15,7 @@
 
 #include "../maths/maths.h"
 #include "../window/window.h"
+#include "../world/world.h"
 
 size_t	ft_samplers(t_world *world, t_ray *ray, double x, double y);
 

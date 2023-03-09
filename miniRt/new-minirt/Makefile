@@ -20,11 +20,11 @@ NAMELFT = libft.a
 NAMEMLX = libmlx.a
 NAMEBMP = libbmp.a
 INCLUDE = $(OBJ) include/miniRT.h src/parser/libparser.a src/cameras/libcameras.a \
-		  src/world/libworld.a src/maths/libmaths.a src/window/libwindow.a \
-		  include/miniRT.h
+		  src/world/libworld.a src/maths/libmath.a src/window/libwindow.a \
+		  src/samplers/libsampler.a include/miniRT.h
 LINK = -L./src/parser -lparser -L/mlx/ -lmlx -L./src/cameras/ -lcameras \
 	   -L./src/world/ -lworld -L./src/maths/ -lmaths \
-	   -L./src/window/ -lwindow
+	   -L./src/window/ -lwindow -L./src/samplers/ -lsamplers
 CFLAGS = -Wall -Wextra -Werror -MMD -lmlx -lbmp -lm -lbsd -lX11 -lXext -g
 MACFLAGS = -Wall -Wextra -Werror -MMD -g -O0
 UNAME = $(shell uname -s)

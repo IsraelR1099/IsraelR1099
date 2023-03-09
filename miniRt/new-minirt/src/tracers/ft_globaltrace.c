@@ -10,8 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
+#include "tracer.h"
 
-size_t	ft_trace_ray(t_ray *ray)
+size_t	ft_trace_ray(t_world *world, t_ray ray)
 {
+	t_shaderec	shade;
 
+	shade = ft_hit_objects(world->obj, ray);
+	if (shade.hit_object)
+	{
+		shade.ray = ray;
+		return (colour);
+	}
+	return (255);
+}

@@ -13,6 +13,7 @@
 #include "../../include/miniRT.h"
 #include "../../mlx/mlx.h"
 #include "../world/world.h"
+#include "../samplers/samplers.h"
 
 void	ft_render(t_ambient *amb, t_object *obj,t_world *world)
 {

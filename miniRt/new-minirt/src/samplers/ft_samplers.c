@@ -31,7 +31,7 @@ size_t	ft_samplers(t_world *world, t_ray *ray, double x, double y)
 			points.x = 1 * (x - 0.5 * HEIGHT + (q + 0.5) / num_samples);
 			points.y = 1 * (y - 0.5 * WIDTH + (p + 0.5) / num_samples);
 			ray->direction = ft_ray_direction(world->camera, points);
-			colour = ft_trace_ray(ray);
+			colour = ft_trace_ray(world, ray);
 			q++;
 		}
 		p++;

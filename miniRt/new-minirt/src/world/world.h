@@ -21,7 +21,8 @@ typedef struct s_world
 {
 	t_cameras	*camera;
 	t_window	*mlx;
+	t_object	*obj;
 }	t_world;
 
-void	ft_set_world(t_ambient *amb, t_world *world);
+void	ft_set_world(t_ambient *amb, t_object *obj, t_world *world);
 #endif
