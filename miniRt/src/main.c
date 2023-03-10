@@ -6,11 +6,12 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/22 09:58:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/10 10:25:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
+#include "parser/parser.h"
 #include "../mlx/mlx.h"
 
 static char	*ft_delnul(char **ret, int len)

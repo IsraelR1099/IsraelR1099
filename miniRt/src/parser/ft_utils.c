@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
+#include "parser.h"
 
 static int	ft_search(char **str, char *estr, char *tokens)
 {

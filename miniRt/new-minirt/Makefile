@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 11:52:04 by irifarac          #+#    #+#              #
-#    Updated: 2023/03/08 10:43:08 by irifarac         ###   ########.fr        #
+#    Updated: 2023/03/10 13:08:41 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,15 @@ NAMEMLX = libmlx.a
 NAMEBMP = libbmp.a
 INCLUDE = $(OBJ) include/miniRT.h src/parser/libparser.a src/cameras/libcameras.a \
 		  src/world/libworld.a src/maths/libmath.a src/window/libwindow.a \
-		  src/samplers/libsampler.a include/miniRT.h
-LINK = -L./src/parser -lparser -L/mlx/ -lmlx -L./src/cameras/ -lcameras \
-	   -L./src/world/ -lworld -L./src/maths/ -lmaths \
-	   -L./src/window/ -lwindow -L./src/samplers/ -lsamplers
+		  src/samplers/libsampler.a src/utilities/libshade.a \
+		  src/geometricobj/libgeometricobj.a \
+		  src/tracers/libtracers.a include/miniRT.h
+LINK = -L./src/parser/ -lparser -L./mlx/ -lmlx -L./src/cameras/ -lcameras \
+	   -L./src/world/ -lworld -L./src/maths/ -lmath \
+	   -L./src/window/ -lwindow -L./src/samplers/ -lsampler \
+	   -L./src/geometricobj/ -lgeometricobj \
+	   -L./src/utilities -lshade \
+	   -L./src/tracers/ -ltracers
 CFLAGS = -Wall -Wextra -Werror -MMD -lmlx -lbmp -lm -lbsd -lX11 -lXext -g
 MACFLAGS = -Wall -Wextra -Werror -MMD -g -O0
 UNAME = $(shell uname -s)
@@ -42,9 +47,14 @@ MATHS = src/maths
 WINDOW = src/window
 WORLD = src/world
 CAMERA = src/cameras
+TRACERS = src/tracers
+SAMPLERS = src/samplers
+SHADE = src/utilities
+GEOMETRIC = src/geometricobj
 
 #Archivos
 SRC =	src/main.c \
+		src/utilities/ft_find.c \
 		src/render/ft_init.c \
 		src/render/ft_render.c \
 		#src/ft_init.c \
@@ -72,8 +82,12 @@ all: makelibs $(NAME)
 makelibs:
 	@$(MAKE) -C $(PARSER)
 	@$(MAKE) -C $(MATHS)
+	@$(MAKE) -C $(SAMPLERS)
 	@$(MAKE) -C $(CAMERA)
 	@$(MAKE) -C $(WORLD)
+	@$(MAKE) -C $(SHADE)
+	@$(MAKE) -C $(TRACERS)
+	@$(MAKE) -C $(GEOMETRIC)
 	@$(MAKE) -C $(WINDOW)
 
 #incluir dependencia
@@ -84,9 +98,9 @@ $(NAME): $(INCLUDE)
 	cd libbmp && make all
 	@echo "$(GREEN)Creando ejecutable $@ 🛠  $(RESET)"
 ifeq ($(UNAME), Linux)
-	gcc $(OBJ) -L./src/parser -lparser -L$(DIRMLX) -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
+	gcc $(OBJ) $(LINK) -L$(DIRMLX) -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
 else
-	gcc $(CFLAGS) $(OBJ) $(LINK) -Lmxl -lmlx -framework OpenGL -framework AppKit -o $@
+	gcc $(MACFLAGS) $(OBJ) $(LINK) -framework OpenGL -framework AppKit -o $@
 endif
 	@echo "$(GREEN)Compilacion acabada ✅ $@ $(RESET)"
 
@@ -105,7 +119,13 @@ ifneq ("$(wildcard $(OBJ) $(DEPENDS) $(OBJDIR))", "")
 	rm -rf $(OBJDIR)
 	@make clean -C src/parser/
 	@make clean -C src/world/
-	@make clean -C src/cameras/
+	@make clean -C src/cameras
+	@make clean -C src/geometricobj/
+	@make clean -C src/maths/
+	@make clean -C src/samplers/
+	@make clean -C src/tracers/
+	@make clean -C src/utilities/
+	@make clean -C src/window/
 	cd mlx && make $@
 	@echo "$(GREEN)Objetos borrados 🗑 $(RESET)"
 else
@@ -117,6 +137,12 @@ ifneq ("$(wildcard $(NAME))", "")
 	cd src/parser && make fclean
 	cd src/world  && make fclean
 	cd src/cameras && make fclean
+	cd src/geometricobj && make fclean
+	cd src/maths && make fclean
+	cd src/samplers && make fclean
+	cd src/tracers && make fclean
+	cd src/utilities && make fclean
+	cd src/window && make fclean
 	rm -f $(NAME)
 	@echo "$(GREEN)Ejecutables borrados ✅ $(RESET)"
 else

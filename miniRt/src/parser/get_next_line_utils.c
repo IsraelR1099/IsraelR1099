@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
+#include "parser.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

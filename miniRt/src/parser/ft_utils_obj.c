@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
+#include "parser.h"
 
 int	ft_compare(char *str, char *tokens)
 {

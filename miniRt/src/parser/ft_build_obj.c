@@ -6,11 +6,12 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/27 20:36:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:55:51 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
+#include "parser.h"
+//#include "../../include/miniRT.h"
 
 t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken)
 {
@@ -72,4 +73,3 @@ t_object	*ft_build_cylinder(t_object *obj, char *ftoken, char *eftoken)
 	cylinder->obj = obj;
 	return ((t_object *)cylinder);
 }
-

@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector_operation.c                              :+:      :+:    :+:   */
+/*   ft_vector3d_operation.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:05:48 by irifarac          #+#    #+#             */
-/*   Updated: 2023/02/24 11:52:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:56:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
-#include "../../mlx/mlx.h"
+#include "maths.h"
 
-double	ft_dot_product_vect(t_vector vector_left, t_vector vector_right)
+double	ft_dot_product_vect(t_vector3d vector_left, t_vector3d vector_right)
 {
 	float	x;
 	float	y;
@@ -23,26 +22,27 @@ double	ft_dot_product_vect(t_vector vector_left, t_vector vector_right)
 	x = vector_left.x * vector_right.x;
 	y = vector_left.y * vector_right.y;
 	z = vector_left.z * vector_right.z;
+	printf("left x %f, right x %f\n", vector_left.x, vector_right.x);
 	ret = x + y + z;
 	return (ret);
 }
 
-t_vector	ft_vectorial_product(t_vector vector_left, t_vector vector_right)
+t_vector3d	ft_vectorial_product(t_vector3d vector_left, t_vector3d vector_right)
 {
-	t_vector	crossVector;
+	t_vector3d	crossvector;
 
-	crossVector.x = vector_left.y * vector_right.z - vector_left.z *
-	vector_right.y;
-	crossVector.y = vector_right.x * vector_left.z - vector_right.z *
-	vector_left.x;
-	crossVector.z = vector_left.x * vector_right.y - vector_right.x *
-	vector_left.y;
-	return (crossVector);
+	crossvector.x = vector_left.y * vector_right.z - vector_left.z
+		* vector_right.y;
+	crossvector.y = vector_right.x * vector_left.z - vector_right.z
+		* vector_left.x;
+	crossvector.z = vector_left.x * vector_right.y - vector_right.x
+		* vector_left.y;
+	return (crossvector);
 }
 
-t_vector	ft_rest_vect(t_vector origin, t_vector obj)
+t_vector3d	ft_rest_vect(t_vector3d origin, t_vector3d obj)
 {
-	t_vector	ret;
+	t_vector3d	ret;
 
 	ret.x = origin.x - obj.x;
 	ret.y = origin.y - obj.y;
@@ -50,9 +50,9 @@ t_vector	ft_rest_vect(t_vector origin, t_vector obj)
 	return (ret);
 }
 
-t_vector	ft_sum_vect(t_vector first, t_vector second)
+t_vector3d	ft_sum_vect(t_vector3d first, t_vector3d second)
 {
-	t_vector	ret;
+	t_vector3d	ret;
 
 	ret.x = first.x + second.x;
 	ret.y = first.y + second.y;
@@ -60,9 +60,9 @@ t_vector	ft_sum_vect(t_vector first, t_vector second)
 	return (ret);
 }
 
-t_vector	ft_product_vect_scalar(t_vector vector, double scalar)
+t_vector3d	ft_product_vect_scalar(t_vector3d vector, double scalar)
 {
-	t_vector	ret;
+	t_vector3d	ret;
 
 	ret.x = vector.x * scalar;
 	ret.y = vector.y * scalar;

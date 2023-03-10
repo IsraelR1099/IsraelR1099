@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 11:52:04 by irifarac          #+#    #+#              #
-#    Updated: 2023/02/15 11:22:24 by irifarac         ###   ########.fr        #
+#    Updated: 2023/03/10 13:08:41 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,62 +16,116 @@ GREEN = \033[0;32m
 RESET = \033[0m
 
 NAME = miniRT
-CFLAGS = -Wall -Wextra -Werror -MMD
+NAMELFT = libft.a
+NAMEMLX = libmlx.a
+NAMEBMP = libbmp.a
+INCLUDE = $(OBJ) include/miniRT.h src/parser/libparser.a src/cameras/libcameras.a \
+		  src/world/libworld.a src/maths/libmath.a src/window/libwindow.a \
+		  src/samplers/libsampler.a src/utilities/libshade.a \
+		  src/geometricobj/libgeometricobj.a \
+		  src/tracers/libtracers.a include/miniRT.h
+LINK = -L./src/parser/ -lparser -L./mlx/ -lmlx -L./src/cameras/ -lcameras \
+	   -L./src/world/ -lworld -L./src/maths/ -lmath \
+	   -L./src/window/ -lwindow -L./src/samplers/ -lsampler \
+	   -L./src/geometricobj/ -lgeometricobj \
+	   -L./src/utilities -lshade \
+	   -L./src/tracers/ -ltracers
+CFLAGS = -Wall -Wextra -Werror -MMD -lmlx -lbmp -lm -lbsd -lX11 -lXext -g
+MACFLAGS = -Wall -Wextra -Werror -MMD -g -O0
+UNAME = $(shell uname -s)
 DEPENDS =$(patsubst %.c, %.d, $(SRC))
 
 #Carpetas
 OBJDIR = obj
 SRCDIR = ./
+DIRMLX = ./mlx/
+DIRBMP = ./libbmp/
+#DIRINC = ./include/
+DIRINC = /usr/include
+PARSER = src/parser
+MATHS = src/maths
+WINDOW = src/window
+WORLD = src/world
+CAMERA = src/cameras
+TRACERS = src/tracers
+SAMPLERS = src/samplers
+SHADE = src/utilities
+GEOMETRIC = src/geometricobj
 
 #Archivos
-SRC = src/parser/ft_error.c \
-		src/parser/ft_utils.c \
-		src/parser/ft_utils_obj.c \
-		src/parser/get_next_line.c \
-		src/parser/get_next_line_utils.c \
-		src/parser/ft_check_grammar.c \
-		src/parser/ft_parser_ambient.c \
-		src/parser/ft_parser_object.c \
-		src/parser/ft_getident.c \
-		src/parser/ft_getobj.c \
-		src/parser/ft_help_func.c \
-		src/parser/ft_build.c \
-		src/parser/ft_build_obj.c \
-		src/parser/ft_arg.c \
-		src/ft_generate.c \
-		src/ft_utils_generate.c \
-		src/ft_color.c \
-		src/ft_intersects.c \
-		src/ft_intersects_sphere.c \
-		src/ft_intersects_plane.c \
-		src/maths/ft_vector_operation.c \
-		src/ft_init.c \
-		src/ft_find.c \
-		src/ft_check_obj.c \
-		src/main.c
+SRC =	src/main.c \
+		src/utilities/ft_find.c \
+		src/render/ft_init.c \
+		src/render/ft_render.c \
+		#src/ft_init.c \
+		#src/ft_set_frustrum.c \
+		#src/ft_color.c \
+		#src/ft_generate.c \
+		#src/ft_utils_generate.c \
+		#src/maths/ft_vector_operation.c \
+		#src/ft_intersects.c \
+		#src/ft_check_obj.c \
+		#src/ft_intersects_plane.c \
+		#src/ft_intersects_sphere.c \
+		#src/viewspace/ft_ortographic_view.c \
+		#src/ft_find.c \
+		#src/viewspace/ft_viewSpace.c \
+		#src/viewspace/ft_translation.c \
+		#src/viewspace/ft_perspective.c \
+		#src/transform/ft_obj_transform.c \
+		#src/transform/ft_pixel_to_world.c \
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
-all: $(NAME)
+all: makelibs $(NAME)
+
+makelibs:
+	@$(MAKE) -C $(PARSER)
+	@$(MAKE) -C $(MATHS)
+	@$(MAKE) -C $(SAMPLERS)
+	@$(MAKE) -C $(CAMERA)
+	@$(MAKE) -C $(WORLD)
+	@$(MAKE) -C $(SHADE)
+	@$(MAKE) -C $(TRACERS)
+	@$(MAKE) -C $(GEOMETRIC)
+	@$(MAKE) -C $(WINDOW)
 
 #incluir dependencia
 -include $(DEPENDS)
-$(NAME): $(OBJ)
+$(NAME): $(INCLUDE)
 	@echo "$(GREEN)Compilando libreria mlx$(RESET)"
 	cd mlx && make all
+	cd libbmp && make all
 	@echo "$(GREEN)Creando ejecutable $@ 🛠  $(RESET)"
-	gcc $(CFLAGS) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
+ifeq ($(UNAME), Linux)
+	gcc $(OBJ) $(LINK) -L$(DIRMLX) -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
+else
+	gcc $(MACFLAGS) $(OBJ) $(LINK) -framework OpenGL -framework AppKit -o $@
+endif
 	@echo "$(GREEN)Compilacion acabada ✅ $@ $(RESET)"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c include/miniRT.h
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo "$(GREEN)Compilando $< de $@ $(RESET)"
 	@mkdir -p $(@D)
-	gcc $(CFLAGS) -o $@ -c $<
+ifeq ($(UNAME), Linux)
+	gcc $(CFLAGS) -I$(DIRINC) -I$(DIRMLX) -O3 -c $< -o $@
+else
+	gcc $(MACFLAGS) -o $@ -c $<
+endif
 
 clean:
 ifneq ("$(wildcard $(OBJ) $(DEPENDS) $(OBJDIR))", "")
 	rm -f $(OBJ) $(DEPENDS)
 	rm -rf $(OBJDIR)
+	@make clean -C src/parser/
+	@make clean -C src/world/
+	@make clean -C src/cameras
+	@make clean -C src/geometricobj/
+	@make clean -C src/maths/
+	@make clean -C src/samplers/
+	@make clean -C src/tracers/
+	@make clean -C src/utilities/
+	@make clean -C src/window/
 	cd mlx && make $@
 	@echo "$(GREEN)Objetos borrados 🗑 $(RESET)"
 else
@@ -80,6 +134,15 @@ endif
 
 fclean: clean
 ifneq ("$(wildcard $(NAME))", "")
+	cd src/parser && make fclean
+	cd src/world  && make fclean
+	cd src/cameras && make fclean
+	cd src/geometricobj && make fclean
+	cd src/maths && make fclean
+	cd src/samplers && make fclean
+	cd src/tracers && make fclean
+	cd src/utilities && make fclean
+	cd src/window && make fclean
 	rm -f $(NAME)
 	@echo "$(GREEN)Ejecutables borrados ✅ $(RESET)"
 else

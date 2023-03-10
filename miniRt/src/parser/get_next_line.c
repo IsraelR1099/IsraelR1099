@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
+#include "parser.h"
 
 static char	*ft_read_file(char *whole_str, char temp_str[], int fd)
 {

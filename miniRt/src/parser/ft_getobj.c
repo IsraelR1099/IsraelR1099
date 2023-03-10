@@ -6,11 +6,11 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:10:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/27 20:37:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:56:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/miniRT.h"
+#include "parser.h"
 
 int	ft_getobj(char **str, char *estr, char **ftoken, char **eftoken)
 {
@@ -28,9 +28,9 @@ int	ft_getobj(char **str, char *estr, char **ftoken, char **eftoken)
 	else if (*tmp == 's' && *(tmp + 1) == 'p')
 		tmp += 2;
 	else if (*tmp == 'p' && *(tmp + 1) == 'l')
-		tmp +=2;
+		tmp += 2;
 	else if (*tmp == 'c' && *(tmp + 1) == 'y')
-		tmp +=2;
+		tmp += 2;
 	else
 	{
 		ret = 0;
