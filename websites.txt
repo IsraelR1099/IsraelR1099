@@ -1,10 +1,15 @@
-gcc -Wall -Wextra -Werror -MMD -g -O0 obj/src/main.o obj/src/utilities/ft_find.o obj/src/render/ft_init.o obj/src/render/ft_render.o -L./src/parser -lparser -L./src/maths -lmath -L./src/cameras -lcameras -L./mlx -lmlx -L./src/window -lwindow -L./src/world -lworld -L./src/tracers -ltracers -L./src/geometricobj -lgeometricobj -L./src/utilities -lshade -L./mlx/ -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o miniRT
+cc -Wall -Wextra -Werror -MMD -g -O0 -I./include -I./src/parser -I./src/maths -I./src/cameras -I./src/window -I./src/world -I./src/tracers -I./src/geometricobj -I./src/utilities -I./mlx -c src/main.c -o obj/src/main.o
+gcc -Wall -Wextra -Werror -MMD -g -O0 -I./include -I./src/parser -I./src/maths -I./src/cameras -I./src/window -I./src/world -I./src/tracers -I./src/geometricobj -I./src/utilities -I./mlx -c src/utilities/ft_find.c -o obj/src/utilities/ft_find.o
+gcc -Wall -Wextra -Werror -MMD -g -O0 -I./include -I./src/parser -I./src/maths -I./src/cameras -I./src/window -I./src/world -I./src/tracers -I./src/geometricobj -I./src/utilities -I./mlx -c src/render/ft_init.c -o obj/src/render/ft_init.o
+gcc -Wall -Wextra -Werror -MMD -g -O0 -I./include -I./src/parser -I./src/maths -I./src/cameras -I./src/window -I./src/world -I./src/tracers -I./src/geometricobj -I./src/utilities -I./mlx -c src/render/ft_render.c -o obj/src/render/ft_render.o
+gcc -Wall -Wextra -Werror -MMD -g -O0 -L./include -L./src/parser -L./src/maths -L./src/cameras -L./src/window -L./src/world -L./src/tracers -L./src/geometricobj -L./src/utilities -L./mlx obj/src/main.o obj/src/utilities/ft_find.o obj/src/render/ft_init.o obj/src/render/ft_render.o -lparser -lmath -lcameras -lwindow -lworld -ltracers -lgeometricobj -lshade -lmlx -lX11 -lXext -lm -lz -o miniRT
 /usr/bin/ld: obj/src/render/ft_render.o: en la función `ft_render':
-/home/vboxuser/Escritorio/new-minirt/src/render/ft_render.c:29: referencia a `ft_samplers' sin definir
+/home/vboxuser/Escritorio/new-minirt/src/render/ft_render.c:30: referencia a `ft_samplers' sin definir
 /usr/bin/ld: ./src/world/libworld.a(ft_set_world.o): en la función `ft_set_world':
 /home/vboxuser/Escritorio/new-minirt/src/world/ft_set_world.c:17: referencia a `ft_build_camera' sin definir
 collect2: error: ld returned 1 exit status
-make: *** [Makefile:110: miniRT] Error 1
+make: *** [Makefile:69: miniRT] Error 1
+
 
 https://programmerclick.com/article/58421000871/
 https://programmersought.com/article/32124805918/
