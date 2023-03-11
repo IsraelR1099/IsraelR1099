@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 13:14:55 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/10 13:22:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/11 09:47:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_vector3d	ft_ray_direction(t_cameras *camera, t_point2d points)
 	t_vector3d	dir_ab;
 	t_vector3d	dir_zc;
 
+	printf("point x %f, y %f\n", points.x, points.y);
+	printf("camera right x %f, y %f, z %f\n", camera->right.x, camera->right.y, camera->right.z);
 	dir_a = ft_product_vect_scalar(camera->right, points.x);
 	dir_b = ft_product_vect_scalar(camera->up, points.y);
 	dir_c = ft_product_vect_scalar(camera->forward, 1);
