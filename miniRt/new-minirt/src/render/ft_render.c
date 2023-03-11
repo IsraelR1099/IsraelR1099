@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:39:50 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/10 13:56:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/11 11:01:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_render(t_ambient *amb, t_object *obj,t_world *world)
 			x++;
 		}
 		y++;
-		exit(1);
 	}
 	mlx_put_image_to_window(world->mlx->mlx, world->mlx->mlx_win, world->mlx->img, 0, 0);
 	(void)amb;

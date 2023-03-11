@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:54:24 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/11 10:04:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/11 10:57:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,9 @@ t_vector3d	ft_rightaxis(t_vector3d forward)
 	uptmp.z = 0;
 	right = ft_vectorial_product(uptmp, forward);
 	magnitude = sqrt(right.x * right.x + right.y * right.y + right.z * right.z);
-	printf("magnitude %f\n", magnitude);
 	right_normal.x = right.x / magnitude;
 	right_normal.y = right.y / magnitude;
 	right_normal.z = right.z / magnitude;
-	printf("right x %f, y %f, z %f\n", right_normal.x, right_normal.y, right_normal.z);
 	return (right_normal);
 }
 
@@ -68,6 +66,7 @@ t_vector3d	ft_upvector(t_cameras camera)
 	up_normal.x = upvector.x / magnitude;
 	up_normal.y = upvector.y / magnitude;
 	up_normal.z = upvector.z / magnitude;
+//	printf("up x %f, y %f, z %f\n", up_normal.x, up_normal.y, up_normal.z);
 	return (up_normal);
 }
 
@@ -85,13 +84,11 @@ t_cameras	*ft_build_camera(t_ambient *amb)
 	camera->eye.x = cam->x;
 	camera->eye.y = cam->y;
 	camera->eye.z = cam->z;
-	printf("camera eye x %f, y %f , z %f\n", camera->eye.x, camera->eye.y, camera->eye.z);
 	camera->lookat.x = cam->x_normal;
 	camera->lookat.y = cam->y_normal;
 	camera->lookat.z = cam->z_normal;
 	camera->forward = ft_forwardvector(*camera);
 	camera->right = ft_rightaxis(camera->forward);
 	camera->up = ft_upvector(*camera);
-	exit(1);
 	return (camera);
 }

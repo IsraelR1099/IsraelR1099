@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:05:48 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/11 09:45:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/11 11:01:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ double	ft_dot_product_vect(t_vector3d vector_left, t_vector3d vector_right)
 	x = vector_left.x * vector_right.x;
 	y = vector_left.y * vector_right.y;
 	z = vector_left.z * vector_right.z;
-	printf("left x %f, right x %f\n", vector_left.x, vector_right.x);
 	ret = x + y + z;
 	return (ret);
 }
