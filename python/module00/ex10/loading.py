@@ -6,34 +6,39 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 11:48:28 by irifarac          #+#    #+#              #
-#    Updated: 2023/03/15 13:56:24 by irifarac         ###   ########.fr        #
+#    Updated: 2023/03/15 18:37:58 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import time
+import sys
 
-def     ft_progress(numbers):
-    per = 2
-    x = 0
-    call = 0
+def     ft_progress2(numbers):
     total = len(numbers)
-    for number in numbers:
-        call += 1
-        print("[{0}%]".format((number / total * 100)), end='', flush=True)
-        if number / numbers[1] == per:
-            per += 2
-            x += 1
-            print("[{:=>{x}s}]".format("=>", x=x), end='', flush=True)
-        else:
-            print('', end='', flush=True)
-        print("{0}/{1}".format(call, total))
-        yield number
+    start = time.time()
+    bar = 30
+    eta = start - start
+
+    for i in numbers:
+        percent = 100.0*i/total
+        yield i
+        now = time.time()
+        if i == 1:
+            now = time.time()
+            eta = (now - start) * total
+        elapsed = now - start
+        sys.stdout.write('\r')
+        sys.stdout.write("ETA: {:.2f}s [{:>3}%] [{:{}}] {}/{} | elapsed time {:.2f}s ".format(eta, int(percent),
+        '='*int(percent/(100.0/bar)), bar, i, total, elapsed))
+        sys.stdout.flush()
+
 
 if __name__ == '__main__':
-    listy = range(100)
-    print(listy)
+    listy = range(1000)
     ret = 0
-    for elem in ft_progress(listy):
-        ret += elem
-        time.sleep(0.005)
+    for elem in ft_progress2(listy):
+        ret += (elem + 3) % 5
+        time.sleep(0.01)
+    print()
+    print(ret)
 
