@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/16 10:49:03 by irifarac          #+#    #+#              #
-#    Updated: 2023/03/16 13:43:59 by irifarac         ###   ########.fr        #
+#    Updated: 2023/03/16 19:56:41 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,8 @@ class Book:
         '''Agrega una receta al libro y actualiza last update'''
         if isinstance(recipe, Recipe):
             print(recipe.recipe_type)
-            self.recipes_list.update({recipe.recipe_type:recipe.name,
-                recipe.cooking_lvl: recipe.cooking_lvl})
+            self.recipes_list[recipe.recipe_type] = recipe
+            self.last_update = date.today()
         else:
             print("Not a recipe")
 
