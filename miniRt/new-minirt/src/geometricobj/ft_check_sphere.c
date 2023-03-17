@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_check_sphere.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/11 09:39:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/11 11:02:04 by irifarac         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "geometricobj.h"
 
 static double	ft_a_value(t_ray *ray)
@@ -77,11 +65,11 @@ double	ft_check_sphere(t_cameras *camera, t_sphere *sphere, t_ray *ray)
 
 	if (!sphere)
 		return (0);
+	printf("ray x %f, y %f, z %f\n", ray->direction.x, ray->direction.y, ray->direction.z);
 	scalar_a = ft_a_value(ray);
 	scalar_b = ft_b_value(ray, sphere, camera->eye);
 	scalar_c = ft_c_value(sphere, camera->eye);
-//	printf("ray direction x %f, y %f, z %f\n", ray->direction.x, ray->direction.y, ray->direction.z);
-	//printf("scalar_a %f, scalar b %f, scalar c %f\n", scalar_a, scalar_b, scalar_c);
+	printf("scalar_a %f, scalar b %f, scalar c %f\n", scalar_a, scalar_b, scalar_c);
 	ret = scalar_b * scalar_b - ( 4 * scalar_a * scalar_c);
 	if (ret < 0)
 		return (0);

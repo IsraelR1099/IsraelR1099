@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:54:24 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/11 10:57:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:51:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_vector3d	ft_forwardvector(t_cameras camera)
 	eye_vector.z = camera.eye.z;
 	lookat.x = camera.lookat.x;
 	lookat.y = camera.lookat.y;
-	lookat.z = camera.lookat.z;
+	lookat.y = camera.lookat.z;
 	forwardvector = ft_rest_vect(eye_vector, lookat);
 	magnitude = sqrt(forwardvector.x * forwardvector.x + forwardvector.y
 			* forwardvector.y + forwardvector.z * forwardvector.z);
@@ -66,7 +66,6 @@ t_vector3d	ft_upvector(t_cameras camera)
 	up_normal.x = upvector.x / magnitude;
 	up_normal.y = upvector.y / magnitude;
 	up_normal.z = upvector.z / magnitude;
-//	printf("up x %f, y %f, z %f\n", up_normal.x, up_normal.y, up_normal.z);
 	return (up_normal);
 }
 

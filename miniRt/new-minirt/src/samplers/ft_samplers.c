@@ -6,13 +6,13 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:40:23 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/11 09:36:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:52:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "samplers.h"
 
-size_t	ft_samplers(t_world *world, t_ray *ray, double x, double y)
+size_t	ft_samplers(t_world *world, t_ray *ray, double c, double r)
 {
 	int			p;
 	int			q;
@@ -31,14 +31,15 @@ size_t	ft_samplers(t_world *world, t_ray *ray, double x, double y)
 	{
 		while (q < num_samples)
 		{
-			points.x = 1 * (x - 0.5 * HEIGHT + (q + 0.5) / num_samples);
-			points.y = 1 * (y - 0.5 * WIDTH + (p + 0.5) / num_samples);
+			points.x = 1 * (c - 0.5 * HEIGHT + (q + 0.5) / num_samples);
+			points.y = 1 * (r - 0.5 * WIDTH + (p + 0.5) / num_samples);
 			ray->direction = ft_ray_direction(world->camera, points);
 			colour = ft_trace_ray(world, ray);
 			q++;
 		}
 		p++;
 	}
+	exit(1);
 //	printf("salgo samplers\n");
 	return ((int)colour.r << 16 | (int)colour.g << 8 | (int)colour.b);
 }

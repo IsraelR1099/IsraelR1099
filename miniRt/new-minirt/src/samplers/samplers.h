@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:00:08 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/10 12:10:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:44:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include "../tracers/tracer.h"
 # include "../utilities/rgbcolor.h"
 
-size_t	ft_samplers(t_world *world, t_ray *ray, double x, double y);
+size_t	ft_samplers(t_world *world, t_ray *ray, double c, double r);
 
 #endif

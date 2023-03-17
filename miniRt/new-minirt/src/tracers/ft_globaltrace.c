@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:22:23 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/11 11:00:51 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:52:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 		shade.ray = *ray;
 		return (shade.colour);
 	}
+	exit(1);
 //	printf("salgo trace ray\n");
 	return (colour);
 }

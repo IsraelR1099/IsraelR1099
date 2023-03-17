@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/11 11:05:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:54:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray, t_shaderec 
 		shade.colour.r = sphere->r;
 		shade.colour.g = sphere->g;
 		shade.colour.b = sphere->b;
-		printf("colour sphere r %f, g %f, b %f\n", shade.colour.r, shade.colour.g, shade.colour.b);
 		shade.hit_point = ft_hit_point(ray, t);
 		printf("t %f\n", t);
 	}

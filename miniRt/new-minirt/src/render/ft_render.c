@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:39:50 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/11 11:01:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:51:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 
 void	ft_render(t_ambient *amb, t_object *obj,t_world *world)
 {
-	int		x;
-	int		y;
+//	int		x;
+//	int		y;
 	int		colour;
 	t_ray	ray;
 
-	y = 0;
+/*	y = 0;
 	colour = 0;
 	while (y < HEIGHT)
 	{
@@ -34,6 +34,22 @@ void	ft_render(t_ambient *amb, t_object *obj,t_world *world)
 			x++;
 		}
 		y++;
+		exit(1);
+	}*/
+	int	r;
+	int	c;
+	r = 0;
+	colour = 0;
+	while (r < WIDTH)
+	{
+		c = 0;
+		while (c < HEIGHT)
+		{
+			colour = ft_samplers(world, &ray, (float)c, (float)r);
+			ft_my_mlx_pxput(world->mlx, c, r, colour);
+			c++;
+		}
+		r++;
 	}
 	mlx_put_image_to_window(world->mlx->mlx, world->mlx->mlx_win, world->mlx->img, 0, 0);
 	(void)amb;
