@@ -12,11 +12,14 @@
 
 #include "window.h"
 #include "../../mlx/mlx.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void	ft_my_mlx_pxput(t_window *mlx, int x, int y, int colour)
 {
 	char	*dst;
 
 	dst = mlx->addr + (y * mlx->ll + x *(mlx->b / 8));
+	printf("colour es %d\n", colour);
 	*(unsigned int *)dst = colour;
 }

@@ -1,122 +1,111 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/30 11:52:04 by irifarac          #+#    #+#              #
-#    Updated: 2023/03/11 09:29:47 by irifarac         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-#Colores
 RED = \033[0;31m
 GREEN = \033[0;32m
 RESET = \033[0m
 
+#Name
 NAME = miniRT
-NAMELFT = libft.a
-NAMEMLX = libmlx.a
-NAMEBMP = libbmp.a
-INCLUDE = $(OBJ) include/miniRT.h src/parser/libparser.a src/cameras/libcameras.a \
-		  src/world/libworld.a src/maths/libmath.a src/window/libwindow.a \
-		  src/samplers/libsampler.a src/utilities/libshade.a \
-		  src/geometricobj/libgeometricobj.a \
-		  src/tracers/libtracers.a include/miniRT.h
-LINK = -L./src/parser/ -lparser -L./mlx/ -lmlx -L./src/cameras/ -lcameras \
-	   -L./src/world/ -lworld -L./src/maths/ -lmath \
-	   -L./src/window/ -lwindow -L./src/samplers/ -lsampler \
-	   -L./src/geometricobj/ -lgeometricobj \
-	   -L./src/utilities -lshade \
-	   -L./src/tracers/ -ltracers
-CFLAGS = -Wall -Wextra -Werror -MMD -lmlx -lbmp -lm -lbsd -lX11 -lXext -g
-MACFLAGS = -Wall -Wextra -Werror -MMD -g -O0
-UNAME = $(shell uname -s)
-DEPENDS =$(patsubst %.c, %.d, $(SRC))
 
-#Carpetas
-OBJDIR = obj
-SRCDIR = ./
-DIRMLX = ./mlx/
-DIRBMP = ./libbmp/
-#DIRINC = ./include/
-DIRINC = /usr/include
-PARSER = src/parser
-MATHS = src/maths
-WINDOW = src/window
-WORLD = src/world
-CAMERA = src/cameras
-TRACERS = src/tracers
-SAMPLERS = src/samplers
-SHADE = src/utilities
-GEOMETRIC = src/geometricobj
+# directories
+SRC_DIR = ./
+INCLUDE_DIR = include
+OBJ_DIR = obj
 
-#Archivos
-SRC =	src/main.c \
-		src/utilities/ft_find.c \
+# Files
+
+LIBS = src/cameras/libcameras.a
+LIBS += src/geometricobj/libgeometricobj.a
+LIBS += src/maths/libmath.a
+LIBS += src/parser/libparser.a
+LIBS += src/samplers/libsampler.a
+LIBS += src/tracers/libtracers.a
+LIBS += src/utilities/libshade.a
+LIBS += src/window/libwindow.a
+LIBS += src/world/libworld.a
+LIBS_HEADER = -I./mlx
+LIBS_HEADER += -I./src/window/
+LIBS_HEADER += -I./src/world
+LIBS_HEADER += -I./src/samplers/
+LIBS_HEADER += -I./src/cameras/
+LIBS_HEADER += -I./src/tracers/
+LIBS_HEADER += -I./src/utilities/
+LIBS_HEADER += -I./src/geometricobj/
+LIBS_HEADER += -I./src/maths/
+LIBS_HEADER += -I./src/parser/
+LDFLAGS = -L./mlx
+LDFLAGS += -L./libbmp
+LDFLAGS += -L/usr/lib
+LDFLAGS += -L./src/window
+LDFLAGS += -L./src/world
+LDFLAGS += -L./src/samplers
+LDFLAGS += -L./src/cameras
+LDFLAGS += -L./src/tracers
+LDFLAGS += -L./src/utilities
+LDFLAGS += -L./src/geometricobj
+LDFLAGS += -L./src/maths
+LDFLAGS += -L./src/parser
+LIB = -lwindow
+LIB += -lworld
+LIB += -lsampler
+LIB += -lcameras
+LIB += -ltracers
+LIB += -lshade
+LIB += -lgeometricobj
+LIB += -lmath
+LIB += -lparser
+LIB += -lmlx -lbmp -lm -lz -lbsd -lX11 -lXext
+
+INC = $(LIBS_HEADER) -I./$(INCLUDE_DIR)
+
+SRC = src/main.c \
 		src/render/ft_init.c \
 		src/render/ft_render.c \
-		#src/ft_init.c \
-		#src/ft_set_frustrum.c \
-		#src/ft_color.c \
-		#src/ft_generate.c \
-		#src/ft_utils_generate.c \
-		#src/maths/ft_vector_operation.c \
-		#src/ft_intersects.c \
-		#src/ft_check_obj.c \
-		#src/ft_intersects_plane.c \
-		#src/ft_intersects_sphere.c \
-		#src/viewspace/ft_ortographic_view.c \
-		#src/ft_find.c \
-		#src/viewspace/ft_viewSpace.c \
-		#src/viewspace/ft_translation.c \
-		#src/viewspace/ft_perspective.c \
-		#src/transform/ft_obj_transform.c \
-		#src/transform/ft_pixel_to_world.c \
+		src/utilities/ft_find.c
 
-OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
+#OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:%.c=o))
+OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
+DEP = $(addsuffix .d, $(basename $(OBJ)))
+
+# Compilation
+
+CFLAGS = -Wall -Werror -Wextra -MMD -MP $(INC)
+DFLAGS = -g
+
+# Rules
+
 
 all: makelibs $(NAME)
 
 makelibs:
-	@$(MAKE) -C $(PARSER)
-	@$(MAKE) -C $(MATHS)
-	@$(MAKE) -C $(SAMPLERS)
-	@$(MAKE) -C $(CAMERA)
-	@$(MAKE) -C $(WORLD)
-	@$(MAKE) -C $(SHADE)
-	@$(MAKE) -C $(TRACERS)
-	@$(MAKE) -C $(GEOMETRIC)
-	@$(MAKE) -C $(WINDOW)
+	$(MAKE) -C ./mlx
+	$(MAKE) -C ./libbmp
+	$(MAKE) -C src/parser
+	$(MAKE) -C src/cameras
+	$(MAKE) -C src/maths
+	$(MAKE) -C src/window
+	$(MAKE) -C src/world
+	$(MAKE) -C src/samplers
+	$(MAKE) -C src/tracers
+	$(MAKE) -C src/geometricobj
+	$(MAKE) -C src/utilities
+	@echo "obj es $(OBJ)"
 
-#incluir dependencia
--include $(DEPENDS)
-$(NAME): $(INCLUDE)
-	@echo "$(GREEN)Compilando libreria mlx$(RESET)"
-	cd mlx && make all
-	cd libbmp && make all
-	@echo "$(GREEN)Creando ejecutable $@ 🛠  $(RESET)"
-ifeq ($(UNAME), Linux)
-	gcc $(OBJ) $(LINK) -L$(DIRMLX) -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
-else
-	gcc $(MACFLAGS) $(OBJ) $(LINK) -framework OpenGL -framework AppKit -o $@
-endif
-	@echo "$(GREEN)Compilacion acabada ✅ $@ $(RESET)"
+-include $(DEP)
+$(NAME): $(OBJ) $(LIBS)
+	@echo "entro en name"
+	gcc $(OBJ) $(LDFLAGS) $(LIB)  -o $(NAME)
+	@echo "Creating binary $(NAME)"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@echo "$(GREEN)Compilando $< de $@ $(RESET)"
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
+	@echo "objetos es  $(OBJ)"
 	@mkdir -p $(@D)
-ifeq ($(UNAME), Linux)
-	gcc $(CFLAGS) -I$(DIRINC) -I$(DIRMLX) -O3 -c $< -o $@
-else
-	gcc $(MACFLAGS) -o $@ -c $<
-endif
+	gcc $(DFLAGS) $(CFLAGS) -O3 -c $< -o $@
+	@echo "Compiling.. $<"
 
 clean:
-ifneq ("$(wildcard $(OBJ) $(DEPENDS) $(OBJDIR))", "")
+ifneq ("$(wildcard $(OBJ) $(DEPENDS) $(OBJ_DIR))", "")
 	rm -f $(OBJ) $(DEPENDS)
-	rm -rf $(OBJDIR)
+	rm -rf $(OBJ_DIR)
 	@make clean -C src/parser/
 	@make clean -C src/world/
 	@make clean -C src/cameras
@@ -137,6 +126,7 @@ ifneq ("$(wildcard $(NAME))", "")
 	cd src/parser && make fclean
 	cd src/world  && make fclean
 	cd src/cameras && make fclean
+
 	cd src/geometricobj && make fclean
 	cd src/maths && make fclean
 	cd src/samplers && make fclean

@@ -65,11 +65,11 @@ double	ft_check_sphere(t_cameras *camera, t_sphere *sphere, t_ray *ray)
 
 	if (!sphere)
 		return (0);
-	printf("ray x %f, y %f, z %f\n", ray->direction.x, ray->direction.y, ray->direction.z);
+	//printf("ray x %f, y %f, z %f\n", ray->direction.x, ray->direction.y, ray->direction.z);
 	scalar_a = ft_a_value(ray);
 	scalar_b = ft_b_value(ray, sphere, camera->eye);
 	scalar_c = ft_c_value(sphere, camera->eye);
-	printf("scalar_a %f, scalar b %f, scalar c %f\n", scalar_a, scalar_b, scalar_c);
+	//printf("scalar_a %f, scalar b %f, scalar c %f\n", scalar_a, scalar_b, scalar_c);
 	ret = scalar_b * scalar_b - ( 4 * scalar_a * scalar_c);
 	if (ret < 0)
 		return (0);

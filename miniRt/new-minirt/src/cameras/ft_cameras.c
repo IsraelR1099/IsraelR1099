@@ -26,7 +26,7 @@ t_vector3d	ft_forwardvector(t_cameras camera)
 	eye_vector.z = camera.eye.z;
 	lookat.x = camera.lookat.x;
 	lookat.y = camera.lookat.y;
-	lookat.y = camera.lookat.z;
+	lookat.z = camera.lookat.z;
 	forwardvector = ft_rest_vect(eye_vector, lookat);
 	magnitude = sqrt(forwardvector.x * forwardvector.x + forwardvector.y
 			* forwardvector.y + forwardvector.z * forwardvector.z);

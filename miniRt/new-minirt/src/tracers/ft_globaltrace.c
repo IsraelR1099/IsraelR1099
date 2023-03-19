@@ -17,9 +17,9 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 	t_shaderec	shade;
 	t_rgb		colour;
 
-	colour.r = 255;
-	colour.g = 255;
-	colour.b = 255;
+	colour.r = 0;
+	colour.g = 0;
+	colour.b = 0;
 	//printf("entro trace ray\n");
 	ray->origin = world->camera->eye;
 	shade = ft_hit_objects(world->obj, world, ray);
@@ -28,7 +28,6 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 		shade.ray = *ray;
 		return (shade.colour);
 	}
-	exit(1);
 //	printf("salgo trace ray\n");
 	return (colour);
 }
