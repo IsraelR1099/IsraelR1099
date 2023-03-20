@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:56:32 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/10 13:09:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:10:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # include "../src/world/world.h"
 # include "../src/cameras/cameras.h"
 
-# define WIDTH 1080
-# define HEIGHT 720
 # define PI 3.14
 
 /*typedef struct	s_point2d

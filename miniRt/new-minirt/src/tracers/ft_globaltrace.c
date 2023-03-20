@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:22:23 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/17 13:52:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:23:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 	colour.r = 0;
 	colour.g = 0;
 	colour.b = 0;
-	//printf("entro trace ray\n");
+	shade.hit_object = false;
+	shade.world = world;
+	shade.ray = *ray;
+	shade.colour = colour;
+	shade.t = k_huge_value;
 	ray->origin = world->camera->eye;
-	shade = ft_hit_objects(world->obj, world, ray);
+	ft_hit_objects(world->obj, world, ray, &shade);
 	if (shade.hit_object)
 	{
 		shade.ray = *ray;
 		return (shade.colour);
 	}
-//	printf("salgo trace ray\n");
 	return (colour);
 }

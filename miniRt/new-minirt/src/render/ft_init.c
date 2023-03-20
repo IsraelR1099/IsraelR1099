@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/10 10:28:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:43:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	ft_init(t_ambient *amb, t_object *obj)
 	if (!world)
 		exit(ft_error("Malloc error", 0));
 	mlx->mlx = mlx_init();
-	mlx->mlx_win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "miniRT");
-	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	mlx->mlx_win = mlx_new_window(mlx->mlx, hres, vres, "miniRT");
+	mlx->img = mlx_new_image(mlx->mlx, hres, vres);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->b, &mlx->ll, &mlx->end);
 	ft_set_world(amb, obj, world);
 	world->mlx = mlx;

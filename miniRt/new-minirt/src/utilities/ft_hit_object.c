@@ -6,49 +6,48 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/17 13:54:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:03:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shaderec.h"
 
-static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray, t_shaderec shade)
+static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *shade)
 {
 	t_sphere	*sphere;
 	double		t;
 
 	sphere = (t_sphere *)tmp;
 	t = ft_check_sphere(world->camera, sphere, ray);
-	if (t != 0 && t < shade.t)
+	if (t != 0 && t < shade->t)
 	{
-		shade.hit_object = true;
-		shade.ray = *ray;
-		shade.t = t;
-		shade.colour.r = sphere->r;
-		shade.colour.g = sphere->g;
-		shade.colour.b = sphere->b;
-		shade.hit_point = ft_hit_point(ray, t);
+		shade->hit_object = true;
+		shade->ray = *ray;
+		shade->t = t;
+		shade->colour.r = sphere->r;
+		shade->colour.g = sphere->g;
+		shade->colour.b = sphere->b;
+		shade->hit_point = ft_hit_point(ray, t);
 		printf("t %f\n", t);
-		exit(1);
 	}
 }
 
-static void	ft_hit_plane(t_object *tmp, t_world *world, t_ray *ray, t_shaderec shade)
+static void	ft_hit_plane(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *shade)
 {
 	t_plane	*plane;
 	double		t;
 
 	plane = (t_plane *)tmp;
 	t = ft_check_plane(world->camera, plane, ray);
-	if (t != 0 && t < shade.t)
+	if (t != 0 && t < shade->t)
 	{
-		shade.hit_object = true;
-		shade.ray = *ray;
-		shade.t = t;
-		shade.colour.r = plane->r;
-		shade.colour.g = plane->g;
-		shade.colour.b = plane->b;
-		shade.hit_point = ft_hit_point(ray, t);
+		shade->hit_object = true;
+		shade->ray = *ray;
+		shade->t = t;
+		shade->colour.r = plane->r;
+		shade->colour.g = plane->g;
+		shade->colour.b = plane->b;
+		shade->hit_point = ft_hit_point(ray, t);
 	}
 }
 
@@ -78,7 +77,7 @@ static t_object	*ft_advance(t_object *tmp)
 	return (tmp);
 }
 
-static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray, t_shaderec shade)
+static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *shade)
 {
 	(void)tmp;
 	(void)world;
@@ -86,9 +85,8 @@ static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray, t_shaderec sha
 	(void)shade;
 }
 
-t_shaderec	ft_hit_objects(t_object *obj, t_world *world, t_ray *ray)
+t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray, t_shaderec *shade)
 {
-	t_shaderec	shade;
 //	t_normal	normal;
 //	t_point3d	p_hit;
 	t_object	*tmp;
@@ -96,8 +94,6 @@ t_shaderec	ft_hit_objects(t_object *obj, t_world *world, t_ray *ray)
 
 	tmp = obj;
 	t = k_huge_value;
-	shade.t = t;
-	shade.hit_object = false;
 	while (tmp)
 	{
 		if (tmp->type == sp)

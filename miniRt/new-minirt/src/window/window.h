@@ -6,15 +6,15 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 09:55:36 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/08 13:18:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:42:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WINDOW_H
 # define WINDOW_H
 
-# define WIDTH 1080
-# define HEIGHT 720
+# define hres 1280
+# define vres 720
 
 typedef struct s_window
 {

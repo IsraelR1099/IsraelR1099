@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:22 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/10 12:28:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:08:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ typedef struct s_sharerec
 	double		t;
 }	t_shaderec;
 
-t_shaderec	ft_hit_objects(t_object *obj, t_world *world, t_ray *ray);
+t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray, t_shaderec *shade);
 t_point3d	ft_hit_point(t_ray *ray, double t);
 #endif
