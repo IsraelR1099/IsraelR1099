@@ -16,10 +16,12 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 {
 	t_shaderec	shade;
 	t_rgb		colour;
+	t_alight	*aligh;
 
-	colour.r = 0;
-	colour.g = 0;
-	colour.b = 0;
+	aligh = (t_alight *)ft_find_amb(world->amb, A);
+	colour.r = aligh->r;
+	colour.g = aligh->g;
+	colour.b = aligh->b;
 	shade.hit_object = false;
 	shade.world = world;
 	shade.ray = *ray;

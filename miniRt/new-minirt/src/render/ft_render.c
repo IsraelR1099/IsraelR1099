@@ -17,27 +17,11 @@
 
 void	ft_render(t_ambient *amb, t_object *obj,t_world *world)
 {
-//	int		x;
-//	int		y;
 	int		colour;
+	int		row;
+	int		column;
 	t_ray	ray;
 
-/*	y = 0;
-	colour = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			colour = ft_samplers(world, &ray,(float)x, (float)y);
-			ft_my_mlx_pxput(world->mlx, x, y, colour);
-			x++;
-		}
-		y++;
-		exit(1);
-	}*/
-	int	row;
-	int	column;
 	row = 0;
 	colour = 0;
 	while (row < vres)

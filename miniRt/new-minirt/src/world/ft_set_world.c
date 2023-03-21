@@ -15,5 +15,6 @@
 void	ft_set_world(t_ambient *amb, t_object *obj, t_world *world)
 {
 	world->camera = ft_build_camera(amb);
+	world->amb = amb;
 	world->obj = obj;
 }

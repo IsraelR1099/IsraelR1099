@@ -69,6 +69,16 @@ t_vector3d	ft_upvector(t_cameras camera)
 	return (up_normal);
 }
 
+
+static double	ft_distance_viewplane(t_cam *cam)
+{
+	double		d;
+
+	d = (0.5 * hres) / tan(0.5 * cam->fov);
+	return (d);
+}
+
+
 t_cameras	*ft_build_camera(t_ambient *amb)
 {
 	t_cam		*cam;
@@ -89,5 +99,7 @@ t_cameras	*ft_build_camera(t_ambient *amb)
 	camera->forward = ft_forwardvector(*camera);
 	camera->right = ft_rightaxis(camera->forward);
 	camera->up = ft_upvector(*camera);
+	camera->d = ft_distance_viewplane(cam);
+	printf("d es %f\n", camera->d);
 	return (camera);
 }

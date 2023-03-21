@@ -21,14 +21,11 @@ size_t	ft_samplers(t_world *world, t_ray *ray, double c, double r)
 	t_point2d	points;
 
 	p = 0;
-	q = 0;
 	num_samples = (int)sqrt(16);
-	colour.r = 255;
-	colour.g = 255;
-	colour.b = 255;
 //	printf("entro samplers\n");
 	while (p < num_samples)
 	{
+		q = 0;
 		while (q < num_samples)
 		{
 			points.x = 1 * (c - 0.5 * hres + (q + 0.5) / num_samples);

@@ -81,12 +81,13 @@ double	ft_check_sphere(t_cameras *camera, t_sphere *sphere, t_ray *ray)
 	scalar_a = ft_a_value(ray);
 	scalar_b = ft_b_value(ray, sphere, camera->eye);
 	scalar_c = ft_c_value(sphere, camera->eye);
-//	printf("scalar_a %f, scalar b %f, scalar c %f\n", scalar_a, scalar_b, scalar_c);
 	ret = scalar_b * scalar_b - ( 4 * scalar_a * scalar_c);
 	if (ret < 0)
 		return (0);
 	calc_t = ft_calc_t(scalar_a, scalar_b, scalar_c);
 	if (calc_t < 0)
 		calc_t *= -1;
+	//printf("scalar_a %f, scalar b %f, scalar c %f\n", scalar_a, scalar_b, scalar_c);
+	//printf("calc t es %f\n", calc_t);
 	return (calc_t);
 }

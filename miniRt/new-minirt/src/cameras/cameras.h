@@ -15,6 +15,7 @@
 
 # include "../parser/parser.h"
 # include "../maths/maths.h"
+# include "../window/window.h"
 
 typedef struct s_cameras
 {
@@ -23,6 +24,7 @@ typedef struct s_cameras
 	t_vector3d	right; //u
 	t_vector3d	up; //v
 	t_vector3d	forward; //w
+	double		d; //distance to viewplane
 }	t_cameras;
 
 t_cameras	*ft_build_camera(t_ambient *amb);

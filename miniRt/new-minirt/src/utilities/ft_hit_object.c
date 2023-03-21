@@ -90,10 +90,8 @@ t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray, t_shaderec
 //	t_normal	normal;
 //	t_point3d	p_hit;
 	t_object	*tmp;
-	double		t;
 
 	tmp = obj;
-	t = k_huge_value;
 	while (tmp)
 	{
 		if (tmp->type == sp)
