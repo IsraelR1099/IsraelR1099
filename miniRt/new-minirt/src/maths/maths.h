@@ -16,6 +16,9 @@
 # include <math.h>
 # include "../parser/parser.h"
 
+# define PI 3.141592653589
+# define kEpsilon 0.0001
+
 typedef struct s_point2d
 {
 	double	x;

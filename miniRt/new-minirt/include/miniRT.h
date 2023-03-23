@@ -25,7 +25,6 @@
 
 # define WIDTH 1080
 # define HEIGHT 720
-# define PI 3.14
 
 /*typedef struct	s_point2d
 {
@@ -54,6 +53,6 @@ typedef struct	s_ray
 }	t_ray;*/
 
 void		ft_init(t_ambient *amb, t_object *obj);
-void		ft_render(t_ambient *amb, t_object *obj, t_world *world);
+void		ft_render(t_world *world);
 t_ambient	*ft_find_amb(t_ambient *amb, int type);
 #endif

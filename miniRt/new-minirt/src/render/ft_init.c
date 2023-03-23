@@ -39,7 +39,7 @@ void	ft_init(t_ambient *amb, t_object *obj)
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->b, &mlx->ll, &mlx->end);
 	ft_set_world(amb, obj, world);
 	world->mlx = mlx;
-	ft_render(amb, obj, world);
+	ft_render(world);
 	mlx_hook(mlx->mlx_win, 17, 0, ft_destroy, mlx);
 	mlx_loop(mlx->mlx);
 }

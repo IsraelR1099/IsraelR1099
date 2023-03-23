@@ -72,9 +72,11 @@ t_vector3d	ft_upvector(t_cameras camera)
 
 static double	ft_distance_viewplane(t_cam *cam)
 {
-	double		d;
+	double	d;
+	double	radians;
 
-	d = (0.5 * hres) / tan(0.5 * cam->fov);
+	radians = cam->fov * PI / 180;
+	d = (0.5 * hres) / tan(0.5 * radians);
 	return (d);
 }
 

@@ -28,7 +28,6 @@ static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray, t_shaderec 
 		shade->colour.g = sphere->g;
 		shade->colour.b = sphere->b;
 		shade->hit_point = ft_hit_point(ray, t);
-		printf("t %f\n", t);
 	}
 }
 

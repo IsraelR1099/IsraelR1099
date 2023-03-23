@@ -45,7 +45,7 @@ double	ft_check_plane(t_cameras *camera, t_plane *plane, t_ray *ray)
 	if (ret_b == 0)
 		return (0);
 	t = ft_a_value(camera->eye, plane) / ret_b;
-	if (t < 0)
-		t *= -1;
+	if (t < kEpsilon)
+		return (0);
 	return (t);
 }
