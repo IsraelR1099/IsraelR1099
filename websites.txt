@@ -161,5 +161,5 @@ https://www.scratchapixel.com/lessons/3d-basic-rendering/computing-pixel-coordin
 https://learnopengl.com/Getting-started/Camera
 http://merlot.ijs.si/~matevz/docs/PovRay-3.50b/povdoc_181.html
 https://www.geogebra.org/3d
+https://www.pbr-book.org/3ed-2018/contents
 
-gcc -Wall -Wextra -Werror -MMD -g -O0 obj/src/main.o obj/src/utilities/ft_find.o obj/src/render/ft_init.o obj/src/render/ft_render.o -L./src/parser/ -lparser -L./mlx/ -lmlx -L./src/cameras/ -lcameras -L./src/world/ -lworld -L./src/maths/ -lmath -L./src/window/ -lwindow -L./src/samplers/ -lsampler -L./src/geometricobj/ -lgeometricobj -L./src/utilities -lshade -L./src/tracers/ -ltracers -framework OpenGL -framework AppKit -o miniRT

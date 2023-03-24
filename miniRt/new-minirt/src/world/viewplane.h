@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_set_world.c                                     :+:      :+:    :+:   */
+/*   viewplane.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 10:26:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/24 13:50:38 by irifarac         ###   ########.fr       */
+/*   Created: 2023/03/24 10:31:14 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/24 10:58:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "world.h"
+#ifndef VIEWPLANE_H
+# define VIEWPLANE_H
 
-t_vp	ft_set_vp(void)
+# include "world.h"
+# include "../utilities/rgbcolor.h"
+
+typedef struct s_viewplane
 {
-	t_vp	vp;
+	int		num_samples;
+	t_rgb	color;
+}	t_vp;
 
-	vp.num_samples = 16;
-	vp.color.r = 0;
-	vp.color.g = 0;
-	vp.color.b = 0;
-	return (vp);
-}
-
-void	ft_set_world(t_ambient *amb, t_object *obj, t_world *world)
-{
-	world->camera = ft_build_camera(amb);
-	world->amb = amb;
-	world->obj = obj;
-	world->vp = ft_set_vp();
-}
+#endif

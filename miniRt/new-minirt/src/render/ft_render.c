@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:39:50 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/20 11:43:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/24 13:44:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	ft_render(t_world *world)
 			column++;
 		}
 		row++;
-		printf("r %d, c %d, colour %d\n", row, column, colour);
+		//printf("r %d, c %d, colour %d\n", row, column, colour);
 	}
 	mlx_put_image_to_window(world->mlx->mlx, world->mlx->mlx_win, world->mlx->img, 0, 0);
-	printf("salgo de bucle\n");
+//	printf("salgo de bucle\n");
 }
