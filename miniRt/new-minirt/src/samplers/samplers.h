@@ -17,7 +17,7 @@
 # include "../window/window.h"
 # include "../world/world.h"
 # include "../tracers/tracer.h"
-# include "../utilities/rgbcolor.h"
+# include "../color/rgbcolor.h"
 
 size_t	ft_samplers(t_world *world, t_ray *ray, double c, double r);
 

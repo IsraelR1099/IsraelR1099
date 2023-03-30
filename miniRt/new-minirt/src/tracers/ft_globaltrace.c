@@ -17,6 +17,7 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 	t_shaderec	shade;
 	t_rgb		colour;
 	t_alight	*aligh;
+	t_matte		matte;
 
 	aligh = (t_alight *)ft_find_amb(world->amb, A);
 	colour.r = aligh->r;
@@ -32,7 +33,9 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 	if (shade.hit_object)
 	{
 		shade.ray = *ray;
-		return (shade.colour);
+		matte.ft_shade = &ft_shade;
+		colour = matte.ft_shade(world, &shade);
+		return (colour);
 	}
 	return (colour);
 }

@@ -122,17 +122,6 @@ typedef struct s_cylinder
 	t_object	*obj;
 }	t_cylinder;
 
-/*typedef struct s_win
-{
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
-	char	*addr;
-	int		b;
-	int		ll;
-	int		end;
-}	t_window;*/
-
 typedef struct s_vector
 {
 	double	x;

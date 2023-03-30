@@ -102,6 +102,6 @@ t_cameras	*ft_build_camera(t_ambient *amb)
 	camera->right = ft_rightaxis(camera->forward);
 	camera->up = ft_upvector(*camera);
 	camera->d = ft_distance_viewplane(cam);
-	printf("d es %f\n", camera->d);
+	//printf("d es %f\n", camera->d);
 	return (camera);
 }

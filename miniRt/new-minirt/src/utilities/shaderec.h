@@ -16,7 +16,7 @@
 # include "../world/world.h"
 # include "../maths/maths.h"
 # include "../parser/parser.h"
-# include "rgbcolor.h"
+# include "../color/rgbcolor.h"
 # include "../geometricobj/geometricobj.h"
 # include <stdbool.h>
 # include <limits.h>
@@ -30,7 +30,7 @@ typedef struct s_normal
 	double	z;
 }	t_normal;
 
-typedef struct s_sharerec
+typedef struct s_shaderec
 {
 	bool		hit_object;
 	t_point3d	hit_point;
@@ -43,4 +43,6 @@ typedef struct s_sharerec
 
 t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray, t_shaderec *shade);
 t_point3d	ft_hit_point(t_ray *ray, double t);
+t_vector3d	ft_normalize(t_vector3d vector);
+t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_ray *ray, double t);
 #endif

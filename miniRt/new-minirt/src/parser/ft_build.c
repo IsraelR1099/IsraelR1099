@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "parser.h"
-//#include "../../include/miniRT.h"
 
 t_ambient	*ft_build_alight(t_ambient *amb, char *ftoken, char *eftoken)
 {

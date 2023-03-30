@@ -24,6 +24,7 @@ static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray, t_shaderec 
 		shade->hit_object = true;
 		shade->ray = *ray;
 		shade->t = t;
+		shade->normal_hit = ft_vect_normal_sphere(sphere, ray, t);
 		shade->colour.r = sphere->r;
 		shade->colour.g = sphere->g;
 		shade->colour.b = sphere->b;
@@ -33,15 +34,20 @@ static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray, t_shaderec 
 
 static void	ft_hit_plane(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *shade)
 {
-	t_plane	*plane;
+	t_plane		*plane;
+	t_normal	normal_plane;
 	double		t;
 
 	plane = (t_plane *)tmp;
 	t = ft_check_plane(world->camera, plane, ray);
 	if (t != 0 && t < shade->t)
 	{
+		normal_plane.x = plane->x_normal;
+		normal_plane.y = plane->y_normal;
+		normal_plane.z = plane->z_normal;
 		shade->hit_object = true;
 		shade->ray = *ray;
+		shade->normal_hit = normal_plane;
 		shade->t = t;
 		shade->colour.r = plane->r;
 		shade->colour.g = plane->g;
@@ -86,8 +92,6 @@ static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *sh
 
 t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray, t_shaderec *shade)
 {
-//	t_normal	normal;
-//	t_point3d	p_hit;
 	t_object	*tmp;
 
 	tmp = obj;

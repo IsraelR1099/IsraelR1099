@@ -14,7 +14,7 @@
 # define VIEWPLANE_H
 
 # include "world.h"
-# include "../utilities/rgbcolor.h"
+# include "../color/rgbcolor.h"
 
 typedef struct s_viewplane
 {

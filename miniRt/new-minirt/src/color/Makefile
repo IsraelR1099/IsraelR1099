@@ -16,7 +16,7 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 RED = \033[0m
 
-NAME = libshade.a
+NAME = libcolor.a
 CFLAGS = -Wall -Wextra -Werror -MMD -g -O0
 CREATION_LIB = ar -rcs
 DEPENDS = $(patsubst %.c, %.d, $(SRC))
@@ -24,9 +24,7 @@ DEPENDS = $(patsubst %.c, %.d, $(SRC))
 #Carpetas
 OBJDIR = obj
 SRCDIR = ./
-SRC = ft_hit_object.c \
-	  ft_hit_point.c \
-	  ft_normal.c
+SRC = ft_calc_rgb.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
@@ -38,7 +36,7 @@ $(NAME): $(OBJ)
 	$(CREATION_LIB) $(NAME) $(OBJ)
 	@echo "$(GREEN)Compilado $@ $(RESET)"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c shaderec.h
+$(OBJDIR)/%.o: $(SRCDIR)/%.c rgbcolor.h
 	@echo "$(GREEN)Compilando $< de $@ $(RESET)"
 	@mkdir -p $(@D)
 	gcc $(CFLAGS) -o $@ -c $<

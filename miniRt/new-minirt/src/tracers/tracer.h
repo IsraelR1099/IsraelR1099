@@ -15,8 +15,9 @@
 
 # include "../utilities/shaderec.h"
 # include "../maths/maths.h"
-# include "../utilities/rgbcolor.h"
+# include "../color/rgbcolor.h"
 # include "../world/world.h"
+# include "../materials/materials.h"
 
 t_rgb	ft_trace_ray(t_world *world, t_ray *ray);
 

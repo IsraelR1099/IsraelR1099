@@ -27,17 +27,17 @@ void	ft_init(t_ambient *amb, t_object *obj)
 	t_window	*mlx;
 	t_world		*world;
 
-	mlx = (t_window *)malloc(sizeof(*mlx));
-	if (!mlx)
-		exit(ft_error("Malloc error", 0));
 	world = (t_world *)malloc(sizeof(*world));
 	if (!world)
+		exit(ft_error("Malloc error", 0));
+	ft_set_world(amb, obj, world);
+	mlx = (t_window *)malloc(sizeof(*mlx));
+	if (!mlx)
 		exit(ft_error("Malloc error", 0));
 	mlx->mlx = mlx_init();
 	mlx->mlx_win = mlx_new_window(mlx->mlx, hres, vres, "miniRT");
 	mlx->img = mlx_new_image(mlx->mlx, hres, vres);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->b, &mlx->ll, &mlx->end);
-	ft_set_world(amb, obj, world);
 	world->mlx = mlx;
 	ft_render(world);
 	mlx_hook(mlx->mlx_win, 17, 0, ft_destroy, mlx);
