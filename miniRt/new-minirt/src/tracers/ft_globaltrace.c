@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:22:23 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/24 11:06:05 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:20:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 	shade.ray = *ray;
 	shade.colour = colour;
 	shade.t = k_huge_value;
+	shade.ka = aligh->ratio;
 	ray->origin = world->camera->eye;
 	ft_hit_objects(world->obj, world, ray, &shade);
 	if (shade.hit_object)

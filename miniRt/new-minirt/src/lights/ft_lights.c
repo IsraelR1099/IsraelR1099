@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lights.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/31 09:56:51 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/31 13:28:19 by irifarac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lights.h"
 
 bool	ft_in_shadow(t_ray shadow_ray, t_shaderec *shade, t_light *light)
@@ -26,6 +38,8 @@ t_vector3d	ft_get_dir(t_light *light, t_shaderec *shade)
 	t_vector3d	hit_point;
 	double		magnitude;
 
+	//printf("entro otra vez\n");
+	//printf("light x %f, y %f, z %f\n", light->x, light->y, light->z);
 	location.x = light->x;
 	location.y = light->y;
 	location.z = light->z;

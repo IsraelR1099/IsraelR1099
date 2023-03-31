@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:14:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/10 11:00:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:41:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../parser/parser.h"
 
 # define PI 3.141592653589
+# define invPI 0.31830988618
 # define kEpsilon 0.0001
 
 typedef struct s_point2d

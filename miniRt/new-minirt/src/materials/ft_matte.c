@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_matte.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/31 09:48:19 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/31 13:56:58 by irifarac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "materials.h"
 
 static t_rgb	ft_set_ambient(t_world *world)
@@ -8,9 +20,9 @@ static t_rgb	ft_set_ambient(t_world *world)
 
 	alight = (t_alight *)ft_find_amb(world->amb, A);
 	ambient.kd = alight->ratio;
-	ambient.color.r = alight->r;
-	ambient.color.g = alight->g;
-	ambient.color.b = alight->b;
+	ambient_color.r = alight->r;
+	ambient_color.g = alight->g;
+	ambient_color.b = alight->b;
 	ambient_color = ft_rgb_scalar_product(ambient_color, ambient.kd);
 	return (ambient_color);
 }
@@ -62,6 +74,7 @@ t_rgb	ft_shade(t_world *world, t_shaderec *shade)
 	i = 0;
 	while (tmp[i])
 	{
+		shade->kd = tmp[i]->ratio;
 		dir[1] = ft_get_dir(tmp[i], shade); //direction of the lights vector3d
 //		dir_wi
 		ft_check(shade, dir, &light_color, tmp[i]);

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:26:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/24 13:50:38 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:19:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static t_light	**ft_set_lights(t_ambient *amb)
 	t_ambient	*tmp;
 	int			i;
 
-	lights = malloc(sizeof(*lights) * ft_count_light(amb));
+	lights = malloc(sizeof(t_light) * ft_count_light(amb));
 	if (!lights)
 		return (0);
 	tmp = amb;

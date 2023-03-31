@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:22 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/20 13:08:38 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:17:00 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct s_shaderec
 	t_world		*world;
 	t_ray		ray;
 	t_rgb		colour;
+	double		ka;
+	double		kd;
 	double		t;
 }	t_shaderec;
 

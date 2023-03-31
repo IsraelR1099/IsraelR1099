@@ -1,16 +1,23 @@
 obj/ft_matte.o: ft_matte.c materials.h ../brdf/brdf.h \
- ../brdf/../color/rgbcolor.h ../maths/maths.h ../maths/../parser/parser.h \
- ../world/world.h ../world/../cameras/cameras.h \
- ../world/../cameras/../parser/parser.h \
- ../world/../cameras/../maths/maths.h \
- ../world/../cameras/../window/window.h ../world/../window/window.h \
- ../world/../world/world.h ../world/viewplane.h ../world/world.h \
- ../world/../color/rgbcolor.h ../utilities/shaderec.h \
- ../utilities/../world/world.h ../utilities/../maths/maths.h \
- ../utilities/../parser/parser.h ../utilities/../color/rgbcolor.h \
- ../utilities/../geometricobj/geometricobj.h \
- ../utilities/../geometricobj/../parser/parser.h \
- ../utilities/../geometricobj/../maths/maths.h \
- ../utilities/../geometricobj/../cameras/cameras.h ../lights/lights.h \
- ../lights/../color/rgbcolor.h ../lights/../maths/maths.h \
- ../lights/../utilities/shaderec.h ../color/rgbcolor.h
+  ../brdf/../color/rgbcolor.h ../brdf/../utilities/shaderec.h \
+  ../brdf/../utilities/../world/world.h \
+  ../brdf/../utilities/../world/../cameras/cameras.h \
+  ../brdf/../utilities/../world/../cameras/../parser/parser.h \
+  ../brdf/../utilities/../world/../cameras/../maths/maths.h \
+  ../brdf/../utilities/../world/../cameras/../maths/../parser/parser.h \
+  ../brdf/../utilities/../world/../cameras/../window/window.h \
+  ../brdf/../utilities/../world/../window/window.h \
+  ../brdf/../utilities/../world/../world/world.h \
+  ../brdf/../utilities/../world/viewplane.h \
+  ../brdf/../utilities/../world/../color/rgbcolor.h \
+  ../brdf/../utilities/../maths/maths.h \
+  ../brdf/../utilities/../parser/parser.h \
+  ../brdf/../utilities/../color/rgbcolor.h \
+  ../brdf/../utilities/../geometricobj/geometricobj.h \
+  ../brdf/../utilities/../geometricobj/../parser/parser.h \
+  ../brdf/../utilities/../geometricobj/../maths/maths.h \
+  ../brdf/../utilities/../geometricobj/../cameras/cameras.h \
+  ../brdf/../maths/maths.h ../maths/maths.h ../world/world.h \
+  ../utilities/shaderec.h ../lights/lights.h \
+  ../lights/../color/rgbcolor.h ../lights/../maths/maths.h \
+  ../lights/../utilities/shaderec.h ../color/rgbcolor.h
