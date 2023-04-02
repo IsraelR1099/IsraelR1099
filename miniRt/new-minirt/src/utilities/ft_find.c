@@ -42,6 +42,8 @@ t_ambient	*ft_find_amb(t_ambient *amb, int type)
 {
 	t_ambient	*tmp;
 
+	if (!amb)
+		return (NULL);
 	tmp = amb;
 	while (tmp)
 	{

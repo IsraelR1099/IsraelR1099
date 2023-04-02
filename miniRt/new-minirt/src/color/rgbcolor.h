@@ -15,9 +15,9 @@
 
 typedef struct s_rgbcolor
 {
-	int	r;
-	int	g;
-	int	b;
+	double	r;
+	double	g;
+	double	b;
 }	t_rgb;
 
 t_rgb	ft_rgb_scalar_product(t_rgb color, double scalar);

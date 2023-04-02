@@ -48,5 +48,5 @@ size_t	ft_samplers(t_world *world, t_ray *ray, double c, double r)
 	world->vp.color.r /= num_samples;
 	world->vp.color.g /= num_samples;
 	world->vp.color.b /= num_samples;
-	return(world->vp.color.r << 16 | world->vp.color.g << 8 | world->vp.color.b);
+	return((int)world->vp.color.r << 16 | (int)world->vp.color.g << 8 | (int)world->vp.color.b);
 }

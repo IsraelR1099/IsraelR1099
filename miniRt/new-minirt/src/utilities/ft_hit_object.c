@@ -24,11 +24,13 @@ static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray, t_shaderec 
 		shade->hit_object = true;
 		shade->ray = *ray;
 		shade->t = t;
-		shade->normal_hit = ft_vect_normal_sphere(sphere, ray, t);
 		shade->colour.r = sphere->r;
 		shade->colour.g = sphere->g;
 		shade->colour.b = sphere->b;
+		shade->type = sphere->type;
 		shade->hit_point = ft_hit_point(ray, t);
+		//shade->normal_hit = ft_vect_normal_sphere(sphere, ray, t);
+		shade->normal_hit = ft_vect_normal_sphere(sphere, shade->hit_point);
 	}
 }
 
@@ -52,6 +54,7 @@ static void	ft_hit_plane(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *
 		shade->colour.r = plane->r;
 		shade->colour.g = plane->g;
 		shade->colour.b = plane->b;
+		shade->type = plane->type;
 		shade->hit_point = ft_hit_point(ray, t);
 	}
 }
@@ -108,5 +111,7 @@ t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray, t_shaderec
 			break ;
 		tmp = ft_advance(tmp);
 	}
+	//if (shade->hit_object == true)
+	//	printf("salgo de hit obj y obj es %d\n", shade->type);
 	return (shade);
 }

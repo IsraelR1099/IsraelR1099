@@ -18,6 +18,8 @@ bool	ft_in_shadow(t_ray shadow_ray, t_shaderec *shade, t_light *light)
 	t_vector3d	l_coord;
 	t_vector3d	rest;
 
+	//printf("colour in shadow r %f, g %f, b %f, type %d\n", shade->colour.r,
+	//shade->colour.g, shade->colour.b, shade->type);
 	l_coord.x = light->x;
 	l_coord.y = light->y;
 	l_coord.z = light->z;

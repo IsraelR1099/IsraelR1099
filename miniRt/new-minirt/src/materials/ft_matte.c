@@ -40,6 +40,19 @@ t_light *light)
 	normal.z = shade->normal_hit.z;
 	dotwi = ft_dot_product_vect(normal, dir[1]); //cosine of the angle between
 //	the surface normal and the light direction
+/*	if (shade->type == sp)
+	{
+		printf("normal es x %f, y %f, z %f\n", normal.x, normal.y, normal.z);
+		printf("direction light x %f, y %f, z %f\n", dir[1].x, dir[1].y,
+		dir[1].z);
+		printf("hit point es x %f, y %f, z %f\n", shade->hit_point.x,
+		shade->hit_point.y, shade->hit_point.z);
+		printf("colour r %f, g %f, b %f\n", shade->colour.r, shade->colour.g,
+		shade->colour.b);
+		printf("dotwi es %f\n", dotwi);
+		exit(1);
+	}*/
+
 	if (dotwi > 0.0)
 	{
 		in_shadow = false;
@@ -47,9 +60,7 @@ t_light *light)
 		shadow_ray.direction = dir[1];
 		in_shadow = ft_in_shadow(shadow_ray, shade, light);
 		if (!in_shadow)
-		{
 			ft_brdf(light_color, shade, dir, dotwi);
-		}
 		else
 		{
 			light_color->r = 0;
@@ -68,9 +79,13 @@ t_rgb	ft_shade(t_world *world, t_shaderec *shade)
 	t_light		**tmp;
 	int			i;
 
+	//printf("shade colour r %f, g %f, b %f y type %d\n", shade->colour.r,
+//	shade->colour.g, shade->colour.b, shade->type);
 	tmp = world->lights;
 	dir[0] = shade->ray.direction; //dir_wo
 	light_color = ft_set_ambient(world);
+//	printf("light_color r %f, g %f, b %f\n", light_color.r, light_color.g,
+//	light_color.b);
 	i = 0;
 	while (tmp[i])
 	{

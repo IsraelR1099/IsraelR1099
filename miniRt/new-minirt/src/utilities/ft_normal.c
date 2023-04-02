@@ -1,8 +1,9 @@
 #include "shaderec.h"
 
-t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_ray *ray, double t)
+//t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_ray *ray, double t)
+t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_point3d hit_point)
 {
-	t_vector3d	tmp;
+	/*t_vector3d	tmp;
 	t_vector3d	center_sph;
 	t_vector3d	origin;
 	t_vector3d	ray_dir;
@@ -22,7 +23,25 @@ t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_ray *ray, double t)
 	ret.z = tmp.z;
 	ret.x /= (sphere->diameter / 2);
 	ret.y /= (sphere->diameter / 2);
-	ret.z /= (sphere->diameter / 2);
+	ret.z /= (sphere->diameter / 2);*/
+	t_vector3d	center_sph;
+	t_vector3d	hit_p;
+	t_vector3d	rest;
+	t_normal	ret;
+	double		magnitude;
+
+	center_sph.x = sphere->x;
+	center_sph.y = sphere->y;
+	center_sph.z = sphere->z;
+	hit_p.x = hit_point.x;
+	hit_p.y = hit_point.y;
+	hit_p.z = hit_point.z;
+	rest = ft_rest_vect(hit_p, center_sph);
+	magnitude = sqrt(rest.x * rest.x + rest.y * rest.y
+	+ rest.z * rest.z);
+	ret.x = rest.x / magnitude;
+	ret.y = rest.y / magnitude;
+	ret.z = rest.z / magnitude;
 	return (ret);
 }
 

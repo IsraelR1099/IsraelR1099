@@ -16,19 +16,19 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 {
 	t_shaderec	shade;
 	t_rgb		colour;
-	t_alight	*aligh;
+	t_alight	*alight;
 	t_matte		matte;
 
-	aligh = (t_alight *)ft_find_amb(world->amb, A);
-	colour.r = aligh->r;
-	colour.g = aligh->g;
-	colour.b = aligh->b;
+	alight = (t_alight *)ft_find_amb(world->amb, A);
+	colour.r = alight->r;
+	colour.g = alight->g;
+	colour.b = alight->b;
 	shade.hit_object = false;
 	shade.world = world;
 	shade.ray = *ray;
 	shade.colour = colour;
 	shade.t = k_huge_value;
-	shade.ka = aligh->ratio;
+	shade.ka = alight->ratio;
 	ray->origin = world->camera->eye;
 	ft_hit_objects(world->obj, world, ray, &shade);
 	if (shade.hit_object)

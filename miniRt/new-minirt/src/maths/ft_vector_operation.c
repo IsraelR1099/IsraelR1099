@@ -14,10 +14,10 @@
 
 double	ft_dot_product_vect(t_vector3d vector_left, t_vector3d vector_right)
 {
-	float	x;
-	float	y;
-	float	z;
-	float	ret;
+	double	x;
+	double	y;
+	double	z;
+	double	ret;
 
 	x = vector_left.x * vector_right.x;
 	y = vector_left.y * vector_right.y;
