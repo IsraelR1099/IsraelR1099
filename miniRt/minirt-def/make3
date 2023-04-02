@@ -1,0 +1,118 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/12/30 11:52:04 by irifarac          #+#    #+#              #
+#    Updated: 2023/03/11 09:29:47 by irifarac         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+#Colores
+RED = \033[0;31m
+GREEN = \033[0;32m
+RESET = \033[0m
+
+NAME = miniRT
+NAMELFT = libft.a
+NAMEMLX = libmlx.a
+NAMEBMP = libbmp.a
+DEPENDS =$(patsubst %.c, %.d, $(SRC))
+
+#Carpetas
+SRC_DIR = src
+OBJDIR = obj
+SRCDIR = ./
+DIRMLX = ./mlx/
+DIRBMP = ./libbmp/
+#DIRINC = ./include/
+DIRINC = /usr/include
+PARSER = src/parser
+MATHS = src/maths
+WINDOW = src/window
+WORLD = src/world
+CAMERA = src/cameras
+TRACERS = src/tracers
+SAMPLERS = src/samplers
+SHADE = src/utilities
+GEOMETRIC = src/geometricobj
+
+#Archivos
+SRC =	src/main.c \
+		src/utilities/ft_find.c \
+		src/render/ft_init.c \
+		src/render/ft_render.c \
+
+OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
+OBJ += combined_libs.o
+DEPS = $(OBJ:.o=.d)
+
+#Compiler flags
+CFLAGS = -Wall -Wextra -Werror -MMD -g -O0
+
+# Include directories
+INC_DIR =	-I./include -I./src/parser -I./src/maths -I./src/cameras \
+			-I./src/window -I./src/world -I./src/tracers -I./src/geometricobj \
+			-I./src/utilities -I./mlx
+# Library directories
+LIB_DIRS = -L./include -L./src/parser -L./src/maths -L./src/cameras \
+			-L./src/window -L./src/world -L./src/tracers -L./src/geometricobj \
+			-L./src/utilities -L./mlx
+# Libraries to link
+LIBS = -lparser -lmath -lcameras -lwindow -lworld -ltracers -lgeometricobj \
+		-lshade -lmlx -lX11 -lXext -lm -lz
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+		gcc $(CFLAGS) -o $(OBJ)
+#		gcc $(CFLAGS) $(LIB_DIRS) $(OBJ) $(LIBS) -o $(NAME)
+
+combined_libs.o: src/parser/libparser.a src/world/libworld.a src/tracers/libtracers.a src/window/libwindow.a src/utilities/libshade.a src/cameras/libcameras.a src/samplers/libsampler.a src/maths/libmath.a src/geometricobj/libgeometricobj.a
+	ld -r $^ -o $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(@D)
+	gcc $(CFLAGS) $(INC_DIR) -c $< -o $@
+
+clean:
+ifneq ("$(wildcard $(OBJ) $(DEPENDS) $(OBJDIR))", "")
+	rm -f $(OBJ) $(DEPENDS)
+	rm -rf $(OBJDIR)
+	@make clean -C src/parser/
+	@make clean -C src/world/
+	@make clean -C src/cameras
+	@make clean -C src/geometricobj/
+	@make clean -C src/maths/
+	@make clean -C src/samplers/
+	@make clean -C src/tracers/
+	@make clean -C src/utilities/
+	@make clean -C src/window/
+	cd mlx && make $@
+	@echo "$(GREEN)Objetos borrados 🗑 $(RESET)"
+else
+	@echo "$(RED)Los objetos no existen, no se borra ❌ $(RESET)"
+endif
+
+fclean: clean
+ifneq ("$(wildcard $(NAME))", "")
+	cd src/parser && make fclean
+	cd src/world  && make fclean
+	cd src/cameras && make fclean
+	cd src/geometricobj && make fclean
+	cd src/maths && make fclean
+	cd src/samplers && make fclean
+	cd src/tracers && make fclean
+	cd src/utilities && make fclean
+	cd src/window && make fclean
+	rm -f $(NAME)
+	@echo "$(GREEN)Ejecutables borrados ✅ $(RESET)"
+else
+	@echo "$(RED)Los ejecutables no existen, no se borra ❌ $(RESET)"
+endif
+
+re: fclean all
+
+.PHONY: all clean fclean re
