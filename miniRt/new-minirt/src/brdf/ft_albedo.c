@@ -6,13 +6,15 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:20:22 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/31 13:57:27 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:56:57 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "brdf.h"
 
 //Diffuse reflection coefficient
+//kd is diffuse reflection coefficient
+//cd is the diffuse color
 
 t_rgb	ft_f(t_shaderec *shade, t_rgb light_color) //f function kd * cd * invPI
 {
@@ -31,7 +33,7 @@ t_rgb	ft_f(t_shaderec *shade, t_rgb light_color) //f function kd * cd * invPI
 	return (ret);
 }
 
-t_rgb	ft_rho(t_shaderec *shade, t_rgb color)
+t_rgb	ft_rho(t_shaderec *shade, t_rgb color) // reflectance or albedo function kd * cd
 {
 	t_vector3d	first;
 	t_rgb		ret;
@@ -46,16 +48,49 @@ t_rgb	ft_rho(t_shaderec *shade, t_rgb color)
 	return (ret);
 }
 
-void	ft_brdf(t_rgb *light_color, t_shaderec *shade, t_vector3d dir[2], double dotwi)
+/*void	ft_brdf(t_rgb *total_light, t_shaderec *shade, t_rgb point_light, double dotwi)
 {
 	t_rgb	color;
-	t_vector3d	tmp;
+	t_rgb	f;
+	t_rgb	rho;
+	t_rgb	tmp;
+	t_rgb	material;
 
-	/*if (shade->type == sp)
+	if (shade->hit_object == true)
 	{
-		printf("color sphere r %f, g %f, b %f\n", shade->colour.r,
-		shade->colour.g, shade->colour.b);
-	}*/
+		color.r = shade->colour.r / 255;
+		color.g = shade->colour.g / 255;
+		color.b = shade->colour.b / 255;
+		color = ft_rgb_product_vect(*total_light, shade->colour);
+		color.r /= 255;
+		color.g /= 255;
+		color.b /= 255;
+	}
+	color.r = total_light->r / 255;
+	color.g = total_light->g / 255;
+	color.b = total_light->b / 255;
+	f = ft_f(shade, color);
+	tmp = ft_rgb_scalar_product(f, dotwi);
+	rho = ft_rho(shade, color);
+	color = ft_rgb_sum(rho, tmp);
+	color = ft_rgb_product_vect(color, point_light);
+	if (shade->hit_object == true)
+	{
+		material.r = shade->colour.r / 255;
+		material.g = shade->colour.g / 255;
+		material.b = shade->colour.b / 255;
+		color = ft_rgb_product_vect(color, material);
+	}
+	total_light->r = color.r * 255;
+	total_light->g = color.g * 255;
+	total_light->b = color.b * 255;
+}
+*/
+
+void	ft_brdf(t_rgb *total_light, t_shaderec *shade, t_rgb point_light, double dotwi)
+{
+	t_rgb	color;
+
 	if (shade->hit_object == true)
 	{
 		color.r = shade->colour.r / 255;
@@ -64,21 +99,15 @@ void	ft_brdf(t_rgb *light_color, t_shaderec *shade, t_vector3d dir[2], double do
 	}
 	else
 	{
-		color.r = light_color->r / 255;
-		color.g = light_color->g / 255;
-		color.b = light_color->b / 255;
+		color.r = total_light->r / 255;
+		color.g = total_light->g / 255;
+		color.b = total_light->b / 255;
 	}
 	color = ft_f(shade, color);
 	color =ft_rho(shade, color);
-	tmp.x = color.r;
-	tmp.y = color.g;
-	tmp.z = color.b;
-	tmp = ft_product_vect_scalar(tmp, dotwi);
-	color.r = tmp.x;
-	color.g = tmp.y;
-	color.b = tmp.z;
-	light_color->r = color.r * 255;
-	light_color->g = color.g * 255;
-	light_color->b = color.b * 255;
-	(void)dir;
+	color = ft_rgb_scalar_product(color, dotwi);
+	color = ft_rgb_product_vect(color, point_light);
+	total_light->r = color.r * 255;
+	total_light->g = color.g * 255;
+	total_light->b = color.b * 255;
 }

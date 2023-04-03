@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:26:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/31 10:19:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:41:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static t_light	**ft_set_lights(t_ambient *amb)
 			tmp = ft_util_find_amb(tmp, C);
 		else
 			break ;
-
+		i++;
 	}
 	return (lights);
 }

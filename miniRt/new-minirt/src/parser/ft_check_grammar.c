@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:43:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/01/27 20:36:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:59:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	ft_check_param(char *str)
 	else if (*str == 'C')
 		return (ft_repeat(*str));
 	else if (*str == 'L')
-		return (ft_repeat(*str));
+		return (0);
 	else if (*str == 'p' && *(str + 1) == 'l')
 		return (0);
 	else if (*str == 's' && *(str + 1) == 'p')

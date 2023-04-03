@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:56:51 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/31 13:28:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/03 12:05:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,27 @@ bool	ft_in_shadow(t_ray shadow_ray, t_shaderec *shade, t_light *light)
 	return (false);
 }
 
+//inverse square law applied to the brightness of each light (kd)
+
+/*static void	ft_attenuation_light(t_shaderec *shade, double magnitude)
+{
+	double	constant;
+	double	linear;
+	double	quadratic;
+	double	attenuation;
+
+	constant = 1;
+	linear = 0.1;
+	quadratic = 0.01;
+	attenuation = 1 / constant + linear * magnitude + quadratic * magnitude * magnitude;
+	shade->kd = shade->kd * attenuation;
+	if (shade->hit_object == true)
+	{
+		printf("attenuation %f\n", attenuation);
+		exit(1);
+	}
+}*/
+
 t_vector3d	ft_get_dir(t_light *light, t_shaderec *shade)
 {
 	t_vector3d	rest;
@@ -40,8 +61,6 @@ t_vector3d	ft_get_dir(t_light *light, t_shaderec *shade)
 	t_vector3d	hit_point;
 	double		magnitude;
 
-	//printf("entro otra vez\n");
-	//printf("light x %f, y %f, z %f\n", light->x, light->y, light->z);
 	location.x = light->x;
 	location.y = light->y;
 	location.z = light->z;
@@ -54,5 +73,6 @@ t_vector3d	ft_get_dir(t_light *light, t_shaderec *shade)
 	rest.x /= magnitude;
 	rest.y /= magnitude;
 	rest.z /= magnitude;
+//	ft_attenuation_light(shade, magnitude);
 	return (rest);
 }
