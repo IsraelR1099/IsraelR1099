@@ -37,7 +37,6 @@ t_rgb	ft_clamp_color(t_rgb light_color)
 	t_rgb	ret;
 	double	value;
 
-	printf("entro en clamp\n");
 	value = 1.00;
 	if (light_color.r > 255)
 		value = light_color.r;

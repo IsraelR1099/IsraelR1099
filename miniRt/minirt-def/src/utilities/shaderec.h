@@ -33,6 +33,7 @@ typedef struct s_normal
 typedef struct s_shaderec
 {
 	bool		hit_object;
+	bool		in_shadow;
 	t_point3d	hit_point;
 	t_normal	normal_hit;
 	t_world		*world;

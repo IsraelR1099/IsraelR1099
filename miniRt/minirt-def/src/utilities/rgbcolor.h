@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   brdf.h                                             :+:      :+:    :+:   */
+/*   rgbcolor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 10:20:26 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 13:05:09 by irifarac         ###   ########.fr       */
+/*   Created: 2023/03/10 11:01:51 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/20 10:03:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRDF_H
-# define BRDF_H
+#ifndef RGBCOLOR_H
+# define RGBCOLOR_H
 
-# include "../color/rgbcolor.h"
-# include "../utilities/shaderec.h"
-# include "../maths/maths.h"
-
-typedef struct s_lambertian
+typedef struct s_rgbcolor
 {
-	float	kd;
-	t_rgb	color;
-}	t_lambertian;
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
 
-t_rgb	ft_brdf(t_rgb lights[2], t_shaderec *shade, t_vector3d dir[2], double dotwi);
-t_rgb	ft_rho(t_shaderec *shade, t_rgb color); // reflectance or albedo function kd * cd
 #endif

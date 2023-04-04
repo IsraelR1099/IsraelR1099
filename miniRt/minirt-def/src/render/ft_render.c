@@ -36,6 +36,7 @@ void	ft_render(t_world *world)
 		row++;
 		//printf("r %d, c %d, colour %d\n", row, column, colour);
 	}
+	printf("salgo render\n");
 	mlx_put_image_to_window(world->mlx->mlx, world->mlx->mlx_win, world->mlx->img, 0, 0);
 //	printf("salgo de bucle\n");
 }
