@@ -87,6 +87,8 @@ t_rgb	ft_shade(t_world *world, t_shaderec *shade)
 		dir[1] = ft_get_dir(tmp[i], shade); //direction of the lights vector3d
 //		dir_wi
 		total_light = ft_check(shade, dir, total_light, tmp[i]);
+		if (total_light.r > 255 || total_light.g > 255 || total_light.b > 255)
+			total_light = ft_max_to_one(total_light);
 		if (shade->in_shadow == false)
 			total_light = ft_rgb_sum(total_light, tmp_color);
 		tmp_color = total_light;

@@ -26,7 +26,7 @@ t_rgb	ft_f_diffuse(t_shaderec *shade, t_rgb material_color) //f function kd * cd
 	material.g = material_color.g / 255;
 	material.b = material_color.b / 255;
 	kd = shade->kd;
-	kd = 0.50;
+	kd = 0.65;
 	material = ft_rgb_scalar_product(material, kd);
 	ret = ft_rgb_scalar_product(material, invPI);
 	return (ret);
@@ -55,13 +55,13 @@ t_rgb	ft_f_specular(t_shaderec *shade, t_vector3d dir[2], t_rgb point_light, dou
 	r_wo = ft_dot_product_vect(r, dir[0]);
 	if (r_wo > 0.00)
 	{
-	/*	color.r = point_light.r / 255;
-		color.g = point_light.g / 255;
-		color.b = point_light.b / 255;*/
+	/*	color.r = shade->colour.r / 255;
+		color.g = shade->colour.g / 255;
+		color.b = shade->colour.b / 255;*/
 		color.r = point_light.r;
 		color.g = point_light.g;
 		color.b = point_light.b;
-		color = ft_rgb_scalar_product(color, 0.04 * pow(r_wo, 2));
+		color = ft_rgb_scalar_product(color, 0.2 * pow(r_wo, 5));
 	/*	printf("color despues es r %f, g %f, b %f\n", color.r, color.g, color.b);
 		printf("dir es x %f, y %f, z %f\n", dir[1].x, dir[1].y, dir[1].z);
 		printf("negative es x %f, y %f, z %f\n", negative_wi.x, negative_wi.y,
@@ -83,7 +83,7 @@ t_rgb	ft_rho(t_shaderec *shade, t_rgb color) // reflectance or albedo function k
 	first.y = color.g;
 	first.z = color.b;
 	kd = shade->kd;
-	kd = 0.50;
+	kd = 0.20;
 	first = ft_product_vect_scalar(first, kd);
 	ret.r = first.x;
 	ret.g = first.y;
@@ -124,26 +124,3 @@ t_rgb	ft_brdf(t_rgb lights[2], t_shaderec *shade, t_vector3d dir[2], double dotw
 	lights[0].b = tmp_color.b * 255;
 	return (lights[0]);
 }
-/*void	ft_brdf(t_rgb *total_light, t_shaderec *shade, t_rgb point_light, double dotwi)
-{
-	t_rgb	color;
-
-	if (shade->hit_object == true)
-	{
-		color.r = shade->colour.r / 255;
-		color.g = shade->colour.g / 255;
-		color.b = shade->colour.b / 255;
-	}
-	else
-	{
-		color.r = total_light->r / 255;
-		color.g = total_light->g / 255;
-		color.b = total_light->b / 255;
-	}
-	color = ft_f(shade, color);
-	color = ft_rgb_scalar_product(color, dotwi);
-	color = ft_rgb_product_vect(color, point_light);
-	total_light->r = color.r * 255;
-	total_light->g = color.g * 255;
-	total_light->b = color.b * 255;
-}*/
