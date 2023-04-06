@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:20:22 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 13:56:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/06 14:03:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,20 @@ t_rgb	ft_f_specular(t_shaderec *shade, t_vector3d dir[2], t_rgb point_light, dou
 	r_wo = ft_dot_product_vect(r, dir[0]);
 	if (r_wo > 0.00)
 	{
-		color.r = point_light.r / 255;
+	/*	color.r = point_light.r / 255;
 		color.g = point_light.g / 255;
-		color.b = point_light.b / 255;
-		color = ft_rgb_scalar_product(color, 0.75 * pow(r_wo, 5));
-		/*printf("dir es x %f, y %f, z %f\n", dir[1].x, dir[1].y, dir[1].z);
+		color.b = point_light.b / 255;*/
+		color.r = point_light.r;
+		color.g = point_light.g;
+		color.b = point_light.b;
+		color = ft_rgb_scalar_product(color, 0.04 * pow(r_wo, 2));
+	/*	printf("color despues es r %f, g %f, b %f\n", color.r, color.g, color.b);
+		printf("dir es x %f, y %f, z %f\n", dir[1].x, dir[1].y, dir[1].z);
 		printf("negative es x %f, y %f, z %f\n", negative_wi.x, negative_wi.y,
 		negative_wi.z);
 		printf("color es r %f, g %f, b %f\n", color.r, color.g, color.b);
-		printf("dot es %f y r_wo %f\n", 0.75 * pow(r_wo, 1), r_wo);*/
+		printf("dot es %f y r_wo %f\n", 0.75 * pow(r_wo, 1), r_wo);
+		exit(1);*/
 	}
 	return (color);
 }

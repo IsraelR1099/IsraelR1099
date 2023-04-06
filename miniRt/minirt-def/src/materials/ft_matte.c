@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:48:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 13:56:59 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/06 14:03:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static t_rgb	ft_set_ambient(t_world *world, t_shaderec *shade)
 	ambient_color.g = alight->g;
 	ambient_color.b = alight->b;
 	L = ft_rgb_scalar_product(ambient_color, ambient.kd);
-	//rho = ft_rgb_scalar_product(shade->colour, shade->kd);
-	rho = ft_rho(shade, shade->colour);
+	rho = ft_rgb_scalar_product(shade->colour, ambient.kd);
 	ambient_color = ft_rgb_product_vect(rho, L);
 	return (ambient_color);
 }
@@ -94,6 +93,6 @@ t_rgb	ft_shade(t_world *world, t_shaderec *shade)
 		i++;
 	}
 	if (total_light.r > 255 || total_light.g > 255 || total_light.b > 255)
-		total_light = ft_clamp_color(total_light);
+		total_light = ft_max_to_one(total_light);
 	return (total_light);
 }

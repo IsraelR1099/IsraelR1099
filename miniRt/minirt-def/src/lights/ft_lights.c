@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:56:51 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 12:05:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/06 10:18:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ bool	ft_in_shadow(t_ray shadow_ray, t_shaderec *shade, t_light *light)
 	t_vector3d	l_coord;
 	t_vector3d	rest;
 
-	//printf("colour in shadow r %f, g %f, b %f, type %d\n", shade->colour.r,
-	//shade->colour.g, shade->colour.b, shade->type);
 	l_coord.x = light->x;
 	l_coord.y = light->y;
 	l_coord.z = light->z;
