@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/10 10:25:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:48:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_len(int fd, int *bytes)
 	return (len);
 }
 
-char	*ft_lines(char *str,int fd)
+char	*ft_lines(char *str, int fd)
 {
 	char	**ret;
 	int		i;
@@ -90,7 +90,6 @@ char	*ft_lines(char *str,int fd)
 	new_str = ft_delnul(ret, bytes);
 	return (new_str);
 }
-
 
 int	main(int counter, char **str)
 {

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:35:12 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 09:49:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:55:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,3 @@ t_ambient	*ft_find_amb(t_ambient *amb, int type)
 	}
 	return (NULL);
 }
-

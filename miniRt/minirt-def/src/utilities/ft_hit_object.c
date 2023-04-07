@@ -6,13 +6,14 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 09:49:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:58:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shaderec.h"
 
-static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *shade)
+static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray,
+t_shaderec *shade)
 {
 	t_sphere	*sphere;
 	double		t;
@@ -29,12 +30,12 @@ static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray, t_shaderec 
 		shade->colour.b = sphere->b;
 		shade->type = sphere->type;
 		shade->hit_point = ft_hit_point(ray, t);
-		//shade->normal_hit = ft_vect_normal_sphere(sphere, ray, t);
 		shade->normal_hit = ft_vect_normal_sphere(sphere, shade->hit_point);
 	}
 }
 
-static void	ft_hit_plane(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *shade)
+static void	ft_hit_plane(t_object *tmp, t_world *world, t_ray *ray,
+t_shaderec *shade)
 {
 	t_plane		*plane;
 	t_normal	normal_plane;
@@ -85,7 +86,8 @@ static t_object	*ft_advance(t_object *tmp)
 	return (tmp);
 }
 
-static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *shade)
+static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray,
+t_shaderec *shade)
 {
 	(void)tmp;
 	(void)world;
@@ -93,7 +95,8 @@ static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray, t_shaderec *sh
 	(void)shade;
 }
 
-t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray, t_shaderec *shade)
+t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray,
+t_shaderec *shade)
 {
 	t_object	*tmp;
 

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 09:49:08 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 09:49:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:58:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_point3d hit_point)
 	hit_p.z = hit_point.z;
 	rest = ft_rest_vect(hit_p, center_sph);
 	magnitude = sqrt(rest.x * rest.x + rest.y * rest.y
-	+ rest.z * rest.z);
+			+ rest.z * rest.z);
 	ret.x = rest.x / magnitude;
 	ret.y = rest.y / magnitude;
 	ret.z = rest.z / magnitude;
+	ret.x *= -1;
+	ret.y *= -1;
+	ret.z *= -1;
 	return (ret);
 }
 
@@ -41,7 +44,7 @@ t_vector3d	ft_normalize(t_vector3d vector)
 	t_vector3d	normal;
 
 	magnitude = sqrt(vector.x * vector.x + vector.y * vector.y
-	+ vector.z * vector.z);
+			+ vector.z * vector.z);
 	normal.x = vector.x;
 	normal.y = vector.y;
 	normal.z = vector.z;

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 12:28:01 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/06 09:55:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:23:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ double	ft_check_plane(t_cameras *camera, t_plane *plane, t_ray *ray)
 	if (ret_b == 0)
 		return (0);
 	t = ft_a_value(camera->eye, plane) / ret_b;
-	if (t < kEpsilonPl)
+	if (t < KEPSILONPL)
 		return (0);
 	return (t);
 }

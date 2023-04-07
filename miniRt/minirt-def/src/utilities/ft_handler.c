@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   world.h                                            :+:      :+:    :+:   */
+/*   ft_handler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 14:00:54 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 10:21:48 by irifarac         ###   ########.fr       */
+/*   Created: 2023/04/07 10:08:24 by irifarac          #+#    #+#             */
+/*   Updated: 2023/04/07 10:20:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WORLD_H
-# define WORLD_H
+#include "../../mlx/mlx.h"
+#include "../../include/miniRT.h"
 
-# include "../cameras/cameras.h"
-# include "../window/window.h"
-# include "../world/world.h"
-# include "viewplane.h"
-
-typedef struct s_world
+int	key_event(int button, t_world *world)
 {
-	t_cameras	*camera;
-	t_window	*mlx;
-	t_object	*obj;
-	t_ambient	*amb;
-	t_vp		vp;
-	t_light		**lights;
-}	t_world;
-
-void	ft_set_world(t_ambient *amb, t_object *obj, t_world *world);
-#endif
+	if (button == 53)
+		ft_destroy(world->mlx);
+	return (0);
+}

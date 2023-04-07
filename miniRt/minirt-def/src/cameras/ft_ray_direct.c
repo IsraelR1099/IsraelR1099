@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 13:14:55 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/20 13:24:13 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:19:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_vector3d	ft_normalize(t_vector3d vector)
 	t_vector3d	ret;
 
 	magnitude = sqrt(vector.x * vector.x + vector.y * vector.y
-	+ vector.z * vector.z);
+			+ vector.z * vector.z);
 	ret.x = vector.x / magnitude;
 	ret.y = vector.y / magnitude;
 	ret.z = vector.z / magnitude;

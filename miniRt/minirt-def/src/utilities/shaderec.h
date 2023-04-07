@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:22 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 10:32:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:05:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdbool.h>
 # include <limits.h>
 
-# define k_huge_value INT_MAX
+# define K_HUGE_VALUE INT_MAX
 
 typedef struct s_normal
 {
@@ -45,7 +45,8 @@ typedef struct s_shaderec
 	int			type;
 }	t_shaderec;
 
-t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray, t_shaderec *shade);
+t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray,
+				t_shaderec *shade);
 t_point3d	ft_hit_point(t_ray *ray, double t);
 t_vector3d	ft_normalize(t_vector3d vector);
 t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_point3d hit_point);

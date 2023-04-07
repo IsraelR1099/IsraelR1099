@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:54:24 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/17 13:51:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:06:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,15 @@ t_vector3d	ft_upvector(t_cameras camera)
 	return (up_normal);
 }
 
-
 static double	ft_distance_viewplane(t_cam *cam)
 {
 	double	d;
 	double	radians;
 
 	radians = cam->fov * PI / 180;
-	d = (0.5 * hres) / tan(0.5 * radians);
+	d = (0.5 * HRES) / tan(0.5 * radians);
 	return (d);
 }
-
 
 t_cameras	*ft_build_camera(t_ambient *amb)
 {
@@ -102,6 +100,5 @@ t_cameras	*ft_build_camera(t_ambient *amb)
 	camera->right = ft_rightaxis(camera->forward);
 	camera->up = ft_upvector(*camera);
 	camera->d = ft_distance_viewplane(cam);
-	//printf("d es %f\n", camera->d);
 	return (camera);
 }

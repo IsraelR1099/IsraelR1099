@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sphere.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/07 13:34:49 by irifarac          #+#    #+#             */
+/*   Updated: 2023/04/07 13:38:04 by irifarac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lights.h"
 
 static double	ft_a_value(t_ray ray)
@@ -52,7 +64,11 @@ static double	ft_calc_t(double scalar_a, double scalar_b, double scalar_c)
 	ret_negative = (-1) * scalar_b - sqrt(ret) / 2 * scalar_a;
 	if (ret_positive == ret_negative)
 		return (0);
-	return (ret_negative);
+	if (ret_negative > KEPSILONSP)
+		return (ret_negative);
+	else if (ret_positive > KEPSILONSP)
+		return (ret_positive);
+	return (0);
 }
 
 double	ft_hit_sphere(t_sphere *sphere, t_ray ray)
@@ -68,11 +84,9 @@ double	ft_hit_sphere(t_sphere *sphere, t_ray ray)
 	scalar_a = ft_a_value(ray);
 	scalar_b = ft_b_value(ray, sphere, ray.origin);
 	scalar_c = ft_c_value(sphere, ray.origin);
-	ret = scalar_b * scalar_b - ( 4 * scalar_a * scalar_c);
+	ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
 	if (ret < 0)
 		return (0);
 	calc_t = ft_calc_t(scalar_a, scalar_b, scalar_c);
-	if (calc_t < 0)
-		calc_t *= -1;
 	return (calc_t);
 }

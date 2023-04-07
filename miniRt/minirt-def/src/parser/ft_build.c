@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/08 10:55:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:15:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ t_ambient	*ft_build_alight(t_ambient *amb, char *ftoken, char *eftoken)
 	alight->r = ft_color(&ftoken, eftoken);
 	alight->g = ft_color(&ftoken, eftoken);
 	alight->b = ft_color(&ftoken, eftoken);
+	alight->r /= 255;
+	alight->g /= 255;
+	alight->b /= 255;
 	alight->amb = amb;
 	return ((t_ambient *)alight);
 }
@@ -65,6 +68,9 @@ t_ambient	*ft_build_light(t_ambient *amb, char *ftoken, char *eftoken)
 	light->r = ft_color(&ftoken, eftoken);
 	light->g = ft_color(&ftoken, eftoken);
 	light->b = ft_color(&ftoken, eftoken);
+	light->r /= 255;
+	light->g /= 255;
+	light->b /= 255;
 	light->amb = amb;
 	return ((t_ambient *)light);
 }

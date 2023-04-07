@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:40:54 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 12:36:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:28:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ typedef struct s_object
 typedef struct s_alight
 {
 	int			type;
-	int			r;
-	int			g;
-	int			b;
+	double		r;
+	double		g;
+	double		b;
 	float		ratio;
 	t_ambient	*amb;
 }	t_alight;
@@ -57,9 +57,9 @@ typedef struct s_light
 	float		x;
 	float		y;
 	float		z;
-	int			r;
-	int			g;
-	int			b;
+	double		r;
+	double		g;
+	double		b;
 	float		ratio;
 	t_ambient	*amb;
 }	t_light;
@@ -86,9 +86,9 @@ typedef struct s_plane
 	int			x_normal;
 	int			y_normal;
 	int			z_normal;
-	int			r;
-	int			g;
-	int			b;
+	double		r;
+	double		g;
+	double		b;
 	t_object	*obj;
 }	t_plane;
 
@@ -99,9 +99,9 @@ typedef struct s_sphere
 	float		y;
 	float		z;
 	float		diameter;
-	int			r;
-	int			g;
-	int			b;
+	double		r;
+	double		g;
+	double		b;
 	t_object	*obj;
 }	t_sphere;
 
@@ -116,9 +116,9 @@ typedef struct s_cylinder
 	int			z_normal;
 	float		diameter;
 	float		height;
-	int			r;
-	int			g;
-	int			b;
+	double		r;
+	double		g;
+	double		b;
 	t_object	*obj;
 }	t_cylinder;
 

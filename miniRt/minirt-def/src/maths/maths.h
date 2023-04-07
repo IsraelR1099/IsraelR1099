@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:14:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/06 09:54:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:51:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../parser/parser.h"
 
 # define PI 3.141592653589
-# define invPI 0.31830988618
+# define INVPI 0.31830988618
 
 typedef struct s_point2d
 {
@@ -45,8 +45,10 @@ typedef struct s_ray
 	t_vector3d	direction;
 }	t_ray;
 
-double		ft_dot_product_vect(t_vector3d vector_left, t_vector3d vector_right);
-t_vector3d	ft_vectorial_product(t_vector3d vector_left, t_vector3d vector_right);
+double		ft_dot_product_vect(t_vector3d vector_left,
+				t_vector3d vector_right);
+t_vector3d	ft_vectorial_product(t_vector3d vector_left,
+				t_vector3d vector_right);
 t_vector3d	ft_rest_vect(t_vector3d origin, t_vector3d obj);
 t_vector3d	ft_sum_vect(t_vector3d first, t_vector3d second);
 t_vector3d	ft_product_vect_scalar(t_vector3d vector, double scalar);

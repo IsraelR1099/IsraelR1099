@@ -6,12 +6,11 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/08 10:55:51 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:12:51 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-//#include "../../include/miniRT.h"
 
 t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken)
 {
@@ -29,6 +28,9 @@ t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken)
 	sphere->r = ft_color(&ftoken, eftoken);
 	sphere->g = ft_color(&ftoken, eftoken);
 	sphere->b = ft_color(&ftoken, eftoken);
+	sphere->r /= 255;
+	sphere->g /= 255;
+	sphere->b /= 255;
 	sphere->obj = obj;
 	return ((t_object *)sphere);
 }
@@ -51,6 +53,9 @@ t_object	*ft_build_plane(t_object *obj, char *ftoken, char *eftoken)
 	plane->r = ft_color(&ftoken, eftoken);
 	plane->g = ft_color(&ftoken, eftoken);
 	plane->b = ft_color(&ftoken, eftoken);
+	plane->r /= 255;
+	plane->g /= 255;
+	plane->b /= 255;
 	plane->obj = obj;
 	return ((t_object *)plane);
 }
@@ -70,6 +75,14 @@ t_object	*ft_build_cylinder(t_object *obj, char *ftoken, char *eftoken)
 	cylinder->x_normal = ft_normal(&ftoken, eftoken);
 	cylinder->y_normal = ft_normal(&ftoken, eftoken);
 	cylinder->z_normal = ft_normal(&ftoken, eftoken);
+	cylinder->diameter = ft_diameter(&ftoken, eftoken);
+	cylinder->height = ft_diameter(&ftoken, eftoken);
+	cylinder->r = ft_color(&ftoken, eftoken);
+	cylinder->g = ft_color(&ftoken, eftoken);
+	cylinder->b = ft_color(&ftoken, eftoken);
+	cylinder->r /= 255;
+	cylinder->g /= 255;
+	cylinder->b /= 255;
 	cylinder->obj = obj;
 	return ((t_object *)cylinder);
 }

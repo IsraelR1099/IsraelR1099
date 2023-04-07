@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:56:51 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/06 10:18:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:34:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ bool	ft_in_shadow(t_ray shadow_ray, t_shaderec *shade, t_light *light)
 	rest.y = l_coord.y - shadow_ray.origin.y;
 	rest.z = l_coord.z - shadow_ray.origin.z;
 	distance = sqrt(rest.x * rest.x + rest.y * rest.y
-	+ rest.z * rest.z); //distance between light origin and hit point
+			+ rest.z * rest.z); //distance between light origin and hit point
 	if (ft_hit_shadow(shadow_ray, shade->world, distance))
 		return (true);
 	return (false);
 }
 
 //inverse square law applied to the brightness of each light (kd)
-
 /*static void	ft_attenuation_light(t_shaderec *shade, double magnitude)
 {
 	double	constant;
@@ -67,7 +66,7 @@ t_vector3d	ft_get_dir(t_light *light, t_shaderec *shade)
 	hit_point.z = shade->hit_point.z;
 	rest = ft_rest_vect(location, hit_point);
 	magnitude = sqrt(rest.x * rest.x + rest.y * rest.y
-	+ rest.z * rest.z);
+			+ rest.z * rest.z);
 	rest.x /= magnitude;
 	rest.y /= magnitude;
 	rest.z /= magnitude;

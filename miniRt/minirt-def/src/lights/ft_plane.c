@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_plane.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/07 13:34:07 by irifarac          #+#    #+#             */
+/*   Updated: 2023/04/07 13:34:45 by irifarac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lights.h"
 
 static double	ft_a_value(t_point3d eye, t_plane *plane)
@@ -33,7 +45,7 @@ double	ft_hit_plane(t_plane *plane, t_ray ray)
 	if (ret_b == 0)
 		return (0);
 	t = ft_a_value(ray.origin, plane) / ret_b;
-	if (t < kEpsilon)
+	if (t < KEPSILONPL)
 		return (0);
 	return (t);
 }

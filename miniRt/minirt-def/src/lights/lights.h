@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:09:09 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 12:29:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:47:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ typedef struct s_light_ambient
 {
 	double		light_s;
 	t_rgb		color;
-	t_vector3d	(* ft_get_dir)(t_light *light, t_shaderec *shade);
-	t_rgb		(* ft_light)(double light_s, t_rgb color);
-
+//	t_vector3d	(*ft_get_dir)(t_light * light, t_shaderec * shade);
+//	t_rgb		(*ft_light)(double light_s, t_rgb color);
 }	t_light_ambient;
 
 t_rgb		ft_light(double light_s, t_rgb color);

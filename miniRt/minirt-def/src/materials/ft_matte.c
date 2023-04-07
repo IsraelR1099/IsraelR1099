@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:48:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/06 14:03:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:13:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static t_rgb	ft_set_ambient(t_world *world, t_shaderec *shade)
 	ambient_color.g = alight->g;
 	ambient_color.b = alight->b;
 	L = ft_rgb_scalar_product(ambient_color, ambient.kd);
-	rho = ft_rgb_scalar_product(shade->colour, ambient.kd);
+	//rho = ft_rgb_scalar_product(shade->colour, ambient.kd);
+	rho = ft_rho(shade, shade->colour);
 	ambient_color = ft_rgb_product_vect(rho, L);
 	return (ambient_color);
 }
@@ -50,9 +51,9 @@ t_light *light)
 		shade->in_shadow = false;
 		shadow_ray.origin = shade->hit_point;
 		shadow_ray.direction = dir[1];
-		point_light.r = light->r / 255;
-		point_light.g = light->g / 255;
-		point_light.b = light->b / 255;
+		point_light.r = light->r;
+		point_light.g = light->g;
+		point_light.b = light->b;
 		shade->in_shadow = ft_in_shadow(shadow_ray, shade, light);
 		if (!shade->in_shadow)
 		{
@@ -64,7 +65,7 @@ t_light *light)
 	return (total_light);
 }
 
-t_rgb	ft_shade(t_world *world, t_shaderec *shade)
+t_rgb	ft_shade_matte(t_world *world, t_shaderec *shade)
 {
 	t_vector3d	dir[2];
 	t_rgb		total_light;
@@ -72,10 +73,11 @@ t_rgb	ft_shade(t_world *world, t_shaderec *shade)
 	t_light		**tmp;
 	int			i;
 
-	//printf("shade colour r %f, g %f, b %f y type %d\n", shade->colour.r,
-//	shade->colour.g, shade->colour.b, shade->type);
 	tmp = world->lights;
 	dir[0] = shade->ray.direction; //dir_wo
+//	dir[0].x = shade->ray.direction.x * (-1); //dir_wo
+//	dir[0].y = shade->ray.direction.y * (-1); //dir_wo
+//	dir[0].z = shade->ray.direction.z * (-1); //dir_wo
 	total_light = ft_set_ambient(world, shade);
 	tmp_color = total_light;
 //	printf("light_color r %f, g %f, b %f\n", light_color.r, light_color.g,
@@ -87,14 +89,14 @@ t_rgb	ft_shade(t_world *world, t_shaderec *shade)
 		dir[1] = ft_get_dir(tmp[i], shade); //direction of the lights vector3d
 //		dir_wi
 		total_light = ft_check(shade, dir, total_light, tmp[i]);
-		if (total_light.r > 255 || total_light.g > 255 || total_light.b > 255)
-			total_light = ft_max_to_one(total_light);
+	//	if (total_light.r > 1 || total_light.g > 1 || total_light.b > 1)
+	//		total_light = ft_max_to_one(total_light);
 		if (shade->in_shadow == false)
 			total_light = ft_rgb_sum(total_light, tmp_color);
 		tmp_color = total_light;
 		i++;
 	}
-	if (total_light.r > 255 || total_light.g > 255 || total_light.b > 255)
+	if (total_light.r > 1 || total_light.g > 1 || total_light.b > 1)
 		total_light = ft_max_to_one(total_light);
 	return (total_light);
 }

@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   world.h                                            :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 14:00:54 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 10:21:48 by irifarac         ###   ########.fr       */
+/*   Created: 2023/04/07 12:58:41 by irifarac          #+#    #+#             */
+/*   Updated: 2023/04/07 13:02:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WORLD_H
-# define WORLD_H
+#include "brdf.h"
 
-# include "../cameras/cameras.h"
-# include "../window/window.h"
-# include "../world/world.h"
-# include "viewplane.h"
-
-typedef struct s_world
+t_vector3d	ft_product(t_shaderec *shade, double dotwi)
 {
-	t_cameras	*camera;
-	t_window	*mlx;
-	t_object	*obj;
-	t_ambient	*amb;
-	t_vp		vp;
-	t_light		**lights;
-}	t_world;
+	t_vector3d	normal_hit;
+	t_vector3d	product;
 
-void	ft_set_world(t_ambient *amb, t_object *obj, t_world *world);
-#endif
+	normal_hit.x = shade->normal_hit.x;
+	normal_hit.y = shade->normal_hit.y;
+	normal_hit.z = shade->normal_hit.z;
+	product = ft_product_vect_scalar(normal_hit, 2 * dotwi);
+	return (product);
+}

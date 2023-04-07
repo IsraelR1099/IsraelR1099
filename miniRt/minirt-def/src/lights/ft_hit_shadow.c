@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:59:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/06 10:00:27 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:47:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ bool	ft_hit_shadow(t_ray ray, t_world *world, double t)
 		if (ret == true)
 			return (true);
 		tmp = ft_advance(tmp);
-	 }
-	 return (ret);
+	}
+	return (ret);
 }
