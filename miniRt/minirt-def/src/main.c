@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 13:48:36 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:20:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static char	*ft_delnul(char **ret, int len)
 	if (!str)
 		exit(ft_error("Malloc error", -1));
 	i = 0;
-	j = 0;
 	k = 0;
 	while (ret[i])
 	{
+		j = 0;
 		while (ret[i][j])
 		{
 			str[k] = ret[i][j];
@@ -37,7 +37,6 @@ static char	*ft_delnul(char **ret, int len)
 			k++;
 			j++;
 		}
-		j = 0;
 		i++;
 	}
 	str[k] = '\0';

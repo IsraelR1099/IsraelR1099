@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 09:46:16 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 14:03:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/24 09:54:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 //kd is diffuse reflection coefficient
 //cd is the diffuse color of the material
 
-//f_diffuse function kd * cd * INVPI
+//f_diffuse function kd * cd * INVPI multiply by invpi to keep in account the
+//energy conservation
 
 t_rgb	ft_f_diffuse(t_shaderec *shade, t_rgb material_color)
 {

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:39:50 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 14:07:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:46:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	ft_render(t_world *world)
 		column = 0;
 		while (column < HRES)
 		{
+			world->vp.color.r = 0;
+			world->vp.color.g = 0;
+			world->vp.color.b = 0;
 			colour = ft_samplers(world, &ray, (float)column, (float)row);
 			ft_my_mlx_pxput(world->mlx, column, row, colour);
 			column++;

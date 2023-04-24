@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:56:51 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 13:34:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:14:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ bool	ft_in_shadow(t_ray shadow_ray, t_shaderec *shade, t_light *light)
 	constant = 1;
 	linear = 0.1;
 	quadratic = 0.01;
-	attenuation = 1 / constant + linear * magnitude + quadratic * magnitude * magnitude;
+	attenuation = 1 / constant + linear
+	* magnitude + quadratic * magnitude * magnitude;
 	shade->kd = shade->kd * attenuation;
 	if (shade->hit_object == true)
 	{

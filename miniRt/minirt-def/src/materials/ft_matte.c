@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:48:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 13:13:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:46:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_rgb	ft_set_ambient(t_world *world, t_shaderec *shade)
 	t_lambertian	ambient;
 	t_rgb			ambient_color;
 	t_alight		*alight;
-	t_rgb			L;
+	t_rgb			l;
 	t_rgb			rho;
 
 	alight = (t_alight *)ft_find_amb(world->amb, A);
@@ -25,15 +25,15 @@ static t_rgb	ft_set_ambient(t_world *world, t_shaderec *shade)
 	ambient_color.r = alight->r;
 	ambient_color.g = alight->g;
 	ambient_color.b = alight->b;
-	L = ft_rgb_scalar_product(ambient_color, ambient.kd);
+	l = ft_rgb_scalar_product(ambient_color, ambient.kd);
 	//rho = ft_rgb_scalar_product(shade->colour, ambient.kd);
 	rho = ft_rho(shade, shade->colour);
-	ambient_color = ft_rgb_product_vect(rho, L);
+	ambient_color = ft_rgb_product_vect(rho, l);
 	return (ambient_color);
 }
 
-static t_rgb	ft_check(t_shaderec *shade, t_vector3d dir[2], t_rgb total_light,
-t_light *light)
+static t_rgb	ft_check(t_shaderec *shade, t_vector3d dir[2],
+t_rgb total_light, t_light *light)
 {
 	double		dotwi;
 	t_ray		shadow_ray;
@@ -75,13 +75,8 @@ t_rgb	ft_shade_matte(t_world *world, t_shaderec *shade)
 
 	tmp = world->lights;
 	dir[0] = shade->ray.direction; //dir_wo
-//	dir[0].x = shade->ray.direction.x * (-1); //dir_wo
-//	dir[0].y = shade->ray.direction.y * (-1); //dir_wo
-//	dir[0].z = shade->ray.direction.z * (-1); //dir_wo
 	total_light = ft_set_ambient(world, shade);
 	tmp_color = total_light;
-//	printf("light_color r %f, g %f, b %f\n", light_color.r, light_color.g,
-//	light_color.b);
 	i = 0;
 	while (tmp[i])
 	{
@@ -89,8 +84,6 @@ t_rgb	ft_shade_matte(t_world *world, t_shaderec *shade)
 		dir[1] = ft_get_dir(tmp[i], shade); //direction of the lights vector3d
 //		dir_wi
 		total_light = ft_check(shade, dir, total_light, tmp[i]);
-	//	if (total_light.r > 1 || total_light.g > 1 || total_light.b > 1)
-	//		total_light = ft_max_to_one(total_light);
 		if (shade->in_shadow == false)
 			total_light = ft_rgb_sum(total_light, tmp_color);
 		tmp_color = total_light;
