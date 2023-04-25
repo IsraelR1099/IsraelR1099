@@ -28,7 +28,8 @@ enum	e_ident
 	L,
 	sp,
 	pl,
-	cy
+	cy,
+	di
 };
 
 typedef struct s_ambient
@@ -122,6 +123,22 @@ typedef struct s_cylinder
 	t_object	*obj;
 }	t_cylinder;
 
+typedef struct s_disk
+{
+	int			type;
+	float		x;
+	float		y;
+	float		z;
+	int			x_normal;
+	int			y_normal;
+	int			z_normal;
+	float		radius;
+	double		r;
+	double		g;
+	double		b;
+	t_object	*obj;
+}	t_disk;
+
 typedef struct s_vector
 {
 	double	x;
@@ -166,6 +183,7 @@ t_object	*ft_parseobj(char *str);
 t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken);
 t_object	*ft_build_plane(t_object *obj, char *ftoken, char *eftoken);
 t_object	*ft_build_cylinder(t_object *obj, char *ftoken, char *eftoken);
+t_object	*ft_build_disk(t_object *obj, char *ftoken, char *eftoken);
 //Errors
 int			ft_check_error(char **str);
 int			ft_error(const char *str, int ret);

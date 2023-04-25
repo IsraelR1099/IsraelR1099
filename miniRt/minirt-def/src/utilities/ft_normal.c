@@ -32,9 +32,9 @@ t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_point3d hit_point)
 	ret.x = rest.x / magnitude;
 	ret.y = rest.y / magnitude;
 	ret.z = rest.z / magnitude;
-	ret.x *= -1;
+/*	ret.x *= -1;
 	ret.y *= -1;
-	ret.z *= -1;
+	ret.z *= -1;*/
 	return (ret);
 }
 

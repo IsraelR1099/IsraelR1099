@@ -24,7 +24,8 @@ static t_object	*ft_parse(char **str, char *estr)
 		return (NULL);
 	while (ft_find_obj(str, estr, "sp")
 		|| ft_find_obj(str, estr, "pl")
-		|| ft_find_obj(str, estr, "cy"))
+		|| ft_find_obj(str, estr, "cy")
+		|| ft_find_obj(str, estr, "di"))
 	{
 		token = ft_getobj(str, estr, &ftoken, &eftoken);
 		if (token == 's')
@@ -33,6 +34,8 @@ static t_object	*ft_parse(char **str, char *estr)
 			obj = ft_build_plane(obj, ftoken, eftoken);
 		else if (token == 'c')
 			obj = ft_build_cylinder(obj, ftoken, eftoken);
+		else if (token == 'd')
+			obj = ft_build_disk(obj, ftoken, eftoken);
 	}
 	return (obj);
 }

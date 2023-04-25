@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_matte_material.c                                :+:      :+:    :+:   */
+/*   rgbcolor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 09:53:41 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 11:40:44 by irifarac         ###   ########.fr       */
+/*   Created: 2023/03/10 11:01:51 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/20 10:03:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "brdf.h"
+#ifndef RGBCOLOR_H
+# define RGBCOLOR_H
 
-t_rgb	ft_f_matte(t_shaderec *shade, double dotwi)
+typedef struct s_rgbcolor
 {
-	t_rgb	f;
-	t_rgb	f_diffuse;
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
 
-	f_diffuse = ft_f_diffuse(shade, shade->colour, 1);
-	f = ft_rgb_scalar_product(f_diffuse, dotwi);
-	return (f);
-}
+#endif

@@ -19,7 +19,7 @@
 //f_diffuse function kd * cd * INVPI multiply by invpi to keep in account the
 //energy conservation
 
-t_rgb	ft_f_diffuse(t_shaderec *shade, t_rgb material_color)
+t_rgb	ft_f_diffuse(t_shaderec *shade, t_rgb material_color, double dotwi)
 {
 	t_rgb	material;
 	t_rgb	ret;
@@ -29,8 +29,9 @@ t_rgb	ft_f_diffuse(t_shaderec *shade, t_rgb material_color)
 	material.g = material_color.g;
 	material.b = material_color.b;
 	kd = shade->kd;
-	kd = 0.75;
+	kd = 0.55;
 	material = ft_rgb_scalar_product(material, kd);
+	material = ft_rgb_scalar_product(material, dotwi);
 	ret = ft_rgb_scalar_product(material, INVPI);
 	return (ret);
 }
@@ -59,6 +60,7 @@ t_rgb point_light, double dotwi)
 		color.g = point_light.g;
 		color.b = point_light.b;
 		color = ft_rgb_scalar_product(color, 0.2 * pow(r_wo, 5));
+		color = ft_rgb_scalar_product(color, 0.7);
 	}
 	return (color);
 }

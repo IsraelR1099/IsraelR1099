@@ -23,13 +23,14 @@ double dotwi)
 	tmp_color.r = lights[0].r;
 	tmp_color.g = lights[0].g;
 	tmp_color.b = lights[0].b;
-	f = ft_f_phong(shade, dir, lights[1], dotwi);
-//	f = ft_f_matte(shade, dotwi);
+//	f = ft_f_phong(shade, dir, lights[1], dotwi);
+	f = ft_f_matte(shade, dotwi);
 	light = ft_rgb_scalar_product(lights[1], shade->kd);
 	product = ft_rgb_product_vect(f, light);
 	tmp_color = product;
 	lights[0].r = tmp_color.r;
 	lights[0].g = tmp_color.g;
 	lights[0].b = tmp_color.b;
+	(void)dir;
 	return (lights[0]);
 }

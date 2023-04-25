@@ -20,9 +20,10 @@ double dotwi)
 	t_rgb	f_specular;
 	t_rgb	sum_diff_spec;
 
-	f_diffuse = ft_f_diffuse(shade, shade->colour);
+	f_diffuse = ft_f_diffuse(shade, shade->colour, dotwi);
 	f_specular = ft_f_specular(shade, dir, point_light, dotwi);
 	sum_diff_spec = ft_rgb_sum(f_diffuse, f_specular);
-	f = ft_rgb_scalar_product(sum_diff_spec, dotwi);
+	f = sum_diff_spec;
+//	f = ft_rgb_scalar_product(sum_diff_spec, dotwi);
 	return (f);
 }

@@ -63,3 +63,5 @@ t_ambient	*ft_find_amb(t_ambient *amb, int type)
 	}
 	return (NULL);
 }
+
+

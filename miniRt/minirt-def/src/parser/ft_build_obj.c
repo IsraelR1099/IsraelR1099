@@ -86,3 +86,30 @@ t_object	*ft_build_cylinder(t_object *obj, char *ftoken, char *eftoken)
 	cylinder->obj = obj;
 	return ((t_object *)cylinder);
 }
+
+t_object	*ft_build_disk(t_object *obj, char *ftoken, char *eftoken)
+{
+	t_disk	*disk;
+
+	disk = malloc(sizeof(*disk));
+	if (!disk)
+		return (NULL);
+	ft_memset(disk, 0, sizeof(*disk));
+	disk->type = di;
+	disk->x = ft_coord(&ftoken, eftoken);
+	disk->y = ft_coord(&ftoken, eftoken);
+	disk->z = ft_coord(&ftoken, eftoken);
+	disk->x_normal = ft_normal(&ftoken, eftoken);
+	disk->y_normal = ft_normal(&ftoken, eftoken);
+	disk->z_normal = ft_normal(&ftoken, eftoken);
+	disk->radius = ft_diameter(&ftoken, eftoken);
+	disk->r = ft_color(&ftoken, eftoken);
+	disk->g = ft_color(&ftoken, eftoken);
+	disk->b = ft_color(&ftoken, eftoken);
+	disk->r /= 255;
+	disk->g /= 255;
+	disk->b /= 255;
+	disk->obj = obj;
+	return ((t_object *)disk);
+}
+

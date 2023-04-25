@@ -26,7 +26,8 @@ OBJDIR = obj
 SRCDIR = ./
 SRC = ft_hit_object.c \
 	  ft_hit_point.c \
-	  ft_normal.c
+	  ft_normal.c \
+	  ft_utils.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
