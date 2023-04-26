@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 11:41:40 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/26 12:40:41 by irifarac         ###   ########.fr       */
+/*   Created: 2023/04/26 12:12:14 by irifarac          #+#    #+#             */
+/*   Updated: 2023/04/26 12:32:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shaderec.h"
+#include "lights.h"
 
 static t_object	*ft_help(t_object *tmp)
 {

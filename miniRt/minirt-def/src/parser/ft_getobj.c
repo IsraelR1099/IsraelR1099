@@ -6,11 +6,20 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:10:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/24 13:18:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:38:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+static void	ft_move(char **tmp, char *estr, int *ret)
+{
+	ret = 0;
+	while ((*tmp < estr && !ft_compare(*tmp, "sp"))
+		&& !ft_compare(*tmp, "pl") && !ft_compare(*tmp, "cy")
+		&& !ft_compare(*tmp, "di"))
+		*tmp = *tmp + 1;
+}
 
 static int	ft_list(char **tmp, char *estr, int ret)
 {
@@ -31,13 +40,13 @@ static int	ft_list(char **tmp, char *estr, int ret)
 		*tmp = *tmp + 2;
 		return (ret);
 	}
-	else
+	else if (**tmp == 'd')
 	{
-		ret = 0;
-		while ((*tmp < estr && !ft_compare(*tmp, "sp"))
-			&& !ft_compare(*tmp, "pl") && !ft_compare(*tmp, "cy"))
-			*tmp = *tmp + 1;
+		*tmp = *tmp + 2;
+		return (ret);
 	}
+	else
+		ft_move(tmp, estr, &ret);
 	return (ret);
 }
 
@@ -54,7 +63,8 @@ int	ft_getobj(char **str, char *estr, char **ftoken, char **eftoken)
 	ret = *tmp;
 	ret = ft_list(&tmp, estr, ret);
 	while ((tmp < estr && !ft_compare(tmp, "sp"))
-		&& !ft_compare(tmp, "pl") && !ft_compare(tmp, "cy"))
+		&& !ft_compare(tmp, "pl") && !ft_compare(tmp, "cy")
+		&& !ft_compare(tmp, "di"))
 		tmp++;
 	if (eftoken)
 		*eftoken = tmp;

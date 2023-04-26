@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:09:09 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 13:47:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:29:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_vector3d	ft_get_dir(t_light *light, t_shaderec *shade);
 bool		ft_hit_shadow(t_ray ray, t_world *world, double t);
 double		ft_hit_sphere(t_sphere *sphere, t_ray ray);
 double		ft_hit_plane(t_plane *plane, t_ray ray);
+double		ft_hit_disk(t_disk *disk, t_ray ray);
 bool		ft_in_shadow(t_ray shadow_ray, t_shaderec *shade, t_light *light);
+t_object	*ft_advance(t_object *tmp);
 
 #endif

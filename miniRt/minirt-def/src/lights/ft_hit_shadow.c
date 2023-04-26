@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:59:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 13:47:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:42:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,16 @@ static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
 	return (false);
 }
 
-static t_object	*ft_advance(t_object *tmp)
+static bool	ft_hit_di(t_object *tmp, t_ray ray, double t_min)
 {
-	t_sphere	*sphere;
-	t_plane		*plane;
-	t_cylinder	*cyl;
+	t_disk	*disk;
+	double	distance;
 
-	if (!tmp)
-		return (NULL);
-	if (tmp->type == sp)
-	{
-		sphere = (t_sphere *)tmp;
-		tmp = sphere->obj;
-	}
-	else if (tmp->type == pl)
-	{
-		plane = (t_plane *)tmp;
-		tmp = plane->obj;
-	}
-	else if (tmp->type == cy)
-	{
-		cyl = (t_cylinder *)tmp;
-		tmp = cyl->obj;
-	}
-	return (tmp);
+	disk = (t_disk *)tmp;
+	distance = ft_hit_disk(disk, ray);
+	if (distance != 0 && distance < t_min)
+		return (true);
+	return (false);
 }
 
 bool	ft_hit_shadow(t_ray ray, t_world *world, double t)
@@ -85,6 +71,8 @@ bool	ft_hit_shadow(t_ray ray, t_world *world, double t)
 			ret = ft_hit_pl(tmp, ray, t);
 		else if (tmp->type == cy)
 			ret = ft_hit_cy(tmp, ray, t);
+		else if (tmp->type == di)
+			ret = ft_hit_di(tmp, ray, t);
 		else
 			break ;
 		if (ret == true)

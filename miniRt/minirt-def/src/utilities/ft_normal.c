@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 09:49:08 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 13:58:26 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/26 13:53:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_point3d hit_point)
 	ret.x = rest.x / magnitude;
 	ret.y = rest.y / magnitude;
 	ret.z = rest.z / magnitude;
-/*	ret.x *= -1;
+	ret.x *= -1;
 	ret.y *= -1;
-	ret.z *= -1;*/
+	ret.z *= -1;
 	return (ret);
 }
 

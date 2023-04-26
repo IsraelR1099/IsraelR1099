@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:43:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 09:59:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/26 11:27:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static int	ft_check_ident(char *str)
 	else if (!ft_strncmp("sp", str, 2))
 		return (0);
 	else if (!ft_strncmp("cy", str, 2))
+		return (0);
+	else if (!ft_strncmp("di", str, 2))
 		return (0);
 	else
 		return (ft_error("No valid identifier", -1));
@@ -57,6 +59,8 @@ static int	ft_check_param(char *str)
 	else if (*str == 's' && *(str + 1) == 'p')
 		return (0);
 	else if (*str == 'c' && *(str + 1) == 'y')
+		return (0);
+	else if (*str == 'd' && *(str + 1) == 'i')
 		return (0);
 	else if (*str == 10)
 		return (0);

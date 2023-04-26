@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/24 09:43:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/26 12:33:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,3 @@ t_object	*ft_build_disk(t_object *obj, char *ftoken, char *eftoken)
 	disk->obj = obj;
 	return ((t_object *)disk);
 }
-
