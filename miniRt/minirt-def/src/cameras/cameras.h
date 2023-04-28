@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:56:12 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 13:18:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:36:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ t_vector3d	ft_forwardvector(t_cameras camera);
 
 //Utils
 t_ambient	*ft_find_amb(t_ambient *amb, int type);
-t_vector3d	ft_ray_direction(t_cameras *camera, t_point2d points);
+t_vector3d	ft_ray_direction(t_cameras *camera, t_ray *ray, t_point2d points);
 
 #endif

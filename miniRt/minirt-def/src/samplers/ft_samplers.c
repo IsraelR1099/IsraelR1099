@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:40:23 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/24 13:46:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:44:01 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ size_t	ft_samplers(t_world *world, t_ray *ray, double c, double r)
 		{
 			points.x = 1 * (c - 0.5 * HRES + (q + 0.5) / num_samples);
 			points.y = 1 * (r - 0.5 * VRES + (p + 0.5) / num_samples);
-			ray->direction = ft_ray_direction(world->camera, points);
+			ray->direction = ft_ray_direction(world->camera, ray, points);
 			colour = ft_trace_ray(world, ray);
 			world->vp.color.r += colour.r;
 			world->vp.color.g += colour.g;

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 09:46:16 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/26 13:53:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:09:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 //f_diffuse function kd * cd * INVPI multiply by invpi to keep in account the
 //energy conservation
+//
+//kd + ks <= 1
 
 t_rgb	ft_f_diffuse(t_shaderec *shade, t_rgb material_color, double dotwi)
 {
@@ -29,7 +31,7 @@ t_rgb	ft_f_diffuse(t_shaderec *shade, t_rgb material_color, double dotwi)
 	material.g = material_color.g;
 	material.b = material_color.b;
 	kd = shade->kd;
-	kd = 0.75;
+	//kd = 0.4;
 	material = ft_rgb_scalar_product(material, kd);
 	material = ft_rgb_scalar_product(material, dotwi);
 	ret = ft_rgb_scalar_product(material, INVPI);
@@ -59,8 +61,8 @@ t_rgb point_light, double dotwi)
 		color.r = point_light.r;
 		color.g = point_light.g;
 		color.b = point_light.b;
-		color = ft_rgb_scalar_product(color, 0.2 * pow(r_wo, 15));
-		color = ft_rgb_scalar_product(color, 0.7);
+		color = ft_rgb_scalar_product(color, 0.6 * pow(r_wo, 25));
+		color = ft_rgb_scalar_product(color, 0.6);
 	}
 	return (color);
 }
@@ -75,7 +77,7 @@ t_rgb	ft_rho(t_shaderec *shade, t_rgb color)
 	ret.g = color.g;
 	ret.b = color.b;
 	kd = shade->kd;
-	kd = 0.25;
+	kd = 0.3;
 	ret = ft_rgb_scalar_product(ret, kd);
 	return (ret);
 }

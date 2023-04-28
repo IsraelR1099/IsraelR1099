@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:20:22 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/26 13:53:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:09:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ double dotwi)
 	lights[0].r = tmp_color.r;
 	lights[0].g = tmp_color.g;
 	lights[0].b = tmp_color.b;
-	if (tmp_color.r > 1 || tmp_color.g > 1 || tmp_color.b > 1)
-		printf("over color\n");
+	/*if (tmp_color.r > 1 || tmp_color.g > 1 || tmp_color.b > 1)
+		printf("over color\n");*/
 	return (lights[0]);
 }

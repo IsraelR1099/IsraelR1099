@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:48:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/26 13:35:59 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:14:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static t_rgb	ft_set_ambient(t_world *world, t_shaderec *shade)
 	l = ft_rgb_scalar_product(ambient_color, ambient.kd);
 	//rho = ft_rgb_scalar_product(shade->colour, ambient.kd);
 	rho = ft_rho(shade, shade->colour);
+	//rho = ft_rho(shade, ambient_color);
 	ambient_color = ft_rgb_product_vect(rho, l);
 	return (ambient_color);
 }
