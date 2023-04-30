@@ -26,37 +26,11 @@
 # define WIDTH 1080
 # define HEIGHT 720
 
-/*typedef struct	s_point2d
-{
-	double	x;
-	double	y;
-}	t_point2d;
-
-typedef struct	s_vector3d
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_vector3d;
-
-typedef struct	s_point3d
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_point3d;
-
-typedef struct	s_ray
-{
-	t_point3d	origin;
-	t_vector3d	direction;
-}	t_ray;*/
-
 void		ft_init(t_ambient *amb, t_object *obj);
 void		ft_render(t_world *world);
 t_ambient	*ft_find_amb(t_ambient *amb, int type);
 
 //mlx events
 int	key_event(int button, t_world *world);
-int	ft_destroy(t_window *mlx);
+int	ft_destroy(t_world *world);
 #endif

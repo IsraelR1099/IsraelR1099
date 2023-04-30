@@ -79,6 +79,7 @@ static int	ft_check_line(char *str)
 int	ft_check_grammar(int fd)
 {
 	char	*line;
+	char	*tmp;
 
 	line = ft_get_next_line(fd);
 	if (line == NULL)
@@ -86,7 +87,12 @@ int	ft_check_grammar(int fd)
 	while (line != NULL)
 	{
 		if (ft_check_line(line) < 0)
+		{
+			free(line);
 			return (-1);
+		}
+		tmp = line;
+		free(tmp);
 		line = ft_get_next_line(fd);
 	}
 	return (0);

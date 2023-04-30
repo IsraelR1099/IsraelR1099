@@ -29,4 +29,6 @@ typedef struct s_world
 }	t_world;
 
 void	ft_set_world(t_ambient *amb, t_object *obj, t_world *world);
+void	ft_set_init(t_light **lights, t_ambient *amb);
+int		ft_count_light(t_ambient *amb);
 #endif

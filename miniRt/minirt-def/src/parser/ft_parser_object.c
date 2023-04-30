@@ -20,6 +20,7 @@ static t_object	*ft_parse(char **str, char *estr)
 	char		*eftoken;
 
 	obj = malloc(sizeof(*obj));
+	ft_memset(obj, 0, sizeof(*obj));
 	if (!obj)
 		return (NULL);
 	while (ft_find_obj(str, estr, "sp")
@@ -44,8 +45,11 @@ t_object	*ft_parseobj(char *str)
 {
 	t_object	*obj;
 	char		*estr;
+	char		*tmp;
 
+	tmp = str;
 	estr = str + ft_strlen(str);
 	obj = ft_parse(&str, estr);
+	free(tmp);
 	return (obj);
 }

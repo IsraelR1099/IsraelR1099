@@ -13,8 +13,10 @@
 #ifndef WINDOW_H
 # define WINDOW_H
 
-# define HRES 1280
-# define VRES 720
+//# define HRES 1280
+//# define VRES 720
+# define HRES 2
+# define VRES 2
 
 typedef struct s_window
 {

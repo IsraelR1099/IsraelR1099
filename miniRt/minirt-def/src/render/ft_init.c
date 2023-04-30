@@ -15,9 +15,91 @@
 #include "../world/world.h"
 #include "../../mlx/mlx.h"
 
-int	ft_destroy(t_window *mlx)
+static void	ft_free_obj(t_world *world)
 {
-	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
+	t_sphere	*sphere;
+	t_plane		*plane;
+	t_cylinder	*cyl;
+	t_disk		*disk;
+	t_object	*tmp;
+
+	tmp = world->obj;
+	while (tmp)
+	{
+		if (tmp->type == sp)
+		{
+			sphere = (t_sphere *)tmp;
+			tmp = sphere->obj;
+			free(sphere);
+		}
+		else if (tmp->type == pl)
+		{
+			plane = (t_plane *)tmp;
+			tmp = plane->obj;
+			free(plane);
+		}
+		else if (tmp->type == cy)
+		{
+			cyl = (t_cylinder *)tmp;
+			tmp = cyl->obj;
+			free(cyl);
+		}
+		else if (tmp->type == di)
+		{
+			disk = (t_disk *)tmp;
+			tmp = disk->obj;
+			free(disk);
+		}
+		else
+			break ;
+	}
+	free(tmp);
+}
+
+static void	ft_free_amb(t_world *world)
+{
+	t_alight	*alight;
+	t_light		*light;
+	t_cam		*camera;
+	t_ambient	*tmp;
+
+	tmp = world->amb;
+	while (tmp)
+	{
+		if (tmp->type == A)
+		{
+			alight = (t_alight *)tmp;
+			tmp = alight->amb;
+			free(alight);
+		}
+		else if (tmp->type == C)
+		{
+			camera = (t_cam *)tmp;
+			tmp = camera->amb;
+			free(camera);
+		}
+		else if (tmp->type == L)
+		{
+			light = (t_light *)tmp;
+			tmp = light->amb;
+			free(light);
+		}
+		else
+			break ;
+		}
+		free(tmp);
+}
+
+
+int	ft_destroy(t_world *world)
+{
+	mlx_destroy_image(world->mlx->mlx, world->mlx->img);
+	mlx_destroy_window(world->mlx->mlx, world->mlx->mlx_win);
+	free(world->mlx);
+	free(world->camera);
+	ft_free_obj(world);
+	ft_free_amb(world);
+	free(world->lights);
 	exit(0);
 	return (1);
 }
@@ -41,6 +123,6 @@ void	ft_init(t_ambient *amb, t_object *obj)
 	world->mlx = mlx;
 	ft_render(world);
 	mlx_key_hook(world->mlx->mlx_win, key_event, world);
-	mlx_hook(mlx->mlx_win, 17, 0, ft_destroy, mlx);
+	mlx_hook(mlx->mlx_win, 17, 0, ft_destroy, world);
 	mlx_loop(mlx->mlx);
 }

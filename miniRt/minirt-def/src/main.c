@@ -63,6 +63,24 @@ static int	ft_len(int fd, int *bytes)
 	return (len);
 }
 
+static void	ft_free(char **str)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		tmp = str[i];
+		free(tmp);
+		i++;
+	}
+	printf("i en ft free es %d\n", i);
+	free(str);
+}
+
+
+
 char	*ft_lines(char *str, int fd)
 {
 	char	**ret;
@@ -80,13 +98,16 @@ char	*ft_lines(char *str, int fd)
 	if (!ret)
 		exit(ft_error("Malloc error", -1));
 	i = 0;
+	printf("len es %d\n", len);
 	while (len--)
 	{
 		ret[i] = ft_get_next_line(fd);
 		i++;
 	}
+	printf("i es %d\n", i);
 	ret[i] = NULL;
 	new_str = ft_delnul(ret, bytes);
+	ft_free(ret);
 	return (new_str);
 }
 

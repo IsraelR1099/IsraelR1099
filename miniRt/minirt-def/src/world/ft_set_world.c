@@ -49,7 +49,7 @@ static t_ambient	*ft_util_find_amb(t_ambient *tmp, int type)
 	return (tmp);
 }
 
-static int	ft_count_light(t_ambient *amb)
+int	ft_count_light(t_ambient *amb)
 {
 	t_ambient	*tmp;
 	int			ret;
@@ -85,6 +85,7 @@ static t_light	**ft_set_lights(t_ambient *amb)
 	lights = malloc(sizeof(t_light) * ft_count_light(amb));
 	if (!lights)
 		return (0);
+	ft_set_init(lights, amb);
 	tmp = amb;
 	i = 0;
 	while (tmp)

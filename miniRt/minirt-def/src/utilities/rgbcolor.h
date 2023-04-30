@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handler.c                                       :+:      :+:    :+:   */
+/*   rgbcolor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 10:08:24 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 10:20:59 by irifarac         ###   ########.fr       */
+/*   Created: 2023/03/10 11:01:51 by irifarac          #+#    #+#             */
+/*   Updated: 2023/03/20 10:03:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../mlx/mlx.h"
-#include "../../include/miniRT.h"
+#ifndef RGBCOLOR_H
+# define RGBCOLOR_H
 
-int	key_event(int button, t_world *world)
+typedef struct s_rgbcolor
 {
-	if (button == 53 || 65307)
-		ft_destroy(world);
-	return (0);
-}
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
+
+#endif

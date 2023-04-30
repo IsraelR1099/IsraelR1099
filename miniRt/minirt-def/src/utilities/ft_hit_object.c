@@ -109,7 +109,6 @@ t_shaderec *shade)
 			ft_hit_plane(tmp, world, ray, shade);
 		else if (tmp->type == cy)
 			ft_hit_cyl(tmp, world, ray, shade);
-//			ft_hit_cyl(tmp, world, ray, shade);
 		else if (tmp->type == di)
 			ft_hit_disk(tmp, world, ray, shade);
 		else

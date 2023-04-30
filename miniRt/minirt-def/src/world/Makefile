@@ -24,7 +24,7 @@ DEPENDS = $(patsubst %.c, %.d, $(SRC))
 #Carpetas
 OBJDIR = obj
 SRCDIR = ./
-SRC = ft_set_world.c
+SRC = ft_set_world.c ft_utils.c
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 

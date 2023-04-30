@@ -50,8 +50,11 @@ t_ambient	*ft_parseamb(char *str)
 {
 	t_ambient	*amb;
 	char		*estr;
+	char		*tmp;
 
+	tmp = str;
 	estr = str + ft_strlen(str);
 	amb = ft_parseline(&str, estr);
+	free(tmp);
 	return (amb);
 }

@@ -14,7 +14,7 @@
 
 static void	ft_move(char **tmp, char *estr, int *ret)
 {
-	ret = 0;
+	*ret = 0;
 	while ((*tmp < estr && !ft_compare(*tmp, "sp"))
 		&& !ft_compare(*tmp, "pl") && !ft_compare(*tmp, "cy")
 		&& !ft_compare(*tmp, "di"))
