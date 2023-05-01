@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/24 12:20:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/01 13:54:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static void	ft_free(char **str)
 		free(tmp);
 		i++;
 	}
-	printf("i en ft free es %d\n", i);
 	free(str);
 }
 

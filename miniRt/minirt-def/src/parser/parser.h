@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:40:54 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 11:28:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/01 13:54:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ t_object	*ft_build_disk(t_object *obj, char *ftoken, char *eftoken);
 int			ft_check_error(char **str);
 int			ft_error(const char *str, int ret);
 int			ft_check_grammar(int fd);
+int			ft_check_id(int fd);
 //Utils
 int			ft_strcmp(const char *str1, const char *str2);
 int			ft_strncmp(const char *str1, const char *str2, size_t number);

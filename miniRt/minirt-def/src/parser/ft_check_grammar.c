@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:43:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/26 11:27:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/01 13:54:06 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,7 @@ int	ft_check_grammar(int fd)
 		free(tmp);
 		line = ft_get_next_line(fd);
 	}
+	if (ft_check_id(fd) < 0)
+		return (-1);
 	return (0);
 }
