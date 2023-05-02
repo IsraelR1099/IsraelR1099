@@ -31,13 +31,70 @@ static int	ft_len(int fd)
 	return (len);
 }
 
-int	ft_check_id(int fd)
+static void	ft_free(char **str)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		tmp = str[i];
+		free(tmp);
+		i++;
+	}
+	free(str);
+}
+
+static int	ft_counter(char **lines, char type)
+{
+	char	**tmp;
+	int		i;
+	int		j;
+	int		counter;
+
+	i = 0;
+	counter = 0;
+	tmp = lines;
+	while (tmp[i] != NULL)
+	{
+		j = 0;
+		while (tmp[i][j])
+		{
+			if (tmp[i][j] == type)
+				counter++;
+			j++;
+		}
+		i++;
+	}
+	return (counter);
+}
+
+static int	ft_check(char **lines)
+{
+	int	count_alight;
+	int	count_camera;
+
+	count_alight = ft_counter(lines, 'A');
+	count_camera = ft_counter(lines, 'C');
+	printf("alight %d camera %d\n", count_alight, count_camera);
+	if (count_alight == 0 || count_alight > 1)
+		return (-1);
+	if (count_camera == 0 || count_camera > 1)
+		return (-1);
+	return (0);
+}
+
+int	ft_check_id(char *str)
 {
 	char	**lines;
 	int		i;
 	int		len;
+	int		fd;
 
+	fd = open(str, O_RDONLY);
 	len = ft_len(fd);
+	fd = open(str, O_RDONLY);
 	i = 0;
 	lines = malloc(sizeof(char *) * (len + 1));
 	if (!lines)
@@ -48,6 +105,12 @@ int	ft_check_id(int fd)
 		i++;
 	}
 	lines[i] = NULL;
+	if (ft_check(lines) < 0)
+	{
+		ft_free(lines);
+		return (-1);
+	}
+	ft_free(lines);
 	return (0);
 }
 

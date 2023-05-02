@@ -188,7 +188,7 @@ t_object	*ft_build_disk(t_object *obj, char *ftoken, char *eftoken);
 int			ft_check_error(char **str);
 int			ft_error(const char *str, int ret);
 int			ft_check_grammar(int fd);
-int			ft_check_id(int fd);
+int			ft_check_id(char *str);
 //Utils
 int			ft_strcmp(const char *str1, const char *str2);
 int			ft_strncmp(const char *str1, const char *str2, size_t number);

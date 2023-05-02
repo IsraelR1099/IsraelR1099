@@ -18,13 +18,13 @@ static int	ft_check_ident(char *str)
 		str++;
 	if (ft_strchr("ACL\n", *str))
 		return (0);
-	else if (!ft_strncmp("pl", str, 2))
+	else if (!ft_strncmp("pl ", str, 3))
 		return (0);
-	else if (!ft_strncmp("sp", str, 2))
+	else if (!ft_strncmp("sp ", str, 3))
 		return (0);
-	else if (!ft_strncmp("cy", str, 2))
+	else if (!ft_strncmp("cy ", str, 3))
 		return (0);
-	else if (!ft_strncmp("di", str, 2))
+	else if (!ft_strncmp("di ", str, 3))
 		return (0);
 	else
 		return (ft_error("No valid identifier", -1));
@@ -95,7 +95,6 @@ int	ft_check_grammar(int fd)
 		free(tmp);
 		line = ft_get_next_line(fd);
 	}
-	if (ft_check_id(fd) < 0)
-		return (-1);
+	close(fd);
 	return (0);
 }

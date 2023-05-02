@@ -49,5 +49,7 @@ int	ft_check_error(char **str)
 		return (ft_error("Wrong format", -1));
 	else if (ft_grammar(str[1]) < 0)
 		return (-1);
+	else if (ft_check_id(str[1]) < 0)
+		return (ft_error("Wrong number of ident", -1));
 	return (0);
 }
