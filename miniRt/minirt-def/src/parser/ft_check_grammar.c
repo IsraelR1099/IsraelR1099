@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:43:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/01 13:54:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/03 09:47:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static int	ft_check_ident(char *str)
 		str++;
 	if (ft_strchr("ACL\n", *str))
 		return (0);
-	else if (!ft_strncmp("pl ", str, 3))
+	else if (!ft_strncmp("pl ", str, 3) || !ft_strncmp("pl\t", str, 3))
 		return (0);
-	else if (!ft_strncmp("sp ", str, 3))
+	else if (!ft_strncmp("sp ", str, 3) || !ft_strncmp("sp\t", str, 3))
 		return (0);
-	else if (!ft_strncmp("cy ", str, 3))
+	else if (!ft_strncmp("cy ", str, 3) || !ft_strncmp("cy\t", str, 3))
 		return (0);
-	else if (!ft_strncmp("di ", str, 3))
+	else if (!ft_strncmp("di ", str, 3) || !ft_strncmp("di\t", str, 3))
 		return (0);
 	else
 		return (ft_error("No valid identifier", -1));

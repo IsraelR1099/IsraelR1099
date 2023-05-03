@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:26:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/01 09:53:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:43:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,13 @@ static t_light	**ft_set_lights(t_ambient *amb)
 			tmp = ft_util_find_amb(tmp, A);
 		else if (tmp->type == L)
 		{
-			lights[i] = (t_light *)ft_find_amb(tmp, L);
+			lights[i++] = (t_light *)ft_find_amb(tmp, L);
 			tmp = ft_util_find_amb(tmp, L);
 		}
 		else if (tmp->type == C)
 			tmp = ft_util_find_amb(tmp, C);
 		else
 			break ;
-		i++;
 	}
 	return (lights);
 }

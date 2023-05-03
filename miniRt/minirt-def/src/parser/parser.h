@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:40:54 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/01 13:54:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/03 11:50:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
+# include <limits.h>
 
 # define BUFFER_SIZE 1
 
@@ -189,6 +190,7 @@ int			ft_check_error(char **str);
 int			ft_error(const char *str, int ret);
 int			ft_check_grammar(int fd);
 int			ft_check_id(char *str);
+int			ft_leftovers(char *ftoken, char *eftoken);
 //Utils
 int			ft_strcmp(const char *str1, const char *str2);
 int			ft_strncmp(const char *str1, const char *str2, size_t number);

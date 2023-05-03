@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:56:32 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 10:14:54 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:30:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void		ft_render(t_world *world);
 t_ambient	*ft_find_amb(t_ambient *amb, int type);
 
 //mlx events
-int	key_event(int button, t_world *world);
-int	ft_destroy(t_world *world);
+int			key_event(int button, t_world *world);
+int			ft_destroy(t_world *world);
+//Utils
+t_object	*ft_free_advance(t_object *tmp);
+t_ambient	*ft_free_advance_amb(t_ambient *tmp);
 #endif

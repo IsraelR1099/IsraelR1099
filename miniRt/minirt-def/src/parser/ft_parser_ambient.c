@@ -6,12 +6,11 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:13:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/08 10:57:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/03 11:45:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-//#include "../../include/miniRT.h"
 
 static t_ambient	*ft_parse(char **str, char *estr)
 {

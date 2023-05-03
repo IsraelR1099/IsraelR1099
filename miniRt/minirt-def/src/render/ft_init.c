@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/07 14:07:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:33:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,39 +17,19 @@
 
 static void	ft_free_obj(t_world *world)
 {
-	t_sphere	*sphere;
-	t_plane		*plane;
-	t_cylinder	*cyl;
-	t_disk		*disk;
 	t_object	*tmp;
 
 	tmp = world->obj;
 	while (tmp)
 	{
 		if (tmp->type == sp)
-		{
-			sphere = (t_sphere *)tmp;
-			tmp = sphere->obj;
-			free(sphere);
-		}
+			tmp = ft_free_advance(tmp);
 		else if (tmp->type == pl)
-		{
-			plane = (t_plane *)tmp;
-			tmp = plane->obj;
-			free(plane);
-		}
+			tmp = ft_free_advance(tmp);
 		else if (tmp->type == cy)
-		{
-			cyl = (t_cylinder *)tmp;
-			tmp = cyl->obj;
-			free(cyl);
-		}
+			tmp = ft_free_advance(tmp);
 		else if (tmp->type == di)
-		{
-			disk = (t_disk *)tmp;
-			tmp = disk->obj;
-			free(disk);
-		}
+			tmp = ft_free_advance(tmp);
 		else
 			break ;
 	}
@@ -58,38 +38,22 @@ static void	ft_free_obj(t_world *world)
 
 static void	ft_free_amb(t_world *world)
 {
-	t_alight	*alight;
-	t_light		*light;
-	t_cam		*camera;
 	t_ambient	*tmp;
 
 	tmp = world->amb;
 	while (tmp)
 	{
 		if (tmp->type == A)
-		{
-			alight = (t_alight *)tmp;
-			tmp = alight->amb;
-			free(alight);
-		}
+			tmp = ft_free_advance_amb(tmp);
 		else if (tmp->type == C)
-		{
-			camera = (t_cam *)tmp;
-			tmp = camera->amb;
-			free(camera);
-		}
+			tmp = ft_free_advance_amb(tmp);
 		else if (tmp->type == L)
-		{
-			light = (t_light *)tmp;
-			tmp = light->amb;
-			free(light);
-		}
+			tmp = ft_free_advance_amb(tmp);
 		else
 			break ;
-		}
-		free(tmp);
+	}
+	free(tmp);
 }
-
 
 int	ft_destroy(t_world *world)
 {

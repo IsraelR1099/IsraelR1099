@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/26 12:33:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/03 11:33:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_object	*ft_build_sphere(t_object *obj, char *ftoken, char *eftoken)
 	sphere->r /= 255;
 	sphere->g /= 255;
 	sphere->b /= 255;
+	if (ft_leftovers(ftoken, eftoken) < 0)
+		exit (ft_error("leftovers sphere", -1));
 	sphere->obj = obj;
 	return ((t_object *)sphere);
 }
@@ -56,6 +58,8 @@ t_object	*ft_build_plane(t_object *obj, char *ftoken, char *eftoken)
 	plane->r /= 255;
 	plane->g /= 255;
 	plane->b /= 255;
+	if (ft_leftovers(ftoken, eftoken) < 0)
+		exit (ft_error("leftovers plane", -1));
 	plane->obj = obj;
 	return ((t_object *)plane);
 }
@@ -83,6 +87,8 @@ t_object	*ft_build_cylinder(t_object *obj, char *ftoken, char *eftoken)
 	cylinder->r /= 255;
 	cylinder->g /= 255;
 	cylinder->b /= 255;
+	if (ft_leftovers(ftoken, eftoken) < 0)
+		exit (ft_error("leftovers cylinder", -1));
 	cylinder->obj = obj;
 	return ((t_object *)cylinder);
 }
@@ -109,6 +115,8 @@ t_object	*ft_build_disk(t_object *obj, char *ftoken, char *eftoken)
 	disk->r /= 255;
 	disk->g /= 255;
 	disk->b /= 255;
+	if (ft_leftovers(ftoken, eftoken) < 0)
+		exit (ft_error("leftovers disk", -1));
 	disk->obj = obj;
 	return ((t_object *)disk);
 }

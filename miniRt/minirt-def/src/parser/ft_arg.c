@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/26 11:31:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/03 11:41:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ float	ft_coord(char **ftoken, char *eftoken)
 	while (tmp < eftoken && ft_strchr("\t\r\n\v ", *tmp))
 		tmp++;
 	ret = ft_fatoi(&tmp);
+	if (ret > INT_MAX)
+		exit(ft_error("Value too high", -1));
 	if (*tmp == ',')
 		tmp++;
 	*ftoken = tmp;
