@@ -66,7 +66,7 @@ t_rgb total_light, t_light *light)
 	return (total_light);
 }
 
-t_rgb	ft_shade_matte(t_world *world, t_shaderec *shade)
+t_rgb	ft_shade_phong(t_world *world, t_shaderec *shade)
 {
 	t_vector3d	dir[2];
 	t_rgb		total_light;

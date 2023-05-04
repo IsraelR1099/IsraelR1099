@@ -27,4 +27,5 @@ t_rgb	ft_rgb_sum(t_rgb first, t_rgb second);
 t_rgb	ft_max_to_one(t_rgb light_color);
 t_rgb	*ft_clamp_to_color(t_rgb *light_color);
 t_rgb	ft_rgb_product_vect(t_rgb first, t_rgb second);
+t_rgb	ft_rgb_division(t_rgb up, double scalar);
 #endif

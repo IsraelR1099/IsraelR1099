@@ -35,4 +35,5 @@ t_rgb		ft_f_matte(t_shaderec *shade, double dotwi);
 
 //Utils
 t_vector3d	ft_product(t_shaderec *shade, double dotwi);
+t_rgb		ft_calc_color(t_shaderec *shade, t_rgb point_light, double r_wo);
 #endif

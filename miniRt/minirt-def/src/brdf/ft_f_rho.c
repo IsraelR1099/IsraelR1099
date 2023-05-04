@@ -57,13 +57,7 @@ t_rgb point_light, double dotwi)
 	r = ft_sum_vect(negative_wi, product);
 	r_wo = ft_dot_product_vect(r, dir[0]);
 	if (r_wo > 0.00)
-	{
-		color.r = point_light.r;
-		color.g = point_light.g;
-		color.b = point_light.b;
-		color = ft_rgb_scalar_product(color, 0.6 * pow(r_wo, 25));
-		color = ft_rgb_scalar_product(color, 0.6);
-	}
+		color = ft_calc_color(shade, point_light, r_wo);
 	return (color);
 }
 
@@ -77,7 +71,7 @@ t_rgb	ft_rho(t_shaderec *shade, t_rgb color)
 	ret.g = color.g;
 	ret.b = color.b;
 	kd = shade->kd;
-	kd = 0.3;
+	kd = 0.5;
 	ret = ft_rgb_scalar_product(ret, kd);
 	return (ret);
 }

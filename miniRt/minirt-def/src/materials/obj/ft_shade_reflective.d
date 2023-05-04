@@ -1,6 +1,6 @@
-obj/ft_matte.o: ft_matte.c materials.h ../brdf/brdf.h \
- ../brdf/../color/rgbcolor.h ../brdf/../utilities/shaderec.h \
- ../brdf/../utilities/../world/world.h \
+obj/ft_shade_reflective.o: ft_shade_reflective.c materials.h \
+ ../brdf/brdf.h ../brdf/../color/rgbcolor.h \
+ ../brdf/../utilities/shaderec.h ../brdf/../utilities/../world/world.h \
  ../brdf/../utilities/../world/../cameras/cameras.h \
  ../brdf/../utilities/../world/../cameras/../parser/parser.h \
  ../brdf/../utilities/../world/../cameras/../maths/maths.h \

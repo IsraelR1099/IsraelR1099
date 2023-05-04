@@ -19,6 +19,6 @@
 # include "../world/world.h"
 # include "../materials/materials.h"
 
-t_rgb	ft_trace_ray(t_world *world, t_ray *ray);
+t_rgb	ft_trace_ray(t_world *world, t_ray *ray, int depth);
 
 #endif

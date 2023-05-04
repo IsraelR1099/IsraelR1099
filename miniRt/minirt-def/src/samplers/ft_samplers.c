@@ -40,7 +40,7 @@ size_t	ft_samplers(t_world *world, t_ray *ray, double c, double r)
 			points.x = 1 * (c - 0.5 * HRES + (q + 0.5) / num_samples);
 			points.y = 1 * (r - 0.5 * VRES + (p + 0.5) / num_samples);
 			ray->direction = ft_ray_direction(world->camera, ray, points);
-			colour = ft_trace_ray(world, ray);
+			colour = ft_trace_ray(world, ray, 0);
 			world->vp.color.r += colour.r;
 			world->vp.color.g += colour.g;
 			world->vp.color.b += colour.b;

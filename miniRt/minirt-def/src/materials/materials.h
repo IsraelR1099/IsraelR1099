@@ -19,6 +19,7 @@
 # include "../utilities/shaderec.h"
 # include "../lights/lights.h"
 # include "../color/rgbcolor.h"
+# include "../tracers/tracer.h"
 
 typedef struct s_matte
 {
@@ -27,5 +28,8 @@ typedef struct s_matte
 	t_rgb			(*ft_shade)(t_world * world, t_shaderec *shade);
 }	t_matte;
 
-t_rgb	ft_shade_matte(t_world *world, t_shaderec *shade);
+t_rgb	ft_shade_phong(t_world *world, t_shaderec *shade);
+t_rgb	ft_reflective_f(t_world *world, t_shaderec *shade, t_vector3d wo,
+t_vector3d *wi);
+t_rgb	ft_shade_reflective(t_world *world, t_shaderec *shade);
 #endif

@@ -42,6 +42,7 @@ typedef struct s_shaderec
 	double		ka;
 	double		kd;
 	double		t;
+	int			max_bounces;
 	int			type;
 }	t_shaderec;
 

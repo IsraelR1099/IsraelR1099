@@ -1,4 +1,4 @@
-obj/ft_matte.o: ft_matte.c materials.h ../brdf/brdf.h \
+obj/ft_reflective_f.o: ft_reflective_f.c materials.h ../brdf/brdf.h \
  ../brdf/../color/rgbcolor.h ../brdf/../utilities/shaderec.h \
  ../brdf/../utilities/../world/world.h \
  ../brdf/../utilities/../world/../cameras/cameras.h \
