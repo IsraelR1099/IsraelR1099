@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 12:39:43 by irifarac          #+#    #+#              #
-#    Updated: 2023/03/10 12:57:16 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/05 10:36:13 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ DEPENDS = $(patsubst %.c, %.d, $(SRC))
 #Carpetas
 OBJDIR = obj
 SRCDIR = ./
-SRC = ft_globaltrace.c
+SRC = ft_globaltrace.c ft_trace_reflective.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)

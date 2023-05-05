@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_disk.c                                    :+:      :+:    :+:   */
+/*   ft_check_rf_disk.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 09:53:40 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/05 10:58:46 by irifarac         ###   ########.fr       */
+/*   Created: 2023/05/05 10:56:57 by irifarac          #+#    #+#             */
+/*   Updated: 2023/05/05 12:51:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometricobj.h"
+#include "materials.h"
 
 static t_point3d	ft_hit(t_ray *ray, double t)
 {
@@ -73,7 +73,7 @@ static bool	ft_check_point(t_disk *disk, t_ray *ray, double t, double radius)
 	return (true);
 }
 
-double	ft_check_disk(t_cameras *camera, t_disk *disk, t_ray *ray)
+double	ft_check_rf_disk(t_disk *disk, t_ray *ray)
 {
 	t_vector3d	normal_disk;
 	bool		in_disk;
@@ -87,7 +87,7 @@ double	ft_check_disk(t_cameras *camera, t_disk *disk, t_ray *ray)
 	ret_b = ft_dot_product_vect(normal_disk, ray->direction);
 	if (ret_b == 0)
 		return (0);
-	t = ft_a_value(camera->eye, disk) / ret_b;
+	t = ft_a_value(ray->origin, disk) / ret_b;
 	if (t < KEPSILONDI)
 		return (0);
 	in_disk = ft_check_point(disk, ray, t, disk->radius);

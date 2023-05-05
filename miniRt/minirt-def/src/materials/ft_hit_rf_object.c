@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hit_object.c                                    :+:      :+:    :+:   */
+/*   ft_hit_rf_object.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 09:57:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/05 10:45:19 by irifarac         ###   ########.fr       */
+/*   Created: 2023/05/05 10:37:36 by irifarac          #+#    #+#             */
+/*   Updated: 2023/05/05 11:16:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shaderec.h"
+#include "materials.h"
 
-static void	ft_hit_sphere(t_object *tmp, t_world *world, t_ray *ray,
+static void	ft_hit_rf_sphere(t_object *tmp, t_ray *ray,
 t_shaderec *shade)
 {
 	t_sphere	*sphere;
 	double		t;
 
 	sphere = (t_sphere *)tmp;
-	t = ft_check_sphere(world->camera, sphere, ray);
+	t = ft_check_rf_sphere(sphere, ray);
 	if (t != 0 && t < shade->t)
 	{
 		shade->hit_object = true;
@@ -34,7 +34,7 @@ t_shaderec *shade)
 	}
 }
 
-static void	ft_hit_plane(t_object *tmp, t_world *world, t_ray *ray,
+static void	ft_hit_rf_plane(t_object *tmp, t_ray *ray,
 t_shaderec *shade)
 {
 	t_plane		*plane;
@@ -42,7 +42,7 @@ t_shaderec *shade)
 	double		t;
 
 	plane = (t_plane *)tmp;
-	t = ft_check_plane(world->camera, plane, ray);
+	t = ft_check_rf_plane(plane, ray);
 	if (t != 0 && t < shade->t)
 	{
 		normal_plane.x = plane->x_normal;
@@ -60,16 +60,15 @@ t_shaderec *shade)
 	}
 }
 
-static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray,
+static void	ft_hit_rf_cyl(t_object *tmp, t_ray *ray,
 t_shaderec *shade)
 {
 	(void)tmp;
-	(void)world;
 	(void)ray;
 	(void)shade;
 }
 
-static void	ft_hit_disk(t_object *tmp, t_world *world, t_ray *ray,
+static void	ft_hit_rf_disk(t_object *tmp, t_ray *ray,
 t_shaderec *shade)
 {
 	t_disk		*disk;
@@ -77,7 +76,7 @@ t_shaderec *shade)
 	double		t;
 
 	disk = (t_disk *)tmp;
-	t = ft_check_disk(world->camera, disk, ray);
+	t = ft_check_rf_disk(disk, ray);
 	if (t != 0 && t < shade->t)
 	{
 		normal_disk.x = disk->x_normal;
@@ -95,8 +94,7 @@ t_shaderec *shade)
 	}
 }
 
-t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray,
-t_shaderec *shade)
+t_shaderec	*ft_hit_rf_objects(t_object *obj, t_ray *ray, t_shaderec *shade)
 {
 	t_object	*tmp;
 
@@ -104,18 +102,16 @@ t_shaderec *shade)
 	while (tmp)
 	{
 		if (tmp->type == sp)
-			ft_hit_sphere(tmp, world, ray, shade);
+			ft_hit_rf_sphere(tmp, ray, shade);
 		else if (tmp->type == pl)
-			ft_hit_plane(tmp, world, ray, shade);
+			ft_hit_rf_plane(tmp, ray, shade);
 		else if (tmp->type == cy)
-			ft_hit_cyl(tmp, world, ray, shade);
+			ft_hit_rf_cyl(tmp, ray, shade);
 		else if (tmp->type == di)
-			ft_hit_disk(tmp, world, ray, shade);
+			ft_hit_rf_disk(tmp, ray, shade);
 		else
 			break ;
 		tmp = ft_advance(tmp);
 	}
-	//if (shade->hit_object == true)
-	//	printf("salgo de hit obj y obj es %d\n", shade->type);
 	return (shade);
 }

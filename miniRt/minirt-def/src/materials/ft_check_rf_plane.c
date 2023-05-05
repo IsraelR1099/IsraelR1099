@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_plane.c                                   :+:      :+:    :+:   */
+/*   ft_check_rf_plane.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 12:28:01 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/05 10:56:51 by irifarac         ###   ########.fr       */
+/*   Created: 2023/05/05 10:54:25 by irifarac          #+#    #+#             */
+/*   Updated: 2023/05/05 10:56:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometricobj.h"
+#include "materials.h"
 
 static double	ft_a_value(t_point3d eye, t_plane *plane)
 {
@@ -32,7 +32,7 @@ static double	ft_a_value(t_point3d eye, t_plane *plane)
 	return (ft_dot_product_vect(normal_plane, rest_point_orig));
 }
 
-double	ft_check_plane(t_cameras *camera, t_plane *plane, t_ray *ray)
+double	ft_check_rf_plane(t_plane *plane, t_ray *ray)
 {
 	t_vector3d	normal_plane;
 	double		ret_b;
@@ -44,7 +44,7 @@ double	ft_check_plane(t_cameras *camera, t_plane *plane, t_ray *ray)
 	ret_b = ft_dot_product_vect(normal_plane, ray->direction);
 	if (ret_b == 0)
 		return (0);
-	t = ft_a_value(camera->eye, plane) / ret_b;
+	t = ft_a_value(ray->origin, plane) / ret_b;
 	if (t < KEPSILONPL)
 		return (0);
 	return (t);

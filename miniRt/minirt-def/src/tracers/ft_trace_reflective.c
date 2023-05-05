@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_globaltrace.c                                   :+:      :+:    :+:   */
+/*   ft_trace_reflective.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 10:22:23 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/05 12:47:55 by irifarac         ###   ########.fr       */
+/*   Created: 2023/05/05 10:31:15 by irifarac          #+#    #+#             */
+/*   Updated: 2023/05/05 12:51:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ colour)
 	shade->max_bounces = 1;
 }
 
-t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
+t_rgb	ft_trace_reflective(t_world *world, t_ray *ray)
 {
 	t_shaderec	shade;
 	t_rgb		colour;
@@ -37,12 +37,11 @@ t_rgb	ft_trace_ray(t_world *world, t_ray *ray)
 	colour.g = 0;
 	colour.b = 0;
 	ft_shade_init(world, &shade, ray, colour);
-	ray->origin = world->camera->eye;
-	ft_hit_objects(world->obj, world, ray, &shade);
+	ft_hit_rf_objects(world->obj, ray, &shade);
 	if (shade.hit_object)
 	{
 		shade.ray = *ray;
-		matte.ft_shade = &ft_shade_reflective;
+		matte.ft_shade = &ft_shade_phong;
 		colour = matte.ft_shade(world, &shade);
 		return (colour);
 	}

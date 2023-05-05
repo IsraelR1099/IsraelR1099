@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_sphere.c                                  :+:      :+:    :+:   */
+/*   ft_check_rf_sphere.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 10:18:57 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/05 10:30:59 by irifarac         ###   ########.fr       */
+/*   Created: 2023/05/05 10:45:59 by irifarac          #+#    #+#             */
+/*   Updated: 2023/05/05 12:51:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometricobj.h"
+#include "materials.h"
 
 static double	ft_a_value(t_ray *ray)
 {
@@ -71,7 +71,7 @@ static double	ft_calc_t(double scalar_a, double scalar_b, double scalar_c)
 	return (0);
 }
 
-double	ft_check_sphere(t_cameras *camera, t_sphere *sphere, t_ray *ray)
+double	ft_check_rf_sphere(t_sphere *sphere, t_ray *ray)
 {
 	double	scalar_a;
 	double	scalar_b;
@@ -82,8 +82,8 @@ double	ft_check_sphere(t_cameras *camera, t_sphere *sphere, t_ray *ray)
 	if (!sphere)
 		return (0);
 	scalar_a = ft_a_value(ray);
-	scalar_b = ft_b_value(ray, sphere, camera->eye);
-	scalar_c = ft_c_value(sphere, camera->eye);
+	scalar_b = ft_b_value(ray, sphere, ray->origin);
+	scalar_c = ft_c_value(sphere, ray->origin);
 	ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
 	if (ret < 0)
 		return (0);
