@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 09:46:16 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/28 13:44:23 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/08 11:05:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_rgb	ft_f_diffuse(t_shaderec *shade, t_rgb material_color, double dotwi)
 	material.g = material_color.g;
 	material.b = material_color.b;
 	kd = shade->kd;
-	//kd = 0.4;
 	material = ft_rgb_scalar_product(material, kd);
 	material = ft_rgb_scalar_product(material, dotwi);
 	ret = ft_rgb_scalar_product(material, INVPI);

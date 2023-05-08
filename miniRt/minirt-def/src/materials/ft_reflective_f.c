@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:46:23 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/05 12:51:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:39:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_vector3d normal)
 	return (ret);
 }
 
-t_rgb	ft_reflective_f(t_world *world, t_shaderec *shade, t_vector3d wo,
+t_rgb	ft_reflective_f(t_shaderec *shade, t_vector3d wo,
 t_vector3d *wi)
 {
 	double		ndotwo;
@@ -57,6 +57,5 @@ t_vector3d *wi)
 	wi->x = tmp_wi.x;
 	wi->y = tmp_wi.y;
 	wi->z = tmp_wi.z;
-	(void)world;
 	return (ft_color_value(shade, wi, normal));
 }

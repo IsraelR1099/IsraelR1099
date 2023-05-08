@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:56:12 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/28 12:36:09 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/08 11:08:33 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,19 @@
 # include "../maths/maths.h"
 # include "../window/window.h"
 
+//d distance to viewplane
+//right vector u
+//up vector v
+//forward vector w
+
 typedef struct s_cameras
 {
 	t_point3d	eye;
 	t_point3d	lookat;
-	t_vector3d	right; //u
-	t_vector3d	up; //v
-	t_vector3d	forward; //w
-	double		d; //distance to viewplane
+	t_vector3d	right;
+	t_vector3d	up;
+	t_vector3d	forward;
+	double		d;
 }	t_cameras;
 
 t_cameras	*ft_build_camera(t_ambient *amb);

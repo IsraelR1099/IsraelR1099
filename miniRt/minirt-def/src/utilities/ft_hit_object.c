@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/05 10:45:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/08 11:11:18 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,5 @@ t_shaderec *shade)
 			break ;
 		tmp = ft_advance(tmp);
 	}
-	//if (shade->hit_object == true)
-	//	printf("salgo de hit obj y obj es %d\n", shade->type);
 	return (shade);
 }

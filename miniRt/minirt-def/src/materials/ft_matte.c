@@ -6,12 +6,13 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:48:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/05 11:03:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:04:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "materials.h"
 
+//ambient.kd lambertian surface
 static t_rgb	ft_set_ambient(t_world *world, t_shaderec *shade)
 {
 	t_lambertian	ambient;
@@ -21,18 +22,18 @@ static t_rgb	ft_set_ambient(t_world *world, t_shaderec *shade)
 	t_rgb			rho;
 
 	alight = (t_alight *)ft_find_amb(world->amb, A);
-	ambient.kd = alight->ratio; //Lambertian surface
+	ambient.kd = alight->ratio;
 	ambient_color.r = alight->r;
 	ambient_color.g = alight->g;
 	ambient_color.b = alight->b;
 	l = ft_rgb_scalar_product(ambient_color, ambient.kd);
-	//rho = ft_rgb_scalar_product(shade->colour, ambient.kd);
 	rho = ft_rho(shade, shade->colour);
-	//rho = ft_rho(shade, ambient_color);
 	ambient_color = ft_rgb_product_vect(rho, l);
 	return (ambient_color);
 }
 
+//dotwi cosine of the angle between the normal of the surface and the light
+//direction
 static t_rgb	ft_check(t_shaderec *shade, t_vector3d dir[2],
 t_rgb total_light, t_light *light)
 {
@@ -42,11 +43,8 @@ t_rgb total_light, t_light *light)
 	t_rgb		point_light;
 	t_rgb		lights[2];
 
-	normal.x = shade->normal_hit.x;
-	normal.y = shade->normal_hit.y;
-	normal.z = shade->normal_hit.z;
-	dotwi = ft_dot_product_vect(normal, dir[1]); //cosine of the angle between
-//	the surface normal and the light direction
+	normal = ft_normal_vector3d(shade);
+	dotwi = ft_dot_product_vect(normal, dir[1]);
 	if (dotwi > 0.0)
 	{
 		shade->in_shadow = false;
@@ -66,6 +64,8 @@ t_rgb total_light, t_light *light)
 	return (total_light);
 }
 
+//dir[0] == dir_wo
+//dir[1] == direction of lights verctor3d dir_wi
 t_rgb	ft_shade_phong(t_world *world, t_shaderec *shade)
 {
 	t_vector3d	dir[2];
@@ -75,25 +75,20 @@ t_rgb	ft_shade_phong(t_world *world, t_shaderec *shade)
 	int			i;
 
 	tmp = world->lights;
-	dir[0] = shade->ray.direction; //dir_wo
-	dir[0].x = (-1) * shade->ray.direction.x;
-	dir[0].y = (-1) * shade->ray.direction.y;
-	dir[0].z = (-1) * shade->ray.direction.z;
+	dir[0] = ft_dir_wo(shade);
 	total_light = ft_set_ambient(world, shade);
 	tmp_color = total_light;
-	i = 0;
-	while (tmp[i])
+	i = -1;
+	while (tmp[++i])
 	{
 		shade->kd = tmp[i]->ratio;
-		dir[1] = ft_get_dir(tmp[i], shade); //direction of the lights vector3d
-//		dir_wi
+		dir[1] = ft_get_dir(tmp[i], shade);
 		total_light = ft_check(shade, dir, total_light, tmp[i]);
 		if (total_light.r > 1 || total_light.g > 1 || total_light.b > 1)
 			total_light = ft_max_to_one(total_light);
 		if (shade->in_shadow == false)
 			total_light = ft_rgb_sum(total_light, tmp_color);
 		tmp_color = total_light;
-		i++;
 	}
 	if (total_light.r > 1 || total_light.g > 1 || total_light.b > 1)
 		total_light = ft_max_to_one(total_light);
