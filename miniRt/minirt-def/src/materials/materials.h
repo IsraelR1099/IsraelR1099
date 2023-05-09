@@ -44,4 +44,5 @@ double		ft_check_rf_disk(t_disk *disk, t_ray *ray);
 //Utils
 t_vector3d	ft_normal_vector3d(t_shaderec *shade);
 t_vector3d	ft_dir_wo(t_shaderec *shade);
+t_rgb	ft_ray_cast(t_world *world, t_shaderec *shade, t_vector3d *wi);
 #endif

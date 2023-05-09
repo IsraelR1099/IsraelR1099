@@ -31,7 +31,8 @@ SRC = ft_matte.c \
 	  ft_check_rf_sphere.c \
 	  ft_check_rf_plane.c \
 	  ft_hit_rf_object.c \
-	  ft_utils.c
+	  ft_utils.c \
+	  ft_sample_f.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
