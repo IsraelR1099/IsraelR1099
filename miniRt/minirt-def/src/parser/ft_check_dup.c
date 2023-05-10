@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:40:02 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/03 09:48:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:01:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static int	ft_check(char **lines)
 
 	count_alight = ft_counter(lines, 'A');
 	count_camera = ft_counter(lines, 'C');
-	printf("alight %d camera %d\n", count_alight, count_camera);
 	if (count_alight == 0 || count_alight > 1)
 		return (-1);
 	if (count_camera == 0 || count_camera > 1)

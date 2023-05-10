@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:21:31 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/03 11:44:55 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:38:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ static void	ft_free(char **str)
 	free(str);
 }
 
-
-
 char	*ft_lines(char *str, int fd)
 {
 	char	**ret;
@@ -97,13 +95,11 @@ char	*ft_lines(char *str, int fd)
 	if (!ret)
 		exit(ft_error("Malloc error", -1));
 	i = 0;
-	printf("len es %d\n", len);
 	while (len--)
 	{
 		ret[i] = ft_get_next_line(fd);
 		i++;
 	}
-	printf("i es %d\n", i);
 	ret[i] = NULL;
 	new_str = ft_delnul(ret, bytes);
 	ft_free(ret);

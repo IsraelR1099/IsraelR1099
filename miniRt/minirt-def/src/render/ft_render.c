@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:39:50 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/03 11:54:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:59:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,4 @@ void	ft_render(t_world *world)
 	}
 	mlx_put_image_to_window(world->mlx->mlx, world->mlx->mlx_win,
 		world->mlx->img, 0, 0);
-	printf("salgo de bucle\n");
 }

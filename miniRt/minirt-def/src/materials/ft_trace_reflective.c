@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:31:15 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/05 12:51:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:52:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_rgb	ft_trace_reflective(t_world *world, t_ray *ray)
 {
 	t_shaderec	shade;
 	t_rgb		colour;
-	t_matte		matte;
 
 	colour.r = 0;
 	colour.g = 0;
@@ -41,8 +40,7 @@ t_rgb	ft_trace_reflective(t_world *world, t_ray *ray)
 	if (shade.hit_object)
 	{
 		shade.ray = *ray;
-		matte.ft_shade = &ft_shade_phong;
-		colour = matte.ft_shade(world, &shade);
+		colour = ft_shade_phong(world, &shade);
 		return (colour);
 	}
 	return (colour);

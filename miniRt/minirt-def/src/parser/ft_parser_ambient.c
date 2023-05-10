@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:13:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/03 11:45:36 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:59:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static t_ambient	*ft_parse(char **str, char *estr)
 	while (ft_find(str, estr, "ACL"))
 	{
 		token = ft_getident(str, estr, &ftoken, &eftoken);
-		printf("token es %c\n", (char)token);
 		if (token == 'A')
 			amb = ft_build_alight(amb, ftoken, eftoken);
 		else if (token == 'C')
