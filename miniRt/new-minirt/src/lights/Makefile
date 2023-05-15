@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 10:07:31 by irifarac          #+#    #+#              #
-#    Updated: 2023/03/10 13:02:37 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/15 10:15:47 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 RED = \033[0;31m
 GREEN = \033[0;32m
-RED = \033[0m
+RESET = \033[0m
 
 NAME = liblights.a
 CFLAGS = -Wall -Wextra -Werror -MMD -g -O0
@@ -27,7 +27,12 @@ SRCDIR = ./
 SRC = ft_lights.c \
 		ft_sphere.c \
 		ft_hit_shadow.c \
-		ft_plane.c
+		ft_plane.c \
+		ft_utils.c \
+		ft_disk.c \
+		ft_cylon.c \
+		ft_cylon_utilities.c \
+		ft_cylon_utilities2.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)

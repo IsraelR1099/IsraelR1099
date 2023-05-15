@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 10:07:31 by irifarac          #+#    #+#              #
-#    Updated: 2023/03/10 12:59:09 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/01 13:54:18 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRC =	ft_error.c \
 		ft_getident.c \
 		ft_getobj.c \
 		ft_help_func.c\
-		ft_arg.c
+		ft_arg.c \
+		ft_check_dup.c
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 

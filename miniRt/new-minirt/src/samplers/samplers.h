@@ -6,12 +6,12 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:00:08 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/17 13:44:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:55:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SAMPLER_H
-# define SAMPLER_H
+#ifndef SAMPLERS_H
+# define SAMPLERS_H
 
 # include "../maths/maths.h"
 # include "../window/window.h"

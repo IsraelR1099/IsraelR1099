@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:18:57 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/31 12:17:18 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/05 10:30:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ static double	ft_calc_t(double scalar_a, double scalar_b, double scalar_c)
 	ret_negative = (-1) * scalar_b - sqrt(ret) / 2 * scalar_a;
 	if (ret_positive == ret_negative)
 		return (0);
-	if (ret_negative > kEpsilon)
+	if (ret_negative > KEPSILONSP)
 		return (ret_negative);
-	else if (ret_positive > kEpsilon)
+	else if (ret_positive > KEPSILONSP)
 		return (ret_positive);
 	return (0);
 }
@@ -81,17 +81,12 @@ double	ft_check_sphere(t_cameras *camera, t_sphere *sphere, t_ray *ray)
 
 	if (!sphere)
 		return (0);
-//	printf("ray x %f, y %f, z %f\n", ray->direction.x, ray->direction.y, ray->direction.z);
 	scalar_a = ft_a_value(ray);
 	scalar_b = ft_b_value(ray, sphere, camera->eye);
 	scalar_c = ft_c_value(sphere, camera->eye);
-	ret = scalar_b * scalar_b - ( 4 * scalar_a * scalar_c);
+	ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
 	if (ret < 0)
 		return (0);
 	calc_t = ft_calc_t(scalar_a, scalar_b, scalar_c);
-	/*if (calc_t < 0)
-		calc_t *= -1;*/
-	//printf("scalar_a %f, scalar b %f, scalar c %f\n", scalar_a, scalar_b, scalar_c);
-	//printf("calc t es %f\n", calc_t);
 	return (calc_t);
 }

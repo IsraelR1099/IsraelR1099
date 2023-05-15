@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:22 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/28 12:31:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/15 10:42:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray,
 t_point3d	ft_hit_point(t_ray *ray, double t);
 t_vector3d	ft_normalize(t_vector3d vector);
 t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_point3d hit_point);
+t_normal	ft_vect_normal_cyl(t_cylinder *cylon, t_point3d hit_point);
 t_object	*ft_advance(t_object *tmp);
 #endif

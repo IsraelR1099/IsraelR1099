@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:26:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 11:41:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/05 10:18:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_ambient	*ft_util_find_amb(t_ambient *tmp, int type)
 	return (tmp);
 }
 
-static int	ft_count_light(t_ambient *amb)
+int	ft_count_light(t_ambient *amb)
 {
 	t_ambient	*tmp;
 	int			ret;
@@ -85,6 +85,7 @@ static t_light	**ft_set_lights(t_ambient *amb)
 	lights = malloc(sizeof(t_light) * ft_count_light(amb));
 	if (!lights)
 		return (0);
+	ft_set_init(lights, amb);
 	tmp = amb;
 	i = 0;
 	while (tmp)
@@ -93,14 +94,13 @@ static t_light	**ft_set_lights(t_ambient *amb)
 			tmp = ft_util_find_amb(tmp, A);
 		else if (tmp->type == L)
 		{
-			lights[i] = (t_light *)ft_find_amb(tmp, L);
+			lights[i++] = (t_light *)ft_find_amb(tmp, L);
 			tmp = ft_util_find_amb(tmp, L);
 		}
 		else if (tmp->type == C)
 			tmp = ft_util_find_amb(tmp, C);
 		else
 			break ;
-		i++;
 	}
 	return (lights);
 }

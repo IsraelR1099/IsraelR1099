@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 10:07:31 by irifarac          #+#    #+#              #
-#    Updated: 2023/05/10 12:54:26 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/15 10:31:26 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,10 @@ SRC = ft_matte.c \
 	  ft_check_rf_plane.c \
 	  ft_hit_rf_object.c \
 	  ft_utils.c \
-	  ft_trace_reflective.c
+	  ft_trace_reflective.c \
+	  ft_check_rf_cylon.c \
+	  ft_check_rf_cylon_utilites.c \
+	  ft_check_rf_cylon_utilites2.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)

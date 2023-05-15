@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/08 10:55:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/03 11:20:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ t_ambient	*ft_build_alight(t_ambient *amb, char *ftoken, char *eftoken)
 	alight->r = ft_color(&ftoken, eftoken);
 	alight->g = ft_color(&ftoken, eftoken);
 	alight->b = ft_color(&ftoken, eftoken);
+	alight->r /= 255;
+	alight->g /= 255;
+	alight->b /= 255;
+	if (ft_leftovers(ftoken, eftoken) < 0)
+		exit(ft_error("leftovers ambient light", -1));
 	alight->amb = amb;
 	return ((t_ambient *)alight);
 }
@@ -45,6 +50,8 @@ t_ambient	*ft_build_cam(t_ambient *amb, char *ftoken, char *eftoken)
 	cam->y_normal = ft_normal(&ftoken, eftoken);
 	cam->z_normal = ft_normal(&ftoken, eftoken);
 	cam->fov = ft_fov(&ftoken, eftoken);
+	if (ft_leftovers(ftoken, eftoken) < 0)
+		exit(ft_error("leftovers cam", -1));
 	cam->amb = amb;
 	return ((t_ambient *)cam);
 }
@@ -65,6 +72,11 @@ t_ambient	*ft_build_light(t_ambient *amb, char *ftoken, char *eftoken)
 	light->r = ft_color(&ftoken, eftoken);
 	light->g = ft_color(&ftoken, eftoken);
 	light->b = ft_color(&ftoken, eftoken);
+	light->r /= 255;
+	light->g /= 255;
+	light->b /= 255;
+	if (ft_leftovers(ftoken, eftoken) < 0)
+		exit(ft_error("leftovers light", -1));
 	light->amb = amb;
 	return ((t_ambient *)light);
 }

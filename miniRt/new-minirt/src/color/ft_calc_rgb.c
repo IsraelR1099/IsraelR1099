@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:20:11 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/03 13:37:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/08 11:08:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,17 @@ t_rgb	ft_rgb_sum(t_rgb first, t_rgb second)
 	return (ret);
 }
 
-t_rgb	ft_clamp_color(t_rgb light_color)
+t_rgb	ft_max_to_one(t_rgb light_color)
 {
 	t_rgb	ret;
 	double	value;
 
-	printf("entro en clamp\n");
 	value = 1.00;
-	if (light_color.r > 255)
+	if (light_color.r > 1)
 		value = light_color.r;
-	else if (light_color.g > 255)
+	if (light_color.g > 1 && light_color.g > value)
 		value = light_color.g;
-	else if (light_color.b > 255)
+	if (light_color.b > 1 && light_color.b > value)
 		value = light_color.b;
 	ret.r = light_color.r / value;
 	ret.g = light_color.g / value;
@@ -61,3 +60,10 @@ t_rgb	ft_rgb_product_vect(t_rgb first, t_rgb second)
 	return (ret);
 }
 
+t_rgb	*ft_clamp_to_color(t_rgb *light_color)
+{
+	light_color->r = 1;
+	light_color->r = 1;
+	light_color->r = 1;
+	return (light_color);
+}

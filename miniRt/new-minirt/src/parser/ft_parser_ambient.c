@@ -6,12 +6,11 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:13:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/08 10:57:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:59:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-//#include "../../include/miniRT.h"
 
 static t_ambient	*ft_parse(char **str, char *estr)
 {
@@ -27,7 +26,6 @@ static t_ambient	*ft_parse(char **str, char *estr)
 	while (ft_find(str, estr, "ACL"))
 	{
 		token = ft_getident(str, estr, &ftoken, &eftoken);
-		printf("token es %c\n", (char)token);
 		if (token == 'A')
 			amb = ft_build_alight(amb, ftoken, eftoken);
 		else if (token == 'C')
@@ -50,8 +48,11 @@ t_ambient	*ft_parseamb(char *str)
 {
 	t_ambient	*amb;
 	char		*estr;
+	char		*tmp;
 
+	tmp = str;
 	estr = str + ft_strlen(str);
 	amb = ft_parseline(&str, estr);
+	free(tmp);
 	return (amb);
 }

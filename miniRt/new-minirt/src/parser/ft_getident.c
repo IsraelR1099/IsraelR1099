@@ -6,11 +6,33 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:30:16 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/08 10:56:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:54:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+static int	ft_list(char **tmp, int ret)
+{
+	if (**tmp == 0)
+		return (0);
+	else if (**tmp == 'A')
+	{
+		*tmp = *tmp + 1;
+		return (ret);
+	}
+	else if (**tmp == 'C')
+	{
+		*tmp = *tmp + 1;
+		return (ret);
+	}
+	else if (**tmp == 'L')
+	{
+		*tmp = *tmp + 1;
+		return (ret);
+	}
+	return (0);
+}
 
 int	ft_getident(char **str, char *estr, char **ftoken, char **eftoken)
 {
@@ -23,14 +45,8 @@ int	ft_getident(char **str, char *estr, char **ftoken, char **eftoken)
 	if (ftoken)
 		*ftoken = tmp;
 	ret = *tmp;
-	if (*tmp == 0)
-		return (0);
-	else if (*tmp == 'A')
-		tmp++;
-	else if (*tmp == 'C')
-		tmp++;
-	else if (*tmp == 'L')
-		tmp++;
+	if (*tmp == 'A' || *tmp == 'C' || *tmp == 'L')
+		ret = ft_list(&tmp, ret);
 	else
 	{
 		ret = 0;

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 09:39:50 by irifarac          #+#    #+#             */
-/*   Updated: 2023/03/24 13:44:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:59:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,20 @@ void	ft_render(t_world *world)
 
 	row = 0;
 	colour = 0;
-	while (row < vres)
+	while (row < VRES)
 	{
 		column = 0;
-		while (column < hres)
+		while (column < HRES)
 		{
+			world->vp.color.r = 0;
+			world->vp.color.g = 0;
+			world->vp.color.b = 0;
 			colour = ft_samplers(world, &ray, (float)column, (float)row);
 			ft_my_mlx_pxput(world->mlx, column, row, colour);
 			column++;
 		}
 		row++;
-		//printf("r %d, c %d, colour %d\n", row, column, colour);
 	}
-	mlx_put_image_to_window(world->mlx->mlx, world->mlx->mlx_win, world->mlx->img, 0, 0);
-//	printf("salgo de bucle\n");
+	mlx_put_image_to_window(world->mlx->mlx, world->mlx->mlx_win,
+		world->mlx->img, 0, 0);
 }

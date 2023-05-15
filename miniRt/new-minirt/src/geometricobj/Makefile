@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 11:23:23 by irifarac          #+#    #+#              #
-#    Updated: 2023/03/10 12:38:58 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/15 10:06:14 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,11 @@ DEPENDS = $(patsubst %.c, %.d, $(SRC))
 OBJDIR = obj
 SRCDIR = ./
 SRC = ft_check_sphere.c \
-		ft_check_plane.c
+		ft_check_plane.c \
+		ft_check_disk.c \
+		ft_check_cylon.c \
+		ft_check_cylon_utilities.c \
+		ft_check_cylon_utilities2.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)

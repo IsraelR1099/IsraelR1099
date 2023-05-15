@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 10:07:31 by irifarac          #+#    #+#              #
-#    Updated: 2023/03/10 13:02:37 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/15 10:41:51 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ OBJDIR = obj
 SRCDIR = ./
 SRC = ft_hit_object.c \
 	  ft_hit_point.c \
-	  ft_normal.c
+	  ft_normal.c \
+	  ft_utils.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
