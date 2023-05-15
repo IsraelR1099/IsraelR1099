@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:28:25 by irifarac          #+#    #+#              #
-#    Updated: 2023/05/14 20:49:32 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/15 13:48:11 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,11 @@ NAME = agenda
 
 OBJ_DIR = obj
 
-SRC = main.cpp
+SRC = main.cpp PhoneBook.cpp
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
-CPPFLAGS = -Wall -Wextra -Werror -pedantic -std=c89
+CPPFLAGS = -Wall -Wextra -Werror -pedantic -MMD -g
 
 all: $(NAME)
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.c Makefile
+$(OBJ_DIR)/%.o: %.c Makefile PhoneBook.hpp
 	@echo "$(GREEN)Compiling.. $<$(RESET)"
 	c++ $(CPPFLAGS) -c $< -o $@
 

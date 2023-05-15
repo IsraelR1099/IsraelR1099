@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:28:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/14 20:15:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:48:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ int	main(void)
 	while (line != "EXIT")
 	{
 		if (line == "ADD")
-			book.setContact();
+			book.ft_setContact(line);
 		else if (line == "SEARCH")
 		{
-			book.getContact();
-			book.search();
+			book.ft_getContact();
 		}
 		std::cout << "> " << std::flush;
 		std::cin >> line;
