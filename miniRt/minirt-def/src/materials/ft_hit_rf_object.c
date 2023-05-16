@@ -64,21 +64,28 @@ static void	ft_hit_rf_cyl(t_object *tmp, t_ray *ray,
 t_shaderec *shade)
 {
 	t_cylinder	*cylon;
+	t_point3d	hit_p;
+	double		limit[2];
 	double		t;
 
 	cylon = (t_cylinder *)tmp;
-	t = ft_check_rf_cylon(*cylon, *ray);
-	if (t != 0 && t < shade->t)
+	t = ft_check_rf_cyl(cylon, ray);
+	if (t != 0)
+	{
+		hit_p = ft_hit_point(ray, t);
+		ft_set_limits(cylon, limit);
+	}
+	if (t != 0 && t < shade->t && hit_p.y > limit[0] && hit_p.y < limit[1])
 	{
 		shade->hit_object = true;
 		shade->ray = *ray;
-		shade->normal_hit = ft_vect_normal_cyl(cylon, shade->hit_point);
 		shade->t = t;
 		shade->colour.r = cylon->r;
 		shade->colour.g = cylon->g;
 		shade->colour.b = cylon->b;
 		shade->type = cylon->type;
 		shade->hit_point = ft_hit_point(ray, t);
+		shade->normal_hit = ft_vect_normal_cyl(cylon, shade->hit_point);
 	}
 }
 

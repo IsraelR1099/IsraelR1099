@@ -26,8 +26,10 @@ double		ft_check_sphere(t_cameras *camera, t_sphere *sphere, t_ray *ray);
 double		ft_check_plane(t_cameras *camera, t_plane *plnae, t_ray *ray);
 double		ft_check_disk(t_cameras *camera, t_disk *disk, t_ray *ray);
 double		ft_check_cylon(t_cylinder cylon, t_ray ray);
+double		ft_check_cyl(t_cylinder *cyl, t_ray *ray);
 
 //Utilities cylinder
+void		ft_set_limits(t_cylinder *cyl, double limit[2]);
 void		ft_cyl_center_normal_rad(t_cylinder cylon, t_vector3d *cyl_normal,
 				t_vector3d *cyl_center);
 void		ft_ray_origin(t_ray ray, t_vector3d *ray_orig);

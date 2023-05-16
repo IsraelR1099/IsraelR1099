@@ -41,6 +41,7 @@ double		ft_check_rf_sphere(t_sphere *sphere, t_ray *ray);
 double		ft_check_rf_plane(t_plane *plane, t_ray *ray);
 double		ft_check_rf_disk(t_disk *disk, t_ray *ray);
 double		ft_check_rf_cylon(t_cylinder cylon, t_ray ray);
+double		ft_check_rf_cyl(t_cylinder *cyl, t_ray *ray);
 
 //Utils check cylon
 void		ft_cyl_center_normal_rad(t_cylinder cylon, t_vector3d *cyl_normal,

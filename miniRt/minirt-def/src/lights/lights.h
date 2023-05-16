@@ -29,6 +29,7 @@ double		ft_hit_sphere(t_sphere *sphere, t_ray ray);
 double		ft_hit_plane(t_plane *plane, t_ray ray);
 double		ft_hit_disk(t_disk *disk, t_ray ray);
 double		ft_hit_cylon(t_cylinder cylon, t_ray ray);
+double		ft_hit_cyl(t_cylinder *cyl, t_ray ray);
 bool		ft_in_shadow(t_ray shadow_ray, t_shaderec *shade, t_light *light);
 bool		ft_hit_shadow(t_ray ray, t_world *world, double t);
 t_object	*ft_advance(t_object *tmp);

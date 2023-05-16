@@ -42,7 +42,7 @@ static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
 	t_cylinder	*cylon;
 
 	cylon = (t_cylinder *)tmp;
-	distance = ft_hit_cylon(*cylon, ray);
+	distance = ft_hit_cyl(cylon, ray);
 	if (distance != 0 && distance < t_min)
 		return (true);
 	return (false);

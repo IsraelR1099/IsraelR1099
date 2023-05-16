@@ -56,26 +56,23 @@ t_vector3d	ft_normalize(t_vector3d vector)
 
 t_normal	ft_vect_normal_cyl(t_cylinder *cylon, t_point3d hit_point)
 {
-	t_vector3d	center_cyl;
-	t_vector3d	hit_p;
-	t_vector3d	rest;
+	t_vector3d	point;
+	t_vector3d	hit;
+	t_vector3d	center;
 	t_normal	ret;
-	double		magnitude;
+	double		radius;
 
-	center_cyl.x = cylon->x;
-	center_cyl.y = cylon->y;
-	center_cyl.z = cylon->z;
-	hit_p.x = hit_point.x;
-	hit_p.y = hit_point.y;
-	hit_p.z = hit_point.z;
-	rest = ft_rest_vect(hit_p, center_cyl);
-	magnitude = sqrt(rest.x * rest.x + rest.y * rest.y
-			+ rest.z * rest.z);
-	ret.x = rest.x / magnitude;
-	ret.y = rest.y / magnitude;
-	ret.z = rest.z / magnitude;
-	ret.x *= -1;
-	ret.y *= -1;
-	ret.z *= -1;
+	center.x = cylon->x;
+	center.y = cylon->y;
+	center.z = cylon->z;
+	hit.x = hit_point.x;
+	hit.y = hit_point.y;
+	hit.z = hit_point.z;
+	point = ft_rest_vect(hit, center);
+	point = ft_normalize(point);
+	radius = cylon->diameter / 2;
+	ret.x = point.x * radius;
+	ret.y = 0.0;
+	ret.z = point.z * radius;
 	return (ret);
 }

@@ -34,6 +34,7 @@ SRC = ft_matte.c \
 	  ft_utils.c \
 	  ft_trace_reflective.c \
 	  ft_check_rf_cylon.c \
+	  ft_check_rf_cyl.c \
 	  ft_check_rf_cylon_utilites.c \
 	  ft_check_rf_cylon_utilites2.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
