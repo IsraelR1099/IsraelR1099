@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/15 11:35:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/17 13:42:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,29 @@ static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray,
 t_shaderec *shade)
 {
 	t_cylinder	*cylon;
+	double		t;
+
+	(void)world;
+	cylon = (t_cylinder *)tmp;
+	t = ft_check_cylon(*cylon, *ray);
+	if (t != 0 && t < shade->t)
+	{
+		shade->hit_object = true;
+		shade->ray = *ray;
+		shade->t = t;
+		shade->colour.r = cylon->r;
+		shade->colour.g = cylon->g;
+		shade->colour.b = cylon->b;
+		shade->type = cylon->type;
+		shade->hit_point = ft_hit_point(ray, t);
+		shade->normal_hit = ft_vect_normal_cyl(cylon, shade->hit_point);
+	}
+}
+
+/*static void	ft_hit_cyl(t_object *tmp, t_world *world, t_ray *ray,
+t_shaderec *shade)
+{
+	t_cylinder	*cylon;
 	t_point3d	hit_p;
 	double		t;
 	double		limit[2];
@@ -71,8 +94,8 @@ t_shaderec *shade)
 	(void)world;
 	cylon = (t_cylinder *)tmp;
 	t = ft_check_cyl(cylon, ray);
-	/*if (t == 0)
-		printf("no entro\n");*/
+	if (t == 0)
+		printf("no entro\n");
 	if (t != 0)
 	{
 		hit_p = ft_hit_point(ray, t);
@@ -89,13 +112,13 @@ t_shaderec *shade)
 		shade->type = cylon->type;
 		shade->hit_point = ft_hit_point(ray, t);
 		shade->normal_hit = ft_vect_normal_cyl(cylon, shade->hit_point);
-	/*	printf("entro en cyl limit bottom %f top %f\n", limit[0], limit[1]);
+		printf("entro en cyl limit bottom %f top %f\n", limit[0], limit[1]);
 		printf("normal hit es x %f, y %f, z %f\n", shade->normal_hit.x,
 		shade->normal_hit.y, shade->normal_hit.z);
 		printf("t es %f\n", t);
-		exit(1);*/
+		exit(1);
 	}
-}
+}*/
 
 static void	ft_hit_disk(t_object *tmp, t_world *world, t_ray *ray,
 t_shaderec *shade)
