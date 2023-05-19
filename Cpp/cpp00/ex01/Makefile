@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:28:25 by irifarac          #+#    #+#              #
-#    Updated: 2023/05/15 13:48:11 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/19 12:23:12 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,14 @@ NAME = agenda
 
 OBJ_DIR = obj
 
-SRC = main.cpp PhoneBook.cpp
-OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
+SRC = main.cpp \
+	  PhoneBook.cpp \
+	  Contact.cpp \
+	  PhoneBook_utils.cpp
+OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
-CPPFLAGS = -Wall -Wextra -Werror -pedantic -MMD -g
+CPPFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -MMD -g
 
 all: $(NAME)
 
@@ -31,8 +34,9 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.c Makefile PhoneBook.hpp
+$(OBJ_DIR)/%.o: %.cpp Makefile PhoneBook.hpp
 	@echo "$(GREEN)Compiling.. $<$(RESET)"
+	@mkdir -p $(@D)
 	c++ $(CPPFLAGS) -c $< -o $@
 
 clean:
@@ -43,5 +47,17 @@ ifneq ("$(wildcard $(OBJ) $(DEP) $(OBJ_DIR))", "")
 else
 	@echo "$(RED)Los objetos no existen, no se borra $(RESET)"
 endif
+
+fclean: clean
+ifneq ("$(wildcard $(NAME))", "")
+	rm -f $(NAME)
+	@echo "$(GREEN)Ejecutable borrado ✅ $(RESET)"
+else
+	@echo "$(RED)El ejecutable no existe, no se borra ❌ $(RESET)"
+endif
+
+re: fclean all
+
+.PHONY: all clean fclean re
 
 
