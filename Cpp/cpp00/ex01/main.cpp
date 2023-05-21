@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:28:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/19 11:38:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:46:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int	main(void)
 		{
 			book.ft_getContact();
 		}
-		std::cout << "> " << std::flush;
-		std::cin >> line;
+		std::cout << "> ";
+		std::getline(std::cin, line);
 	}
+	book.ft_getContact();
 	return (0);
 }

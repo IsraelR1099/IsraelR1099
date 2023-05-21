@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 20:17:54 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/19 13:41:38 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:39:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <iostream>
 #include <string.h>
+#include <limits>
+#include <cstdlib>
 
 class	Contact
 {
