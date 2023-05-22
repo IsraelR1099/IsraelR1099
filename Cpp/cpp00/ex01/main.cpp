@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:28:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/21 21:46:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:19:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@
 int	main(void)
 {
 	PhoneBook	book;
+	size_t		i;
 	std::string	line = "";
 
+	i = 0;
 	while (line != "EXIT")
 	{
 		if (line == "ADD")
-			book.ft_setContact(line);
+		{
+			book.ft_setContact(line, i);
+			i++;
+		}
 		else if (line == "SEARCH")
 		{
 			book.ft_getContact();
@@ -30,6 +35,5 @@ int	main(void)
 		std::cout << "> ";
 		std::getline(std::cin, line);
 	}
-	book.ft_getContact();
 	return (0);
 }

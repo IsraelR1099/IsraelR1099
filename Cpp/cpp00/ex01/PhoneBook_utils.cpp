@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:39:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/21 21:03:18 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:00:07 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static bool	isValidString(const std::string &str)
 
 std::string	ft_first_name(void)
 {
-	std::string	new_line;
+	std::string	new_line = "";
 
 	std::cout << "First name: ";
-	std::getline(std::cin >> std::ws, new_line);
+	std::getline(std::cin, new_line);
 	while (!isValidString(new_line))
 	{
 		std::cout << "Parametro no valido, ingresar un valor nuevo." <<	std::endl;
@@ -70,7 +70,7 @@ std::string	ft_last_name(void)
 	std::string	new_line;
 
 	std::cout << "Last name: ";
-	std::getline(std::cin >> std::ws, new_line);
+	std::getline(std::cin, new_line);
 	while (!isValidString(new_line))
 	{
 		std::cout << "Parametro no valido. Ingresar valor de nuevo." << std::endl;
@@ -87,7 +87,7 @@ std::string	ft_nickname(void)
 	std::string	new_line;
 
 	std::cout << "Nickname: ";
-	std::getline(std::cin >> std::ws, new_line);
+	std::getline(std::cin, new_line);
 	while (!isValidString(new_line))
 	{
 		std::cout << "Parametro no valido. Ingresar valor de nuevo." << std::endl;
@@ -105,7 +105,7 @@ unsigned int	ft_phone_number(void)
 	int			ret;
 
 	std::cout << "Phone number: ";
-	std::getline(std::cin >> std::ws, number);
+	std::getline(std::cin, number);
 	while (number.empty() || !ft_is_nbr(number))
 	{
 		std::cout << "Parametro no valido. Ingresar valor de nuevo." << std::endl;
@@ -123,7 +123,7 @@ std::string	ft_secret(void)
 	std::string	new_line;
 
 	std::cout << "Dark secret: ";
-	std::getline(std::cin >> std::ws, new_line);
+	std::getline(std::cin, new_line);
 	while (!isValidString(new_line))
 	{
 		std::cin.clear();
