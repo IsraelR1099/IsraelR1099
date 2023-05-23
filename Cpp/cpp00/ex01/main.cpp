@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:28:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/22 10:19:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:23:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ int	main(void)
 	i = 0;
 	while (line != "EXIT")
 	{
+		std::cout << "> ";
+		if (!std::getline(std::cin, line))
+		{
+			if (std::cin.eof())
+			{
+				std::cout << "Ctrl + d was detected" << std::endl;
+				std::cin.clear();
+				break ;
+			}
+		}
 		if (line == "ADD")
 		{
 			book.ft_setContact(line, i);
@@ -32,8 +42,7 @@ int	main(void)
 		{
 			book.ft_getContact();
 		}
-		std::cout << "> ";
-		std::getline(std::cin, line);
+		line.clear();
 	}
 	return (0);
 }
