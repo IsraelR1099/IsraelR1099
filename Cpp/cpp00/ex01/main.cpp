@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:28:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/23 20:23:46 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/24 09:49:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(void)
 		{
 			book.ft_getContact();
 		}
-		line.clear();
 	}
 	return (0);
 }

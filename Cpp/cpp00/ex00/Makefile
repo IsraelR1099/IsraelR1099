@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/12 12:40:41 by irifarac          #+#    #+#              #
-#    Updated: 2023/05/12 13:20:06 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/24 11:11:10 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME = megaphone
 SRC = megaphone.cpp
 OBJ = $(SRC:%.cpp=%.o)
 
-CPPFLAGS = -Wall -Werror -Wextra
+CPPFLAGS = -Wall -Werror -Wextra -pedantic -std=c++98 -g
 
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 13:18:02 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/22 13:50:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/24 10:31:43 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	PhoneBook::ft_setContact(std::string line, size_t index)
 			read[i] = ft_secret();
 		i++;
 	}
-	if (index >= 7)
+	if (index > 7)
 	{
 		std::cout << "Indice de contacto demasiado alto, se remplaza el ultimo contacto."
 			<< std::endl;
@@ -58,6 +58,8 @@ void	PhoneBook::ft_setContact(std::string line, size_t index)
 	new_contact.ft_set(read[0], read[1], read[2], number, read[4], index);
 	contacts[index] = new_contact;
 	nbr_contacts++;
+	if (nbr_contacts >= 8)
+		nbr_contacts = 8;
 	std::cout << "Contacto agregado correctamente." << std::endl;
 }
 
@@ -73,7 +75,7 @@ void	PhoneBook::ft_getContact(void)
 	this->ft_show();
 	std::cout << "Escoja el indice del contacto: ";
 	std::cin >> index;
-	if (index > 0 && index < 9)
+	if (index > 0 && index < 9 && index <= (int)nbr_contacts)
 	{
 		index--;
 		contacts[index].ft_get();
@@ -116,7 +118,7 @@ void	PhoneBook::ft_show(void)
 		std::cout << "|";
 		if (contacts[i].ft_getNickName().length() >= 9)
 		{
-			str = contacts[i].ft_getLastName().substr(0, 9);
+			str = contacts[i].ft_getNickName().substr(0, 9);
 			std::cout << str << ".";
 		}
 		else
