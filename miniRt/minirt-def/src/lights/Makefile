@@ -33,7 +33,9 @@ SRC = ft_lights.c \
 		ft_cylon.c \
 		ft_cylon_utilities.c \
 		ft_cylon_utilities2.c \
-		ft_cyl.c
+		ft_cyl.c \
+		ft_cyly.c \
+		ft_cylz.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)

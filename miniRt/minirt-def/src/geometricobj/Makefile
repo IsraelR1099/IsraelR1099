@@ -30,7 +30,10 @@ SRC = ft_check_sphere.c \
 		ft_check_cyl.c \
 		ft_check_cylon_utilities.c \
 		ft_check_cylon_utilities2.c \
-		ft_check_cyl_utilities.c
+		ft_check_cyl_utilities.c \
+		ft_transform.c \
+		ft_check_cyly.c \
+		ft_check_cylz.c
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)

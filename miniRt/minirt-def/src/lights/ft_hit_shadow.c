@@ -36,7 +36,7 @@ static bool	ft_hit_pl(t_object *tmp, t_ray ray, double t_min)
 	return (false);
 }
 
-/*static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
+static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
 {
 	double		distance;
 	double		limit[2];
@@ -50,12 +50,14 @@ static bool	ft_hit_pl(t_object *tmp, t_ray ray, double t_min)
 		hit_p = ft_hit_point(&ray, distance);
 		ft_set_limits(cylon, limit);
 	}
-	if (distance != 0 && distance < t_min && hit_p.y > limit[0] && hit_p.y < limit[1])
+	//if (distance != 0 && distance < t_min && hit_p.x > limit[0] && hit_p.x < limit[1])
+	if (distance != 0 && distance < t_min && ft_check_limit(cylon, hit_p,
+	limit))
 		return (true);
 	return (false);
-}*/
+}
 
-static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
+/*static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
 {	
 	double		distance;
 	t_cylinder	*cylon;
@@ -65,7 +67,7 @@ static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
 	if (distance != 0 && distance < t_min)
 		return (true);
 	return (false);
-}
+}*/
 
 static bool	ft_hit_di(t_object *tmp, t_ray ray, double t_min)
 {
@@ -100,7 +102,7 @@ bool	ft_hit_shadow(t_ray ray, t_world *world, double t)
 			break ;
 		if (ret == true)
 			return (true);
-		tmp = ft_advance(tmp);
+		tmp = ft_l_advance(tmp);
 	}
 	return (ret);
 }

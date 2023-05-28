@@ -27,8 +27,13 @@ double		ft_check_plane(t_cameras *camera, t_plane *plnae, t_ray *ray);
 double		ft_check_disk(t_cameras *camera, t_disk *disk, t_ray *ray);
 double		ft_check_cylon(t_cylinder cylon, t_ray ray);
 double		ft_check_cyl(t_cylinder *cyl, t_ray *ray);
+double		ft_check_cyly(t_cylinder *cyl, t_ray *ray);
+double		ft_check_cylz(t_cylinder *cyl, t_ray *ray);
 
 //Utilities cylinder
+t_ray		ft_transform_ray(t_ray *ray);
+double		ft_check_normal(t_cylinder *cyl, t_ray *ray);
+int	ft_check_limit(t_cylinder *cyl, t_point3d hit_p, double limit[2]);
 void		ft_set_limits(t_cylinder *cyl, double limit[2]);
 void		ft_cyl_center_normal_rad(t_cylinder cylon, t_vector3d *cyl_normal,
 				t_vector3d *cyl_center);

@@ -54,6 +54,43 @@ t_vector3d	ft_normalize(t_vector3d vector)
 	return (normal);
 }
 
+/*static t_normal	ft_transform_normal(t_normal ret)
+{
+	t_normal	new_normal;
+
+	new_normal.x = ret.x * (cos(PI/2) - sin(PI/2));
+	new_normal.y = ret.y;
+	new_normal.z = ret.z * (cos(PI/2) + cos(PI/2));
+	return (new_normal);
+}*/
+
+static void	ft_check_n(t_cylinder *cyl, t_vector3d *point, double radius)
+{
+	t_vector3d	n;
+
+	n.x = cyl->x_normal;
+	n.y = cyl->y_normal;
+	n.z = cyl->z_normal;
+	if (n.x == 1 && n.y == 0 && n.z == 0)
+	{
+		point->x = 0.0;
+		point->y = point->y * radius;
+		point->z = point->z * radius;
+	}
+	else if (n.x == 0 && n.y == 1 && n.z == 0)
+	{
+		point->x = point->x * radius;
+		point->y = 0.0;
+		point->z = point->z * radius;
+	}
+	else if (n.x == 0 && n.y == 0 && n.z == 1)
+	{
+		point->x = point->x * radius;
+		point->y = point->y * radius;
+		point->z = 0.0;
+	}
+}
+
 t_normal	ft_vect_normal_cyl(t_cylinder *cylon, t_point3d hit_point)
 {
 	t_vector3d	point;
@@ -70,13 +107,15 @@ t_normal	ft_vect_normal_cyl(t_cylinder *cylon, t_point3d hit_point)
 	hit.z = hit_point.z;
 	point = ft_rest_vect(hit, center);
 	radius = cylon->diameter / 2;
-	point.x = point.x * radius;
+/*	point.x = point.x * radius;
 	point.y = 0.0;
-	point.z = point.z * radius;
+	point.z = point.z * radius;*/
+	ft_check_n(cylon, &point, radius);
 	point = ft_normalize(point);
 	ret.x = point.x;
 	ret.y = point.y;
 	ret.z = point.z;
+	//ret = ft_transform_normal(ret);
 	return (ret);
 /*	t_vector3d	hit_center;
 	t_vector3d	center;

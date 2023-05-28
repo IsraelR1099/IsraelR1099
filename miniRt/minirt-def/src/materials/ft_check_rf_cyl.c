@@ -18,7 +18,7 @@ static double	ft_calc_a(t_ray *ray)
 	double	first;
 	double	second;
 
-	first = ray->direction.x * ray->direction.x;
+	first = ray->direction.y * ray->direction.y;
 	second = ray->direction.z * ray->direction.z;
 	return (first + second);
 }
@@ -42,7 +42,7 @@ static double	ft_calc_b(t_cylinder *cyl, t_ray *ray)
 	cyl_center.y = cyl->y;
 	cyl_center.z = cyl->z;
 	pos_center = ft_rest_vect(origin, cyl_center);
-	first = ray->direction.x * pos_center.x;
+	first = ray->direction.y * pos_center.y;
 	second = ray->direction.z * pos_center.z;
 	return (2.0 * (first + second));
 }
@@ -57,7 +57,7 @@ static double	ft_calc_c(t_cylinder *cyl, t_ray *ray)
 
 /*	first = ray->origin.x * ray->origin.x;
 	second = ray->origin.z * ray->origin.z;*/
-	first = (ray->origin.x - cyl->x) * (ray->origin.x - cyl->x);
+	first = (ray->origin.y - cyl->y) * (ray->origin.y - cyl->y);
 	second = (ray->origin.z - cyl->z) * (ray->origin.z - cyl->z);
 	radius = cyl->diameter / 2;
 	return (first + second - (radius * radius));
@@ -93,6 +93,9 @@ double	ft_check_rf_cyl(t_cylinder *cyl, t_ray *ray)
 	double	scalar_c;
 	double	t;
 
+	t = ft_check_rf_normal(cyl, ray);
+	if (t > 0)
+		return (t);
 	scalar_a = ft_calc_a(ray);
 	scalar_b = ft_calc_b(cyl, ray);
 	scalar_c = ft_calc_c(cyl, ray);

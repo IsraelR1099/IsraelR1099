@@ -42,8 +42,11 @@ double		ft_check_rf_plane(t_plane *plane, t_ray *ray);
 double		ft_check_rf_disk(t_disk *disk, t_ray *ray);
 double		ft_check_rf_cylon(t_cylinder cylon, t_ray ray);
 double		ft_check_rf_cyl(t_cylinder *cyl, t_ray *ray);
+double		ft_check_rf_cyly(t_cylinder *cyl, t_ray *ray);
+double		ft_check_rf_cylz(t_cylinder *cyl, t_ray *ray);
 
 //Utils check cylon
+double		ft_check_rf_normal(t_cylinder *cyl, t_ray *ray);
 void		ft_cyl_center_normal_rad(t_cylinder cylon, t_vector3d *cyl_normal,
 				t_vector3d *cyl_center);
 void		ft_ray_origin(t_ray ray, t_vector3d *ray_orig);
