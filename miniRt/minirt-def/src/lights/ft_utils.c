@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:12:14 by irifarac          #+#    #+#             */
-/*   Updated: 2023/04/26 12:32:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/29 10:39:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ double	ft_check_l_normal(t_cylinder *cyl, t_ray *ray)
 	ret = 0;
 	if (n.x == 0 && n.y == 1 && n.z == 0)
 		ret = ft_hit_cyly(cyl, ray);
-	else if (n.x == 0 && n.y == 0 && n.z == 0)
+	else if (n.x == 0 && n.y == 0 && n.z == 1)
 		ret = ft_hit_cylz(cyl, ray);
 	return (ret);
 }
