@@ -32,6 +32,7 @@ SRC = ft_lights.c \
 		ft_disk.c \
 		ft_cylon.c \
 		ft_cylon_utilities.c \
+		ft_cil.c \
 		ft_cylon_utilities2.c \
 		ft_cyl.c \
 		ft_cyly.c \

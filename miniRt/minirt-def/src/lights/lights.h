@@ -30,6 +30,7 @@ double		ft_hit_plane(t_plane *plane, t_ray ray);
 double		ft_hit_disk(t_disk *disk, t_ray ray);
 double		ft_hit_cylon(t_cylinder cylon, t_ray ray);
 double		ft_hit_cyl(t_cylinder *cyl, t_ray ray);
+double		ft_hit_cil(t_cylinder *cyl, t_ray *ray);
 double		ft_hit_cyly(t_cylinder *cyl, t_ray *ray);
 double		ft_hit_cylz(t_cylinder *cyl, t_ray *ray);
 bool		ft_in_shadow(t_ray shadow_ray, t_shaderec *shade, t_light *light);

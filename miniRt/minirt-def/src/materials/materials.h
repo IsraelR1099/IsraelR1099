@@ -44,6 +44,7 @@ double		ft_check_rf_cylon(t_cylinder cylon, t_ray ray);
 double		ft_check_rf_cyl(t_cylinder *cyl, t_ray *ray);
 double		ft_check_rf_cyly(t_cylinder *cyl, t_ray *ray);
 double		ft_check_rf_cylz(t_cylinder *cyl, t_ray *ray);
+double		ft_check_rf_cil(t_cylinder *cyl, t_ray *ray);
 
 //Utils check cylon
 double		ft_check_rf_normal(t_cylinder *cyl, t_ray *ray);

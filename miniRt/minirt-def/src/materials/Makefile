@@ -35,6 +35,7 @@ SRC = ft_matte.c \
 	  ft_trace_reflective.c \
 	  ft_check_rf_cylon.c \
 	  ft_check_rf_cyl.c \
+	  ft_check_rf_cil.c \
 	  ft_check_rf_cyly.c \
 	  ft_check_rf_cylz.c \
 	  ft_check_rf_cylon_utilites.c \

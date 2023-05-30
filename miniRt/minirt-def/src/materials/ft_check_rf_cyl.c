@@ -88,19 +88,28 @@ static double	ft_check(double scalar_a, double scalar_b, double scalar_c)
 
 double	ft_check_rf_cyl(t_cylinder *cyl, t_ray *ray)
 {
-	double	scalar_a;
-	double	scalar_b;
-	double	scalar_c;
-	double	t;
+	t_vector3d	n;
+	double		scalar_a;
+	double		scalar_b;
+	double		scalar_c;
+	double		t;
 
+	n.x = cyl->x_normal;
+	n.y = cyl->y_normal;
+	n.z = cyl->z_normal;
 	t = ft_check_rf_normal(cyl, ray);
 	if (t > 0)
 		return (t);
-	scalar_a = ft_calc_a(ray);
-	scalar_b = ft_calc_b(cyl, ray);
-	scalar_c = ft_calc_c(cyl, ray);
-	t = ft_check(scalar_a, scalar_b, scalar_c);
-	if (t <= 0)
-		return (0);
+	if (n.x == 1 && n.y == 0 && n.z == 0)
+	{
+		scalar_a = ft_calc_a(ray);
+		scalar_b = ft_calc_b(cyl, ray);
+		scalar_c = ft_calc_c(cyl, ray);
+		t = ft_check(scalar_a, scalar_b, scalar_c);
+		if (t <= 0)
+			return (0);
+	}
+	else
+		t = 0;
 	return (t);
 }

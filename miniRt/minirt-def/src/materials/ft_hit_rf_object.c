@@ -60,14 +60,15 @@ t_shaderec *shade)
 	}
 }
 
-/*static void	ft_hit_rf_cyl(t_object *tmp, t_ray *ray,
+static void	ft_hit_rf_cyl(t_object *tmp, t_ray *ray,
 t_shaderec *shade)
 {
 	t_cylinder	*cylon;
 	double		t;
 
 	cylon = (t_cylinder *)tmp;
-	t = ft_check_rf_cylon(*cylon, *ray);
+	//t = ft_check_rf_cylon(*cylon, *ray);
+	t = ft_check_rf_cil(cylon, ray);
 	if (t != 0 && t < shade->t)
 	{
 		shade->hit_object = true;
@@ -80,9 +81,9 @@ t_shaderec *shade)
 		shade->hit_point = ft_hit_point(ray, t);
 		shade->normal_hit = ft_vect_normal_cyl(cylon, shade->hit_point);
 	}
-}*/
+}
 
-static void	ft_hit_rf_cyl(t_object *tmp, t_ray *ray,
+/*static void	ft_hit_rf_cyl(t_object *tmp, t_ray *ray,
 t_shaderec *shade)
 {
 	t_cylinder	*cylon;
@@ -111,7 +112,7 @@ t_shaderec *shade)
 		shade->normal_hit = ft_vect_normal_cyl(cylon, shade->hit_point);
 	}
 }
-
+*/
 static void	ft_hit_rf_disk(t_object *tmp, t_ray *ray,
 t_shaderec *shade)
 {

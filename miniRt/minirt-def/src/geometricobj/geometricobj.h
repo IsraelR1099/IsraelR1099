@@ -29,6 +29,7 @@ double		ft_check_cylon(t_cylinder cylon, t_ray ray);
 double		ft_check_cyl(t_cylinder *cyl, t_ray *ray);
 double		ft_check_cyly(t_cylinder *cyl, t_ray *ray);
 double		ft_check_cylz(t_cylinder *cyl, t_ray *ray);
+double		ft_check_cil(t_cylinder *cyl, t_ray *ray);
 
 //Utilities cylinder
 t_ray		ft_transform_ray(t_ray *ray);
