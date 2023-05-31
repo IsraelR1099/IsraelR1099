@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 12:27:51 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/15 10:14:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:36:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ double		ft_check_cylz(t_cylinder *cyl, t_ray *ray);
 double		ft_check_cil(t_cylinder *cyl, t_ray *ray);
 
 //Utilities cylinder
+double		ft_check_caps(t_cylinder *cyl, t_ray *ray);
+double		ft_cap_t(t_vector3d cap, t_ray *ray);
 t_ray		ft_transform_ray(t_ray *ray);
 double		ft_check_normal(t_cylinder *cyl, t_ray *ray);
 int	ft_check_limit(t_cylinder *cyl, t_point3d hit_p, double limit[2]);
@@ -46,4 +48,5 @@ void		swap_doubles(double *a, double *b);
 t_vector3d	a_sqrt(t_ray ray, t_vector3d cyl_normal);
 int			solve_quadratic(double quadratic[3], double *x0, double *x1);
 double		ft_return(double t1, double t0);
+bool		ft_cyl_inter(t_cylinder *cyl, t_ray *ray, double limits[2], double t);
 #endif

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:57:35 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/29 14:09:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:00:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ t_shaderec *shade)
 	cylon = (t_cylinder *)tmp;
 	//t = ft_check_cylon(*cylon, *ray);
 	t = ft_check_cil(cylon, ray);
-	if (t != 0 )
-	{
-		printf("t es %f\n", t);
-		exit(1);
-	}
 	if (t != 0 && t < shade->t)
 	{
 		shade->hit_object = true;
@@ -85,7 +80,8 @@ t_shaderec *shade)
 		shade->colour.b = cylon->b;
 		shade->type = cylon->type;
 		shade->hit_point = ft_hit_point(ray, t);
-		shade->normal_hit = ft_vect_normal_cyl(cylon, shade->hit_point);
+		printf("t es %f\n", t);
+		shade->normal_hit = ft_vect_normal_cyl(cylon, ray, shade->hit_point, t);
 	}
 }
 

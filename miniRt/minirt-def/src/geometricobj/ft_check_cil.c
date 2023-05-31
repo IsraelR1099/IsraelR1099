@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_cil.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/31 09:15:09 by irifarac          #+#    #+#             */
+/*   Updated: 2023/05/31 13:56:31 by irifarac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "geometricobj.h"
 
 static double	ft_calc_a(t_cylinder *cyl, t_ray *ray)
@@ -71,38 +83,44 @@ static double	ft_calc_c(t_cylinder *cyl, t_ray *ray)
 	return (dot_pro[3]);
 }
 
-static double	ft_calc_t(double scalar_a, double scalar_b, double scalar_c)
+static double	ft_calc_t(t_cylinder *cyl, t_ray *ray, double scalar[3])
 {
 	double	ret;
 	double	ret_positive;
 	double	ret_negative;
+	double	limits[2];
 
-	ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
-	ret_positive = (-1) * scalar_b + sqrt(ret) / (2 *scalar_a);
-	ret_negative = (-1) * scalar_b - sqrt(ret) / (2 * scalar_a);
+	ret = scalar[1] * scalar[1] - (4 * scalar[0] * scalar[2]);
+	ret_negative = (-1) * scalar[1] - sqrt(ret) / (2 * scalar[0]);
+	ret_positive = (-1) * scalar[1] + sqrt(ret) / (2 * scalar[0]);
+	ft_set_limits(cyl, limits);
 	if (ret_positive == ret_negative)
 		return (0);
-	if (ret_negative > KEPSILONSP)
+	if (ret_negative > KEPSILONSP && ft_cyl_inter(cyl, ray,
+			limits, ret_negative))
 		return (ret_negative);
-	else if (ret_positive > KEPSILONSP)
+	else if (ret_positive > KEPSILONSP && ft_cyl_inter(cyl, ray,
+			limits, ret_positive))
 		return (ret_positive);
 	return (0);
 }
 
 double	ft_check_cil(t_cylinder *cyl, t_ray *ray)
 {
-	double	scalar_a;
-	double	scalar_b;
-	double	scalar_c;
+	double	scalar[3];
 	double	ret;
 
-
-	scalar_a = ft_calc_a(cyl, ray);
-	scalar_b = ft_calc_b(cyl, ray);
-	scalar_c = ft_calc_c(cyl, ray);
-	ret = scalar_b * scalar_b - (4 * scalar_a * scalar_c);
+	scalar[0] = ft_calc_a(cyl, ray);
+	scalar[1] = ft_calc_b(cyl, ray);
+	scalar[2] = ft_calc_c(cyl, ray);
+	ret = scalar[1] * scalar[1] - (4 * scalar[0] * scalar[2]);
 	if (ret < 0)
+	{
+		ret = ft_check_caps(cyl, ray);
+		if (ret > 0)
+			return (ret);
 		return (0);
-	ret = ft_calc_t(scalar_a, scalar_b, scalar_c);
+	}
+	ret = ft_calc_t(cyl, ray, scalar);
 	return (ret);
 }

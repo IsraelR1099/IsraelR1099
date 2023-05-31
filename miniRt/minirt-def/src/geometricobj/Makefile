@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 11:23:23 by irifarac          #+#    #+#              #
-#    Updated: 2023/05/15 10:06:14 by irifarac         ###   ########.fr        #
+#    Updated: 2023/05/31 13:35:59 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRC = ft_check_sphere.c \
 		ft_check_cylon.c \
 		ft_check_cyl.c \
 		ft_check_cil.c \
+		ft_check_cil_util.c \
+		ft_check_caps.c \
 		ft_check_cylon_utilities.c \
 		ft_check_cylon_utilities2.c \
 		ft_check_cyl_utilities.c \
