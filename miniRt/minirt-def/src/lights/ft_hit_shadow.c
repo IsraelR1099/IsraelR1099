@@ -36,34 +36,12 @@ static bool	ft_hit_pl(t_object *tmp, t_ray ray, double t_min)
 	return (false);
 }
 
-/*static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
+static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
 {
 	double		distance;
-	double		limit[2];
-	t_cylinder	*cylon;
-	t_point3d	hit_p;
-
-	cylon = (t_cylinder *)tmp;
-	distance = ft_hit_cyl(cylon, ray);
-	if (distance != 0)
-	{
-		hit_p = ft_hit_point(&ray, distance);
-		ft_set_limits(cylon, limit);
-	}
-	//if (distance != 0 && distance < t_min && hit_p.x > limit[0] && hit_p.x < limit[1])
-	if (distance != 0 && distance < t_min && ft_check_limit(cylon, hit_p,
-	limit))
-		return (true);
-	return (false);
-}*/
-
-static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
-{	
-	double		distance;
 	t_cylinder	*cylon;
 
 	cylon = (t_cylinder *)tmp;
-	//distance = ft_hit_cylon(*cylon, ray);
 	distance = ft_hit_cil(cylon, &ray);
 	if (distance != 0 && distance < t_min)
 		return (true);

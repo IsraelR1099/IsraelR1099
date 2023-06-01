@@ -114,13 +114,15 @@ double	ft_hit_cil(t_cylinder *cyl, t_ray *ray)
 	scalar[1] = ft_calc_b(cyl, ray);
 	scalar[2] = ft_calc_c(cyl, ray);
 	ret = scalar[1] * scalar[1] - (4 * scalar[0] * scalar[2]);
-	if (ret < 0)
-	{
-		ret = ft_check_caps(cyl, ray);
-		if (ret > 0)
-			return (ret);
+	if (ret <= 0)
 		return (0);
-	}
 	ret = ft_calc_t(cyl, ray, scalar);
+	if (ret <= 0)
+	{
+		ret = ft_check_cap(cyl, ray);
+		if (ret <= 0)
+			return (0);
+		return (ret);
+	}
 	return (ret);
 }

@@ -31,6 +31,7 @@ SRC = ft_check_sphere.c \
 		ft_check_cil.c \
 		ft_check_cil_util.c \
 		ft_check_caps.c \
+		ft_check_cap.c \
 		ft_check_cylon_utilities.c \
 		ft_check_cylon_utilities2.c \
 		ft_check_cyl_utilities.c \

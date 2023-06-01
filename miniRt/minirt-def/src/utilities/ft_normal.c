@@ -124,7 +124,6 @@ double	ft_calc_m(t_cylinder *cyl, t_ray *ray, double t)
 	t_vector3d	center;
 	t_vector3d	ori_center;
 
-	printf("ray orign x %f\n", ray->origin.x);
 	orig.x = ray->origin.x;
 	orig.y = ray->origin.y;
 	orig.z = ray->origin.z;
@@ -142,6 +141,29 @@ double	ft_calc_m(t_cylinder *cyl, t_ray *ray, double t)
 	return (ret[2]);
 }
 
+/*double	ft_calc_m(t_cylinder *cyl, t_point3d hit_p)
+{
+	t_vector3d	hit;
+	t_vector3d	center;
+	t_vector3d	p_center;
+	t_vector3d	axis;
+	double		ret;
+
+	hit.x = hit_p.x;
+	hit.y = hit_p.y;
+	hit.z = hit_p.z;
+	center.x = cyl->x;
+	center.y = cyl->y;
+	center.z = cyl->z;
+	axis.x = cyl->x_normal;
+	axis.y = cyl->y_normal;
+	axis.z = cyl->z_normal;
+	p_center = ft_rest_vect(hit, center);
+	ret = ft_dot_product_vect(p_center, axis);
+	return (ret);
+}*/
+
+
 t_normal	ft_vect_normal_cyl(t_cylinder *cyl, t_ray *ray, t_point3d hit_p, double t)
 {
 	t_vector3d	tools[2];
@@ -150,6 +172,7 @@ t_normal	ft_vect_normal_cyl(t_cylinder *cyl, t_ray *ray, t_point3d hit_p, double
 	double		m;
 	t_normal	normal;
 
+	//m = ft_calc_m(cyl, hit_p);
 	m = ft_calc_m(cyl, ray, t);
 	tools[0].x = hit_p.x;
 	tools[0].y = hit_p.y;
@@ -167,5 +190,7 @@ t_normal	ft_vect_normal_cyl(t_cylinder *cyl, t_ray *ray, t_point3d hit_p, double
 	normal.x = ret[2].x;
 	normal.y = ret[2].y;
 	normal.z = ret[2].z;
+	(void)ray;
+	(void)t;
 	return (normal);
 }

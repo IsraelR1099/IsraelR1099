@@ -29,9 +29,10 @@ double		ft_check_cylon(t_cylinder cylon, t_ray ray);
 double		ft_check_cyl(t_cylinder *cyl, t_ray *ray);
 double		ft_check_cyly(t_cylinder *cyl, t_ray *ray);
 double		ft_check_cylz(t_cylinder *cyl, t_ray *ray);
-double		ft_check_cil(t_cylinder *cyl, t_ray *ray);
+double		ft_check_cil(t_cylinder *cyl, t_ray *ray, bool *plane);
 
 //Utilities cylinder
+double		ft_check_cap(t_cylinder *cyl, t_ray *ray);
 double		ft_check_caps(t_cylinder *cyl, t_ray *ray);
 double		ft_cap_t(t_vector3d cap, t_ray *ray);
 t_ray		ft_transform_ray(t_ray *ray);

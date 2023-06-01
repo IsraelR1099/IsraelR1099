@@ -21,18 +21,18 @@ void	ft_set_limits(t_cylinder *cyl, double limit[2])
 	n.z = cyl->z_normal;
 	if (n.x == 1 && n.y == 0 && n.z == 0)
 	{
-		limit[0] = cyl->x - (cyl->height / 2);
-		limit[1] = cyl->x + (cyl->height / 2);
+		limit[0] = cyl->x;
+		limit[1] = cyl->x - (cyl->height);
 	}
 	else if (n.x == 0 && n.y == 1 && n.z == 0)
 	{
-		limit[0] = cyl->y - (cyl->height / 2);
-		limit[1] = cyl->y + (cyl->height / 2);
+		limit[0] = cyl->y;
+		limit[1] = cyl->y - (cyl->height);
 	}
 	else if (n.x == 0 && n.y == 0 && n.z == 1)
 	{
-		limit[0] = cyl->z - (cyl->height / 2);
-		limit[1] = cyl->z + (cyl->height / 2);
+		limit[0] = cyl->z;
+		limit[1] = cyl->z - (cyl->height);
 	}
 }
 

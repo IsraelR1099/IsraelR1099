@@ -103,7 +103,7 @@ static double	ft_calc_t(t_cylinder *cyl, t_ray *ray, double scalar[3])
 	return (0);
 }
 
-double	ft_check_rf_cil(t_cylinder *cyl, t_ray *ray)
+double	ft_check_rf_cil(t_cylinder *cyl, t_ray *ray, bool *plane)
 {
 	double	scalar[3];
 	double	ret;
@@ -113,13 +113,16 @@ double	ft_check_rf_cil(t_cylinder *cyl, t_ray *ray)
 	scalar[1] = ft_calc_b(cyl, ray);
 	scalar[2] = ft_calc_c(cyl, ray);
 	ret = scalar[1] * scalar[1] - (4 * scalar[0] * scalar[2]);
-	if (ret < 0)
-	{
-		ret = ft_check_caps(cyl, ray);
-		if (ret > 0)
-			return (ret);
-		return (0);
-	}
+	if (ret <= 0)
+			return (0);
 	ret = ft_calc_t(cyl, ray, scalar);
+	if (ret <= 0)
+	{
+		ret = ft_check_cap(cyl, ray);
+		if (ret <= 0)
+			return (0);
+		*plane = true;
+		return (ret);
+	}
 	return (ret);
 }

@@ -50,10 +50,11 @@ bool	ft_cyl_inter(t_cylinder *cyl, t_ray *ray, double limits[2], double t)
 	hit[0].z = hit_p.z;
 	hit[1] = ft_rest_vect(hit[0], cyl_center);
 	hit_projection = ft_dot_product_vect(hit[1], axis);
-	if (hit_projection >= limits[0] && hit_projection <= limits[1])
-		return (true);
-//	if (hit_projection >= 0 && hit_projection <= cyl->height)
+//	if (hit_projection >= limits[0] && hit_projection <= limits[1])
 //		return (true);
+	if (hit_projection >= 0 && hit_projection <= cyl->height)
+		return (true);
+	(void)limits;
 	return (false);
 }
 
