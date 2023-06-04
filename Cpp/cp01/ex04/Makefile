@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:28:25 by irifarac          #+#    #+#              #
-#    Updated: 2023/06/02 20:36:31 by irifarac         ###   ########.fr        #
+#    Updated: 2023/06/03 20:12:03 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 RESET = \033[0m
 
-NAME = Weapon
+NAME = Sed
 
 OBJ_DIR = obj
 
-SRC = Weapon.cpp HumanA.cpp HumanB.cpp main.cpp
+SRC = main.cpp
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.cpp Makefile Weapon.hpp HumanA.hpp HumanB.hpp
+$(OBJ_DIR)/%.o: %.cpp Makefile
 	@echo "$(GREEN)Compiling.. $<$(RESET)"
 	@mkdir -p $(@D)
 	c++ $(CPPFLAGS) -c $< -o $@
