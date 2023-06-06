@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:18:04 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/29 10:30:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:44:56 by msoler-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,4 @@ t_vector3d	ft_normal_vector3d(t_shaderec *shade)
 	normal.y = shade->normal_hit.y;
 	normal.z = shade->normal_hit.z;
 	return (normal);
-}
-
-double	ft_check_rf_normal(t_cylinder *cyl, t_ray *ray)
-{
-
-	t_vector3d	n;
-	double		ret;
-
-	n.x = cyl->x_normal;
-	n.y = cyl->y_normal;
-	n.z = cyl->z_normal;
-	ret = 0;
-	if (n.x == 0 && n.y == 1 && n.z == 0)
-		ret = ft_check_rf_cyly(cyl, ray);
-	else if (n.x == 0 && n.y == 0 && n.z == 1)
-		ret = ft_check_rf_cylz(cyl, ray);
-	return (ret);
 }

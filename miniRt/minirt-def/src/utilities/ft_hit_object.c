@@ -65,10 +65,9 @@ t_shaderec *shade)
 {
 	t_cylinder	*cylon;
 	double		t;
-	static bool		plane = false;
 
 	cylon = (t_cylinder *)tmp;
-	t = ft_check_cil(cylon, ray, &plane);
+	t = ft_check_cylon(*cylon, *ray);
 	if (t != 0 && t < shade->t)
 	{
 		shade->hit_object = true;
@@ -79,14 +78,7 @@ t_shaderec *shade)
 		shade->colour.b = cylon->b;
 		shade->type = cylon->type;
 		shade->hit_point = ft_hit_point(ray, t);
-		if (plane == true)
-		{
-			shade->normal_hit.x = cylon->x_normal;
-			shade->normal_hit.y = cylon->y_normal;
-			shade->normal_hit.z = cylon->z_normal;
-		}
-		else
-			shade->normal_hit = ft_vect_normal_cyl(cylon, ray, shade->hit_point, t);
+		shade->normal_hit = ft_vect_normal_cyl(cylon, shade->hit_point);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 12:27:51 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/31 13:36:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:26:14 by msoler-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,15 @@ double		ft_check_sphere(t_cameras *camera, t_sphere *sphere, t_ray *ray);
 double		ft_check_plane(t_cameras *camera, t_plane *plnae, t_ray *ray);
 double		ft_check_disk(t_cameras *camera, t_disk *disk, t_ray *ray);
 double		ft_check_cylon(t_cylinder cylon, t_ray ray);
-double		ft_check_cyl(t_cylinder *cyl, t_ray *ray);
-double		ft_check_cyly(t_cylinder *cyl, t_ray *ray);
-double		ft_check_cylz(t_cylinder *cyl, t_ray *ray);
-double		ft_check_cil(t_cylinder *cyl, t_ray *ray, bool *plane);
-
-//Utilities cylinder
-double		ft_check_cap(t_cylinder *cyl, t_ray *ray);
-double		ft_check_caps(t_cylinder *cyl, t_ray *ray);
-double		ft_cap_t(t_vector3d cap, t_ray *ray);
-t_ray		ft_transform_ray(t_ray *ray);
-double		ft_check_normal(t_cylinder *cyl, t_ray *ray);
-int	ft_check_limit(t_cylinder *cyl, t_point3d hit_p, double limit[2]);
-void		ft_set_limits(t_cylinder *cyl, double limit[2]);
+//utilites check cylon
 void		ft_cyl_center_normal_rad(t_cylinder cylon, t_vector3d *cyl_normal,
 				t_vector3d *cyl_center);
 void		ft_ray_origin(t_ray ray, t_vector3d *ray_orig);
 double		distance(const t_vector3d p1, const t_vector3d p2);
-double		solve_plane(t_vector3d o, t_vector3d d, t_vector3d p_p,
-				t_vector3d p_nv);
+double		solve_plane(t_vector3d o, t_vector3d d,
+				t_vector3d p_p, t_vector3d p_nv);
 void		swap_doubles(double *a, double *b);
 t_vector3d	a_sqrt(t_ray ray, t_vector3d cyl_normal);
 int			solve_quadratic(double quadratic[3], double *x0, double *x1);
 double		ft_return(double t1, double t0);
-bool		ft_cyl_inter(t_cylinder *cyl, t_ray *ray, double limits[2], double t);
 #endif

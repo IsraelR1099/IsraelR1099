@@ -6,12 +6,11 @@
 /*   By: msoler-e <msoler-e@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:26:45 by msoler-e          #+#    #+#             */
-/*   Updated: 2023/05/12 12:35:44 by msoler-e         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:42:49 by msoler-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lights.h"
-#define EPSILON 1e-4
 
 t_vector3d	a_sqrt(t_ray ray, t_vector3d cyl_normal)
 {

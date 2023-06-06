@@ -6,12 +6,11 @@
 /*   By: msoler-e <msoler-e@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:12:28 by msoler-e          #+#    #+#             */
-/*   Updated: 2023/05/12 12:35:25 by msoler-e         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:42:39 by msoler-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lights.h"
-#define EPSILON 1e-4
 
 void	ft_cyl_center_normal_rad(t_cylinder cylon, t_vector3d *cyl_normal,
 t_vector3d *cyl_center)

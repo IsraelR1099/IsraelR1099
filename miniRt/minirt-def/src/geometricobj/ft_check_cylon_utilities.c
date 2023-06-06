@@ -6,12 +6,12 @@
 /*   By: msoler-e <msoler-e@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:12:28 by msoler-e          #+#    #+#             */
-/*   Updated: 2023/05/12 12:23:12 by msoler-e         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:13:34 by msoler-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "geometricobj.h"
-#define EPSILON 1e-4
+#define EPSILON 1e-10
 
 void	ft_cyl_center_normal_rad(t_cylinder cylon, t_vector3d *cyl_normal,
 t_vector3d *cyl_center)
@@ -39,14 +39,14 @@ double	distance(const t_vector3d p1, const t_vector3d p2)
 
 double	solve_plane(t_vector3d o, t_vector3d d, t_vector3d p_p, t_vector3d p_nv)
 {
-	double	x;
+	float	x;
 	double	denom;
 
 	denom = ft_dot_product_vect(p_nv, d);
 	if (denom == 0)
 		return (-1);
 	x = (ft_dot_product_vect(p_nv, ft_rest_vect(p_p, o))) / denom;
-	if (x > EPSILON)
+	if (fabsf(x) > EPSILON)
 		return (x);
 	else
 		return (-1);

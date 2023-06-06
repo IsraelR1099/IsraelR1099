@@ -6,7 +6,7 @@
 /*   By: msoler-e <msoler-e@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 11:55:59 by msoler-e          #+#    #+#             */
-/*   Updated: 2023/05/12 13:23:41 by msoler-e         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:16:52 by msoler-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ static double	caps_intersection_return(double id[2],
 	ft_ray_origin(ray, &ray_orig);
 	ip1 = ft_sum_vect(ray_orig, ft_product_vect_scalar(ray.direction, id[0]));
 	ip2 = ft_sum_vect(ray_orig, ft_product_vect_scalar(ray.direction, id[1]));
-//modificacio canviat && per ||
 	if ((id[0] != -1 && distance(ip1, cyl_center) <= cylon.diameter / 2)
-		|| (id[1] != -1 && distance(ip2, c2) <= cylon.diameter / 2))
+		&& (id[1] != -1 && distance(ip2, c2) <= cylon.diameter / 2))
 	{	
 		if (id[0] < id[1])
 			return (id[0]);

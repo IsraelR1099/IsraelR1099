@@ -22,6 +22,7 @@
 # include <limits.h>
 
 # define K_HUGE_VALUE INT_MAX
+# define EPSILON 1e-12
 
 typedef struct s_normal
 {
@@ -51,7 +52,7 @@ t_shaderec	*ft_hit_objects(t_object *obj, t_world *world, t_ray *ray,
 t_point3d	ft_hit_point(t_ray *ray, double t);
 t_vector3d	ft_normalize(t_vector3d vector);
 t_normal	ft_vect_normal_sphere(t_sphere *sphere, t_point3d hit_point);
-//t_normal	ft_vect_normal_cyl(t_cylinder *cylon, t_point3d hit_point);
-t_normal	ft_vect_normal_cyl(t_cylinder *cyl, t_ray *ray, t_point3d hit_p, double t);
+t_normal	ft_vect_normal_cyl(t_cylinder *cylon, t_point3d hit_point);
+//t_normal	ft_vect_normal_cyl(t_cylinder *cyl, t_ray *ray, t_point3d hit_p, double t);
 t_object	*ft_advance(t_object *tmp);
 #endif

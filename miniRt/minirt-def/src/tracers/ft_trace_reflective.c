@@ -6,11 +6,11 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:31:15 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/10 12:52:56 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:05:40 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "materials.h"
+#include "tracer.h"
 
 static void	ft_shade_init(t_world *world, t_shaderec *shade, t_ray *ray, t_rgb
 colour)
@@ -31,6 +31,7 @@ t_rgb	ft_trace_reflective(t_world *world, t_ray *ray)
 {
 	t_shaderec	shade;
 	t_rgb		colour;
+	t_matte		matte;
 
 	colour.r = 0;
 	colour.g = 0;
@@ -40,7 +41,8 @@ t_rgb	ft_trace_reflective(t_world *world, t_ray *ray)
 	if (shade.hit_object)
 	{
 		shade.ray = *ray;
-		colour = ft_shade_phong(world, &shade);
+		matte.ft_shade = &ft_shade_phong;
+		colour = matte.ft_shade(world, &shade);
 		return (colour);
 	}
 	return (colour);

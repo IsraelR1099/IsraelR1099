@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:59:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/05/31 10:40:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:11:19 by msoler-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static bool	ft_hit_pl(t_object *tmp, t_ray ray, double t_min)
 }
 
 static bool	ft_hit_cy(t_object *tmp, t_ray ray, double t_min)
-{
+{	
 	double		distance;
 	t_cylinder	*cylon;
 
 	cylon = (t_cylinder *)tmp;
-	distance = ft_hit_cil(cylon, &ray);
+	distance = ft_hit_cylon(*cylon, ray);
 	if (distance != 0 && distance < t_min)
 		return (true);
 	return (false);
@@ -81,7 +81,7 @@ bool	ft_hit_shadow(t_ray ray, t_world *world, double t)
 			break ;
 		if (ret == true)
 			return (true);
-		tmp = ft_l_advance(tmp);
+		tmp = ft_advance(tmp);
 	}
 	return (ret);
 }
