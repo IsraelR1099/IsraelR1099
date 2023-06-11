@@ -6,13 +6,14 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:36:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/05 12:55:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:52:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
+#include <cstring>
 
 static void	ft_check_line(std::string line, std::ofstream &outfile, char *s1, char *s2)
 {
@@ -52,7 +53,7 @@ static void	ft_replace(char **str, std::ifstream &file)
 
 	name = str[1];
 	name += ".replace";
-	outfile.open(name);
+	outfile.open(name.c_str());
 	if (!outfile.is_open())
 	{
 		std::cout << "El archivo no se pudo abrir" << std::endl;

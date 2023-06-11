@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 20:40:53 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/07 13:50:42 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/08 21:05:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,26 +105,76 @@ bool	Fixed::operator!=(const Fixed &copy) const
 	return (this->_fixedPoint != copy._fixedPoint);
 }
 
-Fixed	&Fixed::operator+(const Fixed &copy)
+Fixed	Fixed::operator+(const Fixed &copy) const
 {
-	this->_fixedPoint += copy._fixedPoint;
+	return (this->toFloat() + copy.toFloat());
+}
+
+Fixed	Fixed::operator-(const Fixed &copy) const
+{
+	return (this->toFloat() - copy.toFloat());
+}
+
+Fixed	Fixed::operator*(const Fixed &copy) const
+{
+	return (this->toFloat() * copy.toFloat());
+}
+
+Fixed	Fixed::operator/(const Fixed &copy) const
+{
+	return (this->toFloat() / copy.toFloat());
+}
+
+Fixed	Fixed::operator++(void)
+{
+	++_fixedPoint;
 	return (*this);
 }
 
-Fixed	&Fixed::operator-(const Fixed &copy)
+Fixed	Fixed::operator++(int)
 {
-	this->_fixedPoint -= copy._fixedPoint;
+	const Fixed	temp(*this);
+	++(*this);
+	return (temp);
+}
+
+Fixed	Fixed::operator--(void)
+{
+	--_fixedPoint;
 	return (*this);
 }
 
-Fixed &Fixed::operator*(const Fixed &copy)
+Fixed	Fixed::operator--(int)
 {
-	this->_fixedPoint *= copy._fixedPoint;
-	return (*this);
+	const Fixed	temp(*this);
+	--(*this);
+	return (temp);
 }
 
-Fixed	&Fixed::operator/(const Fixed &copy)
+Fixed	Fixed::min(Fixed &f1, Fixed &f2)
 {
-	this->_fixedPoint /= copy._fixedPoint;
-	return (*this);
+	if (f1 > f2)
+		return (Fixed(f2));
+	return (Fixed(f1));
+}
+
+Fixed	Fixed::min(const Fixed &f1, const Fixed &f2)
+{
+	if (f1 > f2)
+		return (Fixed(f2));
+	return (Fixed(f1));
+}
+
+Fixed	Fixed::max(Fixed &f1, Fixed &f2)
+{
+	if (f1 >= f2)
+		return (Fixed(f1));
+	return (Fixed(f2));
+}
+
+Fixed	Fixed::max(const Fixed &f1, const Fixed &f2)
+{
+	if (f1 >= f2)
+		return (Fixed(f1));
+	return (Fixed(f2));
 }

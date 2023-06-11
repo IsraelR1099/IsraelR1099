@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 20:16:28 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/07 13:50:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/08 21:03:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,18 @@ class	Fixed
 		bool	operator<=(const Fixed &copy) const;
 		bool	operator==(const Fixed &copy) const;
 		bool	operator!=(const Fixed &copy) const;
-		Fixed	&operator+(const Fixed &copy);
-		Fixed	&operator-(const Fixed &copy);
-		Fixed	&operator*(const Fixed &copy);
-		Fixed	&operator/(const Fixed &copy);
+		Fixed	operator+(const Fixed &copy) const;
+		Fixed	operator-(const Fixed &copy) const;
+		Fixed	operator*(const Fixed &copy) const;
+		Fixed	operator/(const Fixed &copy) const;
+		Fixed	operator++(void);
+		Fixed	operator--(void);
+		Fixed	operator++(int);
+		Fixed	operator--(int);
+		static Fixed	min(Fixed &f1, Fixed &f2);
+		static Fixed	min(const Fixed &f1, const Fixed &f2);
+		static Fixed	max(Fixed &f1, Fixed &f2);
+		static Fixed	max(const Fixed &f1, const Fixed &f2);
 	private:
 		int					_fixedPoint;
 		static int const	_fractBits = 8;
