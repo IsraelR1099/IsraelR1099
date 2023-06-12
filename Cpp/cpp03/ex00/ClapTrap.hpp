@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 11:08:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/12 09:47:18 by irifarac         ###   ########.fr       */
+/*   Created: 2023/06/12 10:01:52 by irifarac          #+#    #+#             */
+/*   Updated: 2023/06/12 11:27:18 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.hpp"
+#ifndef CLAPTRAP_HPP
+#define CLAPTRAP_HPP
 
-int	main(void)
+# include <string>
+# include <iostream>
+
+class	ClapTrap
 {
-	Harl	test;
-
-	std::cout << "Debug" << std::endl;
-	test.complain("1");
-	std::cout << "Info" << std::endl;
-	test.complain("2");
-	std::cout << "Warning" << std::endl;
-	test.complain("3");
-	std::cout << "Error" << std::endl;
-	test.complain("4");
-	std::cout << "Whatever value" << std::endl;
-	test.complain("a1");
-	return (0);
-}
+	public:
+		ClapTrap(std::string name);
+		~ClapTrap(void);
+		void	attack(const std::string &target);
+		void	takeDamage(unsigned int amount);
+		void	beRepaired(unsigned int amount);
+	private:
+		std::string		_name;
+		unsigned int	_hitPoints;
+		unsigned int	_energyPoints;
+		unsigned int	_damage;
+};
+#endif

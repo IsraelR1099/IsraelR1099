@@ -5,26 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 11:08:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/12 09:47:18 by irifarac         ###   ########.fr       */
+/*   Created: 2023/06/12 10:10:24 by irifarac          #+#    #+#             */
+/*   Updated: 2023/06/12 14:14:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.hpp"
+#include "ClapTrap.hpp"
 
 int	main(void)
 {
-	Harl	test;
+	ClapTrap	aggression1("first");
 
-	std::cout << "Debug" << std::endl;
-	test.complain("1");
-	std::cout << "Info" << std::endl;
-	test.complain("2");
-	std::cout << "Warning" << std::endl;
-	test.complain("3");
-	std::cout << "Error" << std::endl;
-	test.complain("4");
-	std::cout << "Whatever value" << std::endl;
-	test.complain("a1");
+	aggression1.attack("hola");
+	aggression1.beRepaired(-3);
+	aggression1.takeDamage(2);
 	return (0);
 }
