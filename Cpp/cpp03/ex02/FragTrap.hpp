@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 21:02:33 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/21 11:17:19 by irifarac         ###   ########.fr       */
+/*   Created: 2023/06/21 10:51:50 by irifarac          #+#    #+#             */
+/*   Updated: 2023/06/21 11:38:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_HPP
-#define SCAVTRAP_HPP
+#ifndef FRAGTRAP_HPP
+#define FRAGTRAP_HPP
 
 # include <iostream>
 # include "ClapTrap.hpp"
 
-class	ScavTrap : public ClapTrap
+class	FragTrap : public ClapTrap
 {
 	public:
-		ScavTrap(void);
-		ScavTrap(std::string name);
-		ScavTrap(ScavTrap const &obj);
-		~ScavTrap(void);
-		ScavTrap &operator=(ScavTrap const &obj);
-		void guardGate(void);
+		FragTrap(void);
+		FragTrap(std::string name);
+		FragTrap(FragTrap const &obj);
+		~FragTrap(void);
+		FragTrap &operator=(FragTrap const &obj);
+		void	highFivesGuys(void);
 };
 #endif
