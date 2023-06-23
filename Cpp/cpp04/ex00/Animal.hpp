@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:17:30 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/22 20:20:44 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/23 10:39:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class	Animal
 	public:
 		Animal(void);
 		Animal(const Animal &obj);
-		~Animal(void);
+		virtual	~Animal(void);
 		Animal &operator=(const Animal &obj);
 
 		std::string		getType(void) const;

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:03 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/22 20:45:58 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/23 09:33:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ Dog &Dog::operator=(const Dog &obj)
 
 void	Dog::makeSound(void) const
 {
-	std::cout << "Dog sound: Woof woof" << std::endl;
+	std::cout << "Woof woof" << std::endl;
 }
 
 std::string	Dog::getType(void) const

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 20:15:19 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/22 20:17:25 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/23 09:49:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 WrongAnimal::WrongAnimal(void)
 {
 	std::cout << "WrongAnimal constructor called" << std::endl;
+	this->_type = "WrongAnimal";
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal &obj)
@@ -36,7 +37,7 @@ WrongAnimal	&WrongAnimal::operator=(const WrongAnimal &obj)
 
 void	WrongAnimal::makeSound(void) const
 {
-	std::cout << "WrongAnimal sound" << std::endl;
+	std::cout << "WrongAnimal is making noise" << std::endl;
 }
 
 std::string	WrongAnimal::getType(void) const
