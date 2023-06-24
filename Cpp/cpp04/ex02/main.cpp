@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 20:06:07 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/24 14:12:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:47:16 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "Brain.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
+#include "AAnimal.hpp"
 
 //test virtual functions and polymorphism
 void	testEval(void)
@@ -30,6 +31,8 @@ int	main(void)
 {
 	const int n = 6;
 	Animal *animal[n];
+	//AAnimal test;
+	Animal test2;
 
 	for (int i = 0; i < n/2; i++)
 		animal[i] = new Dog();
