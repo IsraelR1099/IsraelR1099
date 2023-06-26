@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:08:15 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/25 20:44:59 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:42:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int ft_getcmd(char **str, int counter)
 	int	j;
 	int	len;
 
-	i = 0;
+	i = 1;
 	j = 0;
 	len = 0;
 	while (str[i][j] != '\0')
@@ -49,15 +49,43 @@ static int ft_getcmd(char **str, int counter)
 	return (len);
 }
 
+char	*ft_copy(char *buf, char **str, int len)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	j = 1;
+	k = 0;
+	while (i < len)
+	{
+		buf[i] = str[j][k];
+		if (str[j][k] == '\0')
+		{
+			buf[i] = ' ';
+			i++;
+			j++;
+			k = 0;
+			continue ;
+		}
+		i++;
+		k++;
+	}
+	return (buf);
+}
+
 int	main(int counter, char **str)
 {
 	char	*buf;
 	int		len;
 
 	len = ft_getcmd(str, counter);
-	buf = (char *)malloc(sizeof(char) * len);
+	printf("len es %d\n", len);
+	buf = (char *)malloc(sizeof(char) * len + 1);
 	if (!buf)
 		return (0);
+	buf = ft_copy(buf, str, len);
 	buf[len] = '\0';
 	if (buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' ')
 	{
