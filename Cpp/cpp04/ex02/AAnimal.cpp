@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:30:46 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/24 17:40:29 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:56:27 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,9 @@ AAnimal &AAnimal::operator=(const AAnimal &obj)
 		return (*this);
 	*this = obj;
 	return (*this);
+}
+
+std::string	AAnimal::getType(void) const
+{
+	return (this->_type);
 }

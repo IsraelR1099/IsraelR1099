@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 20:06:07 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/24 14:12:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:40:09 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "WrongCat.hpp"
 
 //test virtual functions and polymorphism
-void	testEval(void)
+static void	testEval(void)
 {
 	std::cout << "\n" << std::endl;
 	Dog basic;
@@ -39,6 +39,7 @@ int	main(void)
 		animal[i]->makeSound();
 	for (int i = 0; i < n; i++)
 		delete animal[i];
+	std::cout << "eval test" << std::endl;
 	testEval();
 	return (0);
 }

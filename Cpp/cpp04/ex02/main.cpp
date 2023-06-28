@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 20:06:07 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/24 17:47:16 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:03:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 #include "AAnimal.hpp"
+#include "CCat.hpp"
 
 //test virtual functions and polymorphism
 void	testEval(void)
@@ -31,8 +32,9 @@ int	main(void)
 {
 	const int n = 6;
 	Animal *animal[n];
-	//AAnimal test;
-	Animal test2;
+	//AAnimal *test[n];
+	//AAnimal	prueba;
+	//Animal test2;
 
 	for (int i = 0; i < n/2; i++)
 		animal[i] = new Dog();
@@ -43,5 +45,11 @@ int	main(void)
 	for (int i = 0; i < n; i++)
 		delete animal[i];
 	testEval();
+/*	for (int i = 0; i < n; i++)
+		test[i] = new CCat();
+	for (int i = 0; i < n; i++)
+		test[i]->makeSound();
+	for (int i = 0; i < n; i++)
+		delete test[i];*/
 	return (0);
 }

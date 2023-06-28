@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/23 11:39:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/28 09:37:59 by irifarac         ###   ########.fr       */
+/*   Created: 2023/06/28 10:19:43 by irifarac          #+#    #+#             */
+/*   Updated: 2023/06/28 12:55:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRAIN_HPP
-# define BRAIN_HPP
+#ifndef BUREAUCRAT_HPP
+# define BUREAUCRAT_HPP
 
 # include <iostream>
 
-class	Brain
+class	Bureaucrat
 {
 	public:
-		Brain(void);
-		Brain(const Brain &obj);
-		~Brain(void);
-		Brain	&operator=(const Brain &obj);
-	protected:
-		std::string	_ideas[100];
+		Bureaucrat(void);
+		Bureaucrat(const std::string name, unsigned int grade);
+		Bureaucrat(const Bureaucrat &obj);
+		~Bureaucrat(void);
+		Bureaucrat	&operator=(const Bureaucrat &obj);
+
+		std::string		getName(void);
+		unsigned int	getGrade(void);
+	private:
+		const std::string	_name;
+		unsigned int		_grade;
 };
 #endif

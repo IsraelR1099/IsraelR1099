@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:28:25 by irifarac          #+#    #+#              #
-#    Updated: 2023/06/28 09:49:09 by irifarac         ###   ########.fr        #
+#    Updated: 2023/06/28 12:37:49 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,11 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 RESET = \033[0m
 
-NAME = Animal
+NAME = Bureaucrat
 
 OBJ_DIR = obj
 
-SRC = Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp \
-		WrongCat.cpp Brain.cpp AAnimal.cpp \
-		CCat.cpp main.cpp
+SRC = Bureaucrat.cpp main.cpp
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
@@ -33,7 +31,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.cpp Makefile WrongAnimal.hpp Animal.hpp Dog.hpp Cat.hpp WrongCat.hpp Brain.hpp AAnimal.hpp CCat.hpp
+$(OBJ_DIR)/%.o: %.cpp Makefile Bureaucrat.hpp
 	@echo "$(GREEN)Compiling.. $<$(RESET)"
 	@mkdir -p $(@D)
 	c++ $(CPPFLAGS) -c $< -o $@
