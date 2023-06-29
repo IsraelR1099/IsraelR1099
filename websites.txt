@@ -165,61 +165,7 @@ https://www.pbr-book.org/3ed-2018/contents
 
 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
 https://hugi.scene.org/online/hugi24/coding%20graphics%20chris%20dragan%20raytracing%20shapes.htm
-t_vec q;
-double disc;
-double t;
-t_vec x;
-t_vec cap_center;
-
-// Calculate the center point of the end caps
-cap_center = v_add(s.c, v_multiply(s.d, s.maxm));
-
-x = v_subtract(r.org, s.c);
-q.x = v_dot(r.dir, r.dir) - (v_dot(r.dir, s.d) * v_dot(r.dir, s.d));
-q.y = v_dot(r.dir, x) - (v_dot(r.dir, s.d) * v_dot(x, s.d));
-q.y *= 2;
-q.z = v_dot(x, x) - (v_dot(x, s.d) * v_dot(x, s.d)) - (SQR(s.cyl_r));
-disc = (SQR(q.y)) - (4.0f * q.x * q.z);
-
-// Check if the ray intersects with the cylinder's side
-if (disc >= 0) {
-    t = (-q.y - sqrt(disc)) / (2.0f * q.x);
-    if (t > T_MIN && t < T_MAX) {
-        // Calculate the hit point on the cylinder's side
-        t_vec hit_point = v_add(r.org, v_multiply(r.dir, t));
-
-        // Check if the hit point is within the cylinder's height
-        t_vec hit_vector = v_subtract(hit_point, s.c);
-        double hit_projection = v_dot(hit_vector, s.d);
-        if (hit_projection >= 0 && hit_projection <= s.maxm) {
-            return t;
-        }
-    }
-
-    t = (-q.y + sqrt(disc)) / (2.0f * q.x);
-    if (t > T_MIN && t < T_MAX) {
-        // Calculate the hit point on the cylinder's side
-        t_vec hit_point = v_add(r.org, v_multiply(r.dir, t));
-
-        // Check if the hit point is within the cylinder's height
-        t_vec hit_vector = v_subtract(hit_point, s.c);
-        double hit_projection = v_dot(hit_vector, s.d);
-        if (hit_projection >= 0 && hit_projection <= s.maxm) {
-            return t;
-        }
-    }
-}
-
-// Check if the ray intersects with the end caps
-t_vec hit_point_cap1 = v_add(r.org, v_multiply(r.dir, (s.cap1 - r.org.y) / r.dir.y));
-t_vec hit_point_cap2 = v_add(r.org, v_multiply(r.dir, (s.cap2 - r.org.y) / r.dir.y));
-
-if (hit_point_cap1.y >= s.cap1 && v_dot(hit_point_cap1, hit_point_cap1) <= SQR(s.cyl_r))
-    return v_length(v_subtract(hit_point_cap1, r.org)) / v_length(r.dir);
-
-if (hit_point_cap2.y <= s.cap2 && v_dot(hit_point_cap2, hit_point_cap2) <= SQR(s.cyl_r))
-    return v_length(v_subtract(hit_point_cap2, r.org)) / v_length(r.dir);
-
-return T_MAX;
+cpp:
+https://www.learncpp.com/cpp-tutorial/exceptions-classes-and-inheritance/
 
 
