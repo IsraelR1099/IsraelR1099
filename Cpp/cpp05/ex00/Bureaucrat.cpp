@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:23:51 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/29 20:56:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:38:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,11 @@ void	Bureaucrat::decrementGrade(void)
 	if (this->_grade >= 150)
 		throw GradeTooLowException("Grade too low");
 	this->_grade++;
+}
+
+std::ostream	&operator<<(std::ostream &output, const Bureaucrat &obj)
+{
+	std::cout << "Bureaucrat called" << std::endl;
+	(void)obj;
+	return (output);
 }

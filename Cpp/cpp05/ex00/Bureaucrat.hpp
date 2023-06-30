@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:19:43 by irifarac          #+#    #+#             */
-/*   Updated: 2023/06/29 20:56:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:44:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include <iostream>
 # include <exception>
 # include <stdexcept>
+
+//Se crea las classes GradeTooLowException y GradeTooHighException dentro de la
+//clase Bureaucrat debido a que el "scope" de esas excepciones son dentro de
+//esta clase. Si usariamos esas excepciones en otras clases o de una forma mas
+//global entonces, dichas clases, deberian estar fuera de la clase Bureaucrat.
+//La clase Bureaucrat envia una excepcion, del tipo std::out_of_range, dependiendo
+//si el grado es muy bajo o alto. Es responsabilidad del usuario manejar
+//debidamente dichas excepciones.
 
 class	Bureaucrat
 {
@@ -47,4 +55,6 @@ class	Bureaucrat
 		const std::string	_name;
 		unsigned int		_grade;
 };
+
+std::ostream	&operator<<(std::ostream &output, const Bureaucrat &obj);
 #endif
