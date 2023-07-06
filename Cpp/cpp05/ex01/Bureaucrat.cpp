@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:23:51 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/03 12:06:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/05 12:42:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,22 @@ void	Bureaucrat::decrementGrade(void)
 	if (this->_grade >= 150)
 		throw GradeTooLowException("Grade too low");
 	this->_grade++;
+}
+
+void	Bureaucrat::signForm(Form &obj) const
+{
+	if (obj.getSigned() == true)
+		std::cout << "Form is already signed" << std::endl;
+	try
+	{
+		obj.beSigned(*this);
+		std::cout << this->_name << " signed " << obj.getName() << std::endl;
+	}
+	catch (std::exception &exception)
+	{
+		std::cout << this->_name << " cannot sign " << obj.getName() <<
+		"because " <<  exception.what() << std::endl;
+	}
 }
 
 std::ostream	&operator<<(std::ostream &output, const Bureaucrat &obj)

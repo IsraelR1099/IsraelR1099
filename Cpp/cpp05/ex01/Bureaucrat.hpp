@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:19:43 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/02 20:37:51 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/05 12:38:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@
 # include <iostream>
 # include <exception>
 # include <stdexcept>
+# include "Form.hpp"
 
 //Se crea las classes GradeTooLowException y GradeTooHighException dentro de la
 //clase Bureaucrat debido a que el "scope" de esas excepciones son dentro de
 //esta clase. Si usariamos esas excepciones en otras clases o de una forma mas
 //global entonces, dichas clases, deberian estar fuera de la clase Bureaucrat.
 //La clase Bureaucrat envia una excepcion, del tipo std::out_of_range, dependiendo
-//si el grado es muy bajo o alto. Es responsabilidad del usuario manejar
+//si el grado es muy bajo o alto. Es responsabilidad del usuari manejar
 //debidamente dichas excepciones.
+
+class	Form;
 
 class	Bureaucrat
 {
@@ -38,6 +41,7 @@ class	Bureaucrat
 		unsigned int	getGrade(void) const;
 		void			incrementGrade(void);
 		void			decrementGrade(void);
+		void			signForm(Form &obj) const;
 
 		class	GradeTooLowException : public std::out_of_range
 		{
