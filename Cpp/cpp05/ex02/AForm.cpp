@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 20:12:17 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/05 20:24:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:51:46 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ m_gradeToSign(obj.m_gradeToSign), m_gradeToExecute(obj.m_gradeToExecute)
 {
 }
 
-AForm &AForm::operator=(AForm const &obj)
+AForm::~AForm(void)
+{
+	return ;
+}
+
+AForm	&AForm::operator=(AForm const &obj)
 {
 	if (this == &obj)
 		return (*this);
@@ -69,6 +74,16 @@ void AForm::beSigned(const Bureaucrat &obj)
 	if (this->m_gradeToSign < static_cast<int>(obj.getGrade()))
 		throw (GradeTooLowException("Grade too low to sign"));
 	this->m_signed = true;
+}
+
+void	AForm::createDerived(const Bureaucrat &executor)
+{
+	if (checkRequirement(executor))
+	{
+			execute(executor);
+	}
+	else
+		std::cerr << "Not able to create the derived object" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &output, const AForm &obj)

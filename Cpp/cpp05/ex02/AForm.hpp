@@ -6,16 +6,21 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:46:21 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/05 20:24:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:28:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 
 #include <iostream>
 #include <stdexcept>
 #include "Bureaucrat.hpp"
+
+//Pure virtual function. This class takes a bureaucrat who was a certain grade.
+//if this Bureaucrat can sign the form then it means it's able to execute the
+//form. The executable part is done in the derived classes which print their
+//own output through the pure virtual function "execute"
 
 class Bureaucrat;
 
@@ -33,6 +38,8 @@ class	AForm
 		int					getGradeToSign(void) const;
 		int					getGradeToExecute(void) const;
 		void				beSigned(const Bureaucrat &obj);
+		void				createDerived(const Bureaucrat &executor);
+
 
 		class	GradeTooHighException : public std::out_of_range
 		{
@@ -50,6 +57,8 @@ class	AForm
 		bool				m_signed;
 		const int			m_gradeToSign;
 		const int			m_gradeToExecute;
+		virtual bool		checkRequirement(const Bureaucrat &executor) const = 0;
+		virtual void		execute(Bureaucrat const &executor) const = 0;
 };
 
 std::ostream	&operator<<(std::ostream &output, const AForm &obj);

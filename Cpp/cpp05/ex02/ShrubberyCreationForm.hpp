@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:17:20 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/06 20:34:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:26:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define SHRUBBERYCREATIONFORM_HPP
 
 # include "AForm.hpp"
+
+//with the override keyword we ensure that this function actually overrides a
+//virtual function in the base class.
 
 class	ShrubberyCreationForm : public AForm
 {
@@ -23,6 +26,8 @@ class	ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm(const ShrubberyCreationForm &obj);
 		~ShrubberyCreationForm(void);
 		ShrubberyCreationForm	&operator=(const ShrubberyCreationForm &obj);
+		void	execute(Bureaucrat const &executor) const;
+		bool	checkRequirement(const Bureaucrat &executor) const;
 	private:
 		const std::string	m_target;
 };

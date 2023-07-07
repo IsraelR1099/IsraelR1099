@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:06:23 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/06 21:11:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:25:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ PresidentialPardonForm &obj)
 {
 	AForm::operator=(obj);
 	return (*this);
+}
+
+bool	PresidentialPardonForm::checkRequirement(const Bureaucrat &executor) const
+{
+	if (executor.getGrade() > 25 || getGradeToExecute > 5)
+		return (0);
+	return (1);
+}
+
+void	PresidentialPardonForm::execute(Bureaucrat const &executor) const
+{
+	std::cout << m_target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
 }
