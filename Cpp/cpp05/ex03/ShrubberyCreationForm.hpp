@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 13:17:20 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/15 18:53:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:23:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "AForm.hpp"
 # include <fstream>
-
-//with the override keyword we ensure that this function actually overrides a
-//virtual function in the base class.
 
 class	ShrubberyCreationForm : public AForm
 {

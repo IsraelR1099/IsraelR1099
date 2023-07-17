@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:28:25 by irifarac          #+#    #+#              #
-#    Updated: 2023/07/06 21:59:27 by irifarac         ###   ########.fr        #
+#    Updated: 2023/07/17 09:48:15 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = AForm.cpp \
 		ShrubberyCreationForm.cpp \
 		RobotomyRequestForm.cpp \
 		PresidentialPardonForm.cpp \
+		Intern.cpp \
 		Bureaucrat.cpp main.cpp
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
@@ -36,7 +37,7 @@ $(NAME): $(OBJ)
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.cpp Makefile Bureaucrat.hpp AForm.hpp	ShrubberyCreationForm.hpp \
-	RobotomyRequestForm.hpp PresidentialPardonForm.hpp
+	RobotomyRequestForm.hpp PresidentialPardonForm.hpp Intern.hpp
 	@echo "$(GREEN)Compiling.. $<$(RESET)"
 	@mkdir -p $(@D)
 	c++ $(CPPFLAGS) -c $< -o $@

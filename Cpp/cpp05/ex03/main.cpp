@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:16:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/16 20:18:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:22:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int	main(void)
 {
-	Bureaucrat test1("test1", 5);
+	/*Bureaucrat test1("test1", 5);
 	Bureaucrat test2("test2", 6);
 	Bureaucrat test3("test3", 25);
 	Bureaucrat test4("test4", 46);
@@ -53,6 +54,10 @@ int	main(void)
 
 	std::cout << "---------------------" << std::endl;
 	test1.executeForm(form1);
-	test2.executeForm(form2);
+	test2.executeForm(form2);*/
+	Intern	random;
+	AForm	*rrf;
+
+	rrf = random.makeForm("robotomy2 request", "random");
 	return (0);
 }
