@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:16:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/17 11:22:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/17 20:39:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,44 +20,23 @@
 
 int	main(void)
 {
-	/*Bureaucrat test1("test1", 5);
-	Bureaucrat test2("test2", 6);
-	Bureaucrat test3("test3", 25);
-	Bureaucrat test4("test4", 46);
-	Bureaucrat test5("test5", 125);
-	Bureaucrat test6("test6", 1);
-
-	std::cout << test1 << std::endl;
-	std::cout << test2 << std::endl;
-	std::cout << test3 << std::endl;
-	std::cout << test4 << std::endl;
-	std::cout << test5 << std::endl;
-
-	std::cout << "---------------------" << std::endl;
-	test1.executeForm(ShrubberyCreationForm("home"));
-	test2.executeForm(ShrubberyCreationForm("home2"));
-
-	test3.executeForm(RobotomyRequestForm("home3"));
-	test4.executeForm(RobotomyRequestForm("home4"));
-
-	test5.executeForm(PresidentialPardonForm("home5"));
-	test6.executeForm(PresidentialPardonForm("home6"));
-
-	std::cout << "---------------------" << std::endl;
-	ShrubberyCreationForm	form1("home");
-	RobotomyRequestForm		form2("home2");
-
-	std::cout << form1 << std::endl;
-	std::cout << form2 << std::endl;
-	test1.signAForm(form1);
-	test2.signAForm(form2);
-
-	std::cout << "---------------------" << std::endl;
-	test1.executeForm(form1);
-	test2.executeForm(form2);*/
 	Intern	random;
-	AForm	*rrf;
+	AForm	*presidential;
+	Bureaucrat anotherTest("anotherTest", 1);
 
-	rrf = random.makeForm("robotomy2 request", "random");
+	presidential = random.makeForm("presidential request", "random");
+	anotherTest.signAForm(*presidential);
+	anotherTest.executeForm(*presidential);
+
+	Intern random2;
+	AForm *rrf2 = random2.makeForm("robotomy request", "random_president");
+	Bureaucrat anotherTest2("anotherTest2", 1);
+
+	anotherTest2.signAForm(*rrf2);
+	anotherTest2.executeForm(*rrf2);
+
+
+	delete (presidential);
+	delete (rrf2);
 	return (0);
 }

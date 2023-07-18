@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 09:37:50 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/17 13:30:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:42:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ AForm	*Intern::makeForm(std::string frequest, std::string target)
 			std::cout << "form does not exist" << std::endl;
 		i++;
 	}
-	AForm *resutl = actions[i](target);
-	(void)target;
-	return (NULL);
+	action function = actions[i];
+	AForm *result = (this->*function)(target);
+	return (result);
 }
