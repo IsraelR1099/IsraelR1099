@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:16:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/19 10:00:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/23 13:48:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,20 @@ int	main(void)
 	anotherTest2.signAForm(*rrf2);
 	anotherTest2.executeForm(*rrf2);
 
-	Intern	random3;
-	AForm	*shrubbery = random3.makeForm("shrubbery request", "shruberry");
-	Bureaucrat	anotherTest3("anotherTest3", 1);
-
-	anotherTest3.signAForm(*shrubbery);
-	anotherTest3.executeForm(*shrubbery);
-
 	try
 	{
-		Intern		fail;
-		AForm		*fail1 = fail.makeForm("fail", "fail");
-		Bureaucrat	failTest("failTest", 1);
+		Intern random3;
+		AForm *fail = random3.makeForm("fail", "random_fail");
+		Bureaucrat anotherTest3("anotherTest3", 1);
 
-		failTest.signAForm(*fail1);
+		anotherTest3.signAForm(*fail);
+		anotherTest3.executeForm(*fail);
 	}
-	catch (const std::exception &exception)
+	catch (std::exception &e)
 	{
-		std::cerr << exception.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
-	delete(presidential);
-	delete(rrf2);
-	delete(shrubbery);
+	delete (presidential);
+	delete (rrf2);
 	return (0);
 }

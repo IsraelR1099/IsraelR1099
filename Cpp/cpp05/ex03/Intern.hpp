@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 09:35:01 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/19 09:54:02 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/23 14:27:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ class	Intern
 
 		AForm	*makeForm(std::string frequest, std::string target);
 
-		class	FormDoesNotExist : public std::invalid_argument
+		class WrongValue : public std::invalid_argument
 		{
 			public:
-				FormDoesNotExist(const std::string msg) :
-					std::invalid_argument(msg) {}
+				WrongValue(const std::string msg) : std::invalid_argument(msg) {}
 		};
 };
 
