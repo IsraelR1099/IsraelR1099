@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:28:25 by irifarac          #+#    #+#              #
-#    Updated: 2023/07/24 13:33:03 by irifarac         ###   ########.fr        #
+#    Updated: 2023/07/26 10:19:00 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME = convert
 
 OBJ_DIR = obj
 
-SRC = main.cpp
+SRC = main.cpp Convert.cpp
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.cpp Makefile
+$(OBJ_DIR)/%.o: %.cpp Makefile Convert.hpp
 	@echo "$(GREEN)Compiling.. $<$(RESET)"
 	@mkdir -p $(@D)
 	c++ $(CPPFLAGS) -c $< -o $@
