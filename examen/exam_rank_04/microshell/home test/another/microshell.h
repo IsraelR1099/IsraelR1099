@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:59:20 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/29 17:59:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:19:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MAXARGS 10
 # define EXEC 1
 # define PIPE 2
-# define BACK 3
+# define LIST 3
 
 typedef struct s_cmd
 {
@@ -41,11 +41,12 @@ typedef struct s_pipecmd
 	t_cmd	*right;
 }	t_pipecmd;
 
-typedef struct s_backcmd
+typedef struct s_listcmd
 {
 	int type;
-	t_cmd *cmd;
-}	t_backcmd;
+	t_cmd	*left;
+	t_cmd	*right;
+}	t_listcmd;
 
 void	*ft_memset(void *dst, int c, size_t n);
 size_t	ft_strlen(const char *str);

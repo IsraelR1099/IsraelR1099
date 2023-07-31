@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsecmd.c                                      :+:      :+:    :+:   */
+/*   ft_parsecmd3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 11:11:23 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/31 11:20:42 by irifarac         ###   ########.fr       */
+/*   Created: 2023/07/31 11:21:54 by irifarac          #+#    #+#             */
+/*   Updated: 2023/07/31 13:19:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "microshell.h"
 
-static t_cmd	*ft_parseexec(char **str, char *estr)
+static t_cmd	*ft_parseexec(char **pstr, char *estr)
 {
 	t_cmd		*ret;
 	t_execcmd	*cmd;
-	char		*ftoken;
-	char		*eftoken;
 	int			token;
 	int			argc;
+	char		*ftoken;
+	char		*eftoken;
 
 	ret = ft_buildexec();
 	cmd = (t_execcmd *)ret;
-	argc = 0;
-	while (!ft_find(str, estr, "|"))
+	while (!ft_find(pstr, estr, "|"))
 	{
-		token = ft_gettoken(str, estr, &ftoken, &eftoken);
-		printf("ftoken: %s y token %c\n", ftoken, (char)token);
+		token = ft_gettoken(pstr, estr, &ftoken, &eftoken);
 		if (token == 0)
 			break ;
-		if (token != 'z')
-			ft_error("syntax", 1);
+		if (token != 'a')
+			ft_error("syntax error", 258);
 		cmd->argv[argc] = ftoken;
 		cmd->eargv[argc] = eftoken;
 		argc++;
@@ -43,37 +41,37 @@ static t_cmd	*ft_parseexec(char **str, char *estr)
 	return (ret);
 }
 
-static t_cmd	*ft_parsepipe(char **str, char *estr)
+static t_cmd	*ft_parsepipe(char **pstr, char *estr)
 {
 	t_cmd	*cmd;
 
-	cmd = ft_parseexec(str, estr);
-	if (ft_find(str, estr, "|"))
+	cmd = ft_parseexec(pstr, estr);
+	if (ft_find(pstr, estr, "|"))
 	{
-		ft_gettoken(str, estr, 0, 0);
-		cmd = ft_buildpipe(cmd, ft_parsepipe(str, estr));
+		ft_gettoken(pstr, estr, 0, 0);
+		cmd = ft_buildpipe(cmd, ft_parsepipe(pstr, estr));
 	}
 	return (cmd);
 }
 
-static t_cmd	*ft_parseline(char **str, char *estr)
+static t_cmd	*ft_parseline(char **pstr, char *estr)
 {
 	t_cmd	*cmd;
 
-	cmd = ft_parsepipe(str, estr);
-	if (ft_find(str, estr, ";"))
+	cmd = ft_parsepipe(pstr, estr);
+	if (ft_find(pstr, estr, ";"))
 	{
-		ft_gettoken(str, estr, 0, 0);
-		cmd = ft_buildback(cmd);
+		ft_gettoken(pstr, estr, 0, 0);
+		cmd = ft_buildlist(cmd, ft_parseline(pstr, estr));
 	}
 	return (cmd);
 }
 
-static t_cmd	*ft_nulterminate(t_cmd *cmd)
+static t_cmd	*ft_nullterminate(t_cmd *cmd)
 {
 	t_execcmd	*exec;
 	t_pipecmd	*pipe;
-	t_backcmd	*back;
+	t_listcmd	*list;
 	int			i;
 
 	if (cmd == 0)
@@ -91,29 +89,28 @@ static t_cmd	*ft_nulterminate(t_cmd *cmd)
 	else if (cmd->type == PIPE)
 	{
 		pipe = (t_pipecmd *)cmd;
-		ft_nulterminate(pipe->left);
-		ft_nulterminate(pipe->right);
+		ft_nullterminate(pipe->left);
+		ft_nullterminate(pipe->right);
 	}
-	else if (cmd->type == BACK)
+	else if (cmd->type == LIST)
 	{
-		back = (t_backcmd *)cmd;
-		ft_nulterminate(back->cmd);
+		list = (t_listcmd *)cmd;
+		ft_nullterminate(list->left);
+		ft_nullterminate(list->right);
 	}
 	return (cmd);
 }
 
 t_cmd	*ft_parsecmd(char *str)
 {
-	char	*estr;
 	t_cmd	*cmd;
+	char	*estr;
 
-	estr = ft_strlen(str) + str;
+	estr = str + ft_strlen(str);
 	cmd = ft_parseline(&str, estr);
-	ft_find(&str, estr, "");
+	ft_find(str, estr, "");
 	if (str != estr)
-	{
-		ft_error("syntax", 1);
-	}
-	ft_nulterminate(cmd);
+		ft_error("syntax", 258);
+	ft_nullterminate(cmd);
 	return (cmd);
 }

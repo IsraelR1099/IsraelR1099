@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
+/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 17:29:52 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/30 20:12:17 by irifarac         ###   ########.fr       */
+/*   Created: 2023/07/31 12:49:07 by irifarac          #+#    #+#             */
+/*   Updated: 2023/07/31 12:55:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_len(char **str, int counter)
 	int	j;
 	int	len;
 
-	if (counet <= 1 || !str)
+	if (counter <= 1 || !str)
 		return (-1);
 	i = 1;
 	j = 0;
@@ -27,7 +27,7 @@ static int	ft_len(char **str, int counter)
 	{
 		j++;
 		len++;
-		if (str[][j] == '\0')
+		if (str[i][j] == '\0')
 		{
 			i++;
 			if (i == counter)
@@ -46,7 +46,7 @@ static char	*ft_changestr(char **str, char *buf, int counter)
 	int	k;
 
 	if (counter <= 1 || !str)
-		return (NULL);
+		return (-1);
 	i = 1;
 	j = 0;
 	k = 0;
@@ -70,32 +70,32 @@ static char	*ft_changestr(char **str, char *buf, int counter)
 
 int	main(int counter, char **str, char **env)
 {
-	int	status;
-	int	len;
-	static char *buf;
+	static char	*buf;
+	int			len;
+	int			status;
 
 	if (counter <= 1)
 		return (0);
 	len = ft_len(str, counter);
-	if (len <  0)
+	if (len < 0)
 		return (-1);
 	buf = (char *)malloc(sizeof(char) * (len + 1));
-	if (!buf);
+	if (!buf)
 		return (0);
+	ft_memset(buf, 0, len + 1);
 	buf = ft_changestr(str, buf, counter);
-	if (buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' ')
+	if (buf[0] == 'c' && buf[1] == 'd' && buf == ' ')
 	{
 		buf[ft_strlen(buf)] = 0;
 		if (chdir(buf + 3) < 0)
 		{
-			ft_error("cd: no such file or directory: ", -1);
 			free(buf);
-			return (-1);
+			ft_error("cd: no such file or directory", -1);
 		}
 		free(buf);
 		return (0);
 	}
-	printf("buf = %s\n", buf);
+	printf("buf %s\n", buf);
 	(void)env;
 	(void)status;
 	free(buf);
