@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 13:21:34 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/31 13:35:20 by irifarac         ###   ########.fr       */
+/*   Created: 2023/07/31 13:25:10 by irifarac          #+#    #+#             */
+/*   Updated: 2023/07/31 13:29:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_cmd	*ft_buildexec(void)
 
 	cmd = malloc(sizeof(*cmd));
 	if (!cmd)
-		return (NULL);
+		return (0);
 	ft_memset(cmd, 0, sizeof(*cmd));
 	cmd->type = EXEC;
 	return ((t_cmd *)cmd);
@@ -30,7 +30,7 @@ t_cmd	*ft_buildpipe(t_cmd *left, t_cmd *right)
 
 	cmd = malloc(sizeof(*cmd));
 	if (!cmd)
-		return (NULL);
+		return (0);
 	ft_memset(cmd, 0, sizeof(*cmd));
 	cmd->type = PIPE;
 	cmd->left = left;
@@ -38,15 +38,16 @@ t_cmd	*ft_buildpipe(t_cmd *left, t_cmd *right)
 	return ((t_cmd *)cmd);
 }
 
-t_cmd	*ft_buildback(t_cmd *subcmd)
+t_cmd	*ft_buildlist(t_cmd *left, t_cmd *right)
 {
-	t_backcmd	*cmd;
+	t_listcmd	*cmd;
 
 	cmd = malloc(sizeof(*cmd));
 	if (!cmd)
-		return (NULL);
+		return (0);
 	ft_memset(cmd, 0, sizeof(*cmd));
-	cmd->type = BACK;
-	cmd->cmd = subcmd;
+	cmd->type = LIST;
+	cmd->left = left;
+	cmd->right = right;
 	return ((t_cmd *)cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 13:06:20 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/31 13:18:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:47:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_cmd	*ft_parseexec(char **pstr, char *estr)
 
 	ret = ft_buildexec();
 	cmd = (t_execcmd *)ret;
+	argc = 0;
 	while (!ft_find(pstr, estr, "|"))
 	{
 		token = ft_gettoken(pstr, estr, &ftoken, &eftoken);
@@ -34,7 +35,7 @@ static t_cmd	*ft_parseexec(char **pstr, char *estr)
 		cmd->eargv[argc] = eftoken;
 		argc++;
 		if (argc >= MAXARGS)
-			ft_error("too many arguments");
+			ft_error("too many arguments", 1);
 	}
 	cmd->argv[argc] = 0;
 	cmd->eargv[argc] = 0;
@@ -108,7 +109,7 @@ t_cmd	*ft_parsecmd(char *str)
 
 	estr = str + ft_strlen(str);
 	cmd = ft_parseline(&str, estr);
-	ft_find(str, estr, "");
+	ft_find(&str, estr, "");
 	if (str != estr)
 		ft_error("syntax", 1);
 	ft_nullterminate(cmd);

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 12:55:34 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/31 13:06:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:32:38 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*ft_memset(void *dst, int c, size_t n)
 	return (ptr);
 }
 
-int	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	const char	*ptr;
 
@@ -54,7 +54,7 @@ int	ft_fork1(void)
 
 	pid = fork();
 	if (pid == -1)
-		ft_error("panic fork");
+		ft_error("panic fork", 1);
 	return (pid);
 }
 
@@ -91,13 +91,13 @@ int	ft_gettoken(char **pstr, char *estr, char **ftoken, char **eftoken)
 		return (0);
 	else if (*tmp == '|')
 		tmp++;
-	else if (*tmp == ";")
+	else if (*tmp == ';')
 		tmp++;
 	else
 	{
 		ret = 'a';
 		while (tmp < estr && !ft_strchr("\t\n\r\v ", *tmp)
-				&& !ft_strchr(tokens, *tmp))
+				&& !ft_strchr("|;", *tmp))
 			tmp++;
 	}
 	if (eftoken)

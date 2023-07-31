@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 12:49:07 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/31 12:55:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:44:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*ft_changestr(char **str, char *buf, int counter)
 	int	k;
 
 	if (counter <= 1 || !str)
-		return (-1);
+		return (NULL);
 	i = 1;
 	j = 0;
 	k = 0;
@@ -84,7 +84,7 @@ int	main(int counter, char **str, char **env)
 		return (0);
 	ft_memset(buf, 0, len + 1);
 	buf = ft_changestr(str, buf, counter);
-	if (buf[0] == 'c' && buf[1] == 'd' && buf == ' ')
+	if (buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' ')
 	{
 		buf[ft_strlen(buf)] = 0;
 		if (chdir(buf + 3) < 0)
@@ -96,8 +96,11 @@ int	main(int counter, char **str, char **env)
 		return (0);
 	}
 	printf("buf %s\n", buf);
-	(void)env;
-	(void)status;
+	if (ft_fork1() == 0)
+	{
+		ft_runcmd(ft_parsecmd(buf), env);
+	}
+	waitpid(0, &status, 0);
 	free(buf);
 	return (0);
 }
