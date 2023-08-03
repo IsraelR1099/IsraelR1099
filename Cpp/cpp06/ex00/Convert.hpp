@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 10:03:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/03 13:17:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/03 20:50:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <typeinfo>
 # include <limits>
 # include <iomanip>
+# include <cstdlib>
+# include <cstring>
 
 class	Convert
 {
@@ -35,6 +37,7 @@ class	Convert
 		Convert(const Convert &obj);
 		~Convert(void);
 		Convert	&operator=(const Convert &obj);
+		void	ft_errorCh(const char *str);
 		void	ft_printCh(void) const;
 		void	ft_printInt(void) const;
 		void	ft_printFloat(void) const;

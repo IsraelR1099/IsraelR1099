@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 10:08:03 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/03 13:46:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/03 20:49:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static bool	ft_checkChar(const char *str)
 {
 	int	tmp;
 
-	tmp = std::stoi(str);
+	//tmp = std::stoi(str);
+	tmp = std::atoi(str);
 	if (tmp < 32 || tmp > 126)
 		return (false);
 	else if (tmp >= std::numeric_limits<char>::min()
@@ -29,7 +30,8 @@ static bool	ft_checkInt(const char *str)
 {
 	long	tmp;
 
-	tmp = std::stol(str);
+	//tmp = std::stol(str);
+	tmp = std::atol(str);
 	if (tmp >= std::numeric_limits<int>::min()
 			&& tmp <= std::numeric_limits<int>::max())
 		return (false);
@@ -39,8 +41,12 @@ static bool	ft_checkInt(const char *str)
 static bool	ft_checkFloat(const char *str)
 {
 	double	tmp;
+	char	*endPtr;
 
-	tmp = std::stod(str);
+//	tmp = std::stod(str);
+	tmp = std::strtod(str, &endPtr);
+	if (endPtr == str || *endPtr != '\0')
+		return (false);
 	if (tmp >= std::numeric_limits<float>::min()
 			&& tmp <= std::numeric_limits<float>::max())
 		return (false);
@@ -50,16 +56,28 @@ static bool	ft_checkFloat(const char *str)
 static bool	ft_checkDouble(const char *str)
 {
 	long double	tmp;
+	char		*endPtr;
 
-	tmp = std::stold(str);
+	//tmp = std::stold(str);
+	tmp = std::strtold(str, &endPtr);
+	if (endPtr == str || *endPtr != '\0')
+		return (false);
 	if (tmp >= std::numeric_limits<double>::min()
 			&& tmp <= std::numeric_limits<double>::max())
 		return (false);
 	return (true);
 }
 
-static void	ft_errorCh(const char *str)
+void	Convert::ft_errorCh(const char *str)
 {
+	int	tmp;
+
+	tmp = std::atoi(str);
+	if (tmp < 32 || tmp > 126)
+		strncpy(this->m_errorCh, "char: impossible\n", 18);
+	else if (tmp >= std::numeric_limits<char>::min()
+			&& tmp <= std::numeric_limits<char>::max())
+		strncpy(this->m_errorCh, "char: overflow or underflow\n", 28);
 }
 
 Convert::Convert(void) : m_ch(0), m_int(0), m_float(0.0), m_double(0.0f)
