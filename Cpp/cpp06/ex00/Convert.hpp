@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 10:03:06 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/26 11:48:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:17:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <iostream>
 # include <typeinfo>
 # include <limits>
+# include <iomanip>
 
 class	Convert
 {
@@ -24,12 +25,20 @@ class	Convert
 		int		m_int;
 		float	m_float;
 		double	m_double;
+		char	m_errorCh[256];
+		char	m_errorInt[256];
+		char	m_errorFloat[256];
+		char	m_errorDouble[256];
 	public:
 		Convert(void);
 		Convert(char **str);
 		Convert(const Convert &obj);
 		~Convert(void);
 		Convert	&operator=(const Convert &obj);
+		void	ft_printCh(void) const;
+		void	ft_printInt(void) const;
+		void	ft_printFloat(void) const;
+		void	ft_printDouble(void) const;
 
 		class	ValueNotNumber : public std::invalid_argument
 		{
@@ -38,5 +47,4 @@ class	Convert
 		};
 };
 
-std::ostream	&operator<<(std::ostream &output, const Convert &obj);
 #endif
