@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 11:31:00 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/03 13:46:54 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:20:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	main(int counter, char **str)
 			Convert	convert(str);
 
 			convert.ft_printCh();
+			convert.ft_printInt();
+			convert.ft_printFloat();
+			convert.ft_printDouble();
 
 		}
 		catch (std::exception &exception)

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:23:51 by irifarac          #+#    #+#             */
-/*   Updated: 2023/07/05 12:42:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/04 09:49:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	Bureaucrat::signForm(Form &obj) const
 	}
 	catch (std::exception &exception)
 	{
-		std::cout << this->_name << " cannot sign " << obj.getName() <<
-		"because " <<  exception.what() << std::endl;
+		std::cerr << this->_name << " cannot sign " << obj.getName() <<
+		" because " <<  exception.what() << std::endl;
 	}
 }
 
