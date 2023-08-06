@@ -6,49 +6,104 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 10:08:03 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/04 14:19:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/06 20:27:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Convert.hpp"
 
+static bool	ft_checkStr(char **str)
+{
+	int			j;
+	int			counter;
+	int			counterPoint;
+	std::string tmp;
+
+	j = 1;
+	counter = 0;
+	counterPoint = 0;
+	tmp = str[1];
+	if (tmp.empty())
+		return (false);
+	else if (tmp == "nan" || tmp == "nanf")
+		return (true);
+	else if (tmp == "inf" || tmp == "-inf")
+		return (true);
+	for (int i = 0; str[j][i]; i++)
+	{
+		if (std::isdigit(str[j][i]) == 0 && str[j][i] != '-' && str[j][i] != '.')
+			return (false);
+		if (str[j][i] == '-')
+		{
+			counter++;
+			if (counter > 1 || i > 0)
+				return (false);
+		}
+		if (str[j][i] == '.')
+		{
+			counterPoint++;
+			if (counterPoint > 1)
+				return (false);
+		}
+	}
+	return (true);
+}
+
 static bool	ft_checkChar(const char *str)
 {
-	int	tmp;
+	int			tmp;
+	std::string tmpStr;
 
 	//tmp = std::stoi(str);
 	tmp = std::atoi(str);
-	if (tmp < 32 || tmp > 126)
+	tmpStr = str;
+	if (tmpStr == "nan" || tmpStr == "nanf")
 		return (false);
-	else if (tmp >= std::numeric_limits<char>::min()
-			&& tmp <= std::numeric_limits<char>::max())
+	else if (tmpStr == "inf" || tmpStr == "-inf")
+		return (false);
+	else if (tmp < 32 || tmp > 126)
+		return (false);
+	else if (tmp <= std::numeric_limits<char>::min()
+			|| tmp >= std::numeric_limits<char>::max())
 		return (false);
 	return (true);
 }
 
 static bool	ft_checkInt(const char *str)
 {
-	long	tmp;
+	long		tmp;
+	std::string tmpStr;
 
 	//tmp = std::stol(str);
-	tmp = std::atol(str);
-	if (tmp <= std::numeric_limits<int>::min()
-			&& tmp >= std::numeric_limits<int>::max())
+	tmp = std::atoll(str);
+	tmpStr = str;
+	if (tmpStr == "nan" || tmpStr == "nanf")
+		return (false);
+	else if (tmpStr == "inf" || tmpStr == "-inf")
+		return (false);
+	else if (tmp <= std::numeric_limits<int>::min()
+			|| tmp >= std::numeric_limits<int>::max())
 		return (false);
 	return (true);
 }
 
 static bool	ft_checkFloat(const char *str)
 {
-	double	tmp;
-	char	*endPtr;
+	double		tmp;
+	std::string tmpStr;
+	char		*endPtr;
 
 //	tmp = std::stod(str);
 	tmp = std::strtod(str, &endPtr);
+	tmpStr = str;
 	if (endPtr == str || *endPtr != '\0')
 		return (false);
 	if (tmp <= std::numeric_limits<float>::min()
-			&& tmp >= std::numeric_limits<float>::max())
+			|| tmp >= std::numeric_limits<float>::max())
+		return (false);
+	else if (tmpStr == "nan" || tmpStr == "nanf")
+		return (false);
+	else if (tmpStr == "inf" || tmpStr == "-inf")
 		return (false);
 	return (true);
 }
@@ -57,59 +112,89 @@ static bool	ft_checkDouble(const char *str)
 {
 	long double	tmp;
 	char		*endPtr;
+	std::string tmpStr;
 
 	//tmp = std::stold(str);
 	tmp = std::strtold(str, &endPtr);
+	tmpStr = str;
 	if (endPtr == str || *endPtr != '\0')
 		return (false);
 	if (tmp <= std::numeric_limits<double>::min()
-			&& tmp >= std::numeric_limits<double>::max())
+			|| tmp >= std::numeric_limits<double>::max())
+		return (false);
+	else if (tmpStr == "nan" || tmpStr == "nanf")
+		return (false);
+	else if (tmpStr == "inf" || tmpStr == "-inf")
 		return (false);
 	return (true);
 }
 
 void	Convert::ft_errorCh(const char *str)
 {
-	int	tmp;
+	int			tmp;
+	std::string	tmpStr;
 
 	tmp = std::atoi(str);
+	tmpStr = str;
 	if (tmp < 32 || tmp > 126)
 		strncpy(this->m_errorCh, "char: impossible", 17);
 	else if (tmp <= std::numeric_limits<char>::min()
-			&& tmp >= std::numeric_limits<char>::max())
-		strncpy(this->m_errorCh, "char: overflow or underflow\n", 28);
+			|| tmp >= std::numeric_limits<char>::max())
+		strncpy(this->m_errorCh, "char: overflow or underflow\n", 29);
+	else if (tmpStr == "nan" || tmpStr == "nanf")
+		strncpy(this->m_errorCh, "char: impossible", 17);
+	else if (tmpStr == "inf" || tmpStr == "-inf")
+		strncpy(this->m_errorCh, "char: impossible", 17);
 }
 
 void	Convert::ft_errorInt(const char *str)
 {
-	long int	tmp;
+	long		tmp;
+	std::string	tmpStr;
 
 	tmp = std::atol(str);
+	tmpStr = str;
 	if (tmp <= std::numeric_limits<int>::min()
-			&& tmp >= std::numeric_limits<int>::max())
-		strncpy(this->m_errorInt, "impossible\n", 11);
+			|| tmp >= std::numeric_limits<int>::max())
+		strncpy(this->m_errorInt, "int: impossible", 16);
+	else if (tmpStr == "nan" || tmpStr == "nanf")
+		strncpy(this->m_errorInt, "int: impossible", 17);
+	else if (tmpStr == "inf" || tmpStr == "-inf")
+		strncpy(this->m_errorInt, "int: impossible", 17);
 }
 
 void	Convert::ft_errorFloat(const char *str)
 {
-	double	tmp;
-	char	*endPtr;
+	double		tmp;
+	char		*endPtr;
+	std::string	tmpStr;
 
 	tmp = std::strtod(str, &endPtr);
+	tmpStr = str;
 	if (tmp <= std::numeric_limits<float>::min()
-			&& tmp >= std::numeric_limits<float>::max())
-		strncpy(this->m_errorFloat, "impossible\n", 11);
+			|| tmp >= std::numeric_limits<float>::max())
+		strncpy(this->m_errorFloat, "impossible", 11);
+	else if (tmpStr == "nan" || tmpStr == "nanf")
+		strncpy(this->m_errorFloat, "nanf", 5);
+	else if (tmpStr == "inf" || tmpStr == "-inf")
+		strncpy(this->m_errorFloat, "inf", 4);
 }
 
 void	Convert::ft_errorDouble(const char *str)
 {
 	long double	tmp;
 	char		*endPtr;
+	std::string	tmpStr;
 
 	tmp = std::strtold(str, &endPtr);
+	tmpStr = str;
 	if (tmp <= std::numeric_limits<double>::min()
-			&& tmp >= std::numeric_limits<double>::max())
-		strncpy(this->m_errorDouble, "impossible\n", 11);
+			|| tmp >= std::numeric_limits<double>::max())
+		strncpy(this->m_errorDouble, "impossible", 11);
+	else if (tmpStr == "nan" || tmpStr == "nanf")
+		strncpy(this->m_errorDouble, "nan", 4);
+	else if (tmpStr == "inf" || tmpStr == "-inf")
+		strncpy(this->m_errorDouble, "inf", 4);
 }
 
 Convert::Convert(void) : m_ch(0), m_int(0), m_float(0.0), m_double(0.0f)
@@ -118,25 +203,24 @@ Convert::Convert(void) : m_ch(0), m_int(0), m_float(0.0), m_double(0.0f)
 
 Convert::Convert(char **str)
 {
-	int			j;
+	int			ch;
 	long		tmpInt;
 	double		tmpFloat;
 	long double	tmpDouble;
 	char		*endPtrFloat;
 	char		*endPtrDouble;
 
-	if (!str || !str[0])
+	if (!str || !str[1])
 		throw ValueNotNumber("Enter a valid argument");
-	j = 1;
-	for (int i = 0; str[j][i]; i++)
-	{
-		if (std::isdigit(str[j][i]) == 0)
-			throw ValueNotNumber("This value is not a number");
-	}
+	if (ft_checkStr(str) == false)
+		throw ValueNotNumber("Enter a valid argument");
 	for (int i = 0; i < 256; i++)
 		this->m_errorCh[i] = 0;
 	if (ft_checkChar(str[1]))
-		this->m_ch = static_cast<char>(std::stoi(str[1]));
+	{
+		ch = std::atoi(str[1]);
+		this->m_ch = static_cast<char>(ch);
+	}
 	else
 		ft_errorCh(str[1]);
 	for (int i = 0; i < 256; i++)
@@ -153,7 +237,7 @@ Convert::Convert(char **str)
 	if (ft_checkFloat(str[1]))
 	{
 		tmpFloat = std::strtod(str[1], &endPtrFloat);
-		this->m_float = std::stof(str[1]);
+		this->m_float = tmpFloat;
 	}
 	else
 		ft_errorFloat(str[1]);
@@ -162,7 +246,7 @@ Convert::Convert(char **str)
 	if (ft_checkDouble(str[1]))
 	{
 		tmpDouble = std::strtold(str[1], &endPtrDouble);
-		this->m_double = std::stod(str[1]);
+		this->m_double = tmpDouble;
 	}
 	else
 		ft_errorDouble(str[1]);
@@ -190,7 +274,7 @@ void	Convert::ft_printCh(void) const
 void	Convert::ft_printInt(void) const
 {
 	if (this->m_errorInt[0])
-		std::cout << "int: " << m_errorInt << std::endl;
+		std::cout << m_errorInt << std::endl;
 	else
 		std::cout << "int: " << this->m_int << std::endl;
 }
