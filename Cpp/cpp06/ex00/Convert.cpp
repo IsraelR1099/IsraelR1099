@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 10:08:03 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/06 20:27:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/09 10:10:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static bool	ft_checkChar(const char *str)
 	int			tmp;
 	std::string tmpStr;
 
-	//tmp = std::stoi(str);
 	tmp = std::atoi(str);
 	tmpStr = str;
 	if (tmpStr == "nan" || tmpStr == "nanf")
@@ -74,7 +73,6 @@ static bool	ft_checkInt(const char *str)
 	long		tmp;
 	std::string tmpStr;
 
-	//tmp = std::stol(str);
 	tmp = std::atoll(str);
 	tmpStr = str;
 	if (tmpStr == "nan" || tmpStr == "nanf")
@@ -93,12 +91,11 @@ static bool	ft_checkFloat(const char *str)
 	std::string tmpStr;
 	char		*endPtr;
 
-//	tmp = std::stod(str);
-	tmp = std::strtod(str, &endPtr);
 	tmpStr = str;
+	tmp = std::strtod(str, &endPtr);
 	if (endPtr == str || *endPtr != '\0')
 		return (false);
-	if (tmp <= std::numeric_limits<float>::min()
+	if (tmp <= std::numeric_limits<float>::lowest()
 			|| tmp >= std::numeric_limits<float>::max())
 		return (false);
 	else if (tmpStr == "nan" || tmpStr == "nanf")
@@ -114,12 +111,11 @@ static bool	ft_checkDouble(const char *str)
 	char		*endPtr;
 	std::string tmpStr;
 
-	//tmp = std::stold(str);
 	tmp = std::strtold(str, &endPtr);
 	tmpStr = str;
 	if (endPtr == str || *endPtr != '\0')
 		return (false);
-	if (tmp <= std::numeric_limits<double>::min()
+	if (tmp <= std::numeric_limits<double>::lowest()
 			|| tmp >= std::numeric_limits<double>::max())
 		return (false);
 	else if (tmpStr == "nan" || tmpStr == "nanf")
@@ -169,15 +165,26 @@ void	Convert::ft_errorFloat(const char *str)
 	char		*endPtr;
 	std::string	tmpStr;
 
-	tmp = std::strtod(str, &endPtr);
 	tmpStr = str;
-	if (tmp <= std::numeric_limits<float>::min()
+	if (tmpStr == "nan" || tmpStr == "nanf")
+	{
+		strncpy(this->m_errorFloat, "nanf", 5);
+		return ;
+	}
+	else if (tmpStr == "inf")
+	{
+		strncpy(this->m_errorFloat, "inf", 4);
+		return ;
+	}
+	else if (tmpStr == "-inf")
+	{
+		strncpy(this->m_errorFloat, "-inf", 5);
+		return ;
+	}
+	tmp = std::strtod(str, &endPtr);
+	if (tmp <= std::numeric_limits<float>::lowest()
 			|| tmp >= std::numeric_limits<float>::max())
 		strncpy(this->m_errorFloat, "impossible", 11);
-	else if (tmpStr == "nan" || tmpStr == "nanf")
-		strncpy(this->m_errorFloat, "nanf", 5);
-	else if (tmpStr == "inf" || tmpStr == "-inf")
-		strncpy(this->m_errorFloat, "inf", 4);
 }
 
 void	Convert::ft_errorDouble(const char *str)
@@ -186,15 +193,26 @@ void	Convert::ft_errorDouble(const char *str)
 	char		*endPtr;
 	std::string	tmpStr;
 
-	tmp = std::strtold(str, &endPtr);
 	tmpStr = str;
-	if (tmp <= std::numeric_limits<double>::min()
+	if (tmpStr == "nan" || tmpStr == "nanf")
+	{
+		strncpy(this->m_errorDouble, "nan", 4);
+		return ;
+	}
+	else if (tmpStr == "inf")
+	{
+		strncpy(this->m_errorDouble, "inf", 4);
+		return ;
+	}
+	else if (tmpStr == "-inf")
+	{
+		strncpy(this->m_errorDouble, "-inf", 5);
+		return ;
+	}
+	tmp = std::strtold(str, &endPtr);
+	if (tmp <= std::numeric_limits<double>::lowest()
 			|| tmp >= std::numeric_limits<double>::max())
 		strncpy(this->m_errorDouble, "impossible", 11);
-	else if (tmpStr == "nan" || tmpStr == "nanf")
-		strncpy(this->m_errorDouble, "nan", 4);
-	else if (tmpStr == "inf" || tmpStr == "-inf")
-		strncpy(this->m_errorDouble, "inf", 4);
 }
 
 Convert::Convert(void) : m_ch(0), m_int(0), m_float(0.0), m_double(0.0f)

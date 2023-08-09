@@ -6,11 +6,24 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 13:53:55 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/08 20:23:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:29:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Base.hpp"
+
+//we use dynamic_cast to convert explictly one pointer of a father class to a
+//pointer of a derived class. This is called downcasting
+//for example: Father *p {new Derived} this is implicitly converted by the
+//compiler
+//Derived *d {dynamic_cast<Derived *>(p)}; this is explicitly converted using
+//downcasting.
+//It is necessary that the father pointer is initialized with a derived
+//pointer, otherwise dynamic_cast will return a NULL pointer and will fail. For
+//this reason is mandatory to check is dynamic_cast failed.
+//We cannot use dynamic_cast when a class is protected or private.
+//We cannot use dynamic_cast if the father class does not have a virtual
+//function (polymorphism)
 
 Base	*generate(void)
 {
