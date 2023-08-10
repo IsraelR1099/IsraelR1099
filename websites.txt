@@ -175,3 +175,7 @@ https://anteru.net/blog/2007/c-background-static-reinterpret-and-c-style-casts/
 #C++
 https://shop.iotone.ir/public/upload/article/5b9f487cb4536.pdf
 https://www.reddit.com/r/cpp/comments/mvg2mi/best_security_practices_when_writing_cc_code/
+
+
+EVAL
+https://github.com/abouabra/42-evaluations/blob/master/ng_4_cpp_module_07.pdf
