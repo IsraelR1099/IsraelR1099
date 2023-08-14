@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:26:04 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/13 20:10:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:58:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,10 @@ class	Span
 		template <typename T>
 		void			addNumber(const typename T::iterator &begin, const typename T::iterator &end)
 		{
-			if (std::distance(begin, end) > this->m_n)
+			if (this->m_vec.size() + std::distance(begin, end) > this->m_n)
 				throw FullException();
 			for (typename T::iterator it = begin; it != end; it++)
-			{
 				this->addNumber(*it);
-			}
 		}
 	private:
 		Span(void);

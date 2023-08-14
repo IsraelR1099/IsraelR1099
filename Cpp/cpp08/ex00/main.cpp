@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:52:30 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/11 21:29:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:59:56 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	std::vector<int> v;
+	std::vector<int>			v;
 
 	v.push_back(1);
 	v.push_back(2);

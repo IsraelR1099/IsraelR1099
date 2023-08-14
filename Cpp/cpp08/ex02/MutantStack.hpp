@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 21:19:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/13 21:49:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:11:02 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <stack>
 #include <iostream>
 
-//Define a nested iterator class within std::stack.
+//Define a nested iterator class within std::stack. As std::stack internally
+//uses a container (by default, it uses std::deque) we can access these
+//functions using the "c" member of std::stack
 template <typename T>
 class	MutantStack : public std::stack<T>
 {
@@ -32,7 +34,7 @@ class	MutantStack : public std::stack<T>
 		iterator end(void) {return (std::stack<T>::c.end());}
 		iterator rbegin(void) {return (std::stack<T>::c.rbegin());}
 		iterator rend(void) {return (std::stack<T>::c.rend());}
-		iterator	&operator++(void) 
+		iterator	&operator++(void)
 		{
 			++(std::stack<T>::c.begin());
 			return (*this);

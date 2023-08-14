@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:28:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/11 21:06:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/14 09:45:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ class	NotFoundException : public std::exception
 		}
 };
 
+//std::find is declared in algorithm library. Finds the element in the given
+//range. It returns an iterator to the first occurrence. If the element is not
+//found, an iterator to the end is returned.
 template <typename T>
 typename T::iterator easyfind(T &container, int n)
 {

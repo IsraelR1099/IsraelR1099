@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 21:45:41 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/13 21:53:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:11:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	main(void)
 {
+	std::cout << "--------INT----------" << std::endl;
 	MutantStack<int> mstack;
 
 	mstack.push(5);
@@ -28,6 +29,21 @@ int	main(void)
 	{
 		std::cout << *it << std::endl;
 		++it;
+	}
+
+	std::cout << "-----------STRING---------" << std::endl;
+	MutantStack<std::string>	v;
+
+	v.push("hola");
+	v.push("hola");
+	v.push("hola");
+	v.push("hola");
+	MutantStack<std::string>::iterator	test = v.begin();
+	MutantStack<std::string>::iterator	test2 = v.end();
+	while (test != test2)
+	{
+		std::cout << *test << std::endl;
+		++test;
 	}
 	return (0);
 }

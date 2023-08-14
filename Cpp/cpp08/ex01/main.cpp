@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 20:35:54 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/13 20:29:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:59:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,18 @@ int	main(void)
 	std::cout << sp3.longestSpan() << std::endl;
 
 	std::cout << "---------------------" << std::endl;
-	Span sp4 = Span(50);
-	std::vector<int> v(50);
+	std::cout << "--------add Number---" << std::endl;
+	Span sp4 = Span(10);
+	std::vector<int> numbersToAdd;
 
-	sp4.addNumber<std::vector<int> >(v.begin(), v.end());
-	std::cout << sp4.shortestSpan() << std::endl;
-	std::cout << sp4.longestSpan() << std::endl;
+	numbersToAdd.push_back(1);
+	numbersToAdd.push_back(2);
+	numbersToAdd.push_back(3);
+	numbersToAdd.push_back(4);
+	numbersToAdd.push_back(5);
+	sp4.addNumber<std::vector<int> >(numbersToAdd.begin(), numbersToAdd.end());
+	std::cout << "shortest is: " <<  sp4.shortestSpan() << std::endl;
+	std::cout << "longest: " << sp4.longestSpan() << std::endl;
 	sp4.print();
 
 	std::cout << "---------------------" << std::endl;
