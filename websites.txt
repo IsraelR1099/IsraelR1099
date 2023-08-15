@@ -179,3 +179,8 @@ https://web.notaduo.com/notes/fmzva/edit
 
 EVAL
 https://github.com/abouabra/42-evaluations/blob/master/ng_4_cpp_module_07.pdf
+
+cpp09
+https://github.com/Bmbul/CPP_Module09
+https://github.com/brixxt27/cpp_module_09
+https://github.com/MahdyZ7/CppModule09/tree/main
