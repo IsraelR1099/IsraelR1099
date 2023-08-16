@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:28:25 by irifarac          #+#    #+#              #
-#    Updated: 2023/08/15 20:09:30 by irifarac         ###   ########.fr        #
+#    Updated: 2023/08/16 13:13:16 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME = btc
 
 OBJ_DIR = obj
 
-SRC = main.cpp
+SRC = BitcoinExchange.cpp main.cpp
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.cpp Makefile MutantStack.hpp
+$(OBJ_DIR)/%.o: %.cpp Makefile BitcoinExchange.hpp
 	@echo "$(GREEN)Compiling.. $<$(RESET)"
 	@mkdir -p $(@D)
 	c++ $(CPPFLAGS) -c $< -o $@
