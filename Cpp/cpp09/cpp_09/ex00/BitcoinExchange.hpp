@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 20:43:01 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/16 13:17:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:16:22 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fstream>
 # include <string>
 # include <map>
+# include <cstdlib>
 
 //En los contenedores de c++ hay tres clases de contenedores: los asociativos,
 //los secuenciales y los adaptadores. Los asociativos son aquellos que
