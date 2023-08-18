@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:35:02 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/16 13:46:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/18 10:14:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,14 @@ int	main(int counter, char **str)
 	{
 		std::cout << "Invalid number of arguments\n";
 	}
-	Date	my_date(str[1]);
+	try
+	{
+		Date	my_date(str[1]);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 
 	return (0);
 }

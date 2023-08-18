@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 20:43:01 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/17 14:16:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:12:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string>
 # include <map>
 # include <cstdlib>
+# include <exception>
 
 //En los contenedores de c++ hay tres clases de contenedores: los asociativos,
 //los secuenciales y los adaptadores. Los asociativos son aquellos que
@@ -37,6 +38,20 @@ class	Date
 		Date(const char *input);
 		Date	&operator=(const Date &obj);
 		~Date(void);
+
+		class	BadFormat : public std::exception
+		{
+			public:
+				BadFormat(const std::string &m_msg) : error(m_msg) {}
+				virtual const char *what() const throw()
+				{
+					return (error.c_str());
+				}
+				~BadFormat() throw() {}
+			private:
+				std::string	error;
+		};
+
 	private:
 		int	m_year;
 		int	m_month;
