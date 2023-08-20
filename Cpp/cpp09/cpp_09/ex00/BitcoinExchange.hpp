@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 20:43:01 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/18 12:12:48 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/20 21:21:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <map>
 # include <cstdlib>
 # include <exception>
+# include <cstring>
+# include <sstream>
 
 //En los contenedores de c++ hay tres clases de contenedores: los asociativos,
 //los secuenciales y los adaptadores. Los asociativos son aquellos que
@@ -34,9 +36,12 @@ class	Date
 {
 	public:
 		Date(void);
+		Date(const std::string &input);
+		Date(int year, int month, int day);
 		Date(const Date &obj);
-		Date(const char *input);
 		Date	&operator=(const Date &obj);
+		bool	operator!=(const Date &obj) const;
+		bool	operator==(const Date &obj) const;
 		~Date(void);
 
 		class	BadFormat : public std::exception
@@ -51,22 +56,30 @@ class	Date
 			private:
 				std::string	error;
 		};
+		bool	validData(void);
+
+		bool	operator<(const Date &obj) const;
 
 	private:
 		int	m_year;
 		int	m_month;
 		int	m_day;
+		int	m_value;
 };
 
-/*class	BitcoinExchange
+class	BitcoinExchange
 {
 	public:
 		BitcoinExchange(void);
-		BitcoinExchange(Date &validDate);
+		BitcoinExchange(const char *input);
 		BitcoinExchange(const BitcoinExchange &obj);
 		BitcoinExchange	&operator=(const BitcoinExchange &obj);
 		~BitcoinExchange(void);
+
+		void	addData(void);
+		void	checkData(const char *input);
+		void	addDataLine(std::string &line);
 	private:
-		std::multimap<Date, std::string>	m_map;
-};*/
+		std::multimap<Date, float>	m_map;
+};
 #endif

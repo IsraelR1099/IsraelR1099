@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:35:02 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/18 10:14:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:24:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int counter, char **str)
 	}
 	try
 	{
-		Date	my_date(str[1]);
+		BitcoinExchange exchange(str[1]);
 	}
 	catch (std::exception &e)
 	{
