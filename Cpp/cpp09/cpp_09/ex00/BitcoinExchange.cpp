@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:42:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/20 21:39:29 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/21 09:58:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	ft_isValidDate(std::string &line, char *argv[4], char *eargv[4])
 
 	pos = line.find("|");
 	if (pos == std::string::npos)
-		throw Date::BadFormat("Bad input npos: " + line);
+		throw Date::BadFormat("Bad input: " + line);
 	tmp = strdup(line.c_str());
 	estr = tmp + strlen(tmp);
 	i = 0;
@@ -88,7 +88,7 @@ bool	ft_isValidDate(std::string &line, char *argv[4], char *eargv[4])
 		if (!strchr("|-", *tmp))
 		{
 			std::string	error(tmp);
-			throw Date::BadFormat("Bad input inside if: " + error);
+			throw Date::BadFormat("Bad input: " + error);
 		}
 		eftoken = tmp;
 		*eftoken = 0;
@@ -143,7 +143,7 @@ Date::Date(const std::string &input)
 	{
 		yearString = argv[0];
 		this->m_year = atoi(yearString.c_str());
-		if (this->m_year < 2009 || this->m_year > 2017)
+		if (this->m_year < 2009 || this->m_year > 2023)
 			throw Date::BadFormat("Not a valid year " + copy_input);
 		monthString = argv[1];
 		this->m_month = atoi(monthString.c_str());
@@ -260,6 +260,9 @@ void	BitcoinExchange::addDataLine(std::string &line)
 	std::stringstream	stream(date);
 	std::string			segment;
 
+	year = 0;
+	month = 0;
+	day = 0;
 	if (std::getline(stream, segment, '-'))
 		year = atoi(segment.c_str());
 	if (std::getline(stream, segment, '-'))
@@ -285,6 +288,8 @@ void	BitcoinExchange::checkData(const char *input)
 			try
 			{
 				pos = lineDate.find(" | ");
+				if (pos == std::string::npos)
+					throw (Date::BadFormat("Bad input: " + lineDate));
 				Date date(lineDate);
 				std::map<Date, float>::iterator it = m_map.lower_bound(date);
 				if (date != it->first)
@@ -297,6 +302,10 @@ void	BitcoinExchange::checkData(const char *input)
 				std::string dateStr = lineDate.substr(0, pos);
 				std::string valueStr = lineDate.substr(pos + 3);
 				float value = atoi(valueStr.c_str());
+				if (value < 0)
+					throw (Date::BadFormat("Error: not a positive number"));
+				else if (value > 1000)
+					throw (Date::BadFormat("Error: too large number"));
 				std::cout << dateStr << " -> " << value << " = " << value *
 				it->second << std::endl;
 			}
