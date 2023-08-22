@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:27:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/21 13:51:59 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:22:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,42 @@ RPN::~RPN(void)
 {
 }
 
-int	RPN::Calculate(const char *str) const
+float	RPN::Operation(char c, float first, float second)
 {
-	std::stack<char>	ret;
+	if (c == '+')
+		return (first + second);
+	else if (c == '-')
+		return (first - second);
+	else if (c == '*')
+		return (first * second);
+	else if (c == '/')
+	{
+		if (second == 0)
+			throw (RPN::BadFormat("ERROR"));
+		return (first / second);
+	}
+	else
+		throw (RPN::BadFormat("ERROR"));
+	return (0);
+}
+
+float	RPN::Calculate(const char *str)
+{
+	std::stack<float>	ret;
 	int					counter_oper;
 	int					counter_number;
-	int					first;
-	int					second;
+	float				result;
+	float				first;
+	float				second;
 
 	counter_number = 0;
 	counter_oper = 0;
+	result = 0;
 	for (int i = 0; str[i]; i++)
 	{
 		if (std::isdigit(str[i]))
 		{
-			ret.push(str[i]);
+			ret.push(str[i] - '0');
 			counter_number++;
 		}
 		else if (strchr("*+/-", str[i]))
@@ -75,11 +96,13 @@ int	RPN::Calculate(const char *str) const
 		else
 			throw (RPN::BadFormat("ERROR"));
 	}
-	std::cout << "number es: " << counter_number << std::endl;
-	std::cout << "operand es : " << counter_oper << std::endl;
 	if ((counter_number - 1) != (counter_oper))
 			throw (RPN::BadFormat("Wrong number of operands"));
-	return (0);
+	return (ret.top());
 }
 
+float	RPN::getResult(void) const
+{
+	return (m_result);
+}
 

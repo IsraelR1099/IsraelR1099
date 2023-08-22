@@ -3,31 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
+/*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 12:39:01 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/21 17:42:31 by irifarac         ###   ########.fr       */
+/*   Created: 2023/08/22 17:13:25 by irifarac          #+#    #+#             */
+/*   Updated: 2023/08/22 17:38:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RPN.hpp"
+#include "PmergeMe.hpp"
 
 int	main(int counter, char **str)
 {
-	if (counter == 2)
+	if (counter < 2)
 	{
-		try
-		{
-			RPN	test2(str[1]);
-			std::cout << test2.getResult() << std::endl;
-		}
-		catch (std::exception &e)
-		{
-			std::cout << e.what() << std::endl;
-		}
+		std::cout << "Usage: ./PmergeMe [numbers]" << std::endl;
+		return (0);
 	}
-	else
-		std::cout << "Wrong number of arguments" << std::endl;
-	(void)str;
+	try
+	{
+		PmergeMe	merge(counter, str);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 	return (0);
 }

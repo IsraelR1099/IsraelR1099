@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 11:53:42 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/21 13:45:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:17:59 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <iostream>
 # include <stack>
 # include <exception>
+# include <cstring>
 
 class	RPN
 {
@@ -27,7 +28,9 @@ class	RPN
 		RPN	&operator=(const RPN &obj);
 		~RPN(void);
 
-		int	Calculate(const char *str) const;
+		float	Calculate(const char *str);
+		float	Operation(char c, float first, float second);
+		float	getResult(void) const;
 		class	BadFormat : public std::exception
 		{
 			public:
@@ -43,6 +46,6 @@ class	RPN
 
 	private:
 		std::stack<char>	m_init;
-		int					m_result;
+		float				m_result;
 };
 #endif
