@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:25:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/22 22:48:06 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/23 13:45:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,14 @@ class	PmergeMe
 		std::vector<std::vector<int> >	sort_pairs(std::vector<std::vector<int> > &pairs);
 		void
 		sortByLarger(std::vector<std::vector<int> > &pairs);
-		void
-		insertionSort(std::vector<std::vector<int> > &pair, int len);
+	//	std::vector<std::vector<int> >
+	//	insertionSort(std::vector<std::vector<int> > &pair, int len);
+		void							insertionSort(std::vector<std::vector<int> > &pair);
 		void							insert(std::vector<int> &element,
 		std::vector<std::vector<int> > &pairs, int len);
+		std::vector<int>				createSequence(std::vector<std::vector<int> > &sortedPairs,											int tmp, bool print);
+		std::vector<int>				build_jacob_seq(const std::vector<int> &pairs);
+		int								jacobsthal(int n);
 		class	BadArgument : public std::exception
 		{
 			public:
