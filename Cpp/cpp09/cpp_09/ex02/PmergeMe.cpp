@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:27:46 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/24 23:51:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/24 23:55:14 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ PmergeMe<OuterContainer, InnerContainer>::~PmergeMe(void)
 }
 
 template <typename OuterContainer, typename InnerContainer>
-PmergeMe &PmergeMe<OuterContainer, InnerContainer>::operator=(const PmergeMe &obj)
+PmergeMe<OuterContainer, InnerContainer> &PmergeMe<OuterContainer, InnerContainer>::operator=(const PmergeMe &obj)
 {
 	if (this == &obj)
 		return (*this);
@@ -84,7 +84,8 @@ bool	PmergeMe<OuterContainer, InnerContainer>::validData(std::string &str)
 	return (value == static_cast<int>(value));
 }
 
-void	PmergeMe::mergeInsertionSort(void)
+template <typename OuterContainer, typename InnerContainer>
+void	PmergeMe<OuterContainer, InnerContainer>::mergeInsertionSort(void)
 {
 	int		tmp;
 	bool	odd = false;
