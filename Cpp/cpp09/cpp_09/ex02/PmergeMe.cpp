@@ -6,18 +6,20 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:27:46 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/23 13:45:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/24 23:51:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe(void)
+template <typename OuterContainer, typename InnerContainer>
+PmergeMe<OuterContainer, InnerContainer>::PmergeMe(void)
 {
 	return ;
 }
 
-PmergeMe::PmergeMe(int counter, char **str)
+template <typename OuterContainer, typename InnerContainer>
+PmergeMe<OuterContainer, InnerContainer>::PmergeMe(int counter, char **str)
 {
 	int	i;
 
@@ -37,22 +39,28 @@ PmergeMe::PmergeMe(int counter, char **str)
 			if (buff.empty())
 				continue ;
 			m_numbers.push_back(static_cast<int>(std::strtod(buff.c_str(), NULL)));
+			m_numbersBefore.push_back(static_cast<int>(std::strtod(buff.c_str(), NULL)));
+			m_numbersDeque.push_back(static_cast<int>(std::strtod(buff.c_str(), NULL)));
+			m_numbersDequeBefore.push_back(static_cast<int>(std::strtod(buff.c_str(), NULL)));
 		}
 		i++;
 	}
 	mergeInsertionSort();
 }
 
-PmergeMe::PmergeMe(const PmergeMe &obj) : m_numbers(obj.m_numbers)
+template <typename OuterContainer, typename InnerContainer>
+PmergeMe<OuterContainer, InnerContainer>::PmergeMe(const PmergeMe &obj) : m_numbers(obj.m_numbers)
 {
 }
 
-PmergeMe::~PmergeMe(void)
+template <typename OuterContainer, typename InnerContainer>
+PmergeMe<OuterContainer, InnerContainer>::~PmergeMe(void)
 {
 	return ;
 }
 
-PmergeMe &PmergeMe::operator=(const PmergeMe &obj)
+template <typename OuterContainer, typename InnerContainer>
+PmergeMe &PmergeMe<OuterContainer, InnerContainer>::operator=(const PmergeMe &obj)
 {
 	if (this == &obj)
 		return (*this);
@@ -60,7 +68,8 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &obj)
 	return (*this);
 }
 
-bool	PmergeMe::validData(std::string &str)
+template <typename OuterContainer, typename InnerContainer>
+bool	PmergeMe<OuterContainer, InnerContainer>::validData(std::string &str)
 {
 	char	*tmp = NULL;
 	double	value;
@@ -77,59 +86,42 @@ bool	PmergeMe::validData(std::string &str)
 
 void	PmergeMe::mergeInsertionSort(void)
 {
-	int	tmp;
+	int		tmp;
+	bool	odd = false;
 
 	tmp = 0;
 	if (m_numbers.size() % 2 != 0)
 	{
+		odd = true;
 		tmp = m_numbers.back();
 		m_numbers.pop_back();
 	}
+	m_start = clock();
 	std::vector<std::vector<int> >	pairs = createPairs(m_numbers);
-	std::cout << "---------unsorted pairs" << std::endl;
-	for (size_t i = 0; i < pairs.size(); i++)
-	{
-		for (size_t j = 0; j < pairs[i].size(); j++)
-		{
-			std::cout << pairs[i][j] << " ";
-			std::cout << "first pair" << std::endl;
-		}
-		std::cout << "second pair" << std::endl;
-	}
 	std::vector<std::vector<int> >	sortedPairs = sort_pairs(pairs);
-	std::cout << "-----sorted pairs---------" << std::endl;
-	for (size_t i = 0; i < sortedPairs.size(); i++)
-	{
-		for (size_t j = 0; j < sortedPairs[i].size(); j++)
-		{
-			std::cout << sortedPairs[i][j] << " ";
-			std::cout << "first pair" << std::endl;
-		}
-		std::cout << "second pair" << std::endl;
-	}
-	std::cout << "---------sorted by larger------" << std::endl;
 	sortByLarger(sortedPairs);
+	m_numbers.clear();
 	for (size_t i = 0; i < sortedPairs.size(); i++)
 	{
 		for (size_t j = 0; j < sortedPairs[i].size(); j++)
-		{
-			std::cout << sortedPairs[i][j] << " ";
-			std::cout << "first pair" << std::endl;
-		}
-		std::cout << "second pair" << std::endl;
+			m_numbers.push_back(sortedPairs[i][j]);
 	}
-	/*std::cout << "------final result----" << std::endl;
-	std::vector<int>	result = createSequence(sortedPairs, tmp, true);
-	for (size_t i = 0; i < result.size(); i++)
-		std::cout << result[i] << " ";*/
+	mergeSort(m_numbers, 0, m_numbers.size() - 1);
+	if (odd == true)
+		insertElement(m_numbers, tmp);
+	m_end = clock();
 }
 
 //in order to follow the FJMI, the values must be arbitrarily sorted into
 //pairs. We use the functions createPairs, which loops through the vector
-std::vector<std::vector<int> > PmergeMe::createPairs(const std::vector<int> &numbers)
+//std::vector<std::vector<int> > PmergeMe::createPairs(const std::vector<int> &numbers)
+template <typename OuterContainer, typename InnerContainer>
+OuterContainer PmergeMe::createPairs(const InnerContainer &numbers)
 {
-	std::vector<std::vector<int> >	pairs;
-	std::vector<int>				tmp;
+	//std::vector<std::vector<int> >	pairs;
+	//std::vector<int>				tmp;
+	OuterContainer	pairs;
+	InnerContainer	tmp;
 
 	for (size_t i = 0; i < numbers.size(); i++)
 	{
@@ -152,8 +144,10 @@ std::vector<std::vector<int> > PmergeMe::createPairs(const std::vector<int> &num
 //Once the array is created and paired, we use sort_pairs to sort the pairs.
 //This functions loops through the pairs and place the smaller number on the
 //left and the larger number on the right.
-std::vector<std::vector<int> >
-PmergeMe::sort_pairs(std::vector<std::vector<int> > &pairs)
+//std::vector<std::vector<int> >
+//PmergeMe::sort_pairs(std::vector<std::vector<int> > &pairs)
+template <typename OuterContainer, typename InnerContainer>
+OuterContainer	PmergeMe::sort_pairs(OuterContainer &pairs)
 {
 	for (size_t i = 0; i < pairs.size(); i++)
 	{
@@ -167,8 +161,9 @@ PmergeMe::sort_pairs(std::vector<std::vector<int> > &pairs)
 	return (pairs);
 }
 
-//We recursively sort all the pairs by their largest element.
-void	PmergeMe::sortByLarger(std::vector<std::vector<int> > &pairs)
+//void	PmergeMe::sortByLarger(std::vector<std::vector<int> > &pairs)
+template <typename OuterContainer, typename InnerContainer>
+void	PmergeMe::sortByLarger(OuterContainer &pairs)
 {
 	int	len = pairs.size();
 
@@ -176,183 +171,117 @@ void	PmergeMe::sortByLarger(std::vector<std::vector<int> > &pairs)
 		insertionSort(pairs);
 }
 
-//std::vector<std::vector<int> >	PmergeMe::insertionSort(std::vector<std::vector<int> > &pair,
-//int len)
-void	PmergeMe::insertionSort(std::vector<std::vector<int> > &pair)
+//void	PmergeMe::insertionSort(std::vector<std::vector<int> > &pair)
+template <typename OuterContainer, typename InnerContainer>
+void	PmergeMe::insertionSort(OuterContainer &pair)
 {
-//	std::cout << "len en insertionSort: " << len << std::endl;
-	/*if (len < 1)
-		return (pair);
-	else
-	{
-		insertionSort(pair, len - 1);
-		std::cout << "entro aqui len es: " << len  << std::endl;
-	//	std::cout << "pair len key es: " << pair[len][0] << std::endl;
-		insert(pair[len], pair, len - 1);
-		return (pair);
-	}*/
 	int					j;
-	std::vector<int>	key;
 
-	for (size_t i = 1; i <= pair.size(); i++)
+	for (size_t i = 1; i < pair.size(); i++)
 	{
-		key = pair[i];
-		std::cout << "key 0: " << key[0] << " key 1 es: " << key[1] << std::endl;
+		//std::vector<int> key = pair[i];
+		InnerContainer key = pair[i];
 		j = i - 1;
-		std::cout << "pair j 1 es: " << pair[j][1] << std::endl;
-		std::cout << "j es: " << j << std::endl;
 		while (j >= 0 && key[1] < pair[j][1])
 		{
 			pair[j + 1] = pair[j];
-			std::cout << "pair j es: " << pair[j][1] << std::endl;
-			std::cout << "pair j + 1 es: " << pair[j+1][1] << std::endl;
-			j = j - 1;
+			j--;
 		}
 		pair[j + 1] = key;
 	}
 }
 
-/*void	PmergeMe::insert(std::vector<int> &element,
-std::vector<std::vector<int> > &pairs, int len)
+//void	PmergeMe::mergeSort(std::vector<int> &array, const int begin, const int end)
+template <typename OuterContainer, typename InnerContainer>
+void	PmergeMe::mergeSort(InnerContainer &array, const int begin, const int end)
 {
-	std::vector<int>	elementCopy = element;
-
-	std::cout << "len es: " << len << std::endl;
-	for (size_t i = 0; i < pairs.size(); i++)
-	{
-		for (size_t j = 0; j < pairs[i].size(); j++)
-			std::cout << "value: " << pairs[i][j] << std::endl;
-	}
-	if (len < 0)
-	{
-		std::cout << "entro en len 0" << std::endl;
-		pairs.insert(pairs.begin(), element);
-	}
-	else if (element[1] >= pairs[len][1])
-	{
-		std::cout << "entro en element 1 > pairs len 1" << std::endl;
-		std::cout << "element 1: " << element[1] << std::endl;
-		std::cout << " len es: " << len << std::endl;
-		std::cout << "pairs len es: " << pairs[len][1] << std::endl;
-		for (size_t i = 0; i < pairs.size(); i++)
-		{
-			for (size_t j = 0; j < pairs[i].size(); j++)
-				std::cout << "value: " << pairs[i][j] << std::endl;
-			std::cout << "pair: " << i << std::endl;
-		}
-		pairs.insert(pairs.begin() + len + 1, element);
-	}
-	else
-	{
-	//	std::cout << " entro en else" << std::endl;
-		for (size_t i = 0; i < pairs.size(); i++)
-		{
-			for (size_t j = 0; j < pairs[i].size(); j++)
-				std::cout << "value: " << pairs[i][j] << std::endl;
-			std::cout << "pair: " << i << std::endl;
-		}
-		int	tmpLen = len;
-	//	std::cout << "len antes while: " << len << std::endl;
-	//	std::cout << "element 1 es: " <<  element[1] << " pair es: " << pairs[len][1] << std::endl;
-		while (len >= 0 && element[1] < pairs[len][1])
-			len--;
-	//	std::cout << "element es: " <<  element[0] << " " <<  element[1] << std::endl;
-	//	std::cout << "len es: " << len << " y tmplen: " << tmpLen <<  std::endl;
-		pairs.insert(pairs.begin() + len + 1, element);
-	//	std::cout << "element copy es: " <<  elementCopy[0] << elementCopy[1] << std::endl;
-	//	std::cout << "pairs es: " << pairs[tmpLen + 2][1] << std::endl;
-		if (elementCopy[1] == pairs[tmpLen + 2][1])
-		{
-			std::cout << "entro en if" <<std::endl;
-			pairs.erase(pairs.begin() + tmpLen + 2);
-		}
-		for (size_t i = 0; i < pairs.size(); i++)
-		{
-			for (size_t j = 0; j < pairs[i].size(); j++)
-				std::cout << "value despues: " << pairs[i][j] << std::endl;
-	//		std::cout << "pair: " << i << std::endl;
-		}
-
-	}
-}*/
-
-int	PmergeMe::jacobsthal(int n)
-{
-	if (n == 0)
-		return (0);
-	if (n == 1)
-		return (1);
-	return (jacobsthal(n -1) + 2 * jacobsthal(n - 2));
+	if (begin >= end)
+		return ;
+	int	mid = begin + (end - begin) / 2;
+	mergeSort(array, begin, mid);
+	mergeSort(array, mid + 1, end);
+	merge(array, begin, mid, end);
 }
 
-std::vector<int>	PmergeMe::build_jacob_seq(const std::vector<int> &pairs)
+//void
+//PmergeMe::merge(std::vector<int> &array, const int left, const int mid, const int right)
+template <typename OuterContainer, typename InnerContainer>
+void	PmergeMe::merge(InnerContainer &array, const int left, const int mid, const int right)
 {
-	int					pair_len = pairs.size();
-	std::vector<int>	end_seq;
-	int					jacob_index = 3;
+	const int	subArrayOne = mid - left + 1;
+	const int	subArrayTwo = right - mid;
 
-	while (jacobsthal(jacob_index) < pair_len - 1)
-	{
-		end_seq.push_back(jacobsthal(jacob_index));
-		jacob_index++;
-	}
-	return (end_seq);
-}
+//	std::vector<int>	leftArray(subArrayOne);
+//	std::vector<int>	rightArray(subArrayTwo);
+	InnerContainer	leftArray(subArrayOne);
+	InnerContainer	rightArray(subArrayTwo);
 
-std::vector<int>	PmergeMe::createSequence(std::vector<std::vector<int> > &sortedPairs,
-int tmp, bool print)
-{
-	std::vector<int>	sequence;
-	std::vector<int>	pend;
-	int					comparisons_made;
-	int					item;
+	for (int i = 0; i < subArrayOne; i++)
+		leftArray[i] = array[left + i];
+	for (int j = 0; j < subArrayTwo; j++)
+		rightArray[j] = array[mid + 1 + j];
+	int	indexOne = 0;
+	int	indexTwo = 0;
+	int	indexMerged = left;
 
-	comparisons_made = 0;
-	item = 0;
-	for (size_t i = 0; i < sortedPairs.size(); i++)
+	while (indexOne < subArrayOne && indexTwo < subArrayTwo)
 	{
-		sequence.push_back(sortedPairs[i][1]);
-		pend.push_back(sortedPairs[i][0]);
-	}
-	sequence.insert(sequence.begin(), pend[0]);
-	int					it = 0;
-	int					jacob_index = 3;
-	std::vector<int>	index_sequence;
-	std::string			last = "default";
-	std::vector<int>	jacob_insert_seq = build_jacob_seq(pend);
-	while (it <= static_cast<int>(pend.size()))
-	{
-		if (!jacob_insert_seq.empty() && last != "jacob")
+		if (leftArray[indexOne] <= rightArray[indexTwo])
 		{
-			int	jacob_value = jacob_insert_seq[0];
-			index_sequence.push_back(jacob_value);
-			item = pend[jacob_value - 1];
-			jacob_insert_seq.erase(jacob_insert_seq.begin());
-			last = "jacob";
+			array[indexMerged] = leftArray[indexOne];
+			indexOne++;
 		}
 		else
 		{
-			item = pend[it];
-			if (std::find(index_sequence.begin(), index_sequence.end(), it) != index_sequence.end())
-				it++;
-			index_sequence.push_back(it);
-			last = "not-jacob";
+			array[indexMerged] = rightArray[indexTwo];
+			indexTwo++;
 		}
-		int	insertion_point = std::lower_bound(sequence.begin(), sequence.end(), item) - sequence.begin();
-		sequence.insert(sequence.begin() + insertion_point, item);
-		it++;
-		jacob_index++;
-		comparisons_made += 2;
+		indexMerged++;
 	}
-	if (tmp)
+	while (indexOne < subArrayOne)
 	{
-		int	insertion_point = std::lower_bound(sequence.begin(), sequence.end(), tmp) - sequence.begin();
-		sequence.insert(sequence.begin() + insertion_point, tmp);
-		comparisons_made += 2;
+		array[indexMerged] = leftArray[indexOne];
+		indexOne++;
+		indexMerged++;
 	}
-	if (print)
+	while (indexTwo < subArrayTwo)
 	{
-		std::cout << "approximate comparisons made: " << comparisons_made << std::endl;
+		array[indexMerged] = rightArray[indexTwo];
+		indexTwo++;
+		indexMerged++;
 	}
-	return (sequence);
+}
+
+//void	PmergeMe::insertElement(std::vector<int> &array, const int element)
+template <typename OuterContainer, typename InnerContainer>
+void	PmergeMe::insertElement(InnerContainer &array, const int element)
+{
+	int	position = findPosition(array, element);
+	array.insert(array.begin() + position, element);
+}
+
+//int PmergeMe::findPosition(std::vector<int> &array, const int element)
+template <typename OuterContainer, typename InnerContainer>
+int	PmergeMe::findPosition(InnerContainer &array, const int element)
+{
+	for (size_t i = 0; i < array.size(); i++)
+	{
+		if (element <= array[i])
+			return (i);
+	}
+	return (array.size());
+}
+
+void	PmergeMe::print()
+{
+	std::cout << "Before: ";
+	for (size_t i = 0; i < m_numbersBefore.size(); i++)
+		std::cout << m_numbersBefore[i] << " ";
+	std::cout << std::endl;
+	std::cout << "After: ";
+	for (size_t i = 0; i < m_numbers.size(); i++)
+		std::cout << m_numbers[i] << " ";
+	std::cout << std::endl;
+	std::cout << "Time to process a range of " << m_numbers.size()
+	<< " elements with std::vector<int> is " << (double)(m_end - m_start) / CLOCKS_PER_SEC << " seconds" << std::endl;
 }
