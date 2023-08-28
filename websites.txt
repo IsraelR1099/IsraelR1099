@@ -187,3 +187,13 @@ https://github.com/MahdyZ7/CppModule09/tree/main
 
 https://github.com/PunkChameleon/ford-johnson-merge-insertion-sort
 https://woongtech.tistory.com/entry/42SEOUL-CPP-Module-09#%EB%A7%88%EC%B9%98%EB%A9%B0-1
+
+##Docker
+
+Images:
+	In the docker world, an image is effectively a stopped container. We can
+	think of an image as a class.
+	To show the images of our Docker, we can run the command: <docker image ls>
+	Use the "docker image build" command to create a new image using the
+	instructions contained in the Dockerfile: <docker image build -t
+	"name:tag">
