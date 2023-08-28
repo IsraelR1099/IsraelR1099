@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:27:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/21 18:22:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/25 11:40:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ float	RPN::Calculate(const char *str)
 	counter_number = 0;
 	counter_oper = 0;
 	result = 0;
+	if (strchr("*+/-", str[0]))
+			throw (RPN::BadFormat("ERROR"));
 	for (int i = 0; str[i]; i++)
 	{
 		if (std::isdigit(str[i]))

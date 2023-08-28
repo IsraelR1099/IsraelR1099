@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:27:46 by irifarac          #+#    #+#             */
-/*   Updated: 2023/08/24 23:55:14 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/08/25 09:40:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,10 @@ void	PmergeMe<OuterContainer, InnerContainer>::mergeInsertionSort(void)
 //pairs. We use the functions createPairs, which loops through the vector
 //std::vector<std::vector<int> > PmergeMe::createPairs(const std::vector<int> &numbers)
 template <typename OuterContainer, typename InnerContainer>
-OuterContainer PmergeMe::createPairs(const InnerContainer &numbers)
+OuterContainer	PmergeMe<OuterContainer, InnerContainer>::createPairs(const InnerContainer &numbers)
 {
-	//std::vector<std::vector<int> >	pairs;
-	//std::vector<int>				tmp;
-	OuterContainer	pairs;
-	InnerContainer	tmp;
+	std::vector<std::vector<int> >	pairs;
+	std::vector<int>				tmp;
 
 	for (size_t i = 0; i < numbers.size(); i++)
 	{
@@ -148,7 +146,7 @@ OuterContainer PmergeMe::createPairs(const InnerContainer &numbers)
 //std::vector<std::vector<int> >
 //PmergeMe::sort_pairs(std::vector<std::vector<int> > &pairs)
 template <typename OuterContainer, typename InnerContainer>
-OuterContainer	PmergeMe::sort_pairs(OuterContainer &pairs)
+OuterContainer	PmergeMe<OuterContainer, InnerContainer>::sort_pairs(OuterContainer &pairs)
 {
 	for (size_t i = 0; i < pairs.size(); i++)
 	{
@@ -164,7 +162,7 @@ OuterContainer	PmergeMe::sort_pairs(OuterContainer &pairs)
 
 //void	PmergeMe::sortByLarger(std::vector<std::vector<int> > &pairs)
 template <typename OuterContainer, typename InnerContainer>
-void	PmergeMe::sortByLarger(OuterContainer &pairs)
+void	PmergeMe<OuterContainer, InnerContainer>::sortByLarger(OuterContainer &pairs)
 {
 	int	len = pairs.size();
 
@@ -174,7 +172,7 @@ void	PmergeMe::sortByLarger(OuterContainer &pairs)
 
 //void	PmergeMe::insertionSort(std::vector<std::vector<int> > &pair)
 template <typename OuterContainer, typename InnerContainer>
-void	PmergeMe::insertionSort(OuterContainer &pair)
+void	PmergeMe<OuterContainer, InnerContainer>::insertionSort(OuterContainer &pair)
 {
 	int					j;
 
@@ -194,7 +192,7 @@ void	PmergeMe::insertionSort(OuterContainer &pair)
 
 //void	PmergeMe::mergeSort(std::vector<int> &array, const int begin, const int end)
 template <typename OuterContainer, typename InnerContainer>
-void	PmergeMe::mergeSort(InnerContainer &array, const int begin, const int end)
+void	PmergeMe<OuterContainer, InnerContainer>::mergeSort(InnerContainer &array, const int begin, const int end)
 {
 	if (begin >= end)
 		return ;
@@ -207,7 +205,7 @@ void	PmergeMe::mergeSort(InnerContainer &array, const int begin, const int end)
 //void
 //PmergeMe::merge(std::vector<int> &array, const int left, const int mid, const int right)
 template <typename OuterContainer, typename InnerContainer>
-void	PmergeMe::merge(InnerContainer &array, const int left, const int mid, const int right)
+void	PmergeMe<OuterContainer, InnerContainer>::merge(InnerContainer &array, const int left, const int mid, const int right)
 {
 	const int	subArrayOne = mid - left + 1;
 	const int	subArrayTwo = right - mid;
@@ -255,7 +253,7 @@ void	PmergeMe::merge(InnerContainer &array, const int left, const int mid, const
 
 //void	PmergeMe::insertElement(std::vector<int> &array, const int element)
 template <typename OuterContainer, typename InnerContainer>
-void	PmergeMe::insertElement(InnerContainer &array, const int element)
+void	PmergeMe<OuterContainer, InnerContainer>::insertElement(InnerContainer &array, const int element)
 {
 	int	position = findPosition(array, element);
 	array.insert(array.begin() + position, element);
@@ -263,7 +261,7 @@ void	PmergeMe::insertElement(InnerContainer &array, const int element)
 
 //int PmergeMe::findPosition(std::vector<int> &array, const int element)
 template <typename OuterContainer, typename InnerContainer>
-int	PmergeMe::findPosition(InnerContainer &array, const int element)
+int	PmergeMe<OuterContainer, InnerContainer>::findPosition(InnerContainer &array, const int element)
 {
 	for (size_t i = 0; i < array.size(); i++)
 	{
@@ -273,7 +271,8 @@ int	PmergeMe::findPosition(InnerContainer &array, const int element)
 	return (array.size());
 }
 
-void	PmergeMe::print()
+template <typename OuterContainer, typename InnerContainer>
+void	PmergeMe<OuterContainer, InnerContainer>::print()
 {
 	std::cout << "Before: ";
 	for (size_t i = 0; i < m_numbersBefore.size(); i++)

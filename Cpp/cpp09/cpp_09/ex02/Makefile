@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student42.barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 20:28:25 by irifarac          #+#    #+#              #
-#    Updated: 2023/08/22 17:39:10 by irifarac         ###   ########.fr        #
+#    Updated: 2023/08/25 10:11:49 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME = PmergeMe
 
 OBJ_DIR = obj
 
-SRC = PmergeMe.cpp main.cpp
+SRC = main.cpp
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
@@ -27,11 +27,11 @@ CPPFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -MMD -g
 all: $(NAME)
 
 -include $(DEP)
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) PmergeMe.tpp
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.cpp Makefile PmergeMe.hpp
+$(OBJ_DIR)/%.o: %.cpp Makefile PmergeMe.hpp PmergeMe.tpp
 	@echo "$(GREEN)Compiling.. $<$(RESET)"
 	@mkdir -p $(@D)
 	c++ $(CPPFLAGS) -c $< -o $@
