@@ -197,3 +197,31 @@ Images:
 	Use the "docker image build" command to create a new image using the
 	instructions contained in the Dockerfile: <docker image build -t
 	"name:tag">
+	Comandos:
+		delete an image: docker image rm "tag image" or ID image
+		if you want to delete all the images of your docker:
+		docker image rm $(docker image ls -q) -f. The -q flag lists all the IDS of the images
+	· <docker image pull> is the command to download images. By default, images
+	will be pulled from repositories on Docker Hub. This command will pull the image tagged
+	as "latest".
+	· <docker image ls> lists all of the images stored in your Docker host's local cache.
+	To see the SHA256 digests of images add the --digests flag.
+	· <docker image inspect>: It gives you all of the details of image - layer data and metadata.
+	· <docker image rm>: command to delete images. You cannot delete an image that is associated
+	with a container in the running (Up) or stopped (Exited) states.
+	
+Containers:
+	A container is the runtime instance of an image. In the same way that we can start a VM
+	from a virtual machine template, we start one, or more, containers from a single image.
+	The big difference between a VM and a container is that containers are faster and more
+	lightweight - instead of running a full-blown OS like a VM, containers share the OS/kernel
+	with the host they are running on.
+	
+	The simplest way to start a container is with <docker container run> command. In its most basic
+	form you tell it an image to use and a command to run "docker container run <image> <command>.
+	For example: <docker container run -it alpine /bin/bash.
+	The -it falgs will connect your current terminal to the container's shell.
+	
+	You can manually stop a container with the <docker container stop> command, and then restart
+	it with <docker container start>. To get rid of a container forever you have to delete it
+	using <docker container rm>
