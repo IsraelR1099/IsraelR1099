@@ -209,19 +209,91 @@ Images:
 	· <docker image inspect>: It gives you all of the details of image - layer data and metadata.
 	· <docker image rm>: command to delete images. You cannot delete an image that is associated
 	with a container in the running (Up) or stopped (Exited) states.
-	
+
 Containers:
 	A container is the runtime instance of an image. In the same way that we can start a VM
 	from a virtual machine template, we start one, or more, containers from a single image.
 	The big difference between a VM and a container is that containers are faster and more
 	lightweight - instead of running a full-blown OS like a VM, containers share the OS/kernel
 	with the host they are running on.
-	
+
 	The simplest way to start a container is with <docker container run> command. In its most basic
 	form you tell it an image to use and a command to run "docker container run <image> <command>.
 	For example: <docker container run -it alpine /bin/bash.
 	The -it falgs will connect your current terminal to the container's shell.
-	
+
 	You can manually stop a container with the <docker container stop> command, and then restart
 	it with <docker container start>. To get rid of a container forever you have to delete it
 	using <docker container rm>
+
+	Checking the Docker daemon:
+		The first thing to always do when you log on to a Docker host is check
+		that Docker is running.
+		<docker version>
+		As long as you get a response back in the Client and Server sections
+		you should be good to go. If you get an error code in the Server
+		section there's a good chance that the docker daemon(server) is not
+		running or that your user account doesn't have permission to accest it.
+		To check if docker service is active use:
+		<systemctl is-active docker>
+	Example of usage with ports:
+	<docker container run -d --name webserver -p 80:8080 \
+	nigelpoulton/pluralsight-docker-ci>
+
+	We know that docker container run starts a new container. But this time we
+	give it the -d flag instead of -it. -d tells the container to run in the
+	background. The "d" stands for daemon mode. After that, we name the
+	container and then give it -p 80:8080. The -p flag maps ports on the Docker
+	host to ports inside the container.
+
+	Commands resume:
+		# <docker container run>: starts a new container.
+		# <Ctrl - PQ> will detach your shell from the terminal of a container and
+		leave the container running (Up) in the background.
+		# <docker container ls> Lists all containers in the running (Up) state.
+		If you add the -a flag you will also see containers in the stopped
+		(Exited) state.
+		# <docker container exec> lets you run a new process inside of a
+		running container. It's useful for attaching the shell of your Docker
+		host to a terminal inside of a running container.
+		# <docker container stop> will stop a running container and put it in
+		the (Exited (0)) state. It does this by issuing a SIGTERM to the
+		process with PID 1 inside of the container. If the process has not
+		cleaned up and stopped within 10 secs, a SIGKILL will be issued to
+		forcibly stop the container. docker container stop accepts container
+		IDs and container names as arguments.
+		# <docker container start> will restart a stopped (Exited) container.
+		You can give docker container start the name or ID of a container.
+		# <docker container rm> will delete a stopped container. It is
+		recommended that you stop a container with the docker container stop
+		command before deleting it with docker rm.
+		# <docker container inspect> will shoow you detailed configuration and
+		runtime info about a container. It accepts container names and
+		contained IDs as its main argument.
+
+Containerizing an App
+
+	The process of Containerizing an app looks like this:
+		1. Start with your application code.
+		2. Create a Dockerfile that describes your app, its dependencies, and
+		how to run it.
+		3. Feed this Dockerfile into the docker image build command.
+
+	Dockerfiles:
+		A Dockerfile describes the application and tells Docker how to build an
+		image from it.
+		The Dockerfile has two main purposes:
+			1. To describe the application.
+			2. To tell Docker how to containerize the app (create an image with the
+			app inside).
+		* All Dockerfiles start with the FROM instruction. This will be the base
+		layer of the image, and the rest of the app will be added on top as
+		additional layers.
+		* Next, the Dockerfile creates a LABEL and specifies an email as the
+		maintainer of the image. Labels are simple key-value pairs and are an
+		excellent way of adding custom metadata to an image. It is considered a
+		best practice to list a maintainer of an image.
+		* The RUN instruction installs these packages as a new image layer on
+		  top of the alpine base image created by the FROM instruction.
+		* The COPY instruction copies in the app files from the build context.
+
