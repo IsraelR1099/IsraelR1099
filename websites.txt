@@ -296,4 +296,42 @@ Containerizing an App
 		* The RUN instruction installs these packages as a new image layer on
 		  top of the alpine base image created by the FROM instruction.
 		* The COPY instruction copies in the app files from the build context.
+		* Next, the Dockerfile uses the WORKDIR instruction to set the working
+		  directory for the rest of the instructions in the file. This
+		  directory is relative to the image, and the info is added as metadata
+		  to the image config not as a new layer.
+		* The app exposes a web service on TCP port 8080, so the Dockerfile
+		  documents this with the EXPOSE 8080 instruction. This is added as
+		  image metadata.
+		* Finally, the ENTRYPOINT instruction is used to set the main
+		  application that the iamge (container) should run. This is also a
+		  metadata.
+
+		A closer overview:
+			Examples of instructions that create new layers are FROM, RUN, COPY.
+			Example of instructions that create metadata EXPSOE, WORKDIR, ENV,
+			ENTRYPOINT.
+
+		You can view the instructions that were used to buiild the image with
+		<docker image history [image]>
+
+		Every RUN instruction adds a new layer. As a result, it's ussually
+		considered a best practice to include multiple commands as part of a
+		single RUN instruction, all glued together with double-ampersands (&&)
+		and blacklash.
+
+		The commands - Containerizing:
+		* <docker image build> is the command that reads a Dockerfile and
+		  containerizes an app. The -t flag tags the image, the -f flag lets
+		  you specify the name and location of the Dockerfile.
+		* <FROM> specifies the base image for the new image you will build. It
+		  is usually the first instruction in a Dockerfile.
+		* <RUN> allows you to run commands inside the image which create new
+		  layers. Each RUN instruction creates a single new layer.
+		* <COPY> adds files into the image as a new layer. It is common to use
+		  the COPY instruction to copy your application code into an image.
+		* <EXPOSE> documents the network port that the application uses.
+		* <ENTRYPOINT> sets the default application to run when the image is
+		  started as a container.
+
 
