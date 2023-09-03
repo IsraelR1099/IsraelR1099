@@ -335,3 +335,11 @@ Containerizing an App
 		  started as a container.
 
 
+https://www.cyberciti.biz/faq/configure-nginx-to-use-only-tls-1-2-and-1-3/
+https://www.baeldung.com/linux/nginx-docker-container
+https://github.com/gemartin99/inception
+https://github.com/vbachele/Inception/blob/main/scrs/requirements/mariadb/Dockerfile
+https://github.com/Forstman1/inception-42/blob/main/srcs/requirements/mariadb/tools/script.sh
+https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+
+
