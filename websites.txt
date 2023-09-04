@@ -345,3 +345,5 @@ https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
 https://lowendbox.com/blog/automating-mysql_secure_installation-in-mariadb-setup/
 https://it-garry.medium.com/shell-scripts-thatll-automate-software-installation-on-your-linux-server-part-iii-998975bd15c8
 https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-nginx-mariadb-and-php-on-debian-10
+https://fromdual.com/mysql-configuration-file-sample
+https://mariadb.com/kb/en/server-system-variables/#basedir
