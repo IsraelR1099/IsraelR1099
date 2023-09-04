@@ -342,4 +342,6 @@ https://github.com/vbachele/Inception/blob/main/scrs/requirements/mariadb/Docker
 https://github.com/Forstman1/inception-42/blob/main/srcs/requirements/mariadb/tools/script.sh
 https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
 
-
+https://lowendbox.com/blog/automating-mysql_secure_installation-in-mariadb-setup/
+https://it-garry.medium.com/shell-scripts-thatll-automate-software-installation-on-your-linux-server-part-iii-998975bd15c8
+https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-nginx-mariadb-and-php-on-debian-10
