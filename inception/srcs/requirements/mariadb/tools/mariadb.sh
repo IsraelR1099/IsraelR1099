@@ -21,7 +21,7 @@ handle_error()
 
 /etc/init.d/mysql start
 
-if [ -d /var/lib/mysql/$MYSQL_DATABASE]
+if [ -d /var/lib/mysql/$MYSQL_DATABASE ]
 then
 	echo "Database already exists"
 else
