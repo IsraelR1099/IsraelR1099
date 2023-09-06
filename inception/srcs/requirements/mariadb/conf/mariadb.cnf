@@ -5,16 +5,24 @@
 port = 3306
 socket = /var/run/mysqld/mysqld.sock
 default_character_set = utf8
+max_allowed_packet = 16M
 
 # This section is used for configuring the MariaDB server.
 # basedir: used to specify the base directory where MariaDB's data directory
 # and other system files are located.
+# datadir: directory where the data is stored.
+# pid_file: specify the path to a file where the server will write its process
+# ID (PID).
+# max_connect_errors: limit the number of successive failed connects from a
+# host before the host is blocked.
+# tmpdir: directory for storing temporary tables and files.
 [mysqld]
 basedir = /usr
 bind_address = 0.0.0.0
 datadir = /var/lib/mysql
 max_allowed_packet = 16M
-max_connect_errors = 1000000
+max_connect_errors = 10
+max_connections = 100
 pid_file = /var/run/mysqld/mysqld.pid
 port = 3306
 socket = /var/run/mysqld/mysqld.sock
