@@ -1,5 +1,4 @@
-#!bin/bash
-
+#!bin/sh
 # First we check if the database already exists, if so, we do not do anything.
 # In the contrary case, we execute "mysql_secure_installation"
 # The flags of mysql are: -s silen, -f keep going if there is an error and -u
@@ -9,7 +8,6 @@
 # applications.
 # utf8_unicode_ci means that our database is case-insensitive and
 # accent-insensitive, which is suitable with diverse languages.
-
 # Function to handle errors
 handle_error()
 {
@@ -19,16 +17,18 @@ handle_error()
 	exit $exit_code
 }
 
+mysql_install_db
+
 /etc/init.d/mysql start
 
-if [ -d /var/lib/mysql/$MYSQL_DATABASE ]
+if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]
 then
 	echo "Database already exists"
 else
 
 	if mysql -sfu root <<EOSQL
 	-- set root password
-	UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PASSWD') WHERE User='root';
+	UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User='root';
 	-- delete anonymous users
 	DELETE FROM mysql.user WHERE User='';
 	-- delete remote root capabilities
@@ -42,10 +42,10 @@ else
 	CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET utf8
 	COLLATE utf8_unicode_ci;
 	-- create user for wordpress
-	CREATE USER ${WP_USER}'@'localhost' IDENTIFIED BY ${WP_PASSWD};
+	CREATE USER ${WP_USER}'@'localhost' IDENTIFIED BY ${WP_PASSWORD};
 	-- grant privileges to the new user
 	GRANT ALL PRIVILEGES ON wordpress.* TO ${WP_USER}@'localhost' IDENTIFIED BY
-	${WP_PASSWD};
+	${WP_PASSWORD};
 	-- make changes inmediately
 	FLUSH PRIVILEGES;
 EOSQL
@@ -58,3 +58,4 @@ fi
 
 echo "MariaDB setup script finished."
 /etc/init.d/mysql stop
+exec "$@"

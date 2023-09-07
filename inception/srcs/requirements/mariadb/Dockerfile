@@ -9,19 +9,27 @@ RUN apt-get update && apt-get install -y \
 	mariadb-server && \
 	rm -rf /var/lib/apt/lists/*
 
+COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf/mariadb.conf
+
 RUN mkdir -p /var/run/mysqld \
 	&& chown -R mysql:mysql /var/run/mysqld \
 	&& chmod 777 /var/run/mysqld
 
+EXPOSE 3306
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=wordpress
+ENV MYSQL_USER=wordpress
+ENV MYSQL_PASSWORD=wordpress
+ENV WP_USER=wordpress
+ENV WP_PASSWORD=wordpress
 # Copy the database initialization script
 # the directory /usr/local/bin is used to store user scripts
-COPY ./conf/mariadb.cnf /etc/mysql/mariadb.conf/mariadb.conf
 COPY ./tools/mariadb.sh /usr/local/bin/mariadb.sh
 
 # Make the script executable
 RUN chmod +x /usr/local/bin/mariadb.sh
-
-EXPOSE 3306
+RUN mysql_install_db
 
 ENTRYPOINT [ "/usr/local/bin/mariadb.sh" ]
 
