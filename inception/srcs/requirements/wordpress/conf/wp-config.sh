@@ -36,6 +36,7 @@ fi
 if [ ! -d /run/php ]
 then
 	mkdir -p /run/php
+	chmod 755 /run/php
 fi
 
 # We start the php-fpm service in the foreground
