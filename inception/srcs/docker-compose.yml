@@ -45,7 +45,20 @@ services:
         restart: on-failure
 volumes:
     wordpress:
-        driver: local
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: ${PWD}/app
+    mariadb:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: ${PWD}/app
+networks:
+    inception:
+      driver: bridge
 
 
 

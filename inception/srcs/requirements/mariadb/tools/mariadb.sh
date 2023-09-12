@@ -42,7 +42,7 @@ else
 	CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET utf8
 	COLLATE utf8_unicode_ci;
 	-- create user for wordpress
-	CREATE USER ${WP_USER}'@'localhost' IDENTIFIED BY ${WP_PASSWORD};
+	CREATE USER ${WP_USER}@'localhost' IDENTIFIED BY ${WP_PASSWORD};
 	-- grant privileges to the new user
 	GRANT ALL PRIVILEGES ON wordpress.* TO ${WP_USER}@'localhost' IDENTIFIED BY
 	${WP_PASSWORD};

@@ -17,12 +17,6 @@ RUN mkdir -p /var/run/mysqld \
 
 EXPOSE 3306
 
-ENV MYSQL_ROOT_PASSWORD=root
-ENV MYSQL_DATABASE=wordpress
-ENV MYSQL_USER=wordpress
-ENV MYSQL_PASSWORD=wordpress
-ENV WP_USER=wordpress
-ENV WP_PASSWORD=wordpress
 # Copy the database initialization script
 # the directory /usr/local/bin is used to store user scripts
 COPY ./tools/mariadb.sh /usr/local/bin/mariadb.sh
