@@ -7,7 +7,7 @@ services:
             dockerfile: Dockerfile
         env_file: .env
         expose:
-           - "3306"
+           - 3306:3306
         networks:
             - inception
         volumes:
@@ -22,7 +22,7 @@ services:
             - wordpress
         env_file: .env
         ports:
-            - "443:443" #Port that we expose on the local machine
+            - 443:443 #Port that we expose on the local machine
         networks:
             - inception
         volumes:
@@ -37,7 +37,7 @@ services:
             - mariadb
         env_file: .env
         expose:
-            - "9000"
+            - 9000:9000
         networks:
             - inception
         volumes:
@@ -58,6 +58,7 @@ volumes:
         device: ${PWD}/app
 networks:
     inception:
+      name: inception
       driver: bridge
 
 

@@ -32,8 +32,10 @@ COPY ./conf/nginx.conf /etc/nginx/conf.d
 # Port to expose
 EXPOSE 443
 
+RUN mkdir -p /run/nginx
+
 # Running Nginx
 # -g: global directives
 # daemon off: run in foreground, so that Docker can track the process properly
 # (otherwise, Docker will think the process has exited and stop the container)
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]

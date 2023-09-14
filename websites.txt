@@ -347,3 +347,11 @@ https://it-garry.medium.com/shell-scripts-thatll-automate-software-installation-
 https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-nginx-mariadb-and-php-on-debian-10
 https://fromdual.com/mysql-configuration-file-sample
 https://mariadb.com/kb/en/server-system-variables/#basedir
+https://github.com/sebamiro/inception/blob/master/srcs/requirements/mariadb/tools/mariadb.sh
+https://github.com/burak-yldrm/Inception/blob/main/srcs/requirements/mariadb/conf/50-server.cnf
+
+ERROR
+https://stackoverflow.com/questions/19101243/error-1130-hy000-host-is-not-allowed-to-connect-to-this-mysql-server
+https://stackoverflow.com/questions/64320136/error-2002-hy000-cant-connect-to-mysql-server-on-192-168-1-15-115
+https://stackoverflow.com/questions/54261020/wordpress-wp-config-php-does-not-exist
+https://stackoverflow.com/questions/66453816/mariadb-tables-are-deleted-when-use-volume-in-docker-compose
