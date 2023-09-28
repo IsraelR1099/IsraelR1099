@@ -17,6 +17,7 @@ RUN apt-get -y update && apt-get -y upgrade \
 # -newkey: generate a new certificate request and a new private key
 # -keyout: specify the filename to write the newly created private key to
 # -out: specify the filename to write the newly created certificate to
+RUN mkdir -p /etc/nginx/ssl
 RUN openssl req -newkey rsa:4096 \
 	-x509 \
 	-sha256 \

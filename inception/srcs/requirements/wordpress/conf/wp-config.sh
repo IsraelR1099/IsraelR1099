@@ -9,15 +9,15 @@
 
 sleep 10
 
-if [ ! -e /var/www/wordpress/wp-config.php ]
+if [ ! -e /var/www/html/wp-config.php ]
 then
+	echo "Creating wp-config.php file"
 	wp core download --allow-root
 	wp config create --allow-root \
 		--dbname=${MYSQL_DATABASE} \
 		--dbuser=${MYSQL_USER} \
 		--dbpass=${MYSQL_PASSWORD} \
 		--dbhost=mariadb
-	sleep 2
 	wp core install --url=$DOMAIN_NAME \
 		--title=$SITE_TITLE \
 		--admin_user=$ADMIN_USER \
@@ -29,12 +29,21 @@ then
 		$USER_EMAIL \
 		--user_pass=$USER_PASSWORD \
 		--role=author
+	wp theme install --allow-root \
+		--activate \
+		twentynineteen
+	echo "wp-config.php file created"
+else
+	echo "wp-config.php file already exists"
 fi
 
 if [ ! -d /run/php ]
 then
+	echo "Creating /run/php directory"
 	mkdir -p /run/php
 	chmod 755 /run/php
+else
+	echo "/run/php directory already exists"
 fi
 
 # We start the php-fpm service in the foreground

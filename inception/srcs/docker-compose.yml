@@ -26,7 +26,7 @@ services:
         networks:
             - inception
         volumes:
-            - wordpress:/var/www/wordpress
+            - wordpress:/var/www/html
         restart: on-failure #This container will restart if it exists with non-zero exit status
     wordpress:
         container_name: wordpress
@@ -41,7 +41,7 @@ services:
         networks:
             - inception
         volumes:
-            - wordpress:/var/www/wordpress
+            - wordpress:/var/www/html
         restart: on-failure
 volumes:
     wordpress:
