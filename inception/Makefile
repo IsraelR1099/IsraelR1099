@@ -1,5 +1,5 @@
 
-PATH = ./srcs/docker-compose.yml
+PATH_YML = ./srcs/docker-compose.yml
 
 ifneq (, $(wildcard srcs/requirements/tools/path.txt))
 	dir_path := srcs/requirements/tools/path.txt
@@ -22,18 +22,18 @@ ifeq (,$(wildcard $(mariadb_dir)))
 endif
 	@echo "Starting the server..."
 	@sleep 1
-	@sudo docker compose -f $(PATH) up -d --build
+	@sudo docker compose -f $(PATH_YML) up -d --build
 endif
 
 stop:
 	@echo "Stopping the server..."
 	@sleep 1
-	@sudo docker compose -f $(PATH) stop
+	@sudo docker compose -f $(PATH_YML) stop
 
 clean:
 	@echo "Removing the server..."
 	@sleep 1
-	@sudo docker compose -f $(PATH) down -v
+	@sudo docker compose -f $(PATH_YML) down -v
 
 fclean:
 	@echo "Removing the server..."
