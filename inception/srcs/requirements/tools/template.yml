@@ -1,0 +1,77 @@
+version: '3'
+services:
+    mariadb:
+        container_name: mariadb
+        build:
+            context: ./requirements/mariadb
+            dockerfile: Dockerfile
+        image: mariadb
+        env_file: .env
+        expose:
+           - 3306:3306
+        networks:
+            - inception
+        volumes:
+            - mariadb_volume:/var/lib/mysql
+        restart: unless-stopped #always restarts unless we use the command stop to stop it
+    nginx:
+        container_name: nginx
+        build:
+            context: ./requirements/nginx
+            dockerfile: Dockerfile
+        image: nginx
+        depends_on:
+            - wordpress
+        env_file: .env
+        ports:
+            - 443:443 #Port that we expose on the local machine
+        networks:
+            - inception
+        volumes:
+            - wordpress_volume:/var/www/html
+        restart: on-failure #This container will restart if it exists with non-zero exit status
+    wordpress:
+        container_name: wordpress
+        build:
+            context: ./requirements/wordpress
+            dockerfile: Dockerfile
+        image: wordpress
+        depends_on:
+            - mariadb
+        env_file: .env
+        expose:
+            - 9000:9000
+        networks:
+            - inception
+        volumes:
+            - wordpress_volume:/var/www/html
+        restart: on-failure
+volumes:
+    wordpress_volume:
+        driver: local
+        driver_opts:
+          type: none
+          o: bind
+          device: 'pathtodata/wordpress'
+    mariadb_volume:
+        driver: local
+        driver_opts:
+          type: none
+          o: bind
+          device: 'pathtodata/mariadb'
+networks:
+    inception:
+      name: inception
+      driver: bridge
+
+
+
+
+
+
+
+
+
+
+
+
