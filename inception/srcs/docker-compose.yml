@@ -3,21 +3,23 @@ services:
     mariadb:
         container_name: mariadb
         build:
-            context: requirements/mariadb
+            context: ./requirements/mariadb
             dockerfile: Dockerfile
+		image: mariadb
         env_file: .env
         expose:
            - 3306:3306
         networks:
             - inception
         volumes:
-            - mariadb:/var/lib/mysql
+            - mariadb_volume:/var/lib/mysql
         restart: unless-stopped #always restarts unless we use the command stop to stop it
     nginx:
         container_name: nginx
         build:
-            context: requirements/nginx
+            context: ./requirements/nginx
             dockerfile: Dockerfile
+		image: nginx
         depends_on:
             - wordpress
         env_file: .env
@@ -26,13 +28,14 @@ services:
         networks:
             - inception
         volumes:
-            - wordpress:/var/www/html
+            - wordpress_volume:/var/www/html
         restart: on-failure #This container will restart if it exists with non-zero exit status
     wordpress:
         container_name: wordpress
         build:
-            context: requirements/wordpress
+            context: ./requirements/wordpress
             dockerfile: Dockerfile
+		image: wordpress
         depends_on:
             - mariadb
         env_file: .env
@@ -41,18 +44,18 @@ services:
         networks:
             - inception
         volumes:
-            - wordpress:/var/www/html
+            - wordpress_volume:/var/www/html
         restart: on-failure
 volumes:
-    wordpress:
-      driver: local
-      driver_opts:
-        type: none
-        o: bind
-        device: ${PWD}/app
-    mariadb:
-      driver: local
-      driver_opts:
+    wordpress_volume:
+	    driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ${PWD}/app
+    mariadb_volume:
+        driver: local
+        driver_opts:
         type: none
         o: bind
         device: ${PWD}/app

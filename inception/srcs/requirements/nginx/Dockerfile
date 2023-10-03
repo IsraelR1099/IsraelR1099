@@ -1,9 +1,6 @@
 #syntax=docker/dockerfile:1
 FROM debian:buster
 
-# Create directory for SSL certificate
-RUN mkdir -p /etc/nginx/ssl
-
 # Install Nginx
 # -y: yes to all prompts
 RUN apt-get -y update && apt-get -y upgrade \
@@ -29,9 +26,6 @@ RUN openssl req -newkey rsa:4096 \
 
 # Copy configuration files
 COPY ./conf/nginx.conf /etc/nginx/conf.d
-
-# Port to expose
-EXPOSE 443
 
 RUN mkdir -p /run/nginx
 

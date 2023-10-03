@@ -3,7 +3,7 @@ PATH_YML = ./srcs/docker-compose.yml
 
 ifneq (, $(wildcard srcs/requirements/tools/path.txt))
 	dir_path := srcs/requirements/tools/path.txt
-	variable := $(shell cat $(dir_path))
+	variable := $(shell cat ${dir_path})
 	wordpress_dir := $(shell echo ${variable}/wordpress)
 	mariadb_dir := $(shell echo ${variable}/mariadb)
 endif
@@ -27,17 +27,14 @@ endif
 
 stop:
 	@echo "Stopping the server..."
-	@sleep 1
 	@sudo docker compose -f $(PATH_YML) stop
 
 clean:
 	@echo "Removing the server..."
-	@sleep 1
 	@sudo docker compose -f $(PATH_YML) down -v
 
 fclean:
 	@echo "Removing the server..."
-	@sleep 1
 	@sudo rm -rf $(mariadb_dir)
 	@sudo rm -rf $(wordpress_dir)
 	@sudo docker system prune -af

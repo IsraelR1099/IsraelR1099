@@ -15,6 +15,5 @@ echo "$path" > srcs/requirements/tools/path.txt
 cp srcs/requirements/tools/template.yml srcs/docker-compose.yml
 
 #Replace path to data directory in docker-compose.yml
-cat srcs/docker-compose.yml | sed "s+pathtodata+$path+g" >
-srcs/docker-compose.yml.tmp
+cat srcs/docker-compose.yml | sed "s+pathtodata+$path+g" > srcs/docker-compose.yml.tmp
 mv srcs/docker-compose.yml.tmp srcs/docker-compose.yml

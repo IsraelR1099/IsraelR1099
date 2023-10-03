@@ -9,20 +9,22 @@
 
 sleep 10
 
-if [ ! -e /var/www/html/wp-config.php ]
+if [ -f ./wp-config.php ]
 then
 	echo "Creating wp-config.php file"
 	wp core download --allow-root
 	wp config create --allow-root \
-		--dbname=${MYSQL_DATABASE} \
-		--dbuser=${MYSQL_USER} \
-		--dbpass=${MYSQL_PASSWORD} \
+		--dbname=$MYSQL_DATABASE \
+		--dbuser=$MYSQL_USER \
+		--dbpass=$MYSQL_PASSWORD \
+		--dbhost=\
 		--dbhost=mariadb
 	wp core install --url=$DOMAIN_NAME \
-		--title=$SITE_TITLE \
+		--title="$SITE_TITLE" \
 		--admin_user=$ADMIN_USER \
 		--admin_password=$ADMIN_PASSWORD \
 		--admin_email=$ADMIN_EMAIL \
+		--skip-email \
 		--allow-root
 	wp user create --allow-root \
 		$USER_NAME \
