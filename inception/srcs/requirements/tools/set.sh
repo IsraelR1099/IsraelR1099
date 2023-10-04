@@ -1,4 +1,4 @@
-echo "-------CONFIGURING ENVIRONMENT-------"
+echo -e "\033[0;32m-------CONFIGURING ENVIRONMENT-------\033[0m"
 
 printf "Enter the path to the directory where you want to store the data: "
 printf "\nExample: /home/user/data\n"
@@ -6,7 +6,7 @@ read path
 
 
 if [ ! -d "$path" ]; then
-	echo "This directory does not exist. You must create it first."
+	echo -e "\033[0;31mThis directory does not exist. You must create it first.\033[0m"
 	exit 1
 fi
 

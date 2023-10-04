@@ -9,7 +9,7 @@
 
 if [ -f ./wp-config.php ]
 then
-	echo "WordPress is already installed"
+	echo -e "\033[0;31mWordPress is already installed\033[0m"
 else
 	wp core download --allow-root
 	wp config create --allow-root \
@@ -31,17 +31,17 @@ else
 		--role=author
 	wp theme install --allow-root \
 		--activate \
-		twentynineteen
-	echo "wp-config.php file created"
+		neve
+	echo -e "\033[0;32mwp-config.php file created\033[0m"
 fi
 
 if [ ! -d /run/php ]
 then
-	echo "Creating /run/php directory"
+	echo -e "\033[0;32mCreating /run/php directory\033[0m"
 	mkdir -p /run/php
 	chmod 755 /run/php
 else
-	echo "/run/php directory already exists"
+	echo -e "\033[0;31m/run/php directory already exists\033[0m"
 fi
 
 # We start the php-fpm service in the foreground

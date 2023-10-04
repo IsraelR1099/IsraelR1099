@@ -355,3 +355,6 @@ https://stackoverflow.com/questions/19101243/error-1130-hy000-host-is-not-allowe
 https://stackoverflow.com/questions/64320136/error-2002-hy000-cant-connect-to-mysql-server-on-192-168-1-15-115
 https://stackoverflow.com/questions/54261020/wordpress-wp-config-php-does-not-exist
 https://stackoverflow.com/questions/66453816/mariadb-tables-are-deleted-when-use-volume-in-docker-compose
+
+
+https://rphlr.github.io/42-Evals/Rank05/Inception/
