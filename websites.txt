@@ -358,3 +358,54 @@ https://stackoverflow.com/questions/66453816/mariadb-tables-are-deleted-when-use
 
 
 https://rphlr.github.io/42-Evals/Rank05/Inception/
+
+Evaluation inception:
+· why dont we use networ host?
+If you run containers on the host network, you will face problems if you want to run two copies of the same image. Since both
+copies will try to bind to the same ports, and they will fail. When you use a bridge network, every container gets their
+own network namespace and own separate IP.
+
+· What is docker and docker compose?
+Docker is a software that allows us to run any application in a virtualized environment, using just about any
+hardware or OS we want.
+Docker compose is a tool for defining and running multi-container Docker applications. Using a YAML file we can 
+configure multiple containers in one place. We can start and stop all of those containers at once using a single command.
+· Difference between a Docker image used with docker compose and without docker compose.
+When you use a Docker image without docker compose, you typically work with individual containers. You are responsible for configuring
+and connectiing the containers manually. 
+· The benefit of Docker compared to VMs
+portability, docker containers are higly portable. They encapsul an app and its dependencies. Docker start very fast while VWs may take some minutes to book. Docker containers share the host OS kernel, which means they are more lightweight compared to VMs.
+· Docker network explanation:
+DOcker networking is primarily used to establish communication between Docker containers and the outside world via the host machine.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
