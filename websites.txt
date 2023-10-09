@@ -382,6 +382,43 @@ DOcker networking is primarily used to establish communication between Docker co
 
 
 
+##ft_irc
+
+Socket descriptors:
+	If we were using file descriptors to access files, applications use socket
+	descriptors to access sockets. Socket descriptors are implemented as file
+	descriptors in UNIX Sytem. Indeed, many functions that deal with file
+	descriptors, such as read and write, will work with a socket descriptor.
+	To create a socket with use the "socket" function:
+		#include <sys/socket.h>
+		int socket (int domain, int type, int protocol);
+			Returns: file (socket) descriptor if OK, -1 on error.
+
+	Domain: determines the nature of the communication, including the address
+	format. The constants start with "AF_" (Address Family):
+		AF_INET: IPv4 internet domain.
+		AF_INET6: IPv6 internet domain.
+		AF_UNIX: Unix domain.
+		AF_UNSPEC: unspecified.
+
+		Most systems define the AF_LOCAL, which is an alias for AF_UNIX. The
+		AF_UNSPEC is a wildcard that represents any domain.
+	Type: determines the type of the socket:
+		SOCK_DGRAM: fixed-length, connectionless, unreliable messages.
+		SOCK_RAW: datagram interface to IP.
+		SOCK_SEQPACKET: fixed-length, sequenced, reliable, connection-oriented
+		messages.
+		SOCK_STREAM: sequenced, reliable, bidirectional, connection-oriented
+		byte streams.
+	Protocol: this argument is usually zero, to select the default protocol for
+	the given domanin and socket type.
+
+
+	Calling "socket" is similar to calling "open". In both cases, you get a
+	file descriptor that can be used for I/O. When you are done using the file
+	descriptor, you should call "close".
+
+
 
 
 
