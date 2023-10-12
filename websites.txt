@@ -418,8 +418,34 @@ Socket descriptors:
 	file descriptor that can be used for I/O. When you are done using the file
 	descriptor, you should call "close".
 
+Data transfer:
+	We can use "read" and "write" to communicate with a socker, as long as it is connected. 
+	Although we can exchange data using "read" and "write", that is about all we can do with
+	these two functions. If we want to specify options, receive packets from multiple clients, or send
+	out-of-band data, we need to use one of the six socket functions.
+	Three functions are available for sending data, and three are available for receiving data. 
+	The simplest one is "send". It is similar to "write" but allows us to specifu flags to change how
+	the data we want to transmit is treated.
+	###### PROTOTYPE ###################3
+	#include <sys/socket.h>
+	
+	ssize_t send(int sockfd, const void *buf, size_t nbytes, int flags);
+	Returns: number of bytes sent if OK, -1 on error.
 
+	#######################################
 
+	If "send" returns success, it does not mean that the process at the other end of the connection receives
+	the data. All we are guaranteed is that when send succeeds, the data has been delivered to the network
+	drivers without error.
+
+	The "recv" function is similar to "read", but allows us to specify some options to control how we
+	receive the data.
+	###### PROTOTYPE ###################
+	#include <sys/socket.h>
+	ssize_t recv(int sockfd, void *buf, size_t nbytes, int flags);
+	Returns: lenght of message in bytes, 0 if no messages are available and peer has done an orderly
+	shutdown, or -1 on error.
+	
 
 
 
