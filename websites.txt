@@ -384,6 +384,8 @@ DOcker networking is primarily used to establish communication between Docker co
 
 ##ft_irc
 
+14.4.1 select function
+
 Socket descriptors:
 	If we were using file descriptors to access files, applications use socket
 	descriptors to access sockets. Socket descriptors are implemented as file
@@ -418,7 +420,89 @@ Socket descriptors:
 	file descriptor that can be used for I/O. When you are done using the file
 	descriptor, you should call "close".
 
-Data transfer:
+Address Formats:
+	An address identifies a socket endpoint in a particular communication
+	domain. The addresses are cast to a generic sockaddr address structure:
+	struct sockaddr
+	{
+		sa_family_t	sa_family; //address family
+		char		sa_data[]; //variable-length address
+	};
+
+16.3.4 Associating addresses with sockets:
+	For a server, we need to associate a well-known address with the server's
+	socket on which client requests will arrive. Clients need a way to discover
+	the address to use to contact a server, and the simplest scheme is for a
+	server to reserve an address and register it in /etc/services or with a
+	name service.
+	We use "bind" function to associate an address with a socket.
+	###### PROTOTYPE ###################
+	#include <sys/socket.h>
+
+	int bind(int sockfd, const struct sockaddr *addr, socklen_t len);
+	Returns: 0 if OK, -1 on error;
+	#######################################
+
+	We can use the "getsockname" function to discover the address bound to a
+	socket.
+	###### PROTOTYPE ###################
+	#include <sys/socket.h>
+
+	int	getsockname(int sockfd, struct sockaddr *restrict addr, socklen_t
+	*restrict alenp);
+	Returns: 0 if OK, -1 on error.
+	#######################################
+	Before calling "getsockname", we set alenp to point to an integer
+	containing the size of the sockaddr buffer.
+
+
+16.4 Connection Establishment:
+	Before we can exchange data, we need to create a connection between the
+	socket of the process requesting the service (the client) and the process
+	providing the service (the server). We use the "connect" function to create
+	a connection.
+	###### PROTOTYPE ###################
+	#include <sys/socket.h>
+
+	int connect(int sockfd, const struct sockaddr *addr, socklen_t len);
+	Returns: 0 if OK, -1 on error.
+	#######################################
+	The address we specify with "connect" is the address of the server with
+	which we wish to communicate. if sockfd is not bound to an address,
+	"connect" will bind a default address for the caller.
+
+	A server announces that it is willing to accept connect requests by calling
+	the "listen" function.
+	###### PROTOTYPE ###################
+	#include <sys/socket.h>
+
+	int	listen(int sockfd, int backlog);
+	Returns: 0 if OK, -1 on error.
+	#######################################
+	The backlog argument provides a hint to the system regarding the number of
+	outstanding connect requests that it should enqueue on behalf of the
+	process. The actual value is determined by the system, but the upper limit
+	is specified as SOMAXCOON (for TCP, the default is 128).
+
+	Once a server has called "listen", the socket used can receive connect
+	requests. We use the "accept" function to retrieve a connect request and
+	convert it into a connection.
+	###### PROTOTYPE ###################
+	#include <sys/socket.h>
+
+	int	accept(int sockfd, struct sockaddr *restrict addr, socklen_t *restrict
+	len);
+	Returns: file (socket) descriptor if OK, -1 on error.
+	#######################################
+	The file descriptor returned by "accept" is a socket descriptor that is
+	connected to the client that called "connect". This new socket descriptor
+	has the same socket type and address family as the original socket
+	(sockfd).
+	If we do not care about the client's identity, we can set the addr and len
+	parameters to NULL. 
+
+
+16.5 Data transfer:
 	We can use "read" and "write" to communicate with a socker, as long as it is connected. 
 	Although we can exchange data using "read" and "write", that is about all we can do with
 	these two functions. If we want to specify options, receive packets from multiple clients, or send
@@ -426,7 +510,7 @@ Data transfer:
 	Three functions are available for sending data, and three are available for receiving data. 
 	The simplest one is "send". It is similar to "write" but allows us to specifu flags to change how
 	the data we want to transmit is treated.
-	###### PROTOTYPE ###################3
+	###### PROTOTYPE ###################
 	#include <sys/socket.h>
 	
 	ssize_t send(int sockfd, const void *buf, size_t nbytes, int flags);
@@ -445,7 +529,49 @@ Data transfer:
 	ssize_t recv(int sockfd, void *buf, size_t nbytes, int flags);
 	Returns: lenght of message in bytes, 0 if no messages are available and peer has done an orderly
 	shutdown, or -1 on error.
-	
+	#######################################
+
+16.6 Socket Options
+
+	The socket mechanism provides two socket-option interfaces for use to
+	control the behavior of sockets.
+	We can set a socket option with the "setsockopt" function.
+	###### PROTOTYPE ###################
+	#include <sys/socket.h>
+
+	int	setsockopt(int sockfd, int level, int option, const void *val,
+	socklen_t len);
+	Returns: 0 if OK, -1 on error.
+	#######################################
+	The level argument identifies the protocol to which the option applies.
+	The val argument points to a data structure or an integer. Sope options are
+	on/off switches. If the integer is nonzero, then the option is enabled.
+	The len argument specifies the size of the object to which val points.
+
+16.7 Out-of-Band data
+
+	We saw that we could use the F_SETOWN command to "fcntl" to set the
+	ownership of a socket. if the third argument to fcntl is positive, it
+	specifies a process ID. If it is a negative value other than -1, it
+	represents the process group ID. Thus, we can arrange that our process
+	receive signals from a socket by calling:
+
+	fcntl(sockfd, F_SETOWN, pid);
+
+	The F_GETOWN command can be used to retrieve the current socket ownership.
+	As with the F_SETOWN command, a negative value represents a process group
+	ID and a positive value represents a process ID. Thus the call:
+
+	owner = fcntl (sockfd, F_GETOWN, 0);
+
+	will return the owner equal to the ID of the process configured to receive
+	signals from the socket if owner is positive.
+
+
+
+Advanced IPC
+
+
 
 
 
