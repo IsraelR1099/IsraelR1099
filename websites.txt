@@ -574,7 +574,9 @@ Advanced IPC
 
 
 
-
+https://www.geeksforgeeks.org/tcp-server-client-implementation-in-c/
+https://www.ibm.com/docs/en/ssw_ibm_i_71/rzab6/rzab6.pdf
+https://www.ibm.com/docs/en/i/7.1?topic=designs-using-poll-instead-select
 
 
 
