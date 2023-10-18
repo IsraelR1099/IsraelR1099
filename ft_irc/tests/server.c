@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 17:14:55 by israel            #+#    #+#             */
-/*   Updated: 2023/10/17 20:12:56 by israel           ###   ########.fr       */
+/*   Updated: 2023/10/18 13:17:44 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int main(void)
     printf("Server is starting up...\n");
     while (1)
     {
-        printf("entro al while\n");
         sd = socket(AF_INET, SOCK_STREAM, 0);
         if (sd < 0)
         {
@@ -58,7 +57,6 @@ int main(void)
         server_addr.sin_family = AF_INET;
         server_addr.sin_port = htons(SERVER_PORT);
         server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-        printf("port number es %d\n", server_addr.sin_port);
         rc = bind(sd, (struct sockaddr *)&server_addr, sizeof(server_addr));
         if (rc < 0)
         {
@@ -104,6 +102,9 @@ int main(void)
             break ;
         }
 
+		if (fds.revents & POLLIN)
+			printf("Writeable\n");
+
         length = BUFFER_LENGTH;
         rc = setsockopt(sd2, SOL_SOCKET, SO_RCVLOWAT, (char *)&length, sizeof(length));
         if (rc < 0)
@@ -138,7 +139,7 @@ int main(void)
         {
             memset(buffer, 0, 1024);
             read(sd2, buffer, (sizeof(buffer) -1));
-            printf("From client: %s\t To client : ", buffer);
+            printf("From client: %s\n To client : ", buffer);
             memset(buffer, 0, 1024);
             n = 0;
             while ((buffer[n++] = getchar()) != '\n')
