@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 10:15:43 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/19 20:49:55 by israel           ###   ########.fr       */
+/*   Updated: 2023/10/20 21:53:19 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string.h>
+#include <errno.h>
 
 #define SERVER_PORT 6667
 #define MAX_CLIENTS 5
@@ -27,9 +28,10 @@ int	main(void)
 {
 	int					fd;
     int                 client_fds[MAX_CLIENTS];
+    int                 new_sd = 0;
 	int					rc;
     int                 val = 1;
-	int					fd2;
+	//int					fd2;
 	struct sockaddr_in	server;
     struct pollfd       fds[MAX_CLIENTS + 1];
     nfds_t              nfds = 1;
@@ -91,22 +93,68 @@ int	main(void)
     else
         printf("Server listening...\n");
 
+    /*Set up the initial listening socket. The first pollfd in the array is
+     * usually reserved for the server socket.*/
+
+    memset(fds, 0, sizeof(fds));
+    fds[0].fd = fd;
+    fds[0].events = POLLIN;
 
     while (1)
     {
-        for (int i = 0; i < MAX_CLIENTS; i++)
+        rc = poll(fds, nfds, 10000);
+        if (rc < 0)
+            perror("poll() failed\n");
+        else if (rc == 0)
+            printf("poll() timed out...\n");
+        else
+            printf("poll() succesfully set...\n");
+        for (int i = 0; i < (int)nfds; i++)
         {
-            if (client_fds[i] == -1)
+            if (fds[i].revents == 0)
+                continue ;
+            if (fds[i].revents != POLLIN)
             {
-                client_fds[i] = accept(fd, NULL, NULL);
-                if (client_fds[i] < 0)
-                    perror("accept function failed\n");
-                else
+                printf("Error! revents = %d\n", fds[i].revents);
+                break;
+            }
+            if (fds[i].fd == fd)
+            {
+                printf("Listening socket is readable\n");
+                new_sd = accept(fd, NULL, NULL);
+                if (new_sd < 0)
                 {
-                    nfds++;
-                    fds[nfds - 1].fd = client_fds[i];
-                    fds[nfds - 1].events = POLLIN | POLLOUT;
-                    printf("Server accept the client..\n");
+                    if (errno != EWOULDBLOCK)
+                    {
+                        perror("accept() failed\n");
+                        new_sd = -1;
+                    }
+                    break ;
+                }
+                else
+                    printf("Accept succesful...\n");
+                printf("New incoming connection - %d\n", new_sd);
+                fds[nfds].fd = new_sd;
+                fds[nfds].events = POLLIN;
+                nfds++;
+            }
+            else
+            {
+                printf("Descriptor %d is readable\n", fds[i].fd);
+                rc = recv(fds[i].fd, buffer, sizeof(buffer), 0);
+                if (rc < 0)
+                    perror("recv() failed\n");
+                else if (rc == 0)
+                {
+                   printf("Connection closed\n");
+                   break ;
+                }
+                printf("Client: %s\n", buffer);
+                rc = send(fds[i].fd, "Hello World!\n", 13, 0);
+                if (rc < 0)
+                {
+                    perror("send() failed\n");
+                    break ;
                 }
             }
         }
@@ -150,9 +198,29 @@ int	main(void)
         perror("send() failed\n");
     else
         printf("Message sent...\n");*/
-
+/*for (int i = 0; i < MAX_CLIENTS; i++)
+        {
+            if (client_fds[i] == -1)
+            {
+                client_fds[i] = accept(fd, NULL, NULL);
+                if (client_fds[i] < 0)
+                    perror("accept function failed\n");
+                else
+                {
+                    nfds++;
+                    fds[nfds - 1].fd = client_fds[i];
+                    fds[nfds - 1].events = POLLIN | POLLOUT;
+                    printf("Server accept the client..\n");
+                }
+            }
+        }
+*/
 
 	close(fd);
-	close(fd2);
+    for (int i = 0; i < MAX_CLIENTS; i++)
+    {
+        if (client_fds[i] != -1)
+            close(client_fds[i]);
+    }
 	return (0);
 }
