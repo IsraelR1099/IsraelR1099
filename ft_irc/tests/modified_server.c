@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 10:15:43 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/20 21:53:19 by israel           ###   ########.fr       */
+/*   Updated: 2023/10/23 12:01:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	main(void)
     int                 new_sd = 0;
 	int					rc;
     int                 val = 1;
-	//int					fd2;
 	struct sockaddr_in	server;
     struct pollfd       fds[MAX_CLIENTS + 1];
     nfds_t              nfds = 1;
@@ -120,6 +119,13 @@ int	main(void)
             }
             if (fds[i].fd == fd)
             {
+				/* We use accept function to retrieve a connect request and convert it into
+				 * a connection. The file descriptor returned by accept is a socket
+				 * descriptor that is connected to the client that called connect. The new
+				 * socket descriptar has the same socket type and the address family as the
+				 * original.
+				 * */
+
                 printf("Listening socket is readable\n");
                 new_sd = accept(fd, NULL, NULL);
                 if (new_sd < 0)
@@ -159,63 +165,6 @@ int	main(void)
             }
         }
     }
-/* We use accept function to retrieve a connect request and convert it into
-     * a connection. The file descriptor returned by accept is a socket
-     * descriptor that is connected to the client that called connect. The new
-     * socket descriptar has the same socket type and the address family as the
-     * original.
-     * */
-/*    fd2 = accept(fd, NULL, NULL);
-    if (fd2 < 0)
-        perror("accept function failed\n");
-    else
-        printf("Server accept the client..\n");
-
-    memset(&fds, 0, sizeof(fds));
-    fds[0].fd = fd2;
-    fds[0].events = POLLIN | POLLOUT;
-    fds[0].revents = 0;
-
-    rc = poll(fds, nfds, 10000);
-    if (rc < 0)
-        perror("poll() failed\n");
-    else if (rc == 0)
-        printf("poll() timed out...\n");
-    else
-        printf("poll() succesfully set...\n");
-
-    memset(&buffer, 0, sizeof(buffer));
-    rc = recv(fd2, buffer, sizeof(buffer), 0);
-    if (rc < 0)
-        perror("rect() failed\n");
-    else if (rc == 0)
-        printf("Connection closed...\n");
-    else
-        printf("Message received: %s\n", buffer);
-
-    rc = send(fd2, "Message received", 16, 0);
-    if (rc < 0)
-        perror("send() failed\n");
-    else
-        printf("Message sent...\n");*/
-/*for (int i = 0; i < MAX_CLIENTS; i++)
-        {
-            if (client_fds[i] == -1)
-            {
-                client_fds[i] = accept(fd, NULL, NULL);
-                if (client_fds[i] < 0)
-                    perror("accept function failed\n");
-                else
-                {
-                    nfds++;
-                    fds[nfds - 1].fd = client_fds[i];
-                    fds[nfds - 1].events = POLLIN | POLLOUT;
-                    printf("Server accept the client..\n");
-                }
-            }
-        }
-*/
-
 	close(fd);
     for (int i = 0; i < MAX_CLIENTS; i++)
     {
