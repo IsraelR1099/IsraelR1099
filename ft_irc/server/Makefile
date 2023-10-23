@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 11:51:00 by irifarac          #+#    #+#              #
-#    Updated: 2023/10/23 12:01:31 by irifarac         ###   ########.fr        #
+#    Updated: 2023/10/23 12:06:38 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ DEP = $(addsuffix .d, $(basename $(OBJ)))
 CPPFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -MMD -g
 
 all: $(NAME)
+
+-include $(DEP)
+$(NAME): $(OBJ)
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
