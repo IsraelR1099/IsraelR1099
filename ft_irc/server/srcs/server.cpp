@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/23 13:49:22 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:57:17 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,43 @@ void	Server::setServer(void)
 	memset(fds, 0, sizeof(fds));
 	fds[0].fd = m_fd;
 	fds[0].events = POLLIN;
+}
+
+int Server::launchServer(void)
+{
+    int rc;
+    int nfds;
+    std::vector<pollfd> fds;
+    std::vector<pollfd>::iterator it;
+
+    fds.push_back(fds[0]);
+    nfds = 1;
+    while (m_g_run_server)
+    {
+        rc = poll(fds, nfds, 10000);
+        if (rc < 0)
+            throw Server::ServerError("poll() failed");
+        else if (rc == 0)
+            throw Server::ServerError("poll() timed out");
+        else
+            std::cout << "poll() succesfully set..." << std::endl;
+        for (int i = 0; i < nfds; i++)
+        {
+            if (it->revents == 0)
+                continue;
+            if (it->revents != POLLIN)
+            {
+                std::cout << "Error! revents = " << it->revents << std::endl;
+                m_g_run_server = false;
+                break;
+            }
+            if (it->fd == fds[0].fd)
+            {
+                std::cout << "Listening socket is readable" << std::endl;
+
+            }
+
+        }
+
+    }
 }

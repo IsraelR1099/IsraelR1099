@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/23 13:49:01 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:39:58 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <iostream>
 # include <stdbool.h>
 # include <cstring>
+# include <cstdlib>
+# include <vector>
 
 #define MAX_CLIENTS 5
 
@@ -35,6 +37,7 @@ class	Server
 		~Server(void);
 
 		void	setServer(void);
+        int     launchServer(void);
 
 	class	BadFormat : public std::exception
 	{
@@ -48,9 +51,22 @@ class	Server
 		private:
 			std::string	error;
 	};
+
+    class   ServerError : public std::exception
+    {
+        public:
+            ServerError(const std::string &m_msg) : error(m_msg) {}
+            virtual const char *what() const throw()
+            {
+                return (error.c_str());
+            }
+            ~ServerError() throw() {}
+        private:
+            std::string error;
+    };
 	private:
 		bool				m_g_run_server;
-		unsigned short		m_port;
+		unsigned int		m_port;
 		std::string			m_password;
 		int					m_fd;
 		struct sockaddr_in	server;

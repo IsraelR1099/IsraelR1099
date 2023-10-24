@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:26:41 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/23 13:19:27 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:15:15 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 			Server	server(argv);
 
 			server.setServer();
+            server.launchServer();
 		}
 		catch (std::exception &e)
 		{
