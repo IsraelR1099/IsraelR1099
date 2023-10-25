@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/25 10:30:53 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:18:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class	Server
 
 		void	setServer(void);
         int     launchServer(void);
-		int		acceptClient(std::vector<pollfd> fds, int nfds);
+		int		acceptClient(std::vector<pollfd> &fds);
 		void	receiveClient(struct pollfd fd);
 
 	class	BadFormat : public std::exception
@@ -73,6 +73,6 @@ class	Server
 		std::string			m_password;
 		int					m_fd_server;
 		struct sockaddr_in	server;
-		struct pollfd		fds[MAX_CLIENTS + 1];
+		struct pollfd		m_fds[MAX_CLIENTS + 1];
 };
 #endif
