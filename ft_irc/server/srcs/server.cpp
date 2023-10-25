@@ -6,13 +6,13 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/24 20:57:17 by israel           ###   ########.fr       */
+/*   Updated: 2023/10/25 10:34:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/server.hpp"
 
-Server::Server(void) : m_g_run_server(false), m_port(6667), m_password("default"), m_fd(0)
+Server::Server(void) : m_g_run_server(false), m_port(6667), m_password("default"), m_fd_server(0)
 {
 }
 
@@ -45,13 +45,13 @@ void	Server::setServer(void)
 	int	val;
 
 	rc = 0;
-	m_fd = socket(AF_INET, SOCK_STREAM, 0);
-	if (m_fd < 0)
+	m_fd_server = socket(AF_INET, SOCK_STREAM, 0);
+	if (m_fd_server < 0)
 		throw Server::BadFormat("Socket() failed");
 	else
 		std::cout << "Socket succesfully created..." <<std::endl;
 	val = 1;
-	rc = setsockopt(m_fd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
+	rc = setsockopt(m_fd_server, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
 	if (rc < 0)
 		throw Server::BadFormat("setsockopt() failed");
 	else
@@ -61,18 +61,18 @@ void	Server::setServer(void)
 	server.sin_family = AF_INET;
 	server.sin_port = htons(m_port);
 	server.sin_addr.s_addr = htonl(INADDR_ANY);
-	rc = bind(m_fd, (struct sockaddr *)&server, sizeof(server));
+	rc = bind(m_fd_server, (struct sockaddr *)&server, sizeof(server));
 	if (rc < 0)
 		throw Server::BadFormat("bind() failed");
 	else
 		std::cout << "Socket succesfully binded" << std::endl;
-	rc = listen(m_fd, 5);
+	rc = listen(m_fd_server, 5);
 	if (rc < 0)
 		throw Server::BadFormat("listen() failed");
 	else
 		std::cout << "Server listening..." << std::endl;
 	memset(fds, 0, sizeof(fds));
-	fds[0].fd = m_fd;
+	fds[0].fd = m_fd_server;
 	fds[0].events = POLLIN;
 }
 
@@ -100,17 +100,26 @@ int Server::launchServer(void)
                 continue;
             if (it->revents != POLLIN)
             {
-                std::cout << "Error! revents = " << it->revents << std::endl;
+                std::cerr << "Error! revents = " << it->revents << std::endl;
                 m_g_run_server = false;
                 break;
             }
             if (it->fd == fds[0].fd)
             {
                 std::cout << "Listening socket is readable" << std::endl;
-
-            }
-
+				if (acceptClient(fds, nfds) < 0)
+					throw Server::ServerError("accept() failed");
+				else
+					std::cout << "Accept succesful..." << std::endl;
+				nfds++;
+			}
+			else
+			{
+				std::cout << "Descriptor: " << it->fd << " is readeable" << std::endl;
+				receiveClient(it->fd);
+			}
         }
 
     }
+	return (0);
 }

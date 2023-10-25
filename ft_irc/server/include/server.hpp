@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/24 20:39:58 by israel           ###   ########.fr       */
+/*   Updated: 2023/10/25 10:30:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/types.h>
 # include <sys/socket.h>
 # include <sys/poll.h>
+# include <poll.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
 # include <exception>
@@ -38,6 +39,8 @@ class	Server
 
 		void	setServer(void);
         int     launchServer(void);
+		int		acceptClient(std::vector<pollfd> fds, int nfds);
+		void	receiveClient(struct pollfd fd);
 
 	class	BadFormat : public std::exception
 	{
@@ -68,7 +71,7 @@ class	Server
 		bool				m_g_run_server;
 		unsigned int		m_port;
 		std::string			m_password;
-		int					m_fd;
+		int					m_fd_server;
 		struct sockaddr_in	server;
 		struct pollfd		fds[MAX_CLIENTS + 1];
 };

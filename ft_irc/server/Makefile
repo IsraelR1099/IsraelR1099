@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 11:51:00 by irifarac          #+#    #+#              #
-#    Updated: 2023/10/23 12:06:38 by irifarac         ###   ########.fr        #
+#    Updated: 2023/10/25 10:13:42 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ NAME = ircserv
 
 OBJ_DIR = obj
 
-SRC = srcs/main.cpp srcs/server.cpp
+SRC = srcs/main.cpp \
+	  srcs/server.cpp \
+	  srcs/utilServer.cpp
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
