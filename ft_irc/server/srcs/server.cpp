@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/25 12:34:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:05:39 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ int Server::launchServer(void)
                 continue;
             if (m_fds[i].revents != POLLIN)
             {
-                std::cerr << "Error! revents = " << it->revents << std::endl;
+                std::cerr << "Error! revents = " << m_fds[i].revents << std::endl;
                 m_g_run_server = false;
                 break;
             }
-            if (m_fds[i].revents == m_fds[0].fd)
+            if (m_fds[i].fd == m_fds[0].fd)
             {
                 std::cout << "Listening socket is readable" << std::endl;
 				if (acceptClient(nfds) < 0)
@@ -115,10 +115,9 @@ int Server::launchServer(void)
 			}
 			else
 			{
-				std::cout << "Descriptor: " << it->fd << " is readeable" << std::endl;
-				receiveClient();
+				std::cout << "Descriptor: " << m_fds[i].fd << " is readeable" << std::endl;
+				receiveClient(i);
 			}
-			it++;
         }
     }
 	return (0);

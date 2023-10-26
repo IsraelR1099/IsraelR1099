@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/25 12:18:36 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/26 20:49:22 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <cstring>
 # include <cstdlib>
 # include <vector>
+# include <map>
+# include "./Client.hpp"
 
 #define MAX_CLIENTS 5
 
@@ -39,8 +41,8 @@ class	Server
 
 		void	setServer(void);
         int     launchServer(void);
-		int		acceptClient(std::vector<pollfd> &fds);
-		void	receiveClient(struct pollfd fd);
+		int		acceptClient(int nfds);
+		void	receiveClient(int i);
 
 	class	BadFormat : public std::exception
 	{
@@ -74,5 +76,8 @@ class	Server
 		int					m_fd_server;
 		struct sockaddr_in	server;
 		struct pollfd		m_fds[MAX_CLIENTS + 1];
+        std::map<int, Client> _clients;
+        void                _parseCommand(std::string userInput, Client &client);
+        void                _passCommand(std::string params, Client &client);
 };
 #endif

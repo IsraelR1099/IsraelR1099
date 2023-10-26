@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
+#    By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 11:51:00 by irifarac          #+#    #+#              #
-#    Updated: 2023/10/25 10:13:42 by irifarac         ###   ########.fr        #
+#    Updated: 2023/10/26 20:35:04 by israel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ OBJ_DIR = obj
 
 SRC = srcs/main.cpp \
 	  srcs/server.cpp \
+	  srcs/Client.cpp \
+	  srcs/commands/pass.cpp \
 	  srcs/utilServer.cpp
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
@@ -33,7 +35,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.cpp Makefile include/server.hpp
+$(OBJ_DIR)/%.o: %.cpp Makefile include/Server.hpp include/Client.hpp
 	@echo "$(GREEN)Compiling... $(RESET)"
 	@mkdir -p $(@D)
 	c++ $(CPPFLAGS) -c $< -o $@
