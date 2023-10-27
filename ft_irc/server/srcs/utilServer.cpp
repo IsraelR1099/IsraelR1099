@@ -6,11 +6,11 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/26 20:51:55 by israel           ###   ########.fr       */
+/*   Updated: 2023/10/27 09:48:21 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/server.hpp"
+#include "../include/Server.hpp"
 #include "../include/Client.hpp"
 
 
@@ -29,7 +29,6 @@ void Server::_parseCommand(std::string userInput, Client &client)
     }
     else
         command = userInput;
-	
     if (command == "PASS")
     {
         _passCommand(params, client);

@@ -6,7 +6,7 @@
 #    By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 11:51:00 by irifarac          #+#    #+#              #
-#    Updated: 2023/10/26 20:35:04 by israel           ###   ########.fr        #
+#    Updated: 2023/10/27 09:49:50 by irifarac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME = ircserv
 OBJ_DIR = obj
 
 SRC = srcs/main.cpp \
-	  srcs/server.cpp \
+	  srcs/Server.cpp \
 	  srcs/Client.cpp \
 	  srcs/commands/pass.cpp \
 	  srcs/utilServer.cpp

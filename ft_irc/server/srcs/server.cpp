@@ -6,11 +6,11 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/26 13:05:39 by israel           ###   ########.fr       */
+/*   Updated: 2023/10/27 09:48:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/server.hpp"
+#include "../include/Server.hpp"
 
 Server::Server(void) : m_g_run_server(false), m_port(6667), m_password("default"), m_fd_server(0)
 {
