@@ -6,7 +6,7 @@
 #    By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 11:51:00 by irifarac          #+#    #+#              #
-#    Updated: 2023/10/27 09:49:50 by irifarac         ###   ########.fr        #
+#    Updated: 2023/10/29 20:13:20 by israel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC = srcs/main.cpp \
 	  srcs/Server.cpp \
 	  srcs/Client.cpp \
 	  srcs/commands/pass.cpp \
-	  srcs/utilServer.cpp
+	  srcs/utilServer.cpp \
+	  srcs/channel/Channel.cpp
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
@@ -35,7 +36,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Creating binary $(NAME)$(RESET)"
 	c++ $(OBJ) $(CPPFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.cpp Makefile include/Server.hpp include/Client.hpp
+$(OBJ_DIR)/%.o: %.cpp Makefile include/Server.hpp include/Client.hpp include/Channel.hpp
 	@echo "$(GREEN)Compiling... $(RESET)"
 	@mkdir -p $(@D)
 	c++ $(CPPFLAGS) -c $< -o $@

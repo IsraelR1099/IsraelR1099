@@ -6,12 +6,13 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/27 09:48:21 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/29 20:44:17 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Server.hpp"
 #include "../include/Client.hpp"
+#include "../include/Channel.hpp"
 
 
 void Server::_parseCommand(std::string userInput, Client &client)
@@ -55,28 +56,39 @@ void Server::_parseCommand(std::string userInput, Client &client)
     		    throw Server::ServerError("send() failed");
 		}
     }
-    else {
+    else
+    {
 		int rc = send(client.getSocketNumber(), "unknown command\n", 17, 0);
     if (rc < 0)
         throw Server::ServerError("send() failed");
     }
 }
 
-int	Server::acceptClient(int nfds)
+int	Server::_acceptClient(int nfds)
 {
-	int				new_fd;
+	int				    new_fd;
+    struct sockaddr_in  client_addr;
+    socklen_t           client_len;
 
-	new_fd = accept(m_fds[0].fd, NULL, NULL);
+	new_fd = accept(m_fds[0].fd, (struct sockaddr *)&client_addr, &client_len);
 	if (new_fd < 0)
 		return (-1);
-	m_fds[nfds].fd = new_fd;
+    else
+    {
+        std::cout << ANSI::bold << "\tnew client accepted:\t| " <<
+            new_fd << "\t|" << inet_ntoa(client_addr.sin_addr) <<
+            "\t| " << ntohs(client_addr.sin_port) << ANSI::reset << std::endl;
+    }
+   	m_fds[nfds].fd = new_fd;
 	m_fds[nfds].events = POLLIN;
 	Client newClient(new_fd);
+    Channel newChannel("general");
     _clients.insert(std::make_pair(nfds, newClient));
+    newChannel.addClient(newClient);
 	return (0);
 }
 
-void	Server::receiveClient(int i)
+void	Server::_receiveClient(int i)
 {
 	int     rc;
 	char	buffer[1024];
