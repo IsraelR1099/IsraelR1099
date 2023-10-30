@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/30 10:17:54 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:48:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ class	Server
         int     launchServer(void);
 		int		_acceptClient(int nfds);
 		void	_receiveClient(int i);
+		void	_joinChannel(int nfds, std::string chan, Client member);
 
 	class	BadFormat : public std::exception
 	{

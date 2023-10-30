@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 09:48:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/27 09:48:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/30 12:31:42 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void Client::setNick(std::string nick) {
     _nick = nick;
 }
 
-std::string Client::getNick() {
+const std::string &Client::getNick() const
+{
     return _nick;
 }

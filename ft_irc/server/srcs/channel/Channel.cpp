@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/10/30 10:55:13 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:47:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ Channel::Channel(void) : _topic("general")
 
 Channel::Channel(std::string topic) : _topic(topic)
 {
+	std::cout << ANSI::green << "Channel: " << _topic << " created and n of clients: " <<
+		getNumClients() << ANSI::reset << std::endl;
 }
 
 Channel::Channel(const Channel & src)
@@ -31,7 +33,7 @@ Channel::~Channel(void)
 
 std::string Channel::getTopic(void) const
 {
-    return this->_topic;
+    return (this->_topic);
 }
 
 void Channel::setTopic(std::string &topic)
@@ -41,19 +43,13 @@ void Channel::setTopic(std::string &topic)
 
 size_t Channel::getNumClients(void) const
 {
-    return this->_clients.size();
+    return (this->_members.size());
 }
 
-bool	Channel::operator<(const Client &other) const
+void Channel::addClientTo(int nfds, std::string &chan, Client member)
 {
-	std::set<int>::reverse_iterator	last = _clients.rbegin();
-	Client	tmp;
-
-	tmp = *last;
-	return (*last.getNick() < other.getNick());
-}
-
-void Channel::addClient(Client client)
-{
-    this->_clients.insert(client);
+	_members.insert(std::make_pair(nfds, member));
+	std::cout << "Client: " << member.getNick() << " added to: " <<
+		getTopic() << std::endl;
+	(void)chan;
 }

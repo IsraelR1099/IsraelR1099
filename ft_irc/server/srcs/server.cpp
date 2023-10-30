@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/30 10:55:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:48:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,25 @@ int Server::launchServer(void)
         }
     }
 	return (0);
+}
+
+void	Server::_joinChannel(int nfds, std::string chan, Client member)
+{
+	/*std::map<int, Channel>::iterator it = _channels.find("general");
+
+	if (it != _channels.end())
+		it->addClientTo(nfds, chan, member);
+	else
+		std::cout << "Channel not found" << std::endl;*/
+	std::map<int, Channel>::iterator it;
+	for (it = _channels.begin(); it != _channels.end(); ++it)
+	{
+		int channelId = it->first; // The key
+		const Channel& channel = it->second; // The Channel object
+
+	    std::cout << "Channel ID: " << channelId << ", Topic: " << channel.getTopic() << std::endl;
+	}
+	(void)nfds;
+	(void)chan;
+	(void)member;
 }

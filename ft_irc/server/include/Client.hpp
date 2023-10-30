@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:35:30 by israel            #+#    #+#             */
-/*   Updated: 2023/10/30 10:55:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/30 12:31:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ class Client {
         void		setName(std::string name);
         std::string	getName(void);
         void		setNick(std::string nick);
-        std::string	getNick(void);
+        const std::string	&getNick(void) const;
 };
 
 #endif
