@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/30 09:53:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:46:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void Server::_parseCommand(std::string userInput, Client &client)
     {
         command = userInput.substr(0, pos);
         params = userInput.substr(pos + 1);
-		params.erase(params.length() - 1); // remove newline of params
+		params.erase(params.length() - 1);
     }
     else
         command = userInput;
