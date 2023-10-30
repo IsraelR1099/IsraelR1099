@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:35:30 by israel            #+#    #+#             */
-/*   Updated: 2023/10/29 17:35:38 by israel           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:55:15 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ class Client {
         Client &operator=(const Client &other);
         ~Client();
 
-        int getSocketNumber();
-        void setIsRegistered(bool value);
-        bool getIsRegistered();
-        void setIsAuthorised(bool value);
-        bool getIsAuthorised();
-        void setName(std::string name);
-        std::string getName();
-        void setNick(std::string nick);
-        std::string getNick();
+        int			getSocketNumber();
+        void		setIsRegistered(bool value);
+        bool		getIsRegistered();
+        void		setIsAuthorised(bool value);
+        bool		getIsAuthorised();
+        void		setName(std::string name);
+        std::string	getName(void);
+        void		setNick(std::string nick);
+        std::string	getNick(void);
 };
 
 #endif

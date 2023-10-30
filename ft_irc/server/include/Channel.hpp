@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/10/29 20:29:32 by israel           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:45:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ class Channel
 
         std::string     getTopic(void) const;
         void            setTopic(std::string &topic);
-        void            addClient(Client *client);
+        void            addClient(Client client);
         size_t          getNumClients(void) const;
 
+		bool			operator<(const Client &other) const;
+
     private:
-        std::set<Client *>  _clients;
-        std::string         _topic;
+		std::set<Client>	_clients;
+		std::string			_topic;
 };
 
 #endif

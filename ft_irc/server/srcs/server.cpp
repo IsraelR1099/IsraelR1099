@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/27 09:48:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:55:11 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ Server::~Server(void)
 
 void	Server::setServer(void)
 {
-	int	rc;
-	int	val;
+	int		rc;
+	int		val;
+	Channel	generalChannel("general");
 
 	rc = 0;
 	m_fd_server = socket(AF_INET, SOCK_STREAM, 0);
@@ -74,16 +75,14 @@ void	Server::setServer(void)
 	memset(m_fds, 0, sizeof(m_fds));
 	m_fds[0].fd = m_fd_server;
 	m_fds[0].events = POLLIN;
+	_channels.insert(std::make_pair(0, generalChannel));
 }
 
 int Server::launchServer(void)
 {
     int rc;
     int nfds;
-    //std::vector<pollfd> fds;
-    //std::vector<pollfd>::iterator it;
 
-    //fds.push_back(m_fds[0]);
     nfds = 1;
     while (m_g_run_server)
     {
@@ -107,7 +106,7 @@ int Server::launchServer(void)
             if (m_fds[i].fd == m_fds[0].fd)
             {
                 std::cout << "Listening socket is readable" << std::endl;
-				if (acceptClient(nfds) < 0)
+				if (_acceptClient(nfds) < 0)
 					throw Server::ServerError("accept() failed");
 				else
 					std::cout << "Accept succesful..." << std::endl;
@@ -116,7 +115,7 @@ int Server::launchServer(void)
 			else
 			{
 				std::cout << "Descriptor: " << m_fds[i].fd << " is readeable" << std::endl;
-				receiveClient(i);
+				_receiveClient(i);
 			}
         }
     }
