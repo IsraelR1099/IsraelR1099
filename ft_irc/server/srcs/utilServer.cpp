@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/01 10:43:03 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:04:24 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	Server::_receiveClient(int i)
 		throw Server::ServerError("Connection closed");
 	_parseCommand(buffer, i);
 	std::cout << "Client: " << buffer << std::endl;
-    // rc = send(_m_fds[i].fd, "Message received\n", 18, 0);
+     rc = send(m_fds[i].fd, "Message received\n", 18, 0);
     if (rc < 0)
         throw Server::ServerError("send() failed");
 }
