@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/30 13:48:15 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/01 10:38:17 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	Server::setServer(void)
 	else
 		std::cout << "setsockopt succesfully set..." << std::endl;
 
-	memset(&server, 0, sizeof(server));
-	server.sin_family = AF_INET;
-	server.sin_port = htons(m_port);
-	server.sin_addr.s_addr = htonl(INADDR_ANY);
-	rc = bind(m_fd_server, (struct sockaddr *)&server, sizeof(server));
+	memset(&_server, 0, sizeof(_server));
+	_server.sin_family = AF_INET;
+	_server.sin_port = htons(m_port);
+	_server.sin_addr.s_addr = htonl(INADDR_ANY);
+	rc = bind(m_fd_server, (struct sockaddr *)&_server, sizeof(_server));
 	if (rc < 0)
 		throw Server::BadFormat("bind() failed");
 	else
@@ -86,7 +86,7 @@ int Server::launchServer(void)
     nfds = 1;
     while (m_g_run_server)
     {
-        rc = poll(m_fds, nfds, 30000);
+        rc = poll(m_fds, nfds, -1);
 		if (rc < 0)
             throw Server::ServerError("poll() failed");
         else if (rc == 0)
@@ -105,11 +105,11 @@ int Server::launchServer(void)
             }
             if (m_fds[i].fd == m_fds[0].fd)
             {
-                std::cout << "Listening socket is readable" << std::endl;
+                std::cout << "New client request" << std::endl;
 				if (_acceptClient(nfds) < 0)
 					throw Server::ServerError("accept() failed");
 				else
-					std::cout << "Accept succesful..." << std::endl;
+					std::cout << "New client accept succesful..." << std::endl;
 				nfds++;
 			}
 			else
@@ -118,27 +118,22 @@ int Server::launchServer(void)
 				_receiveClient(i);
 			}
         }
+		int	nClients;
+
+		nClients =  0;
+		std::map<int, Client>::iterator it;
+		for (it = _clients.begin(); it != _clients.end(); it++)
+			nClients++;
+		std::cout << "Number of clients: " << nClients << std::endl;
+
+		int	nChannels;
+
+		nChannels = 0;
+		std::map<int, Channel>::iterator it_ch;
+		for (it_ch = _channels.begin(); it_ch != _channels.end(); it_ch++)
+			nChannels++;
+		std::cout << "Number of channels: " << nChannels << std::endl;
+
     }
 	return (0);
-}
-
-void	Server::_joinChannel(int nfds, std::string chan, Client member)
-{
-	/*std::map<int, Channel>::iterator it = _channels.find("general");
-
-	if (it != _channels.end())
-		it->addClientTo(nfds, chan, member);
-	else
-		std::cout << "Channel not found" << std::endl;*/
-	std::map<int, Channel>::iterator it;
-	for (it = _channels.begin(); it != _channels.end(); ++it)
-	{
-		int channelId = it->first; // The key
-		const Channel& channel = it->second; // The Channel object
-
-	    std::cout << "Channel ID: " << channelId << ", Topic: " << channel.getTopic() << std::endl;
-	}
-	(void)nfds;
-	(void)chan;
-	(void)member;
 }

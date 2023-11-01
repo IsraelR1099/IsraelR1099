@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/30 21:39:29 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:41:53 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ class	Server
 		// ********************** //
 		// * Private fields. * //
 		// ********************** //
-		bool				    _m_g_run_server;
-		unsigned int		    _m_port;
+		bool				    m_g_run_server;
+		unsigned int		    m_port;
 		std::string			    m_password;
-		int					    _m_fd_server;
+		int					    m_fd_server;
 		struct sockaddr_in	    _server;
 		struct pollfd	        m_fds[MAX_CLIENTS + 1];
 		std::map<int, Client>	_clients;

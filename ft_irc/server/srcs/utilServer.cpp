@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/10/31 20:31:36 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:43:03 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,12 @@ int	Server::_acceptClient(int nfds)
 	m_fds[nfds].events = POLLIN;
 	Client newClient(new_fd);
     _clients.insert(std::make_pair(nfds, newClient));
-	_joinChannel(nfds, "general", newClient);
+	int rc;
+
+	rc = send(m_fds[nfds].fd, "You have just joined: general channel", 37, 0);
+	if (rc < 0)
+		throw Server::ServerError("send() failed");
+	//_joinChannel(nfds, "general", newClient);
 	return (0);
 }
 
