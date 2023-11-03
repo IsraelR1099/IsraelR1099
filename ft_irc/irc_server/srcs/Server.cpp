@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/02 20:20:33 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/03 09:40:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	Server::setServer(void)
 	if (rc < 0)
 		throw Server::BadFormat("listen() failed");
 	else
-		std::cout << ANSI::green <<
+		std::cout << ANSI::bold << ANSI::green <<
             "Server listening..." << ANSI::reset <<
             std::endl;
 	memset(m_fds, 0, sizeof(m_fds));
