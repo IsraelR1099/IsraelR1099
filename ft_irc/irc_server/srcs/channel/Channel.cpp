@@ -6,14 +6,19 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/02 17:11:08 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/05 20:10:29 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Channel.hpp"
 
-Channel::Channel(void) : _name("general"), _topic("general")
+Channel::Channel(void) : _name("general"), _password(""), _topic("general"), _numClients(0), _limit(5)
 {
+    this->_modeI = false;
+    this->_modeT = false;
+    this->_modeK = false;
+    this->_modeO = false;
+    this->_modeL = false;
 }
 
 Channel::Channel(const std::string &name) : _name(name)

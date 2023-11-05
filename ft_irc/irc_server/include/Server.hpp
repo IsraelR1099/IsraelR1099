@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/02 21:33:43 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/05 20:43:10 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sstream>
+# include <algorithm>
 
 #define MAX_CLIENTS 5
 
@@ -97,6 +98,7 @@ class	Server
         void    _joinChannel(std::string channelName, unsigned short clientIndex);
         std::vector<std::string> _getAllClientNicknames(std::map<int, Client>&clients);
         void    _sendMessageToClient(const std::string &message, unsigned short clientIndex);
+        void    _reply(unsigned short clientIndex, const std::string &message);
 
         // ********************** //
         // * Command methods. * //
@@ -107,5 +109,7 @@ class	Server
         void    _privmsgCommand(std::string params, unsigned short clientIndex);
         void    _userCommand(std::string params, unsigned short clientIndex);
         void    _joinCommand(std::string params, unsigned short clientIndex);
+        void    _modeCommand(std::string params, unsigned short clientIndex);
+        void    _pingCommand(std::string params, unsigned short clientIndex);
 };
 #endif

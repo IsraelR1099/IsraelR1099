@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/02 13:59:06 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/05 17:50:13 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,17 @@ class Channel
 
     private:
         std::string             _name;
+        std::string             _password;
         std::string             _topic;
 		std::map<int, Client>	_members;
         std::map<int, Client>   _operators;
+        size_t                  _numClients;
+        size_t                  _limit;
+        bool                    _modeI;
+        bool                    _modeT;
+        bool                    _modeK;
+        bool                    _modeO;
+        bool                    _modeL;
 };
 
 #endif

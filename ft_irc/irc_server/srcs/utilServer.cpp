@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/02 21:33:11 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/05 20:47:50 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,50 +32,66 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
     std::string             params;
     std::string::size_type  pos;
 
-    pos = userInput.find(" ");
-    if (pos != std::string::npos)
+    std::istringstream  iss(userInput);
+    std::string         line;
+    while (std::getline(iss, line, '\n'))
     {
-        command = userInput.substr(0, pos);
-        params = userInput.substr(pos + 1);
-        params = removeTrailingWhitespace(params);
-    }
-    else
-        command = userInput;
-    if (command == "CAP")
-    {
-        _capCommand(params, clientIndex);
-    }
-    else if (command == "PASS")
-    {
-        _passCommand(params, clientIndex);
-    }
-    else if (command == "NICK")
-    {
-        _nickCommand(params, clientIndex);
-    }
-    else if (command == "USER")
-    {
-        _userCommand(params, clientIndex);
-    }
-    else if (command == "PRIVMSG")
-    {
-        _privmsgCommand(params, clientIndex);
-    }
-    else if (command == "JOIN")
-    {
-        std::cout << "entro en join" << std::endl;
-        _joinCommand(params, clientIndex);
-    }
-    else
-    {
-        _sendMessageToClient("unknown command", clientIndex);
+        command.erase(command.find_last_not_of(" \n\r\t") + 1);
+        std::cout << "line: |" << ANSI::red << line << ANSI::reset << "|" << std::endl;
+        pos = line.find(" ");
+        if (pos != std::string::npos)
+        {
+            command = line.substr(0, pos);
+            params = line.substr(pos + 1);
+            params = removeTrailingWhitespace(params);
+        }
+        else
+            command = line;
+        std::cout << "command: |" << ANSI::red << command << ANSI::reset << "|" << std::endl;
+        if (command == "CAP")
+        {
+            _capCommand(params, clientIndex);
+        }
+        else if (command == "PASS")
+        {
+            std::cout << "entro en pass" << std::endl;
+            _passCommand(params, clientIndex);
+        }
+        else if (command == "NICK")
+        {
+            _nickCommand(params, clientIndex);
+        }
+        else if (command == "USER")
+        {
+            _userCommand(params, clientIndex);
+        }
+        else if (command == "PRIVMSG")
+        {
+            _privmsgCommand(params, clientIndex);
+        }
+        else if (command == "JOIN")
+        {
+            std::cout << "entro en join" << std::endl;
+            _joinCommand(params, clientIndex);
+        }
+        else if (command == "MODE")
+        {
+            _modeCommand(params, clientIndex);
+        }
+        else if (command == "PING")
+            _pingCommand(params, clientIndex);
+        else
+        {
+            std::cout << "unknown command is: |" << command << "|" << std::endl;
+            _sendMessageToClient("unknown command\r\n", clientIndex);
+            break ;
+        }
     }
 }
 std::vector<std::string>    Server::_getAllClientNicknames(std::map<int, Client>&clients)
 {
     std::vector<std::string>        nicknames;
     std::map<int, Client>::iterator it;
-
     for (it = clients.begin(); it != clients.end(); it++)
     {
         nicknames.push_back(it->second.getNick());
@@ -83,21 +99,6 @@ std::vector<std::string>    Server::_getAllClientNicknames(std::map<int, Client>
     return (nicknames);
 }
 
-/*void    Server::_joinChannel(int nfds, std::string chan, Client &member)
-{
-    std::map<int, Channel>::iterator it;
-
-    for (it = _channels.begin(); it != _channels.end(); it++)
-    {
-        Channel   &channel = it->second;
-        if (channel.getTopic() == chan)
-        {
-            channel.addClientTo(nfds, chan, member);
-            break ;
-        }
-    }
-}
-*/
 int	Server::_acceptClient(int nfds)
 {
 	int				    new_fd;
@@ -134,6 +135,15 @@ void	Server::_receiveClient(int i)
 		throw Server::ServerError("Connection closed");
     std::cout << "Server: |" << buffer << "|" << std::endl;
 	_parseCommand(buffer, i);
+    if (rc < 0)
+        throw Server::ServerError("send() failed");
+}
+
+void    Server::_reply(unsigned short clientIndex, const std::string &message)
+{
+    std::string messageWithNewLine = message + "\r\n";
+
+    int rc = send(_clients[clientIndex].getSocketNumber(), messageWithNewLine.c_str(), messageWithNewLine.length(), 0);
     if (rc < 0)
         throw Server::ServerError("send() failed");
 }

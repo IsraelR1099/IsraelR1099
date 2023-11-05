@@ -6,7 +6,7 @@
 #    By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 11:51:00 by irifarac          #+#    #+#              #
-#    Updated: 2023/11/02 21:38:30 by israel           ###   ########.fr        #
+#    Updated: 2023/11/05 20:48:07 by israel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRC = srcs/main.cpp \
 	  srcs/channel/Channel.cpp \
 	  srcs/commands/nick.cpp \
 	  srcs/commands/cap.cpp \
+	  srcs/commands/mode.cpp \
+	  srcs/commands/ping.cpp \
 	  srcs/Reply.cpp
 
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
