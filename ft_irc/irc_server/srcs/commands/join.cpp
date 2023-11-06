@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:57 by israel            #+#    #+#             */
-/*   Updated: 2023/11/06 11:58:50 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:26:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,22 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         }
         if (channelExists)
         {
-			const Channel	&tmp = _getChannel(channelName);
-			if (channel.getNumClients() > channel.getLimit())
+			Channel	*tmp = _getChannelByName(channelName);
+			if (tmp->getNumClients() > tmp->getLimit())
 			{
 				std::string	response;
 
 				response = client.getNick();
-				response += channel.getName();
+				response += tmp->getName();
 				response += ":Cannot join channel (+l)";
 				response += "\r\n";
 				_sendMessageToClient(response, clientIndex);
 			}
 			else
+			{
+				std::cout << "name channel es: " << tmp->getName() << std::endl;
 	            it->second.addClient(client, clientIndex, false);
+			}
         }
         else
         {
