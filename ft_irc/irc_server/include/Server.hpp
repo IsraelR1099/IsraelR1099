@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/05 20:43:10 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/06 12:03:51 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ class	Server
         std::vector<std::string> _getAllClientNicknames(std::map<int, Client>&clients);
         void    _sendMessageToClient(const std::string &message, unsigned short clientIndex);
         void    _reply(unsigned short clientIndex, const std::string &message);
+		Channel	&_getChannelByName(const std::string channelName);
 
         // ********************** //
         // * Command methods. * //

@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:57 by israel            #+#    #+#             */
-/*   Updated: 2023/11/03 12:59:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:58:50 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,26 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         }
         if (channelExists)
         {
-            it->second.addClient(client, clientIndex, false);
+			const Channel	&tmp = _getChannel(channelName);
+			if (channel.getNumClients() > channel.getLimit())
+			{
+				std::string	response;
+
+				response = client.getNick();
+				response += channel.getName();
+				response += ":Cannot join channel (+l)";
+				response += "\r\n";
+				_sendMessageToClient(response, clientIndex);
+			}
+			else
+	            it->second.addClient(client, clientIndex, false);
         }
         else
         {
             Channel newChannel(channelName);
             _channels.insert(std::make_pair(0, newChannel));
             newChannel.addClient(client, clientIndex, true);
+			newChannel.incrementNumClients();
             client.setIsOperator(true);
         }
     }
@@ -56,7 +69,6 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         return ;
     }
 
-    std::cout << "Client index: " << clientIndex << std::endl;
 }
 
 void    Server::_joinCommand(std::string params, unsigned short clientIndex)
@@ -84,7 +96,6 @@ void    Server::_joinCommand(std::string params, unsigned short clientIndex)
     else
     {
         std::cout << ANSI::green <<
-        "JOIN :Joining channel " << paramsVector[0] <<
         ANSI::reset << std::endl;
         _joinChannel(paramsVector[0], clientIndex);
     }

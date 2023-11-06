@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/05 17:50:13 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/06 11:03:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ class Channel
         std::string     getTopic(void) const;
         std::string     getName(void) const;
         void            setName(const std::string &name);
+		void			incrementNumClients(void);
         size_t          getNumClients(void) const;
+		size_t			getLimit(void);
         void            setTopic(const std::string &topic);
         void            addClient(const Client &client, int nfds, bool isOperator);
 
@@ -42,6 +44,7 @@ class Channel
         std::map<int, Client>   _operators;
         size_t                  _numClients;
         size_t                  _limit;
+		bool					_passwd;
         bool                    _modeI;
         bool                    _modeT;
         bool                    _modeK;

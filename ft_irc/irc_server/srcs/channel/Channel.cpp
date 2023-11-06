@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/05 20:10:29 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/06 12:03:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Channel::Channel(void) : _name("general"), _password(""), _topic("general"), _nu
     this->_modeL = false;
 }
 
-Channel::Channel(const std::string &name) : _name(name)
+Channel::Channel(const std::string &name) : _name(name), _password(""), _numClients(0), _limit(5), _passwd(false), _modeI(false), _modeT(false), _modeK(false), _modeO(false), _modeL(false)
 {
 	std::cout << ANSI::green << "Channel: " << _name << " created and n of clients: " <<
 		getNumClients() << ANSI::reset << std::endl;
@@ -36,43 +36,60 @@ Channel::~Channel(void)
 {
 }
 
-std::string Channel::getName(void) const
+std::string	Channel::getName(void) const
 {
     return (this->_name);
 }
 
-void Channel::setName(const std::string &name)
+void	Channel::setName(const std::string &name)
 {
     this->_name = name;
 }
 
-std::string Channel::getTopic(void) const
+std::string	Channel::getTopic(void) const
 {
     return (this->_topic);
 }
 
-void Channel::setTopic(const std::string &topic)
+void	Channel::setTopic(const std::string &topic)
 {
     this->_topic = topic;
 }
 
-size_t Channel::getNumClients(void) const
+size_t	Channel::getNumClients(void) const
 {
     return (this->_members.size());
 }
 
-void Channel::addClient(const Client &member, int nfds, bool isOperator)
+size_t	Channel::getLimit(void)
+{
+	return (this->_limit);
+}
+
+void	Channel::incrementNumClients(void)
+{
+	this->_numClients = this->_numClients + 1;
+}
+
+void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 {
     if (isOperator)
     {
-        std::cout << "Client: " << member.getNick() << " added to: " <<
-                this->getName() << " as operator" << std::endl;
-        _operators.insert(std::make_pair(nfds, member));
+		if (this->_passwd == false && getNumClients() <= this->_limit)
+		{
+			std::cout << "Client: " << member.getNick() << " added to: " <<
+					this->getName() << " as operator" << std::endl;
+			_operators.insert(std::make_pair(nfds, member));
+			_members.insert(std::make_pair(nfds, member));
+		}
     }
     else
     {
-        _members.insert(std::make_pair(nfds, member));
-	std::cout << "Client: " << member.getNick() << " added to: " <<
-		this->getName() << std::endl;
+		if (this->_password == "" && getNumClients() <= _limit)
+		{
+			_members.insert(std::make_pair(nfds, member));
+			std::cout << "Client: " << member.getNick() << " added to: " <<
+			this->getName() << std::endl;
+		}
     }
 }
