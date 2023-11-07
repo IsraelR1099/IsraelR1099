@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/03 09:40:19 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/06 21:40:57 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	Server::setServer(void)
 	memset(m_fds, 0, sizeof(m_fds));
 	m_fds[0].fd = _m_fd_server;
 	m_fds[0].events = POLLIN;
+    this->_initReplies();
 }
 
 int Server::launchServer(void)

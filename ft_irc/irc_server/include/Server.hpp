@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/06 12:27:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:17:49 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <vector>
 # include <map>
 # include "./Client.hpp"
+# include "./Reply.hpp"
 # include "./Ansi.hpp"
 # include "Channel.hpp"
 # include "errno.h"
@@ -46,8 +47,11 @@ class	Server
 		Server(char **argv);
 		~Server(void);
 
-		void	setServer(void);
-        int     launchServer(void);
+		void	                        setServer(void);
+        int                             launchServer(void);
+        typedef std::string             (*ft_reply)(std::vector<std::string> &rep);
+        std::map<std::string, ft_reply> _replies;
+        void                            _reply(std::string &message, Client &client, std::vector<std::string> &rep);
 
 
 	class	BadFormat : public std::exception
@@ -92,12 +96,14 @@ class	Server
 		// * Private methods. * //
 		// ********************** //
 
-		int		_acceptClient(int nfds);
-		void	_receiveClient(int i);
-		void	_parseCommand(std::string userInput, unsigned short clientIndex);
-        void    _joinChannel(std::string channelName, unsigned short clientIndex);
+        void        _initReplies(void);
+		int		    _acceptClient(int nfds);
+		void	    _receiveClient(int i);
+        std::string _getReply(std::string &message, std::vector<std::string> &rep);
+		void	    _parseCommand(std::string userInput, unsigned short clientIndex);
+        void        _joinChannel(std::string channelName, unsigned short clientIndex);
         std::vector<std::string> _getAllClientNicknames(std::map<int, Client>&clients);
-        void    _sendMessageToClient(const std::string &message, unsigned short clientIndex);
+        void        _sendMessageToClient(const std::string &message, unsigned short clientIndex);
         void    _reply(unsigned short clientIndex, const std::string &message);
 		Channel	*_getChannelByName(const std::string channelName);
 
