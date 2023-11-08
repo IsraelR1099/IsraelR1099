@@ -6,44 +6,45 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/07 21:19:43 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/08 10:30:13 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Server.hpp"
 
-std::string Reply::f_RPL_WELCOME(std::vector<std::string> &params)
+const std::string Reply::f_RPL_WELCOME(const std::vector<std::string> &params)
 {
     return (std::string(":Welcome to the Internet Relay Network " + params[0]));
 }
 
-std::string Reply::f_ERR_NOSUCHNICK(std::vector<std::string> &params)
+const std::string Reply::f_ERR_NOSUCHNICK(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :No such nick/channel"));
 }
 
-std::string Reply::f_ERR_NOSUCHCHANNEL(std::vector<std::string> &params)
+const std::string Reply::f_ERR_NOSUCHCHANNEL(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :No such channel"));
 }
 
-std::string Reply::f_ERR_UNKNOWNCOMMAND(std::vector<std::string> &params)
+const std::string Reply::f_ERR_UNKNOWNCOMMAND(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :Unknown command"));
 }
 
-std::string Reply::f_ERR_NOTREGISTERED(std::vector<std::string> &params)
+const std::string Reply::f_ERR_NOTREGISTERED(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :You have not registered"));
 }
 
-std::string Reply::f_ERR_NOPRIVILEGES(std::vector<std::string> &params)
+const std::string Reply::f_ERR_NOPRIVILEGES(const std::vector<std::string> &params)
 {
     (void)params;
     return (" :Permission Denied- You're not an IRC operator");
 }
 
-void    Server::_reply(std::string &message, Client &client, std::vector<std::string> &rep)
+void
+Server::_message(const std::string &message, Client &client, const std::vector<std::string> &rep)
 {
     int         code;
     std::string nick;
@@ -54,7 +55,7 @@ void    Server::_reply(std::string &message, Client &client, std::vector<std::st
     client.write_buffer(client, message + " " + nick + Server::_getReply(message, rep));
 }
 
-std::string Server::_getReply(std::string &message, std::vector<std::string> &rep)
+std::string Server::_getReply(const std::string &message, const std::vector<std::string> &rep)
 {
     if (Server::_replies.find(message) == Server::_replies.end())
     {

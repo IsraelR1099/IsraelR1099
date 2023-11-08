@@ -118,23 +118,12 @@ void    Server::_userCommand(std::string params, unsigned short clientIndex)
     if (_clients[clientIndex].getNick().length() > 0)
         _clients[clientIndex].setIsRegistered(true);
     std::cout << "full name client: " << _clients[clientIndex].getFullName() << std::endl;
-    std::string message;
-    message = ":";
-    message += _clients[clientIndex].getNick();
-    message += "!";
-    message += _clients[clientIndex].getUser();
-    message += "@";
-    message += "localhost";
-    message += " ";
-    message += "001";
-    message += " ";
-    message += _clients[clientIndex].getNick();
-    message += " ";
-    message += ":Welcome to the Internet Relay Network ";
-    message += _clients[clientIndex].getNick();
-    message += "!";
-    message += _clients[clientIndex].getUser();
-    message += "@";
-    message += "localhost";
-    _reply(clientIndex, message);
+
+    std::map<int, Client>::iterator     itClient = _clients.find(clientIndex);
+
+	if (itClient != _clients.end())
+	{
+		std::string	prefix = itClient->second.getCustomPrefix();
+		Server::_message(Reply::RPL_WELCOME, itClient->second, std::vector<std::string>(1, prefix));
+	}
 }

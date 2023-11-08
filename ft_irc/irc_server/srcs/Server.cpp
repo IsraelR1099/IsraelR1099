@@ -6,11 +6,14 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/06 21:40:57 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/08 11:02:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Server.hpp"
+
+std::map<std::string, Server::ft_reply>	Server::_replies
+	= std::map<std::string, Server::ft_reply>();
 
 Server::Server(void) : _m_g_run_server(false), _m_port(6667), m_password("default"), _m_fd_server(0)
 {
@@ -133,6 +136,12 @@ int Server::launchServer(void)
 				_receiveClient(i);
 			}
         }
+		std::map<int, Client>::iterator	it = _clients.begin();
+		while (it != _clients.end())
+		{
+			Client	client = it->second;
+			client.send_message();
+		}
         std::cout << ANSI::blue <<
             "Server is running..." << ANSI::reset <<
             std::endl;

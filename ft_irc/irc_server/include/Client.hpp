@@ -6,14 +6,17 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:35:30 by israel            #+#    #+#             */
-/*   Updated: 2023/11/07 21:14:08 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/08 11:07:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-#include <iostream>
+# include <iostream>
+# include <sys/socket.h>
+# include <sys/types.h>
+# include "Ansi.hpp"
 
 class Client {
     private:
@@ -49,9 +52,11 @@ class Client {
         void                setIsOperator(bool value);
         void		        setNick(std::string nick);
         void                setUser(std::string user);
+		std::string			getCustomPrefix(void) const;
 
         // Methods
-        void                write_buffer(Client &client, std::string &message);
+        void                write_buffer(Client &client, const std::string &message);
+		void				send_message(void) const;
 };
 
 #endif
