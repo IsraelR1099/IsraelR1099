@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:35:30 by israel            #+#    #+#             */
-/*   Updated: 2023/11/08 11:07:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/12 20:17:19 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ class Client {
         std::string _nick;
         std::string _user;
         std::string _fullName;
+        std::string _host;
         std::string _buffer;
         bool        _isRegistered;
         bool        _isAuthorised;
@@ -45,18 +46,21 @@ class Client {
         std::string         getUser(void);
         const std::string	&getNick(void) const;
         std::string         getFullName(void);
+        std::string         getHost(void);
         void		        setName(std::string name);
         void                setFullName(std::string fullName);
+        void                setHost(const std::string &host);
         void        		setIsAuthorised(bool value);
         void	        	setIsRegistered(bool value);
         void                setIsOperator(bool value);
         void		        setNick(std::string nick);
         void                setUser(std::string user);
-		std::string			getCustomPrefix(void) const;
+		std::string			getCustomPrefix(const std::string &code, const std::string channelName) const;
+        std::string         getCustomPrefix(const std::string &code);
 
         // Methods
         void                write_buffer(Client &client, const std::string &message);
-		void				send_message(void) const;
+		void				send_message(void);
 };
 
 #endif

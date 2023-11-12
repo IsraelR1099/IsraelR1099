@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/08 13:34:11 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/12 14:29:33 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,24 @@ const std::string Reply::f_ERR_UNKNOWNCOMMAND(const std::vector<std::string> &pa
     return (std::string(params[0] + " :Unknown command"));
 }
 
+const std::string   Reply::f_RPL_TOPIC(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :" + params[1]));
+}
+
 const std::string Reply::f_ERR_NOTREGISTERED(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :You have not registered"));
+}
+
+const std::string   Reply::f_ERR_NEEDMOREPARAMS(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :Not enough parameters"));
+}
+
+const std::string   Reply::f_ERR_CHANNELISFULL(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :Cannot join channel (+l)"));
 }
 
 const std::string Reply::f_ERR_NOPRIVILEGES(const std::vector<std::string> &params)
@@ -52,6 +67,7 @@ Server::_message(const std::string &message, Client &client, const std::vector<s
     code = atoi(message.c_str());
     nick = client.getNick();
 
+    (void)code;
     client.write_buffer(client, message + " " + nick + Server::_getReply(message, rep));
 }
 
@@ -71,7 +87,10 @@ void    Server::_initReplies(void)
     Server::_replies[Reply::ERR_NOSUCHNICK] = Reply::f_ERR_NOSUCHNICK;
     Server::_replies[Reply::ERR_NOSUCHCHANNEL] = Reply::f_ERR_NOSUCHCHANNEL;
     Server::_replies[Reply::ERR_UNKNOWNCOMMAND] = Reply::f_ERR_UNKNOWNCOMMAND;
+    Server::_replies[Reply::RPL_TOPIC] = Reply::f_RPL_TOPIC;
     Server::_replies[Reply::ERR_NOTREGISTERED] = Reply::f_ERR_NOTREGISTERED;
+    Server::_replies[Reply::ERR_NEEDMOREPARAMS] = Reply::f_ERR_NEEDMOREPARAMS;
+    Server::_replies[Reply::ERR_CHANNELISFULL] = Reply::f_ERR_CHANNELISFULL;
     Server::_replies[Reply::ERR_NOPRIVILEGES] = Reply::f_ERR_NOPRIVILEGES;
 }
 

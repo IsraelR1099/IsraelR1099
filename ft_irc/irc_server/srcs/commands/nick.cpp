@@ -3,8 +3,7 @@
 void	Server::_nickCommand(std::string params, unsigned short clientIndex)
 {
     std::vector<std::string>    nicknames;
-    // int rc;
-    std::string errorMessage;
+    std::string                 errorMessage;
 
     if (!_clients[clientIndex].getIsAuthorised())
     {
@@ -24,8 +23,6 @@ void	Server::_nickCommand(std::string params, unsigned short clientIndex)
         _reply(clientIndex, "Nickname is already in use");
         return ;
     }
-
-    // **  CHECK IF NICKNAME IS TOO LONG ** //
     if (params.length() > 9)
     {
         _reply(clientIndex, "Nickname too long");

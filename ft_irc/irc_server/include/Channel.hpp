@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/06 11:03:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/11 18:01:41 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ class Channel
 		size_t			getLimit(void);
         void            setTopic(const std::string &topic);
         void            addClient(const Client &client, int nfds, bool isOperator);
+        std::map<int, Client>   &getMembers(void);
+        bool            isClientInChannel(const Client &client) const;
 
     private:
         std::string             _name;

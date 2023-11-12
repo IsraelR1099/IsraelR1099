@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/05 20:47:50 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/12 20:29:51 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
         else
             command = line;
         std::cout << "command: |" << ANSI::red << command << ANSI::reset << "|" << std::endl;
+        this->_cmd_name = command;
+        this->_cmd_params = params;
         if (command == "CAP")
         {
             _capCommand(params, clientIndex);
@@ -71,7 +73,6 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
         }
         else if (command == "JOIN")
         {
-            std::cout << "entro en join" << std::endl;
             _joinCommand(params, clientIndex);
         }
         else if (command == "MODE")
@@ -86,6 +87,11 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
             _sendMessageToClient("unknown command\r\n", clientIndex);
             break ;
         }
+        std::cout << ANSI::reset << ANSI::bold <<
+            "[ CMD ]:\t" << ANSI::reset <<
+            ANSI::cmd << this->_cmd_name << ANSI::reset <<
+            ' ' <<
+            ANSI::arg << this->_cmd_params << ANSI::reset << std::endl;
     }
 }
 std::vector<std::string>    Server::_getAllClientNicknames(std::map<int, Client>&clients)
@@ -104,6 +110,7 @@ int	Server::_acceptClient(int nfds)
 	int				    new_fd;
     struct sockaddr_in  client_addr;
     socklen_t           client_len;
+    std::ostringstream  oss;
 
     client_len = sizeof(client_addr);
 	new_fd = accept(m_fds[0].fd, (struct sockaddr *)&client_addr, &client_len);
@@ -115,9 +122,11 @@ int	Server::_acceptClient(int nfds)
             new_fd << "\t| " << inet_ntoa(client_addr.sin_addr) <<
             "\t| " << ntohs(client_addr.sin_port) << ANSI::reset << std::endl;
     }
+    oss << inet_ntoa(client_addr.sin_addr);
    	m_fds[nfds].fd = new_fd;
 	m_fds[nfds].events = POLLIN;
 	Client newClient(new_fd);
+    newClient.setHost(oss.str());
     _clients.insert(std::make_pair(nfds, newClient));
 	return (0);
 }
@@ -146,4 +155,28 @@ void    Server::_reply(unsigned short clientIndex, const std::string &message)
     int rc = send(_clients[clientIndex].getSocketNumber(), messageWithNewLine.c_str(), messageWithNewLine.length(), 0);
     if (rc < 0)
         throw Server::ServerError("send() failed");
+}
+
+std::vector<std::string> Server::_splitString(const std::string &s, char delim)
+{
+    std::vector<std::string>    result;
+    std::vector<std::string>    trimmedResult;
+    std::stringstream           ss(s);
+    std::string                 item;
+
+    while (std::getline(ss, item, delim))
+        result.push_back(item);
+    if (result.size() < 4)
+        return (result);
+    std::string realName;
+    for (size_t i = 3; i < result.size(); i++)
+    {
+        realName += result[i] + " ";
+        if (i != result.size() - 1)
+            realName += " ";
+    }
+    for (size_t i = 0; i < 3; i++)
+        trimmedResult.push_back(result[i]);
+    trimmedResult.push_back(realName);
+    return (trimmedResult);
 }

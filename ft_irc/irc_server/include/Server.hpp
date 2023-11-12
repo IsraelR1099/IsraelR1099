@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/08 10:34:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:50:07 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ class	Server
 		int					    _m_fd_server;
 		struct sockaddr_in	    _server;
 		struct pollfd	        m_fds[MAX_CLIENTS + 1];
+        std::string             _cmd_name;
+        std::string             _cmd_params;
 		std::map<int, Client>	_clients;
         std::map<int, Channel>  _channels;
 
@@ -102,10 +104,12 @@ class	Server
         std::string _getReply(const std::string &message, const std::vector<std::string> &rep);
 		void	    _parseCommand(std::string userInput, unsigned short clientIndex);
         void        _joinChannel(std::string channelName, unsigned short clientIndex);
-        std::vector<std::string> _getAllClientNicknames(std::map<int, Client>&clients);
+        std::vector<std::string>    _getAllClientNicknames(std::map<int, Client>&clients);
+        std::vector<std::string>    _splitString(const std::string &str, char delim);
         void        _sendMessageToClient(const std::string &message, unsigned short clientIndex);
         void    _reply(unsigned short clientIndex, const std::string &message);
 		Channel	*_getChannelByName(const std::string channelName);
+        bool    addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex);
 
         // ********************** //
         // * Command methods. * //

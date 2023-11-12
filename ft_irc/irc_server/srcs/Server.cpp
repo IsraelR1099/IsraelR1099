@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/08 11:02:35 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:11:03 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,13 @@ int Server::launchServer(void)
 		std::map<int, Client>::iterator	it = _clients.begin();
 		while (it != _clients.end())
 		{
-			Client	client = it->second;
+			Client	&client = it->second;
+            std::cout << ANSI::blue <<
+                "Client: " << client.getNick() << " connected..." <<
+                ANSI::reset << std::endl;
 			client.send_message();
-		}
+            it++;
+        }
         std::cout << ANSI::blue <<
             "Server is running..." << ANSI::reset <<
             std::endl;

@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/06 12:40:07 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/12 20:53:14 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ void	Channel::incrementNumClients(void)
 	this->_numClients = this->_numClients + 1;
 }
 
+std::map<int, Client>	&Channel::getMembers(void)
+{
+    return (this->_members);
+}
+
 void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 {
     if (isOperator)
@@ -92,4 +97,30 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 			this->getName() << std::endl;
 		}
     }
+    std::map<int, Client>::iterator it;
+    for (it = _members.begin(); it != _members.end(); it++)
+    {
+        Client &client = it->second;
+        int rc = send(client.getSocketNumber(), "topic: hola", 11, 0);
+        if (rc == -1)
+            std::cout << "Error sending message to client: " << client.getNick() << std::endl;
+    }
+}
+
+bool    Channel::isClientInChannel(const Client &client) const
+{
+    std::map<int, Client>::const_iterator itMember;
+    std::map<int, Client>::const_iterator itOperator;
+
+    for (itMember = _members.begin(); itMember != _members.end(); itMember++)
+    {
+        if (itMember->second.getNick() == client.getNick())
+            return (true);
+    }
+    for (itOperator = _operators.begin(); itOperator != _operators.end(); itOperator++)
+    {
+        if (itOperator->second.getNick() == client.getNick())
+            return (true);
+    }
+    return (false);
 }

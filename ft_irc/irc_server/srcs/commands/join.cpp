@@ -6,11 +6,37 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:57 by israel            #+#    #+#             */
-/*   Updated: 2023/11/06 12:26:37 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:40:38 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Server.hpp"
+
+bool    Server::addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex)
+{
+    Channel *tmp = _getChannelByName(channel.getName());
+
+    if (tmp->isClientInChannel(client))
+    {
+        return false;
+    }
+    else if (tmp->getNumClients() > tmp->getLimit())
+    {
+        std::map<int, Client>::iterator     itClient = _clients.find(clientIndex);
+        if (itClient != _clients.end())
+        {
+            std::string	prefix = itClient->second.getCustomPrefix("471", channel.getName());
+            Server::_message(Reply::ERR_CHANNELISFULL, itClient->second, std::vector<std::string>(1, prefix));
+        }
+        return false;
+    }
+    else
+    {
+        std::cout << "name channel es: " << tmp->getName() << std::endl;
+        channel.addClient(client, clientIndex, false);
+        return true;
+    }
+}
 
 void    Server::_joinChannel(std::string channelName, unsigned short clientIndex)
 {
@@ -26,7 +52,8 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
             std::cout << ANSI::red <<
             "ERR_NOTREGISTERED :You have not registered" <<
             ANSI::reset << std::endl;
-            _sendMessageToClient("ERR_NOTREGISTERED :You have not registered\r\n", clientIndex);
+            std::string prefix = client.getCustomPrefix("451");
+            Server::_message(Reply::ERR_NOTREGISTERED, client, std::vector<std::string>(1, prefix));
             return ;
         }
         for (it = _channels.begin(); it != _channels.end(); it++)
@@ -40,22 +67,8 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         }
         if (channelExists)
         {
-			Channel	*tmp = _getChannelByName(channelName);
-			if (tmp->getNumClients() > tmp->getLimit())
-			{
-				std::string	response;
-
-				response = client.getNick();
-				response += tmp->getName();
-				response += ":Cannot join channel (+l)";
-				response += "\r\n";
-				_sendMessageToClient(response, clientIndex);
-			}
-			else
-			{
-				std::cout << "name channel es: " << tmp->getName() << std::endl;
-	            it->second.addClient(client, clientIndex, false);
-			}
+            if (addClientToChannel(it->second, client, clientIndex) == false)
+                return ;
         }
         else
         {
@@ -80,26 +93,39 @@ void    Server::_joinCommand(std::string params, unsigned short clientIndex)
     std::istringstream          iss(params);
     std::string                 token;
 
-    while (iss >> token)
+    while (std::getline(iss, token, ','))
         paramsVector.push_back(token);
     if (paramsVector.size() < 1)
     {
         std::cout << ANSI::red <<
         "ERR_NEEDMOREPARAMS :Not enough parameters" <<
         ANSI::reset << std::endl;
-        _sendMessageToClient("ERR_NEEDMOREPARAMS :Not enough parameters\r\n", clientIndex);
-    }
-    else if (paramsVector[0][0] != '#')
-    {
-        std::cout << ANSI::red <<
-        "ERR_NOSUCHCHANNEL :No such channel" <<
-        ANSI::reset << std::endl;
-        _sendMessageToClient("ERR_NOSUCHCHANNEL :No such channel\r\n", clientIndex);
+        std::string prefix = _clients[clientIndex].getCustomPrefix("461", "JOIN");
+        Server::_message(Reply::ERR_NEEDMOREPARAMS, _clients[clientIndex], std::vector<std::string>(1, prefix));
+        return ;
     }
     else
     {
-        std::cout << ANSI::green <<
-        ANSI::reset << std::endl;
-        _joinChannel(paramsVector[0], clientIndex);
+        std::vector<std::string>::iterator it = paramsVector.begin();
+        while (it != paramsVector.end())
+        {
+            const std::string   &channelName = *it;
+            if (channelName[0] != '#')
+            {
+                std::cout << ANSI::red <<
+                "ERR_NOSUCHCHANNEL :No such channel" <<
+                ANSI::reset << std::endl;
+                std::string prefix = _clients[clientIndex].getCustomPrefix("403", params);
+                std::cout << "prefix: " << prefix << std::endl;
+                Server::_message(Reply::ERR_NOSUCHCHANNEL, _clients[clientIndex], std::vector<std::string>(1, prefix));
+            }
+            else
+            {
+                std::cout << ANSI::green << "JOIN: " << channelName <<
+                ANSI::reset << std::endl;
+                _joinChannel(channelName, clientIndex);
+            }
+            it++;
+        }
     }
 }

@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:15:49 by israel            #+#    #+#             */
-/*   Updated: 2023/10/30 09:40:18 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/10 21:20:55 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ namespace ANSI
 
     std::string const bold("\033[1m");
     std::string const underline("\033[4m");
+
+    std::string const cmd("\033[1;38;2;255;200;200m");
+    std::string const arg("\033[1;38;2;120;230;180m");
 }
 
 #endif
