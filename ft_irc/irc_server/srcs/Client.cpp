@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 09:48:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/12 20:17:30 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/13 12:52:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	Client::setUser(std::string user) {
     _user = user;
 }
 
-std::string	Client::getUser() {
+std::string	Client::getUser() const
+{
     return _user;
 }
 
@@ -99,12 +100,12 @@ std::string Client::getFullName(void)
     return (_fullName);
 }
 
-void    Client::setHost(const std::string &host)
+void    Client::setHost(const std::string host)
 {
     this->_host = host;
 }
 
-std::string Client::getHost(void)
+std::string Client::getHost(void) const
 {
     return (this->_host);
 }
@@ -135,6 +136,8 @@ std::string	Client::getCustomPrefix(const std::string &code, const std::string c
             ret = "*";
         ret += " " + channelName;
     }
+	else if (code == "332")
+		ret = "server 332 " + this->_nick + "#" + channelName;
 
     return (ret);
 }
@@ -144,7 +147,7 @@ std::string Client::getCustomPrefix(const std::string &code)
     std::string ret;
 
     if (code == "001")
-        ret = this->_nick + "!" + this->_user + "@" + "localhost";
+        ret = this->_nick + "!" + this->_user + "@" + this->_host;
     else if (code == "451")
     {
         if (this->_nick.empty())

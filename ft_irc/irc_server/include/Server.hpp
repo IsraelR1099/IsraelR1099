@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/11 17:50:07 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/13 13:45:23 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ class	Server
 		struct pollfd	        m_fds[MAX_CLIENTS + 1];
         std::string             _cmd_name;
         std::string             _cmd_params;
+		size_t					_numChannels;
 		std::map<int, Client>	_clients;
         std::map<int, Channel>  _channels;
 
@@ -101,6 +102,7 @@ class	Server
         void        _initReplies(void);
 		int		    _acceptClient(int nfds);
 		void	    _receiveClient(int i);
+		void		_incrementChannels(void);
         std::string _getReply(const std::string &message, const std::vector<std::string> &rep);
 		void	    _parseCommand(std::string userInput, unsigned short clientIndex);
         void        _joinChannel(std::string channelName, unsigned short clientIndex);

@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:35:30 by israel            #+#    #+#             */
-/*   Updated: 2023/11/12 20:17:19 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/13 13:25:19 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ class Client {
         bool	        	getIsAuthorised(void);
         bool                getIsOperator(void);
         std::string	        getName(void);
-        std::string         getUser(void);
+        std::string         getUser(void) const;
         const std::string	&getNick(void) const;
         std::string         getFullName(void);
-        std::string         getHost(void);
+        std::string         getHost(void) const;
         void		        setName(std::string name);
         void                setFullName(std::string fullName);
-        void                setHost(const std::string &host);
+        void                setHost(const std::string host);
         void        		setIsAuthorised(bool value);
         void	        	setIsRegistered(bool value);
         void                setIsOperator(bool value);

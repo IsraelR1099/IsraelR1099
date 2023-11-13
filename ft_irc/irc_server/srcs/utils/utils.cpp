@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:11:18 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/06 17:40:49 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/13 13:44:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,9 @@ Channel	*Server::_getChannelByName(const std::string channelName)
 			return (&channel);
 	}
 	return (0);
+}
+
+void	Server::_incrementChannels(void)
+{
+	this->_numChannels = this->_numChannels + 1;
 }

@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/11 18:01:41 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/13 11:23:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <string>
 # include <map>
+# include <sys/socket.h>
+# include <sys/types.h>
 # include "Client.hpp"
 # include "Ansi.hpp"
 

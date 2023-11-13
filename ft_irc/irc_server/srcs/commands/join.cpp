@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:57 by israel            #+#    #+#             */
-/*   Updated: 2023/11/11 20:40:38 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/13 13:45:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         else
         {
             Channel newChannel(channelName);
-            _channels.insert(std::make_pair(0, newChannel));
             newChannel.addClient(client, clientIndex, true);
+            _channels.insert(std::make_pair(_numChannels, newChannel));
 			newChannel.incrementNumClients();
+			_incrementChannels();
             client.setIsOperator(true);
         }
     }

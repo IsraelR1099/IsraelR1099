@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/12 20:29:51 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/13 13:54:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ int	Server::_acceptClient(int nfds)
    	m_fds[nfds].fd = new_fd;
 	m_fds[nfds].events = POLLIN;
 	Client newClient(new_fd);
-    newClient.setHost(oss.str());
     _clients.insert(std::make_pair(nfds, newClient));
+	_clients[nfds].setHost(oss.str());
 	return (0);
 }
 

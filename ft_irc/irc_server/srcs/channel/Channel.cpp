@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/12 20:53:14 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/13 12:36:58 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ std::map<int, Client>	&Channel::getMembers(void)
 
 void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 {
+    std::map<int, Client>::iterator it;
+	std::map<int, std::string>		params;
+
+	params[0] = member.getNick() + "!" + member.getUser() + "@" +
+		member.getHost() + " JOIN " + ":" + this->getName() + "\n";
+	std::cout << "host de member: " << member.getHost() << std::endl;
     if (isOperator)
     {
 		if (this->_passwd == false && getNumClients() <= this->_limit)
@@ -97,11 +103,10 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 			this->getName() << std::endl;
 		}
     }
-    std::map<int, Client>::iterator it;
     for (it = _members.begin(); it != _members.end(); it++)
     {
         Client &client = it->second;
-        int rc = send(client.getSocketNumber(), "topic: hola", 11, 0);
+        int rc = send(client.getSocketNumber(), params[0].c_str(), params[0].length(), 0);
         if (rc == -1)
             std::cout << "Error sending message to client: " << client.getNick() << std::endl;
     }

@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/08 18:11:03 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/13 13:40:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ Server::Server(char **argv)
 		throw Server::BadFormat("Bad password: " + error);
 	}
 	_m_g_run_server = true;
+	_numChannels = 0;
 }
 
 Server::~Server(void)
