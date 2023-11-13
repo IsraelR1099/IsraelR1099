@@ -584,3 +584,5 @@ https://github.com/Alexdelia/42-ft_irc/blob/main/src/channel/Channel.hpp
 https://github.com/marineks/Ft_irc/blob/main/srcs/class/Channel.cpp
 
 https://github.com/irssi/irssi
+
+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
