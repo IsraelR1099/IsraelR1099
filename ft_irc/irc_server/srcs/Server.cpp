@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/13 13:40:47 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:34:29 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,36 @@ int Server::launchServer(void)
                 continue;
             if (m_fds[i].revents != POLLIN)
             {
-                std::cerr << ANSI::red <<
-                    "Error! revents = " << m_fds[i].revents << ANSI::reset <<
-                    std::endl;
-                _m_g_run_server = false;
-                break;
+				if (m_fds[i].revents & POLLHUP)
+				{
+					std::cerr << ANSI::red <<
+						"Error revents = " << m_fds[i].revents << " ctrl + d" << ANSI::reset <<
+						std::endl;
+					std::cerr << ANSI::red <<
+						"client is: " << _clients[i].getNick() << ANSI::reset << std::endl;
+					_removeClient(i, &nfds);
+				}
+				else if (m_fds[i].revents & POLLERR)
+				{
+					std::cerr << ANSI::red <<
+						"Error revents = " << m_fds[i].revents << "POLLERR" << ANSI::reset <<
+						std::endl;
+				}
+				else
+				{
+					std::cerr << ANSI::red <<
+						"Error! revents = " << m_fds[i].revents << ANSI::reset <<
+						std::endl;
+				}
+               // _m_g_run_server = false;
+               // break;
             }
             if (m_fds[i].fd == m_fds[0].fd)
             {
 				if (_acceptClient(nfds) < 0)
                 {
                     perror("accept() failed");
+					_m_g_run_server = false;
 					throw Server::ServerError("accept() failed");
                 }
 				nfds++;
