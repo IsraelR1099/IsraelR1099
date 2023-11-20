@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/17 13:34:40 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:51:04 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,12 @@ int	Server::_acceptClient(int nfds)
 {
 	int				    new_fd;
     struct sockaddr_in  client_addr;
+    struct pollfd       client_fd;
     socklen_t           client_len;
     std::ostringstream  oss;
 
     client_len = sizeof(client_addr);
-	new_fd = accept(m_fds[0].fd, (struct sockaddr *)&client_addr, &client_len);
+    new_fd = accept(this->_poll_fds[0].fd, (struct sockaddr *)&client_addr, &client_len);
 	if (new_fd < 0)
 		return (-1);
     else
@@ -123,29 +124,40 @@ int	Server::_acceptClient(int nfds)
             "\t| " << ntohs(client_addr.sin_port) << ANSI::reset << std::endl;
     }
     oss << inet_ntoa(client_addr.sin_addr);
-   	m_fds[nfds].fd = new_fd;
-	m_fds[nfds].events = POLLIN;
+    client_fd.fd = new_fd;
+    client_fd.events = POLLIN;
+    this->_poll_fds.push_back(client_fd);
 	Client newClient(new_fd);
     _clients.insert(std::make_pair(nfds, newClient));
 	_clients[nfds].setHost(oss.str());
-	return (0);
+   	return (0);
 }
 
-void	Server::_receiveClient(int i)
+int Server::_receiveClient(int i)
+		//throw Server::ServerError("Connection closed");
 {
 	int     rc;
 	char	buffer[1024];
 
 	memset(buffer, 0, sizeof(buffer));
-	rc = recv(m_fds[i].fd, buffer, sizeof(buffer), 0);
+    rc = recv(this->_poll_fds[i].fd, buffer, sizeof(buffer), 0);
 	if (rc < 0)
+    {
 		throw Server::ServerError("recv() failed");
+    }
 	else if (rc == 0)
-		throw Server::ServerError("Connection closed");
+    {
+        std::cerr << ANSI::red <<
+            "Server detected ctrl+c from client: " << this->_poll_fds[i].fd <<
+            ANSI::reset << std::endl;
+        _removeClient(i);
+        return (-1);
+    }
     std::cout << "Server: |" << buffer << "|" << std::endl;
 	_parseCommand(buffer, i);
     if (rc < 0)
         throw Server::ServerError("send() failed");
+    return (0);
 }
 
 void    Server::_reply(unsigned short clientIndex, const std::string &message)

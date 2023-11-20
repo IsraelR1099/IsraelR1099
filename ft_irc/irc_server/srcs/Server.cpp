@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/17 13:34:29 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:51:44 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ Server::~Server(void)
 
 void	Server::setServer(void)
 {
-	int	    rc;
-	int	    val;
+	int	            rc;
+	int	            val;
+    struct pollfd   server;
 
 	rc = 0;
 	_m_fd_server = socket(AF_INET, SOCK_STREAM, 0);
@@ -92,9 +93,10 @@ void	Server::setServer(void)
 		std::cout << ANSI::bold << ANSI::green <<
             "Server listening..." << ANSI::reset <<
             std::endl;
-	memset(m_fds, 0, sizeof(m_fds));
-	m_fds[0].fd = _m_fd_server;
-	m_fds[0].events = POLLIN;
+    std::memset(&server, 0, sizeof(server));
+    server.fd = _m_fd_server;
+    server.events = POLLIN;
+    this->_poll_fds.push_back(server);
     this->_initReplies();
 }
 
@@ -106,55 +108,39 @@ int Server::launchServer(void)
     nfds = 1;
     while (_m_g_run_server)
     {
-        rc = poll(m_fds, nfds, -1);
+        rc = poll(&this->_poll_fds[0], this->_poll_fds.size(), -1);
 		if (rc < 0)
             throw Server::ServerError("poll() failed");
         else if (rc == 0)
             throw Server::ServerError("poll() timed out");
-        for (int i = 0; i < nfds; i++)
+        if (this->_poll_fds[0].revents == POLLIN)
         {
-            if (m_fds[i].revents == 0)
-                continue;
-            if (m_fds[i].revents != POLLIN)
+            if (_acceptClient(nfds) < 0)
             {
-				if (m_fds[i].revents & POLLHUP)
-				{
-					std::cerr << ANSI::red <<
-						"Error revents = " << m_fds[i].revents << " ctrl + d" << ANSI::reset <<
-						std::endl;
-					std::cerr << ANSI::red <<
-						"client is: " << _clients[i].getNick() << ANSI::reset << std::endl;
-					_removeClient(i, &nfds);
-				}
-				else if (m_fds[i].revents & POLLERR)
-				{
-					std::cerr << ANSI::red <<
-						"Error revents = " << m_fds[i].revents << "POLLERR" << ANSI::reset <<
-						std::endl;
-				}
-				else
-				{
-					std::cerr << ANSI::red <<
-						"Error! revents = " << m_fds[i].revents << ANSI::reset <<
-						std::endl;
-				}
-               // _m_g_run_server = false;
-               // break;
+                perror("accept() failed");
+                _m_g_run_server = false;
+                throw Server::ServerError("accept() failed");
             }
-            if (m_fds[i].fd == m_fds[0].fd)
+            nfds++;
+        }
+        else
+        {
+            std::vector<struct pollfd>::iterator it = this->_poll_fds.begin();
+            int i = 0;
+            while (it != this->_poll_fds.end())
             {
-				if (_acceptClient(nfds) < 0)
+                if (it->revents == POLLIN)
                 {
-                    perror("accept() failed");
-					_m_g_run_server = false;
-					throw Server::ServerError("accept() failed");
+                    if (this->_receiveClient(i) < 0)
+                    {
+                        it = this->_poll_fds.begin();
+                        i = 0;
+                        nfds--;
+                    }
                 }
-				nfds++;
-			}
-			else
-			{
-				_receiveClient(i);
-			}
+                it++;
+                i++;
+            }
         }
 		std::map<int, Client>::iterator	it = _clients.begin();
 		while (it != _clients.end())
@@ -165,6 +151,12 @@ int Server::launchServer(void)
                 ANSI::reset << std::endl;
 			client.send_message();
             it++;
+        }
+        std::vector<struct pollfd>::iterator it2 = this->_poll_fds.begin();
+        while (it2 != _poll_fds.end())
+        {
+            std::cout << "fd: " << it2->fd << std::endl;
+            it2++;
         }
         std::cout << ANSI::blue <<
             "Server is running..." << ANSI::reset <<

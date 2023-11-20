@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:11:18 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/17 12:43:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:31:58 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,21 @@ void	Server::_incrementChannels(void)
 	this->_numChannels = this->_numChannels + 1;
 }
 
-void	Server::_removeClient(int socket, int *nfds)
+void	Server::_removeClient(int socket)
 {
-	std::map<int, Client>::iterator	it;
+	std::map<int, Client>::iterator         it;
+    std::vector<struct pollfd>::iterator    itPoll;
 
 	it = _clients.find(socket);
-	if (it != _clients.end())
+    if (it != _clients.end())
 	{
-		std::cout << "client is: " << it->second.getNick() << std::endl;
+        itPoll = std::remove_if(this->_poll_fds.begin(),
+                this->_poll_fds.end(), PollFDCompare(it->second.getSocketNumber()));
+        close(it->second.getSocketNumber());
+        this->_poll_fds.erase(itPoll, this->_poll_fds.end());
 		_clients.erase(it);
+        if (this->_clients.empty())
+            this->_clients.clear();
 	}
-	*nfds = *nfds - 1;
 }
 
