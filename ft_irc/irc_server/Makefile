@@ -6,7 +6,7 @@
 #    By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 11:51:00 by irifarac          #+#    #+#              #
-#    Updated: 2023/11/06 21:51:48 by israel           ###   ########.fr        #
+#    Updated: 2023/11/21 14:00:48 by israel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC =	srcs/main.cpp \
 		srcs/commands/cap.cpp \
 		srcs/commands/mode.cpp \
 		srcs/commands/ping.cpp \
+		srcs/commands/kick.cpp \
 		srcs/utils/utils.cpp
 
 OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)

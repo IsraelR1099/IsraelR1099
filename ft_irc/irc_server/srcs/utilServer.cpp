@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/20 17:51:04 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/21 13:59:08 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
         }
         else if (command == "PING")
             _pingCommand(params, clientIndex);
+        else if (command == "KICK")
+            _kickCommand(params, clientIndex);
         else
         {
             std::cout << "unknown command is: |" << command << "|" << std::endl;
