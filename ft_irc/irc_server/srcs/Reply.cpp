@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/12 14:29:33 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/22 12:52:08 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ const std::string Reply::f_ERR_NOPRIVILEGES(const std::vector<std::string> &para
     return (" :Permission Denied- You're not an IRC operator");
 }
 
+const std::string Reply::f_ERR_CHANOPRIVSNEEDED(const std::vector<std::string> &params)
+{
+    (void)params;
+    return (std::string(params[0] + " :You're not channel operator"));
+}
+
 void
 Server::_message(const std::string &message, Client &client, const std::vector<std::string> &rep)
 {
@@ -92,6 +98,7 @@ void    Server::_initReplies(void)
     Server::_replies[Reply::ERR_NEEDMOREPARAMS] = Reply::f_ERR_NEEDMOREPARAMS;
     Server::_replies[Reply::ERR_CHANNELISFULL] = Reply::f_ERR_CHANNELISFULL;
     Server::_replies[Reply::ERR_NOPRIVILEGES] = Reply::f_ERR_NOPRIVILEGES;
+	Server::_replies[Reply::ERR_CHANOPRIVSNEEDED] = Reply::f_ERR_CHANOPRIVSNEEDED;
 }
 
 void

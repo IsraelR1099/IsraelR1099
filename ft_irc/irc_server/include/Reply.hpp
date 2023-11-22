@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:27:12 by israel            #+#    #+#             */
-/*   Updated: 2023/11/17 10:18:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/22 12:52:37 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ namespace   Reply
     static const std::string    ERR_NEEDMOREPARAMS("461");
     static const std::string    ERR_CHANNELISFULL("471");
     static const std::string    ERR_NOPRIVILEGES("481");
+	 static const std::string	ERR_CHANOPRIVSNEEDED("482");
 
     // Reply messages
     const std::string   f_RPL_WELCOME(const std::vector<std::string> &params);
@@ -39,5 +40,6 @@ namespace   Reply
     const std::string   f_ERR_NEEDMOREPARAMS(const std::vector<std::string> &params);
     const std::string   f_ERR_CHANNELISFULL(const std::vector<std::string> &params);
     const std::string   f_ERR_NOPRIVILEGES(const std::vector<std::string> &params);
+	const std::string	f_ERR_CHANOPRIVSNEEDED(const std::vector<std::string> &params);
 }
 #endif

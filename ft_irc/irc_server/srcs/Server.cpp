@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/20 17:51:44 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/22 10:03:25 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,14 @@ int Server::launchServer(void)
                         nfds--;
                     }
                 }
+				else if (it->revents & POLLHUP)
+				{
+					this->_removeClient(i);
+					it = this->_poll_fds.begin();
+					i = 0;
+					nfds--;
+					std::cout << ANSI::red << "ctrl detected POLLHUP" << ANSI::reset << std::endl;
+				}
                 it++;
                 i++;
             }

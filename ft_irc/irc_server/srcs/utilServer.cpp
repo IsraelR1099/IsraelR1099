@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/21 13:59:08 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/22 13:33:30 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ int	Server::_acceptClient(int nfds)
 }
 
 int Server::_receiveClient(int i)
-		//throw Server::ServerError("Connection closed");
 {
 	int     rc;
 	char	buffer[1024];
