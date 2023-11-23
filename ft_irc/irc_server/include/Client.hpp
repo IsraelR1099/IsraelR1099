@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:35:30 by israel            #+#    #+#             */
-/*   Updated: 2023/11/22 13:33:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:27:19 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/socket.h>
 # include <sys/types.h>
 # include "Ansi.hpp"
+# include <vector>
 
 class Client {
     private:
@@ -38,7 +39,7 @@ class Client {
         ~Client(void);
 
         // Getters and Setters
-        int			        getSocketNumber(void);
+        int			        getSocketNumber(void) const;
         bool        		getIsRegistered(void);
         bool	        	getIsAuthorised(void);
         bool                getIsOperator(void);
@@ -57,6 +58,7 @@ class Client {
         void                setUser(std::string user);
 		std::string			getCustomPrefix(const std::string &code, const std::string channelName) const;
         std::string         getCustomPrefix(const std::string &code);
+        std::string         getCustomPrefix(const std::string &code, std::vector<std::string> &params);
 
         // Methods
         void                write_buffer(Client &client, const std::string &message);

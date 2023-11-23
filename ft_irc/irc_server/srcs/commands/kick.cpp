@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:59:50 by israel            #+#    #+#             */
-/*   Updated: 2023/11/22 13:33:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/23 21:03:23 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,38 +50,88 @@ int  Server::_errorKickCommand(std::vector<std::string> &tokens, unsigned short 
 	return (0);
 }
 
+int clientIsInChannel(Channel *channel, std::string &client)
+{
+    std::map<int, Client>           tmpMap = channel->getMembers();
+    std::map<int, Client>::iterator itClient = tmpMap.begin();
+
+    while (itClient != tmpMap.end())
+    {
+        if (itClient->second.getNick() == client)
+            return (itClient->first);
+        itClient++;
+    }
+    return (-1);
+}
+
 void    Server::_kickCommand(std::string params, unsigned short clientIndex)
 {
     std::istringstream				iss(params);
     std::vector<std::string>		tokens;
     std::string						token;
 	std::map<int, Client>::iterator	itClient;
+    int                             socketClientRemove;
 
     while (std::getline(iss, token, ' '))
         tokens.push_back(token);
     if (_errorKickCommand(tokens, clientIndex) == -1)
+    {
         return ;
+    }
 	//Check if operator exists in clients map of Server
 	itClient = this->_clients.find(clientIndex);
-	if (itClient != this->_clients.end())
+    if (itClient != this->_clients.end())
 	{
-		std::cout << "client operator en kick: " << itClient->second.getNick() << std::endl;
 		//Check if the channel exists in map of Server
 		Channel	*tmpChannel = this->_getChannelByName(tokens[0]);
 
 		if (tmpChannel)
 		{
-			std::map<int, Client>	members = tmpChannel->getMembers();
-
-			std::cout << "size of members: " <<  members.size() << std::endl;
-			for (std::map<int, Client>::iterator itMember = members.begin(); itMember != members.end(); itMember++)
-				std::cout << "nick is: " << itMember->second.getSocketNumber() << std::endl;
 			//Check if this client, who is typing KICK, is an operator
-		/*	std::map<int, Client>::iterator	itClientIn = tmpChannel->_operators.find(clientIndex);
-			if (itClientIn != it->Channel->second->_operators.end())
+            std::map<int, Client>   tmpMap = tmpChannel->getOperators();
+            std::map<int, Client>::iterator itClientIn = tmpMap.find(clientIndex);
+			if (itClientIn != tmpMap.end())
 			{
-				std::cout << "todo bien\n";
-				//this->_receiveClient(socketClientRemove);
+                //Check if the client to kick is in the channel
+                socketClientRemove = clientIsInChannel(tmpChannel, tokens[1]);
+                if (socketClientRemove > 0)
+                {
+                    std::cout << "client a kickear: " << tokens[1] << std::endl;
+                    std::string message = ":" + itClient->second.getNick()
+                        + " KICK " + tokens[0] + " " + tokens[1] + " "
+                        + ":" + tokens[3];
+                    std::cout << "el mensaje es: " << message << std::endl;
+                    std::cout << "socket remove: " << socketClientRemove << std::endl;
+                    std::map<int, Client>::iterator itClientRemove = this->_clients.find(socketClientRemove);
+                    if (itClientRemove != this->_clients.end())
+                    {
+                        std::cout << "client en kick: " <<
+                            itClientRemove->second.getNick() << std::endl;
+                        int rc = send(itClientRemove->second.getSocketNumber(),
+                                message.c_str(), message.length(), 0);
+                        if (rc < 0)
+                            perror("send() failed");
+                        else
+                            std::cout << "Message sent!" << std::endl;
+                        this->_removeClient(socketClientRemove);
+                    }
+                    else
+                    {
+                        std::cout << "no se encontro el cliente a kickear" << std::endl;
+                    }
+                }
+                else
+                {
+                    std::cout << ANSI::red <<
+                    "ERR_USERNOTINCHANNEL :They aren't on that channel" <<
+                    ANSI::reset << std::endl;
+                    std::vector<std::string> options;
+                    options.push_back(tokens[1]);
+                    options.push_back(tokens[0]);
+                    std::string	prefix = _clients[clientIndex].getCustomPrefix("441", options);
+                    Server::_message(Reply::ERR_USERNOTINCHANNEL, _clients[clientIndex],
+                            std::vector<std::string>(1, prefix));
+                }
 			}
 			else
 			{
@@ -91,8 +141,7 @@ void    Server::_kickCommand(std::string params, unsigned short clientIndex)
 				std::string	prefix = _clients[clientIndex].getCustomPrefix("482", params);
 				Server::_message(Reply::ERR_CHANOPRIVSNEEDED, _clients[clientIndex],
 						std::vector<std::string>(1, prefix));
-			}*/
-			std::cout << "channel name is: " << tmpChannel->getName() << std::endl;
+			}
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 09:48:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/13 12:52:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/23 20:16:23 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,31 @@ Client::Client(int socket)
 // copy operator
 Client::Client(const Client &other)
 {
-    _socket = other._socket;
+    this->_socket = other._socket;
+    this->_nick = other._nick;
+    this->_user = other._user;
+    this->_fullName = other._fullName;
+    this->_host = other._host;
+    this->_isRegistered = other._isRegistered;
+    this->_isAuthorised = other._isAuthorised;
+    this->_isOperator = other._isOperator;
+    this->_buffer = other._buffer;
 }
 
 // assignment operator
 Client	&Client::operator=(const Client &other)
 {
-     if (this != &other) {
-    _socket = other._socket;
+     if (this != &other)
+     {
+        _socket = other._socket;
+        this->_nick = other._nick;
+        this->_user = other._user;
+        this->_fullName = other._fullName;
+        this->_host = other._host;
+        this->_isRegistered = other._isRegistered;
+        this->_isAuthorised = other._isAuthorised;
+        this->_isOperator = other._isOperator;
+        this->_buffer = other._buffer;
      }
     return *this;
 }
@@ -44,7 +61,8 @@ Client::~Client()
 {
 }
 
-int	Client::getSocketNumber() {
+int	Client::getSocketNumber() const
+{
     return _socket;
 }
 
@@ -112,8 +130,13 @@ std::string Client::getHost(void) const
 
 void	Client::write_buffer(Client &client, const std::string &message)
 {
-    std::cout << ANSI::green << "Sending message to client: " << ANSI::reset << message << std::endl;
+    std::cout << ANSI::green <<
+        "Sending message to client: " << ANSI::reset << message << std::endl;
+    std::cout << "client es: " << client.getNick() <<
+       "y socket es: " << client.getSocketNumber() << std::endl;
 	client._buffer = message + "\r\n";
+    std::cout << ANSI::green <<
+        "Buffer: " << ANSI::reset << client._buffer << std::endl;
 }
 
 std::string	Client::getCustomPrefix(const std::string &code, const std::string channelName) const
@@ -139,6 +162,23 @@ std::string	Client::getCustomPrefix(const std::string &code, const std::string c
 	else if (code == "332")
 		ret = "server 332 " + this->_nick + "#" + channelName;
 
+    return (ret);
+}
+
+std::string Client::getCustomPrefix(const std::string &code, std::vector<std::string> &params)
+{
+    std::string                         ret;
+    std::vector<std::string>::iterator  it;
+
+    it = params.begin();
+    while (it != params.end())
+    {
+        ret += *it;
+        if (it + 1 != params.end())
+            ret += " ";
+        it++;
+    }
+    (void)code;
     return (ret);
 }
 

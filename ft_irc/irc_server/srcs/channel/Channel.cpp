@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/22 13:24:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/23 13:36:20 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,14 @@ void	Channel::incrementNumClients(void)
 	this->_numClients = this->_numClients + 1;
 }
 
-std::map<int, Client>	&Channel::getMembers(void)
+std::map<int, Client>   &Channel::getMembers(void)
 {
     return (this->_members);
+}
+
+std::map<int, Client>   &Channel::getOperators(void)
+{
+    return (this->_operators);
 }
 
 void	Channel::addClient(const Client &member, int nfds, bool isOperator)
@@ -84,6 +89,8 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 	params[0] = member.getNick() + "!" + member.getUser() + "@" +
 		member.getHost() + " JOIN " + ":" + this->getName() + "\n";
 	std::cout << "host de member: " << member.getHost() << std::endl;
+    std::cout << "member en addClient: " << member.getNick() << std::endl;
+    std::cout << "client socket: " << member.getSocketNumber() << std::endl;
     if (isOperator)
     {
 		if (this->_passwd == false && getNumClients() <= this->_limit)
@@ -92,6 +99,14 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 					this->getName() << " as operator" << std::endl;
 			_operators.insert(std::make_pair(nfds, member));
 			_members.insert(std::make_pair(nfds, member));
+            std::map<int, Client>::iterator it = this->_members.begin();
+
+            while (it != this->_members.end())
+            {
+                std::cout << "Client: " << it->second.getNick() << std::endl;
+                std::cout << "client socket: " << it->second.getSocketNumber() << std::endl;
+                it++;
+            }
 		}
     }
     else

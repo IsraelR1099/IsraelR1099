@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/22 10:03:25 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/23 21:08:35 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,13 @@ int Server::launchServer(void)
         {
             std::cout << "fd: " << it2->fd << std::endl;
             it2++;
+        }
+        std::map<int, Client>::iterator it3 = _clients.begin();
+        while (it3 != _clients.end())
+        {
+            std::cout << "key client: " << it3->first << std::endl;
+            std::cout << "Client nick en loop: " << it3->second.getNick() << std::endl;
+            it3++;
         }
         std::cout << ANSI::blue <<
             "Server is running..." << ANSI::reset <<

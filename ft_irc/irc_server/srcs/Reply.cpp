@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/22 12:52:08 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:46:44 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ const std::string Reply::f_ERR_CHANOPRIVSNEEDED(const std::vector<std::string> &
     return (std::string(params[0] + " :You're not channel operator"));
 }
 
+const std::string   Reply::f_ERR_USERNOTINCHANNEL(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :They aren't on that channel"));
+}
+
 void
 Server::_message(const std::string &message, Client &client, const std::vector<std::string> &rep)
 {
@@ -94,6 +99,7 @@ void    Server::_initReplies(void)
     Server::_replies[Reply::ERR_NOSUCHCHANNEL] = Reply::f_ERR_NOSUCHCHANNEL;
     Server::_replies[Reply::ERR_UNKNOWNCOMMAND] = Reply::f_ERR_UNKNOWNCOMMAND;
     Server::_replies[Reply::RPL_TOPIC] = Reply::f_RPL_TOPIC;
+    Server::_replies[Reply::ERR_USERNOTINCHANNEL] = Reply::f_ERR_USERNOTINCHANNEL;
     Server::_replies[Reply::ERR_NOTREGISTERED] = Reply::f_ERR_NOTREGISTERED;
     Server::_replies[Reply::ERR_NEEDMOREPARAMS] = Reply::f_ERR_NEEDMOREPARAMS;
     Server::_replies[Reply::ERR_CHANNELISFULL] = Reply::f_ERR_CHANNELISFULL;
