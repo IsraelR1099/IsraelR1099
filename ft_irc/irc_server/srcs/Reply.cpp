@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/23 14:46:44 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/24 10:28:55 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@ const std::string Reply::f_ERR_NOSUCHCHANNEL(const std::vector<std::string> &par
     return (std::string(params[0] + " :No such channel"));
 }
 
+const std::string Reply::f_ERR_NORECIPIENT(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :No recipient given (PRIVMSG)"));
+}
+
+const std::string Reply::f_ERR_NOTEXTTOSEND(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :No text to send"));
+}
+
 const std::string Reply::f_ERR_UNKNOWNCOMMAND(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :Unknown command"));
@@ -40,6 +50,11 @@ const std::string   Reply::f_RPL_TOPIC(const std::vector<std::string> &params)
 const std::string Reply::f_ERR_NOTREGISTERED(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :You have not registered"));
+}
+
+const std::string Reply::f_ERR_NOTONCHANNEL(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :You're not on that channel"));
 }
 
 const std::string   Reply::f_ERR_NEEDMOREPARAMS(const std::vector<std::string> &params)
@@ -97,9 +112,12 @@ void    Server::_initReplies(void)
     Server::_replies[Reply::RPL_WELCOME] = Reply::f_RPL_WELCOME;
     Server::_replies[Reply::ERR_NOSUCHNICK] = Reply::f_ERR_NOSUCHNICK;
     Server::_replies[Reply::ERR_NOSUCHCHANNEL] = Reply::f_ERR_NOSUCHCHANNEL;
+	Server::_replies[Reply::ERR_NORECIPIENT] = Reply::f_ERR_NORECIPIENT;
+    Server::_replies[Reply::ERR_NOTEXTTOSEND] = Reply::f_ERR_NOTEXTTOSEND;
     Server::_replies[Reply::ERR_UNKNOWNCOMMAND] = Reply::f_ERR_UNKNOWNCOMMAND;
     Server::_replies[Reply::RPL_TOPIC] = Reply::f_RPL_TOPIC;
     Server::_replies[Reply::ERR_USERNOTINCHANNEL] = Reply::f_ERR_USERNOTINCHANNEL;
+	Server::_replies[Reply::ERR_NOTONCHANNEL] = Reply::f_ERR_NOTONCHANNEL;
     Server::_replies[Reply::ERR_NOTREGISTERED] = Reply::f_ERR_NOTREGISTERED;
     Server::_replies[Reply::ERR_NEEDMOREPARAMS] = Reply::f_ERR_NEEDMOREPARAMS;
     Server::_replies[Reply::ERR_CHANNELISFULL] = Reply::f_ERR_CHANNELISFULL;

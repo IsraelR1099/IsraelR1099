@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/23 13:35:34 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/24 10:49:35 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,18 @@ class Channel
         ~Channel(void);
 
 
-        std::string     getTopic(void) const;
-        std::string     getName(void) const;
-        void            setName(const std::string &name);
-		void			incrementNumClients(void);
-        size_t          getNumClients(void) const;
-		size_t			getLimit(void);
-        void            setTopic(const std::string &topic);
-        void            addClient(const Client &client, int nfds, bool isOperator);
+        std::string				getTopic(void) const;
+        std::string				getName(void) const;
+        void					setName(const std::string &name);
+		void					incrementNumClients(void);
+        size_t					getNumClients(void) const;
+		size_t					getLimit(void);
+        void					setTopic(const std::string &topic);
+        void					addClient(const Client &client, int nfds, bool isOperator);
         std::map<int, Client>   &getMembers(void);
         std::map<int, Client>   &getOperators(void);
-        bool            isClientInChannel(const Client &client) const;
+        bool					isClientInChannel(const Client &client) const;
+		void					_removeClientFromChannel(int socket);
 
     private:
         std::string             _name;

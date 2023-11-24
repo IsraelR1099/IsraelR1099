@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/23 21:08:35 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/24 13:17:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,18 @@ void	Server::setServer(void)
     this->_initReplies();
 }
 
+void	hola(int code)
+{
+	std::cout << "code es" << code << std::endl;
+}
+
 int Server::launchServer(void)
 {
     int rc;
     int nfds;
 
     nfds = 1;
+	signal(SIGINT, hola);
     while (_m_g_run_server)
     {
         rc = poll(&this->_poll_fds[0], this->_poll_fds.size(), -1);

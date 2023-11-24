@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/23 13:36:20 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/24 10:08:05 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,4 +143,15 @@ bool    Channel::isClientInChannel(const Client &client) const
             return (true);
     }
     return (false);
+}
+
+void	Channel::_removeClientFromChannel(int socket)
+{
+	std::map<int, Client>::iterator	itClientRemove;
+
+	itClientRemove = this->_members.find(socket);
+	if (itClientRemove != this->_members.end())
+	{
+		this->_members.erase(itClientRemove);
+	}
 }
