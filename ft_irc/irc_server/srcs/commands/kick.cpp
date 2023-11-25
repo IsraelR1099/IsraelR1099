@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:59:50 by israel            #+#    #+#             */
-/*   Updated: 2023/11/24 13:03:56 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/23 21:03:23 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,6 @@ void    Server::_kickCommand(std::string params, unsigned short clientIndex)
 	{
 		//Check if the channel exists in map of Server
 		Channel	*tmpChannel = this->_getChannelByName(tokens[0]);
-		std::map<int, Client>	tmpChannel2 = tmpChannel->getMembers();
-		std::map<int, Client>::iterator clients = tmpChannel2.begin();
-
-		while (clients != tmpChannel2.end())
-		{
-			std::cout << "Clients before deleting: " << clients->second.getNick() << std::endl;
-			clients++;
-		}
 
 		if (tmpChannel)
 		{
@@ -105,17 +97,27 @@ void    Server::_kickCommand(std::string params, unsigned short clientIndex)
                 if (socketClientRemove > 0)
                 {
                     std::cout << "client a kickear: " << tokens[1] << std::endl;
-					std::vector<std::string>	messageKick;
-
-					std::string message = ":" + itClient->second.getNick()
+                    std::string message = ":" + itClient->second.getNick()
                         + " KICK " + tokens[0] + " " + tokens[1] + " "
                         + ":" + tokens[3];
+                    std::cout << "el mensaje es: " << message << std::endl;
+                    std::cout << "socket remove: " << socketClientRemove << std::endl;
                     std::map<int, Client>::iterator itClientRemove = this->_clients.find(socketClientRemove);
                     if (itClientRemove != this->_clients.end())
                     {
-						itClientRemove->second.write_buffer(itClientRemove->second, message);
-						tmpChannel->_removeClientFromChannel(socketClientRemove);
-						this->_channels[_getChannelKey(tmpChannel->getName())] = *tmpChannel;
+                        std::cout << "client en kick: " <<
+                            itClientRemove->second.getNick() << std::endl;
+                        int rc = send(itClientRemove->second.getSocketNumber(),
+                                message.c_str(), message.length(), 0);
+                        if (rc < 0)
+                            perror("send() failed");
+                        else
+                            std::cout << "Message sent!" << std::endl;
+                        this->_removeClient(socketClientRemove);
+                    }
+                    else
+                    {
+                        std::cout << "no se encontro el cliente a kickear" << std::endl;
                     }
                 }
                 else

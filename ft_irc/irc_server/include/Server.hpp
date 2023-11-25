@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/24 10:37:57 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:08:35 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,11 @@ class	Server
         std::vector<std::string>    _getAllClientNicknames(std::map<int, Client>&clients);
         std::vector<std::string>    _splitString(const std::string &str, char delim);
         void        _sendMessageToClient(const std::string &message, unsigned short clientIndex);
-		void		_sendPrivMsgToChannel(std::string target, std::string message, unsigned short clientIndex);
-		void		_sendPrivMsgToClient(std::string target, std::string message, unsigned short clientIndex);
-        void    _reply(unsigned short clientIndex, const std::string &message);
-		Channel	*_getChannelByName(const std::string channelName);
-		int		_getChannelKey(const std::string &channelName);
-        bool    addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex);
+        void        _reply(unsigned short clientIndex, const std::string &message);
+		Channel     *_getChannelByName(const std::string channelName);
+        bool        addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex);
+        bool        _checkChannelAndOperatorInMode(std::string params, unsigned short clientIndex);
+        int         _checkRegisteredAndParams(const std::string &params, unsigned short clientIndex);
 
         // ********************** //
         // * Command methods. * //
@@ -144,5 +143,6 @@ class	Server
         void    _pingCommand(std::string params, unsigned short clientIndex);
         void    _kickCommand(std::string params, unsigned short clientIndex);
         int     _errorKickCommand(std::vector<std::string> &tokens, unsigned short clientIndex);
+        std::vector<std::string>    parseModes(std::string modeString, unsigned short clientIndex);
 };
 #endif

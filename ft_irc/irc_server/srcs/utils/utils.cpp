@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:11:18 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/24 10:49:33 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:54:22 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,6 @@ Channel	*Server::_getChannelByName(const std::string channelName)
 			return (&channel);
 	}
 	return (0);
-}
-
-int	Server::_getChannelKey(const std::string &channelName)
-{
-	std::map<int, Channel>::iterator	itChannel;
-
-	for (itChannel = this->_channels.begin(); itChannel != this->_channels.end(); itChannel++)
-	{
-		Channel	&channel = itChannel->second;
-		if (channel.getName() == channelName)
-			return (itChannel->first);
-	}
-	return (-1);
 }
 
 void	Server::_incrementChannels(void)
@@ -61,3 +48,19 @@ void	Server::_removeClient(int socket)
 	}
 }
 
+int    Server::_checkRegisteredAndParams(const std::string &params, unsigned short clientIndex)
+{
+        if (!_clients[clientIndex].getIsRegistered())
+    {
+        std::string prefix = _clients[clientIndex].getCustomPrefix("default");
+        Server::_message(Reply::ERR_NOTREGISTERED, _clients[clientIndex], std::vector<std::string>(1, prefix));
+        return 1;
+    }
+    if (!params.length())
+    {
+        std::string prefix = _clients[clientIndex].getCustomPrefix("default");
+        Server::_message(Reply::ERR_NEEDMOREPARAMS, _clients[clientIndex], std::vector<std::string>(1, prefix));
+        return 1;
+    }
+    return 0;
+}
