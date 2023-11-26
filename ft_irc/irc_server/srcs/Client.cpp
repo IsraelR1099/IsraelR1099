@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 09:48:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/24 21:05:46 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/26 18:57:58 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	Client::setIsOperator(bool value)
 
 bool	Client::getIsOperator(void)
 {
-    return (_isOperator);
+    return (this->_isOperator);
 }
 
 void	Client::setUser(std::string user) {
@@ -131,10 +131,8 @@ std::string Client::getHost(void) const
 void	Client::write_buffer(Client &client, const std::string &message)
 {
     std::cout << ANSI::green <<
-        "Sending message to client: " << ANSI::reset << message << std::endl;
-    std::cout << "client es: " << client.getNick() <<
-       "y socket es: " << client.getSocketNumber() << std::endl;
-	client._buffer = message + "\r\n";
+        "Sending message to client write: " << ANSI::reset << message << std::endl;
+	client._buffer += message + "\r\n";
     std::cout << ANSI::green <<
         "Buffer: " << ANSI::reset << client._buffer << std::endl;
 }
@@ -204,6 +202,8 @@ void	Client::send_message(void)
 {
 	int	rc;
 
+    std::cout << ANSI::green <<
+        "Sending message to client in send message: " << ANSI::reset << this->_buffer << std::endl;
 	if (!this->_buffer.length())
 		return ;
 	rc = send(this->_socket, this->_buffer.c_str(), this->_buffer.length(), 0);

@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/24 21:08:35 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/26 20:57:03 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ class	Server
         void    _modeCommand(std::string params, unsigned short clientIndex);
         void    _pingCommand(std::string params, unsigned short clientIndex);
         void    _kickCommand(std::string params, unsigned short clientIndex);
+        void    _quitCommand(std::string params, unsigned short clientIndex);
         int     _errorKickCommand(std::vector<std::string> &tokens, unsigned short clientIndex);
         std::vector<std::string>    parseModes(std::string modeString, unsigned short clientIndex);
 };

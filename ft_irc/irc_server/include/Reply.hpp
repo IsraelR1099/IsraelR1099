@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:27:12 by israel            #+#    #+#             */
-/*   Updated: 2023/11/24 20:50:28 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/26 20:15:36 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ namespace   Reply
 {
     // Reply codes
     static const std::string    RPL_WELCOME("001");
+    static const std::string    RPL_TOPIC("332");
+    static const std::string    RPL_NAMREPLY("353");
+    static const std::string    RPL_ENDOFNAMES("366");
     static const std::string    ERR_NOSUCHNICK("401");
     static const std::string    ERR_NOSUCHCHANNEL("403");
     static const std::string    ERR_UNKNOWNCOMMAND("421");
-    static const std::string    RPL_TOPIC("332");
     static const std::string    ERR_USERNOTINCHANNEL("441");
     static const std::string    ERR_NOTREGISTERED("451");
     static const std::string    ERR_NEEDMOREPARAMS("461");
@@ -34,10 +36,12 @@ namespace   Reply
 
     // Reply messages
     const std::string   f_RPL_WELCOME(const std::vector<std::string> &params);
+    const std::string   f_RPL_TOPIC(const std::vector<std::string> &params);
+    const std::string   f_RPL_NAMREPLY(const std::vector<std::string> &params);
+    const std::string   f_RPL_ENDOFNAMES(const std::vector<std::string> &params);
     const std::string   f_ERR_NOSUCHNICK(const std::vector<std::string> &params);
     const std::string   f_ERR_NOSUCHCHANNEL(const std::vector<std::string> &params);
     const std::string   f_ERR_UNKNOWNCOMMAND(const std::vector<std::string> &params);
-    const std::string   f_RPL_TOPIC(const std::vector<std::string> &params);
     const std::string   f_ERR_USERNOTINCHANNEL(const std::vector<std::string> &params);
     const std::string   f_ERR_NOTREGISTERED(const std::vector<std::string> &params);
     const std::string   f_ERR_NEEDMOREPARAMS(const std::vector<std::string> &params);

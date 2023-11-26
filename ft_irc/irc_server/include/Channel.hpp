@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/23 13:35:34 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/25 22:58:41 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ class Channel
         std::map<int, Client>   &getMembers(void);
         std::map<int, Client>   &getOperators(void);
         bool            isClientInChannel(const Client &client) const;
+        void            removeChannelClient(const Client &client);
 
     private:
         std::string             _name;

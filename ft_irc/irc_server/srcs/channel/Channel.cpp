@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/23 13:36:20 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/26 00:29:55 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,13 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 {
     std::map<int, Client>::iterator it;
 	std::map<int, std::string>		params;
+    std::vector<std::string>        nameReply;
 
-	params[0] = member.getNick() + "!" + member.getUser() + "@" +
+    std::cout << "Channel: " << this->getName() << " adding client: " << member.getNick() << std::endl;
+/*	params[0] = member.getNick() + "!" + member.getUser() + "@" +
 		member.getHost() + " JOIN " + ":" + this->getName() + "\n";
-	std::cout << "host de member: " << member.getHost() << std::endl;
-    std::cout << "member en addClient: " << member.getNick() << std::endl;
-    std::cout << "client socket: " << member.getSocketNumber() << std::endl;
+    nameReply[0] = "#" + this->getName();
+    nameReply[1] = "1";*/
     if (isOperator)
     {
 		if (this->_passwd == false && getNumClients() <= this->_limit)
@@ -118,13 +119,14 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 			this->getName() << std::endl;
 		}
     }
-    for (it = _members.begin(); it != _members.end(); it++)
+ /*   for (it = _members.begin(); it != _members.end(); it++)
     {
         Client &client = it->second;
+        client.write_buffer(it->second, params[0]);
         int rc = send(client.getSocketNumber(), params[0].c_str(), params[0].length(), 0);
         if (rc == -1)
             std::cout << "Error sending message to client: " << client.getNick() << std::endl;
-    }
+    }*/
 }
 
 bool    Channel::isClientInChannel(const Client &client) const
@@ -143,4 +145,27 @@ bool    Channel::isClientInChannel(const Client &client) const
             return (true);
     }
     return (false);
+}
+
+void    Channel::removeChannelClient(const Client &client)
+{
+    std::map<int, Client>::iterator itMember;
+    std::map<int, Client>::iterator itOperator;
+
+    for (itMember = _members.begin(); itMember != _members.end(); itMember++)
+    {
+        if (itMember->second.getNick() == client.getNick())
+        {
+            _members.erase(itMember);
+            break ;
+        }
+    }
+    for (itOperator = _operators.begin(); itOperator != _operators.end(); itOperator++)
+    {
+        if (itOperator->second.getNick() == client.getNick())
+        {
+            _operators.erase(itOperator);
+            break ;
+        }
+    }
 }

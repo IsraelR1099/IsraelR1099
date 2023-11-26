@@ -25,7 +25,6 @@ void    sendToClient(std::string target, std::string message, std::map<int, Clie
         {
             nicknameNotFound = false;
             message += "\n";
-            //send
             rc = send(it->second.getSocketNumber(), message.c_str(), message.length(), 0);
             if (rc < 0)
                 throw Server::ServerError("send() failed");
@@ -53,6 +52,7 @@ void    sendToChannel(std::string target, std::string message, std::map<int, Cli
             message += "\r\n";
             for (std::map<int, Client>::iterator it = members.begin(); it != members.end(); ++it)
             {
+                std::cout << "Sending message to " << it->second.getNick() << std::endl;
                 rc = send(it->second.getSocketNumber(), message.c_str(), message.length(), 0);
                 if (rc < 0)
                     throw Server::ServerError("send() failed");

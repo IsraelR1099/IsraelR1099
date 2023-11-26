@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:11:18 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/24 17:54:22 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/25 22:58:35 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,22 @@ void	Server::_removeClient(int socket)
 {
 	std::map<int, Client>::iterator         it;
     std::vector<struct pollfd>::iterator    itPoll;
+    std::map<int, Channel>::iterator        itChannel;
 
-	it = _clients.find(socket);
-    if (it != _clients.end())
+	it = this->_clients.find(socket);
+    if (it != this->_clients.end())
 	{
         itPoll = std::remove_if(this->_poll_fds.begin(),
                 this->_poll_fds.end(), PollFDCompare(it->second.getSocketNumber()));
         close(it->second.getSocketNumber());
         this->_poll_fds.erase(itPoll, this->_poll_fds.end());
-		_clients.erase(it);
+        itChannel = this->_channels.begin();
+        while (itChannel != this->_channels.end())
+        {
+            itChannel->second.removeChannelClient(it->second);
+            itChannel++;
+        }
+		this->_clients.erase(it);
         if (this->_clients.empty())
             this->_clients.clear();
 	}
