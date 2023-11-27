@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:57 by israel            #+#    #+#             */
-/*   Updated: 2023/11/26 20:23:59 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/27 11:56:41 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ bool    Server::addClientToChannel(Channel &channel, Client &client, unsigned sh
     }
 }
 
+//Check limits, if it's invited and password
 void    Server::_joinChannel(std::string channelName, unsigned short clientIndex)
 {
     bool                                channelExists = false;

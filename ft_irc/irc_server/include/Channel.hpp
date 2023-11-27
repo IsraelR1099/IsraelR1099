@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/25 22:58:41 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:02:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,48 @@ class Channel
         ~Channel(void);
 
 
-        std::string     getTopic(void) const;
-        std::string     getName(void) const;
-        void            setName(const std::string &name);
-		void			incrementNumClients(void);
-        size_t          getNumClients(void) const;
-		size_t			getLimit(void);
-        void            setTopic(const std::string &topic);
-        void            addClient(const Client &client, int nfds, bool isOperator);
+        std::string				getTopic(void) const;
+        std::string				getName(void) const;
+        void					setName(const std::string &name);
+		void					incrementNumClients(void);
+        size_t					getNumClients(void) const;
+        void					setTopic(const std::string &topic);
+        void					addClient(const Client &client, int nfds, bool isOperator);
         std::map<int, Client>   &getMembers(void);
         std::map<int, Client>   &getOperators(void);
-        bool            isClientInChannel(const Client &client) const;
-        void            removeChannelClient(const Client &client);
-
+		std::map<int, Client>	&getInvitees(void);
+        bool					isClientInChannel(const Client &client) const;
+        bool					isClientInChannel(unsigned short clientIndex);
+        void					removeChannelClient(const Client &client);
+		std::string				getTopicChanger(void);
+        void                    setTopicChanger(std::string);
+        std::string             getTopicChangeTime(void);
+        void                    setTopicChangeTime(std::string);
+		size_t					getLimit(void);
+		void                    setLimit(size_t limit);
+        bool                    getModeT();
+        void                    setModeT(bool boolean);
+        bool                    getModeI();
+        void                    setModeI(bool boolean);
+        bool                    getModeL();
+        void                    setModeL(bool boolean);
+        std::string             getKey();
+        void                    setKey(std::string key);
     private:
         std::string             _name;
-        std::string             _password;
+        std::string             _key;
         std::string             _topic;
+		std::string             _topicChanger;
+        std::string             _topicChangeTime;
 		std::map<int, Client>	_members;
         std::map<int, Client>   _operators;
+		std::map<int, Client>   _invitees;
         size_t                  _numClients;
         size_t                  _limit;
 		bool					_passwd;
         bool                    _modeI;
         bool                    _modeT;
         bool                    _modeK;
-        bool                    _modeO;
         bool                    _modeL;
 };
 

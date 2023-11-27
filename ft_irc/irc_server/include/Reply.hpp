@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:27:12 by israel            #+#    #+#             */
-/*   Updated: 2023/11/26 20:15:36 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:27:18 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ namespace   Reply
 {
     // Reply codes
     static const std::string    RPL_WELCOME("001");
+    static const std::string    RPL_CHANNELMODEIS("324");
     static const std::string    RPL_TOPIC("332");
     static const std::string    RPL_NAMREPLY("353");
     static const std::string    RPL_ENDOFNAMES("366");
@@ -33,9 +34,11 @@ namespace   Reply
     static const std::string    ERR_UNKNOWNMODE("472");
     static const std::string    ERR_NOPRIVILEGES("481");
     static const std::string	ERR_CHANOPRIVSNEEDED("482");
+	static const std::string    ERR_INVALIDMODEPARAM("696");
 
     // Reply messages
     const std::string   f_RPL_WELCOME(const std::vector<std::string> &params);
+    const std::string   f_RPL_CHANNELMODEIS(const std::vector<std::string> &params);
     const std::string   f_RPL_TOPIC(const std::vector<std::string> &params);
     const std::string   f_RPL_NAMREPLY(const std::vector<std::string> &params);
     const std::string   f_RPL_ENDOFNAMES(const std::vector<std::string> &params);
@@ -49,5 +52,6 @@ namespace   Reply
     const std::string   f_ERR_UNKNOWNMODE(const std::vector<std::string> &params);
     const std::string   f_ERR_NOPRIVILEGES(const std::vector<std::string> &params);
 	const std::string	f_ERR_CHANOPRIVSNEEDED(const std::vector<std::string> &params);
+	const std::string   f_ERR_INVALIDMODEPARAM(const std::vector<std::string> &params);
 }
 #endif

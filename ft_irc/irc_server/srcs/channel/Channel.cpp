@@ -6,22 +6,21 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/26 00:29:55 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:27:20 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Channel.hpp"
 
-Channel::Channel(void) : _name("general"), _password(""), _topic("general"), _numClients(0), _limit(5)
+Channel::Channel(void) : _name("general"), _key(""), _topic("general"), _numClients(0), _limit(5)
 {
     this->_modeI = false;
     this->_modeT = false;
     this->_modeK = false;
-    this->_modeO = false;
     this->_modeL = false;
 }
 
-Channel::Channel(const std::string &name) : _name(name), _password(""), _numClients(0), _limit(5), _passwd(false), _modeI(false), _modeT(false), _modeK(false), _modeO(false), _modeL(false)
+Channel::Channel(const std::string &name) : _name(name), _key(""), _numClients(0), _limit(5), _passwd(false), _modeI(false), _modeT(false), _modeK(false), _modeL(false)
 {
 	std::cout << ANSI::green << "Channel: " << _name << " created and n of clients: " <<
 		getNumClients() << ANSI::reset << std::endl;
@@ -81,6 +80,56 @@ std::map<int, Client>   &Channel::getOperators(void)
     return (this->_operators);
 }
 
+std::map<int, Client>	&Channel::getInvitees(void)
+{
+    return (this->_invitees);
+}
+
+void    Channel::setLimit(size_t limit)
+{
+    _limit = limit;
+}
+
+bool    Channel::getModeT()
+{
+    return _modeT;
+}
+
+void    Channel::setModeT(bool boolean)
+{
+    _modeT = boolean;
+}
+
+bool    Channel::getModeI()
+{
+    return _modeI;
+}
+
+void    Channel::setModeI(bool boolean)
+{
+    _modeI = boolean;
+}
+
+bool    Channel::getModeL()
+{
+    return _modeL;
+}
+
+void    Channel::setModeL(bool boolean)
+{
+    _modeL = boolean;
+}
+
+std::string    Channel::getKey()
+{
+    return _key;
+}
+
+void    Channel::setKey(std::string key)
+{
+    _key = key;
+}
+
 void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 {
     std::map<int, Client>::iterator it;
@@ -112,7 +161,7 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
     }
     else
     {
-		if (this->_password == "" && getNumClients() <= _limit)
+		if (this->_key == "" && getNumClients() <= _limit)
 		{
 			_members.insert(std::make_pair(nfds, member));
 			std::cout << "Client: " << member.getNick() << " added to: " <<

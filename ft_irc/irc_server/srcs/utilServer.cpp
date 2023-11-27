@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/22 13:33:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:14:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
             _pingCommand(params, clientIndex);
         else if (command == "KICK")
             _kickCommand(params, clientIndex);
+		else if (command == "QUIT")
+			this->_quitCommand(params, clientIndex);
         else
         {
             std::cout << "unknown command is: |" << command << "|" << std::endl;
@@ -140,7 +142,7 @@ int Server::_receiveClient(int i)
 	int     rc;
 	char	buffer[1024];
 
-	memset(buffer, 0, sizeof(buffer));
+	std::memset(buffer, 0, sizeof(buffer));
     rc = recv(this->_poll_fds[i].fd, buffer, sizeof(buffer), 0);
 	if (rc < 0)
     {

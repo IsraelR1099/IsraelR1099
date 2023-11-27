@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 09:48:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/26 18:57:58 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:05:49 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ std::string Client::getCustomPrefix(const std::string &code)
 
     if (code == "001")
         ret = this->_nick + "!" + this->_user + "@" + this->_host;
-    else if (code == "451")
+    else if (code == "451" || code == "default")
     {
         if (this->_nick.empty())
             ret = "*";

@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/26 20:57:03 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:52:45 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,13 @@ class	Server
         bool        addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex);
         bool        _checkChannelAndOperatorInMode(std::string params, unsigned short clientIndex);
         int         _checkRegisteredAndParams(const std::string &params, unsigned short clientIndex);
+		bool		_checkChannelExistsInMode(std::string params, unsigned short clientIndex);
+		bool		_checkIfOperatorInMode(std::string params, unsigned short clientIndex);
+        void		_executeModes(Channel &channel, unsigned short clientIndex, std::vector<std::string> modes, std::vector<std::string> args);
+
+        //** MODE FUNCS **//
+        void execLimit(unsigned short clientIndex, Channel &channel, char sign, std::string limit);
+        void execOperator(unsigned short clientIndex, Channel &channel, char sign, std::string user);
 
         // ********************** //
         // * Command methods. * //
@@ -141,6 +148,8 @@ class	Server
         void    _joinCommand(std::string params, unsigned short clientIndex);
         void    _modeCommand(std::string params, unsigned short clientIndex);
         void    _pingCommand(std::string params, unsigned short clientIndex);
+        void    _topicCommand(std::string params, unsigned short clientIndex);
+        void    _inviteCommand(std::string params, unsigned short clientIndex);
         void    _kickCommand(std::string params, unsigned short clientIndex);
         void    _quitCommand(std::string params, unsigned short clientIndex);
         int     _errorKickCommand(std::vector<std::string> &tokens, unsigned short clientIndex);

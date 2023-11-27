@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 13:52:54 by israel            #+#    #+#             */
-/*   Updated: 2023/11/25 20:47:03 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/27 11:32:04 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Server.hpp"
 
-bool    Server::_checkChannelAndOperatorInMode(std::string params, unsigned short clientIndex)
+bool    Server::_checkChannelExistsInMode(std::string params, unsigned short clientIndex)
 {
     if (_checkRegisteredAndParams(params, clientIndex))
         return 1;
 
     std::vector<std::string> tokens = _splitString(params, ' ');
-
     Channel *channel = _getChannelByName(tokens[0]);
     if (!channel)
     {
@@ -28,6 +27,13 @@ bool    Server::_checkChannelAndOperatorInMode(std::string params, unsigned shor
         Server::_message(Reply::ERR_NOSUCHCHANNEL, _clients[clientIndex], std::vector<std::string>(1, prefix));
         return 1;
     }
+    return 0;
+}
+
+bool    Server::_checkIfOperatorInMode(std::string params, unsigned short clientIndex)
+{
+    std::vector<std::string> tokens = _splitString(params, ' ');
+    Channel *channel = _getChannelByName(tokens[0]);
     std::map<int, Client> ops = channel->getOperators();
     bool isOp = false;
     for (std::map<int, Client>::iterator it = ops.begin(); it != ops.end(); it++)
@@ -45,19 +51,6 @@ bool    Server::_checkChannelAndOperatorInMode(std::string params, unsigned shor
     }
     return 0;
 }
-           /* if (*it == '+' || *it == '-')
-            {
-                if (mode.length() > 0)
-                    modes.push_back(mode);
-                mode = *it;
-                flag = *it;
-            }
-            else
-            {
-                mode += *it;
-                flag += *it;
-                modes.push_back(flag);
-            }*/
 
 std::vector<std::string>    Server::parseModes(std::string modeString, unsigned short clientIndex)
 {
@@ -82,24 +75,188 @@ std::vector<std::string>    Server::parseModes(std::string modeString, unsigned 
             std::cout << ANSI::red <<
                 "ERR_UNKNOWNMODE: " << *it << ANSI::reset << std::endl;
             std::string modechar = std::string(1, *it);
-            std::cout << "modechar: " << modechar << std::endl;
             std::string prefix = _clients[clientIndex].getCustomPrefix("472", modechar);
-            std::cout << "prefix: " << prefix << std::endl;
             Server::_message(Reply::ERR_UNKNOWNMODE, _clients[clientIndex], std::vector<std::string>(1, prefix));
         }
     }
     return (modes);
 }
 
+void execTopic(Channel &channel, char sign)
+{
+    if (sign == '+')
+        channel.setModeT(true);
+    else if (sign == '-')
+        channel.setModeT(false);
+}
+
+void execInvite(Channel &channel, char sign)
+{
+    if (sign == '+')
+        channel.setModeI(true);
+    else if (sign == '-')
+        channel.setModeI(false);
+}
+
+void execKey(Channel &channel, char sign, std::string key)
+{
+    if (sign == '-')
+        channel.setKey("");
+    else if (sign == '+')
+    {
+        if (!key.length())
+            return ;
+        channel.setKey(key);
+    }
+}
+
+void Server::execLimit(unsigned short clientIndex, Channel &channel, char sign, std::string limit)
+{
+    if (!limit.length() && sign == '+')
+        return ;
+    else if (sign == '-')
+        channel.setModeL(false);
+    else if (sign == '+')
+    {
+        std::istringstream iss(limit);
+        size_t value;
+        if (!(iss >> value) || iss.fail() || iss.peek() != EOF || value > std::numeric_limits<size_t>::max())
+		{
+            std::string message = _clients[clientIndex].getNick() + " " + channel.getName() + " +l " + limit + ": invalid argument";
+            Server::_message(Reply::ERR_INVALIDMODEPARAM, _clients[clientIndex], std::vector<std::string>(1, message));
+        }
+        else
+        {
+            channel.setModeL(true);
+            channel.setLimit(value);
+        }
+    }
+}
+
+void Server::execOperator(unsigned short clientIndex, Channel &channel, char sign, std::string user)
+{
+    Client extractedUser;
+    int userKey;
+    bool userExists = false;
+    bool userOnChannel = false;
+
+    if (!user.length())
+        return ;
+
+    for (std::map<int, Client>::iterator it = _clients.begin(); it != _clients.end(); it++)
+    {
+        if (user == it->second.getNick())
+        {
+            userKey = it->first;
+            extractedUser = it->second;
+            userExists = true;
+        }
+    }
+    if (!userExists)
+    {
+        std::string message = _clients[clientIndex].getNick() + " " + channel.getName() + " +o " + user + ": user doesn't exist";
+            Server::_message(Reply::ERR_INVALIDMODEPARAM, _clients[clientIndex], std::vector<std::string>(1, message));
+        return ;
+    }
+    for (std::map<int, Client>::iterator it = channel.getMembers().begin(); it != channel.getMembers().end(); it++)
+    {
+        if (user == it->second.getNick())
+            userOnChannel = true;
+    }
+    if (!userOnChannel)
+    {
+        std::string message = _clients[clientIndex].getNick() + " " + channel.getName() + " +o " + user + ": user not on channel";
+            Server::_message(Reply::ERR_INVALIDMODEPARAM, _clients[clientIndex], std::vector<std::string>(1, message));
+        return ;
+    }
+    if (sign == '+')
+        channel.getOperators().insert(std::make_pair(userKey, extractedUser));
+    else if (sign == '-')
+    {
+        if (channel.getOperators().find(userKey) == channel.getOperators().end())
+        {
+            std::string message = _clients[clientIndex].getNick() + " " + channel.getName() + " -o " + user + ": user not operator";
+                Server::_message(Reply::ERR_INVALIDMODEPARAM, _clients[clientIndex], std::vector<std::string>(1, message));
+        }
+        else
+            channel.getOperators().erase(userKey);
+    }
+}
+
+void    Server::_executeModes(Channel &channel, unsigned short clientIndex, std::vector<std::string> modes, std::vector<std::string> args)
+{
+    std::vector<std::string>::iterator mIt;
+    std::vector<std::string>::iterator aIt;
+
+    for (mIt = modes.begin(); mIt != modes.end(); mIt++)
+        std::cout << "mode: " << *mIt << std::endl;
+
+    size_t modesLen = modes.size();
+    for (size_t i = 0; i < modesLen; i++)
+    {
+        char sign = modes[0][0];
+        char mode = modes[0][1];
+        std::string arg = "";
+        if (args.size())
+            arg = args[0];
+        if (mode == 't')
+            execTopic(channel, sign);
+        else if (mode == 'i')
+            execInvite(channel, sign);
+        else if (mode == 'k')
+            execKey(channel, sign, arg);
+        else if (mode == 'l')
+            execLimit(clientIndex, channel, sign, arg);
+        else if (mode == 'o')
+            execOperator(clientIndex, channel, sign, arg);
+        modes.erase(modes.begin());
+        if (mode == 'o' || mode == 'l' || mode == 'k')
+            if (sign == '+' && args.size())
+                args.erase(args.begin());
+    }
+    for (aIt = args.begin(); aIt != args.end(); aIt++)
+        std::cout << "arg: " << *aIt << std::endl;
+}
+
 void    Server::_modeCommand(std::string params, unsigned short clientIndex)
 {
-    std::string                 modeString;
-    std::vector<std::string>    modes;
-
-    if (_checkChannelAndOperatorInMode(params, clientIndex))
+    if (_checkChannelExistsInMode(params, clientIndex))
         return ;
+    //** SPLIT PARAMS STRING TO VECTOR **//
     std::vector<std::string> tokens = _splitString(params, ' ');
+    //** GET CHANNELS BY NAME **//
+    Channel *channel = _getChannelByName(tokens[0]);
 
-    modeString = tokens[1];
-    modes = parseModes(modeString, clientIndex);
+    if (tokens.size() == 1)
+    {
+        std::string message;
+        message = _clients[clientIndex].getNick() + " " + channel->getName();
+        if (channel->getModeL() || channel->getModeT() || channel->getModeI())
+            message += " +";
+        if (channel->getModeL())
+            message += 'l';
+        if (channel->getModeT())
+            message += 't';
+        if (channel->getModeI())
+            message += 'i';
+        if (channel->getModeL())
+            message += " " + std::to_string(channel->getLimit());
+        Server::_message(Reply::RPL_CHANNELMODEIS, _clients[clientIndex], std::vector<std::string>(1, message));
+    }
+    else
+    {
+        if (_checkIfOperatorInMode(params, clientIndex))
+            return ;
+        /** CREATE MODE STRING FOR PARSING  **/
+        std::string modeString = tokens[1];
+        /** PARSE MODES **/
+        std::vector<std::string> modes = parseModes(modeString, clientIndex);
+
+        /** CREATE ARGUMENT VECTOR TO BE USED IN EXEC LOOP  **/
+        std::vector<std::string> args;
+        args.assign(tokens.begin() + 2, tokens.end());
+
+        /** EXEC MODES **/
+        _executeModes(*channel, clientIndex, modes, args);
+    }
 }

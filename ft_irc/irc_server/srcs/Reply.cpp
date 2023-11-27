@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/26 20:32:53 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/27 12:25:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 const std::string Reply::f_RPL_WELCOME(const std::vector<std::string> &params)
 {
     return (std::string(":Welcome to the Internet Relay Network " + params[0]));
+}
+
+const std::string Reply::f_RPL_CHANNELMODEIS(const std::vector<std::string> &params)
+{
+    return (std::string(params[0]));
 }
 
 const std::string Reply::f_ERR_NOSUCHNICK(const std::vector<std::string> &params)
@@ -85,6 +90,12 @@ const std::string   Reply::f_ERR_USERNOTINCHANNEL(const std::vector<std::string>
     return (std::string(params[0] + " :They aren't on that channel"));
 }
 
+const std::string Reply::f_ERR_INVALIDMODEPARAM(const std::vector<std::string> &params)
+{
+    (void)params;
+    return (std::string(params[0]));
+}
+
 void
 Server::_message(const std::string &message, Client &client, const std::vector<std::string> &rep)
 {
@@ -112,6 +123,7 @@ std::string Server::_getReply(const std::string &message, const std::vector<std:
 void    Server::_initReplies(void)
 {
     Server::_replies[Reply::RPL_WELCOME] = Reply::f_RPL_WELCOME;
+    Server::_replies[Reply::RPL_CHANNELMODEIS] = Reply::f_RPL_CHANNELMODEIS;
     Server::_replies[Reply::RPL_TOPIC] = Reply::f_RPL_TOPIC;
     Server::_replies[Reply::RPL_NAMREPLY] = Reply::f_RPL_NAMREPLY;
     Server::_replies[Reply::RPL_ENDOFNAMES] = Reply::f_RPL_ENDOFNAMES;
@@ -125,6 +137,7 @@ void    Server::_initReplies(void)
     Server::_replies[Reply::ERR_UNKNOWNMODE] = Reply::f_ERR_UNKNOWNMODE;
     Server::_replies[Reply::ERR_NOPRIVILEGES] = Reply::f_ERR_NOPRIVILEGES;
 	Server::_replies[Reply::ERR_CHANOPRIVSNEEDED] = Reply::f_ERR_CHANOPRIVSNEEDED;
+    Server::_replies[Reply::ERR_INVALIDMODEPARAM] = Reply::f_ERR_INVALIDMODEPARAM;
 }
 
 void
