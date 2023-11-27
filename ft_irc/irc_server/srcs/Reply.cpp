@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/27 12:25:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:07:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ const std::string Reply::f_RPL_CHANNELMODEIS(const std::vector<std::string> &par
 const std::string Reply::f_ERR_NOSUCHNICK(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :No such nick/channel"));
+}
+
+const std::string Reply::f_RPL_TOPICWHOTIME(const std::vector<std::string> &params)
+{
+    return (std::string(params[0]));
+}
+
+const std::string Reply::f_RPL_INVITING(const std::vector<std::string> &params)
+{
+    return (std::string(params[0]));
 }
 
 const std::string   Reply::f_RPL_NAMREPLY(const std::vector<std::string> &params)
@@ -50,6 +60,16 @@ const std::string Reply::f_ERR_UNKNOWNCOMMAND(const std::vector<std::string> &pa
 const std::string   Reply::f_RPL_TOPIC(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :" + params[1]));
+}
+
+const std::string Reply::f_ERR_NOTONCHANNEL(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :You're not on that channel"));
+}
+
+const std::string Reply::f_ERR_USERONCHANNEL(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :is already on channel"));
 }
 
 const std::string Reply::f_ERR_NOTREGISTERED(const std::vector<std::string> &params)
@@ -125,12 +145,16 @@ void    Server::_initReplies(void)
     Server::_replies[Reply::RPL_WELCOME] = Reply::f_RPL_WELCOME;
     Server::_replies[Reply::RPL_CHANNELMODEIS] = Reply::f_RPL_CHANNELMODEIS;
     Server::_replies[Reply::RPL_TOPIC] = Reply::f_RPL_TOPIC;
+    Server::_replies[Reply::RPL_TOPICWHOTIME] = Reply::f_RPL_TOPICWHOTIME;
+    Server::_replies[Reply::RPL_INVITING] = Reply::f_RPL_INVITING;
     Server::_replies[Reply::RPL_NAMREPLY] = Reply::f_RPL_NAMREPLY;
     Server::_replies[Reply::RPL_ENDOFNAMES] = Reply::f_RPL_ENDOFNAMES;
     Server::_replies[Reply::ERR_NOSUCHNICK] = Reply::f_ERR_NOSUCHNICK;
     Server::_replies[Reply::ERR_NOSUCHCHANNEL] = Reply::f_ERR_NOSUCHCHANNEL;
     Server::_replies[Reply::ERR_UNKNOWNCOMMAND] = Reply::f_ERR_UNKNOWNCOMMAND;
     Server::_replies[Reply::ERR_USERNOTINCHANNEL] = Reply::f_ERR_USERNOTINCHANNEL;
+    Server::_replies[Reply::ERR_USERONCHANNEL] = Reply::f_ERR_USERONCHANNEL;
+    Server::_replies[Reply::ERR_NOTONCHANNEL] = Reply::f_ERR_NOTONCHANNEL;
     Server::_replies[Reply::ERR_NOTREGISTERED] = Reply::f_ERR_NOTREGISTERED;
     Server::_replies[Reply::ERR_NEEDMOREPARAMS] = Reply::f_ERR_NEEDMOREPARAMS;
     Server::_replies[Reply::ERR_CHANNELISFULL] = Reply::f_ERR_CHANNELISFULL;

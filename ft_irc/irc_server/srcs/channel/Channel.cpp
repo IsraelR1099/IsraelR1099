@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/27 12:27:20 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:11:52 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,26 @@ std::string	Channel::getTopic(void) const
 void	Channel::setTopic(const std::string &topic)
 {
     this->_topic = topic;
+}
+
+std::string	Channel::getTopicChanger(void)
+{
+    return (this->_topicChanger);
+}
+
+void	Channel::setTopicChanger(std::string topicChanger)
+{
+    this->_topicChanger = topicChanger;
+}
+
+std::string	Channel::getTopicChangeTime(void)
+{
+    return (this->_topicChangeTime);
+}
+
+void	Channel::setTopicChangeTime(std::string topicChangeTime)
+{
+    this->_topicChangeTime = topicChangeTime;
 }
 
 size_t	Channel::getNumClients(void) const
@@ -176,6 +196,13 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
         if (rc == -1)
             std::cout << "Error sending message to client: " << client.getNick() << std::endl;
     }*/
+}
+
+bool    Channel::isClientInChannel(unsigned short clientIndex)
+{
+    if (_members.find(clientIndex) != _members.end())
+        return (true);
+    return false;
 }
 
 bool    Channel::isClientInChannel(const Client &client) const
