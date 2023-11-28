@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/27 13:11:52 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:03:46 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ void    Channel::setModeT(bool boolean)
     _modeT = boolean;
 }
 
-bool    Channel::getModeI()
+bool    Channel::getModeI(void)
 {
-    return _modeI;
+    return (this->_modeI);
 }
 
 void    Channel::setModeI(bool boolean)
@@ -130,7 +130,7 @@ void    Channel::setModeI(bool boolean)
     _modeI = boolean;
 }
 
-bool    Channel::getModeL()
+bool    Channel::getModeL(void)
 {
     return _modeL;
 }
@@ -140,7 +140,7 @@ void    Channel::setModeL(bool boolean)
     _modeL = boolean;
 }
 
-std::string    Channel::getKey()
+std::string    Channel::getKey(void)
 {
     return _key;
 }
@@ -218,6 +218,18 @@ bool    Channel::isClientInChannel(const Client &client) const
     for (itOperator = _operators.begin(); itOperator != _operators.end(); itOperator++)
     {
         if (itOperator->second.getNick() == client.getNick())
+            return (true);
+    }
+    return (false);
+}
+
+bool    Channel::isClientInvited(const Client &client) const
+{
+    std::map<int, Client>::const_iterator it;
+
+    for (it = _invitees.begin(); it != _invitees.end(); it++)
+    {
+        if (it->second.getNick() == client.getNick())
             return (true);
     }
     return (false);

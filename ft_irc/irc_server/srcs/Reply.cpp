@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/27 13:07:26 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:29:13 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,16 @@ const std::string   Reply::f_ERR_UNKNOWNMODE(const std::vector<std::string> &par
     return (std::string(params[0] + " :Unknown MODE flag"));
 }
 
+const std::string   Reply::f_ERR_INVITEONLYCHAN(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :Cannot join channel (+i)"));
+}
+
+const std::string   Reply::f_ERR_BADCHANNELKEY(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :Cannot join channel (+k)"));
+}
+
 const std::string Reply::f_ERR_NOPRIVILEGES(const std::vector<std::string> &params)
 {
     (void)params;
@@ -159,6 +169,8 @@ void    Server::_initReplies(void)
     Server::_replies[Reply::ERR_NEEDMOREPARAMS] = Reply::f_ERR_NEEDMOREPARAMS;
     Server::_replies[Reply::ERR_CHANNELISFULL] = Reply::f_ERR_CHANNELISFULL;
     Server::_replies[Reply::ERR_UNKNOWNMODE] = Reply::f_ERR_UNKNOWNMODE;
+    Server::_replies[Reply::ERR_INVITEONLYCHAN] = Reply::f_ERR_INVITEONLYCHAN;
+    Server::_replies[Reply::ERR_BADCHANNELKEY] = Reply::f_ERR_BADCHANNELKEY;
     Server::_replies[Reply::ERR_NOPRIVILEGES] = Reply::f_ERR_NOPRIVILEGES;
 	Server::_replies[Reply::ERR_CHANOPRIVSNEEDED] = Reply::f_ERR_CHANOPRIVSNEEDED;
     Server::_replies[Reply::ERR_INVALIDMODEPARAM] = Reply::f_ERR_INVALIDMODEPARAM;

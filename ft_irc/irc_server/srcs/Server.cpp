@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/27 10:04:58 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:14:08 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	Server::setServer(void)
 	if (rc < 0)
 		throw Server::BadFormat("setsockopt() failed");
 
-	memset(&_server, 0, sizeof(_server));
+    std::memset(&_server, 0, sizeof(_server));
 	_server.sin_family = AF_INET;
 	_server.sin_port = htons(_m_port);
 	_server.sin_addr.s_addr = htonl(INADDR_ANY);

@@ -6,27 +6,53 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:57 by israel            #+#    #+#             */
-/*   Updated: 2023/11/27 11:56:41 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:45:07 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Server.hpp"
 
-bool    Server::addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex)
+bool    Server::addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex, std::string password)
 {
     Channel *tmp = _getChannelByName(channel.getName());
 
+    std::cout << "password: |" << password << "|" << std::endl;
+    std::cout << "tmp->getKey(): |" << tmp->getKey() << "|" << std::endl;
+    if (tmp->getKey() == password)
+        std::cout << "son iguales" << std::endl;
+    else
+        std::cout << "son diferentes" << std::endl;
     if (tmp->isClientInChannel(client))
     {
         return false;
     }
-    else if (tmp->getNumClients() > tmp->getLimit())
+    else if (tmp->getNumClients() >= tmp->getLimit())
     {
         std::map<int, Client>::iterator     itClient = _clients.find(clientIndex);
         if (itClient != _clients.end())
         {
             std::string	prefix = itClient->second.getCustomPrefix("471", channel.getName());
             Server::_message(Reply::ERR_CHANNELISFULL, itClient->second, std::vector<std::string>(1, prefix));
+        }
+        return false;
+    }
+    else if (tmp->getKey() != password)
+    {
+        std::map<int, Client>::iterator     itClient = _clients.find(clientIndex);
+        if (itClient != _clients.end())
+        {
+            std::string	prefix = itClient->second.getCustomPrefix("475", channel.getName());
+            Server::_message(Reply::ERR_BADCHANNELKEY, itClient->second, std::vector<std::string>(1, prefix));
+        }
+        return false;
+    }
+    else if (tmp->getModeI() && !tmp->isClientInvited(client))
+    {
+        std::map<int, Client>::iterator     itClient = _clients.find(clientIndex);
+        if (itClient != _clients.end())
+        {
+            std::string	prefix = itClient->second.getCustomPrefix("473", channel.getName());
+            Server::_message(Reply::ERR_INVITEONLYCHAN, itClient->second, std::vector<std::string>(1, prefix));
         }
         return false;
     }
@@ -44,7 +70,16 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
     std::map<int, Channel>::iterator    it;
     std::map<int, Client>::iterator     itClient = _clients.find(clientIndex);
     std::map<int, Client>::iterator     itMembers;
+    std::vector<std::string>            tokens;
+    std::istringstream                  iss(channelName);
+    std::string                         token;
+    std::string                         password;
 
+    while (iss >> token)
+        tokens.push_back(token);
+    std::cout << "tenemos " << tokens.size() << " tokens" << std::endl;
+    if (tokens.size() > 1)
+        password = tokens[1];
     if (itClient != _clients.end())
     {
         Client  &client = itClient->second;
@@ -60,7 +95,7 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         for (it = _channels.begin(); it != _channels.end(); it++)
         {
             const Channel &channel = it->second;
-            if (channel.getName() == channelName)
+            if (channel.getName() == tokens[0])
             {
                 channelExists = true;
                 break ;
@@ -68,16 +103,16 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         }
         if (channelExists)
         {
-            if (addClientToChannel(it->second, client, clientIndex) == false)
+            if (addClientToChannel(it->second, client, clientIndex, password) == false)
                 return ;
         }
         else
         {
-            Channel newChannel(channelName);
+            Channel newChannel(tokens[0]);
             newChannel.addClient(client, clientIndex, true);
-            _channels.insert(std::make_pair(_numChannels, newChannel));
+            this->_channels.insert(std::make_pair(this->_numChannels, newChannel));
 			newChannel.incrementNumClients();
-			_incrementChannels();
+			this->_incrementChannels();
             client.setIsOperator(true);
         }
         itMembers = this->_clients.begin();
@@ -92,7 +127,7 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
                 operatorFlag = itMembers->second.getIsOperator() ? "@" : "";
                 message = client.getNick() + "!" + client.getUser()
                     + "@" + client.getHost() + " JOIN ";
-                message2 = channelName;
+                message2 = tokens[0];
                 if (memberList.empty())
                     memberList = operatorFlag + itMembers->second.getNick();
                 else
@@ -107,7 +142,7 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         }
         std::string                 message3;
         std::vector<std::string>    params2;
-        message3 = channelName;
+        message3 = tokens[0];
         params2.push_back(message3);
         params2.push_back(memberList);
         itMembers = this->_clients.begin();

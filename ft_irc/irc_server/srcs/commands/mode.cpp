@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 13:52:54 by israel            #+#    #+#             */
-/*   Updated: 2023/11/27 11:32:04 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:49:02 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void execInvite(Channel &channel, char sign)
 
 void execKey(Channel &channel, char sign, std::string key)
 {
+    std::cout << "key en mode es: |" << key << "|" << std::endl;
     if (sign == '-')
         channel.setKey("");
     else if (sign == '+')
@@ -120,7 +121,7 @@ void Server::execLimit(unsigned short clientIndex, Channel &channel, char sign, 
     {
         std::istringstream iss(limit);
         size_t value;
-        if (!(iss >> value) || iss.fail() || iss.peek() != EOF || value > std::numeric_limits<size_t>::max())
+        if (!(iss >> value) || iss.fail() || iss.peek() != EOF || value > ULONG_MAX)
 		{
             std::string message = _clients[clientIndex].getNick() + " " + channel.getName() + " +l " + limit + ": invalid argument";
             Server::_message(Reply::ERR_INVALIDMODEPARAM, _clients[clientIndex], std::vector<std::string>(1, message));
@@ -229,7 +230,9 @@ void    Server::_modeCommand(std::string params, unsigned short clientIndex)
 
     if (tokens.size() == 1)
     {
-        std::string message;
+        std::string         message;
+        std::ostringstream  oss;
+        oss << channel->getLimit();
         message = _clients[clientIndex].getNick() + " " + channel->getName();
         if (channel->getModeL() || channel->getModeT() || channel->getModeI())
             message += " +";
@@ -240,7 +243,7 @@ void    Server::_modeCommand(std::string params, unsigned short clientIndex)
         if (channel->getModeI())
             message += 'i';
         if (channel->getModeL())
-            message += " " + std::to_string(channel->getLimit());
+            message += " " + oss.str();
         Server::_message(Reply::RPL_CHANNELMODEIS, _clients[clientIndex], std::vector<std::string>(1, message));
     }
     else

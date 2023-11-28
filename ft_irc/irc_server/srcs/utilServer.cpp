@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/27 11:14:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:05:25 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,10 @@ int	Server::_acceptClient(int nfds)
 
 int Server::_receiveClient(int i)
 {
-	int     rc;
-	char	buffer[1024];
+	int         rc;
+	char	    buffer[1024];
+    std::string receivedData;
+    size_t      delimiterPos;
 
 	std::memset(buffer, 0, sizeof(buffer));
     rc = recv(this->_poll_fds[i].fd, buffer, sizeof(buffer), 0);
@@ -157,9 +159,18 @@ int Server::_receiveClient(int i)
         return (-1);
     }
     std::cout << "Server: |" << buffer << "|" << std::endl;
-	_parseCommand(buffer, i);
-    if (rc < 0)
-        throw Server::ServerError("send() failed");
+    receivedData = buffer;
+    delimiterPos = receivedData.find("\r\n");
+    while (delimiterPos != std::string::npos)
+    {
+        this->_parseCommand(receivedData.substr(0, delimiterPos), i);
+        receivedData = receivedData.substr(delimiterPos + 2);
+        delimiterPos = receivedData.find("\r\n");
+    }
+    //If there is any remaining data without \r\n, we store it in the buffer
+    if (!receivedData.empty())
+        this->_parseCommand(receivedData, i);
+	//_parseCommand(buffer, i);
     return (0);
 }
 

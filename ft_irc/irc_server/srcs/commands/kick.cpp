@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:59:50 by israel            #+#    #+#             */
-/*   Updated: 2023/11/23 21:03:23 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/28 20:54:45 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,15 @@ void    Server::_kickCommand(std::string params, unsigned short clientIndex)
 
     while (std::getline(iss, token, ' '))
         tokens.push_back(token);
+    if (tokens.size() < 2)
+    {
+        std::cout << ANSI::red <<
+        "ERR_NEEDMOREPARAMS :Not enough parameters" <<
+        ANSI::reset << std::endl;
+        std::string prefix = _clients[clientIndex].getCustomPrefix("461", "KICK");
+        Server::_message(Reply::ERR_NEEDMOREPARAMS, _clients[clientIndex], std::vector<std::string>(1, prefix));
+        return ;
+    }
     if (_errorKickCommand(tokens, clientIndex) == -1)
     {
         return ;
@@ -113,7 +122,8 @@ void    Server::_kickCommand(std::string params, unsigned short clientIndex)
                             perror("send() failed");
                         else
                             std::cout << "Message sent!" << std::endl;
-                        this->_removeClient(socketClientRemove);
+                        //this->_removeClient(socketClientRemove);
+                        tmpChannel->removeChannelClient(itClientRemove->second);
                     }
                     else
                     {

@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/27 12:52:45 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:30:13 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # include <stdlib.h>
 # include <sstream>
 # include <algorithm>
+# include <limits.h>
 
 #define MAX_CLIENTS 5
 
@@ -126,7 +127,7 @@ class	Server
         void        _sendMessageToClient(const std::string &message, unsigned short clientIndex);
         void        _reply(unsigned short clientIndex, const std::string &message);
 		Channel     *_getChannelByName(const std::string channelName);
-        bool        addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex);
+        bool        addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex, std::string password);
         bool        _checkChannelAndOperatorInMode(std::string params, unsigned short clientIndex);
         int         _checkRegisteredAndParams(const std::string &params, unsigned short clientIndex);
 		bool		_checkChannelExistsInMode(std::string params, unsigned short clientIndex);

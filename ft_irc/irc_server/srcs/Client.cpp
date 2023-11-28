@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 09:48:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/27 12:05:49 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:34:52 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,10 @@ std::string	Client::getCustomPrefix(const std::string &code, const std::string c
     if (code == "471")
         ret = channelName;
     else if (code == "472")
+        ret = channelName;
+    else if (code == "473")
+        ret = channelName;
+    else if (code == "475")
         ret = channelName;
     else if (code == "461")
     {

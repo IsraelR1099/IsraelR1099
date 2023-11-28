@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/27 12:02:26 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:04:02 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ class Channel
 		std::map<int, Client>	&getInvitees(void);
         bool					isClientInChannel(const Client &client) const;
         bool					isClientInChannel(unsigned short clientIndex);
+        bool                    isClientInvited(const Client &client) const;
         void					removeChannelClient(const Client &client);
 		std::string				getTopicChanger(void);
         void                    setTopicChanger(std::string);
@@ -48,13 +49,13 @@ class Channel
         void                    setTopicChangeTime(std::string);
 		size_t					getLimit(void);
 		void                    setLimit(size_t limit);
-        bool                    getModeT();
+        bool                    getModeT(void);
         void                    setModeT(bool boolean);
-        bool                    getModeI();
+        bool                    getModeI(void);
         void                    setModeI(bool boolean);
-        bool                    getModeL();
+        bool                    getModeL(void);
         void                    setModeL(bool boolean);
-        std::string             getKey();
+        std::string             getKey(void);
         void                    setKey(std::string key);
     private:
         std::string             _name;
