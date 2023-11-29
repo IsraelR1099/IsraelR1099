@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 13:52:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:42:49 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ class Channel
         void                    setModeL(bool boolean);
         std::string             getKey(void);
         void                    setKey(std::string key);
-		void					printWelcome(Channel &channel);
     private:
         std::string             _name;
         std::string             _key;

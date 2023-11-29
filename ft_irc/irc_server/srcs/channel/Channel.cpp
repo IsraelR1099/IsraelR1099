@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 13:52:32 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:42:10 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,18 +246,3 @@ void    Channel::removeChannelClient(const Client &client)
     }
 }
 
-void	Channel::prinWelcome(Channel &channel)
-{
-	std::map<int, Client>::iterator	itMembers;
-	std::string						channelName;
-	std::string						operatorFlag;
-	std::string						user;
-	std::string						memberList;
-
-	itMembers = this->_members.begin();
-	while (itMembers != this->_members.end())
-	{
-		if (itMembers->second.getIsRegistered() == true)
-		{
-			operatorFlag = itMembers->second.getIsOperator() ? "@" : "";
-			user = client.getNick() + "!"

@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/29 12:53:26 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:47:21 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ class	Server
 		int         _receiveClient(int i);
 		void		_incrementChannels(void);
 		void		_removeClient(int socket);
+		void		printWelcome(Channel &channel, Client &client);
         std::string _getReply(const std::string &message, const std::vector<std::string> &rep);
 		void	    _parseCommand(std::string userInput, unsigned short clientIndex);
         void        _joinChannel(std::string channelName, unsigned short clientIndex);

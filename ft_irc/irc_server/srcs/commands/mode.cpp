@@ -6,7 +6,7 @@
 /*   By: dbekic <dbekic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 13:52:54 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 10:44:17 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:12:58 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ void Server::execLimit(unsigned short clientIndex, Channel &channel, char sign, 
     {
         std::istringstream iss(limit);
         size_t value;
-        if (!(iss >> value) || iss.fail() || iss.peek() != EOF || value > std::numeric_limits<size_t>::max())
-        {       
+        if (!(iss >> value) || iss.fail() || iss.peek() != EOF || value > ULONG_MAX)
+        {
             std::string message = _clients[clientIndex].getNick() + " " + channel.getName() + " +l " + limit + ": invalid argument";
             Server::_message(Reply::ERR_INVALIDMODEPARAM, _clients[clientIndex], std::vector<std::string>(1, message));
         }
@@ -149,10 +149,9 @@ void Server::execOperator(unsigned short clientIndex, Channel &channel, char sig
     int userKey;
     bool userExists = false;
     bool userOnChannel = false;
-    
+
     if (!user.length())
         return ;
-    
     for (std::map<int, Client>::iterator it = _clients.begin(); it != _clients.end(); it++)
     {
         if (user == it->second.getNick())
@@ -228,15 +227,17 @@ void    Server::_executeModes(Channel &channel, unsigned short clientIndex, std:
 
 void    Server::_modeCommand(std::string params, unsigned short clientIndex)
 {
+    std::ostringstream oss;
+
     if (_checkChannelExistsInMode(params, clientIndex))
         return ;
-        
     //** SPLIT PARAMS STRING TO VECTOR **//
     std::vector<std::string> tokens = _splitString(params, ' ');
     //** GET CHANNELS BY NAME **//
     Channel *channel = _getChannelByName(tokens[0]);
 
     //** DISPLAY MODES **//
+    oss << channel->getLimit();
     if (tokens.size() == 1)
     {
         std::string message;
@@ -250,8 +251,7 @@ void    Server::_modeCommand(std::string params, unsigned short clientIndex)
         if (channel->getModeI())
             message += 'i';
         if (channel->getModeL())
-            message += " " + std::to_string(channel->getLimit());
-        
+            message += " " + oss.str();
         Server::_message(Reply::RPL_CHANNELMODEIS, _clients[clientIndex], std::vector<std::string>(1, message));
     }
     //** PARSE AND EXEC MODES **//
@@ -259,13 +259,12 @@ void    Server::_modeCommand(std::string params, unsigned short clientIndex)
     {
         if (_checkIfOperatorInMode(params, clientIndex))
             return ;
-        /** CREATE MODE STRING FOR PARSING  **/ 
+        /** CREATE MODE STRING FOR PARSING  **/
         std::string modeString = tokens[1];
-        
         /** PARSE MODES **/
         std::vector<std::string> modes = parseModes(modeString, clientIndex);
 
-        /** CREATE ARGUMENT VECTOR TO BE USED IN EXEC LOOP  **/ 
+        /** CREATE ARGUMENT VECTOR TO BE USED IN EXEC LOOP  **/
         std::vector<std::string> args;
         args.assign(tokens.begin() + 2, tokens.end());
 

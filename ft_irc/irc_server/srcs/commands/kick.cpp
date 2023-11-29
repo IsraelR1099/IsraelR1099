@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:59:50 by israel            #+#    #+#             */
-/*   Updated: 2023/11/28 20:54:45 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:24:19 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int  Server::_errorKickCommand(std::vector<std::string> &tokens, unsigned short 
 {
     std::cout << "canal es: " << tokens[0] << std::endl;
     std::cout << "character: " << tokens[0][0] << std::endl;
-    if (tokens.size() < 4)
+    if (tokens.size() < 3)
     {
         std::cout << ANSI::red <<
         "ERR_NEEDMOREPARAMS :Not enough parameters" <<
@@ -108,7 +108,7 @@ void    Server::_kickCommand(std::string params, unsigned short clientIndex)
                     std::cout << "client a kickear: " << tokens[1] << std::endl;
                     std::string message = ":" + itClient->second.getNick()
                         + " KICK " + tokens[0] + " " + tokens[1] + " "
-                        + ":" + tokens[3];
+                        + ":" + tokens[2];
                     std::cout << "el mensaje es: " << message << std::endl;
                     std::cout << "socket remove: " << socketClientRemove << std::endl;
                     std::map<int, Client>::iterator itClientRemove = this->_clients.find(socketClientRemove);
@@ -122,7 +122,6 @@ void    Server::_kickCommand(std::string params, unsigned short clientIndex)
                             perror("send() failed");
                         else
                             std::cout << "Message sent!" << std::endl;
-                        //this->_removeClient(socketClientRemove);
                         tmpChannel->removeChannelClient(itClientRemove->second);
                     }
                     else
