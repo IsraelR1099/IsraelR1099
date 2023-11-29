@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:59:50 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 18:24:19 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 22:54:25 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,22 @@ int clientIsInChannel(Channel *channel, std::string &client)
     return (-1);
 }
 
+std::string  commentsKick(std::string params)
+{
+    size_t                          colonPos;
+    std::string                     comments;
+
+    colonPos = params.find(":");
+    if (colonPos != std::string::npos && colonPos + 1 < params.length())
+    {
+        comments = params.substr(colonPos + 1);
+        return (comments);
+    }
+    else
+        comments = "Kicked";
+    return (comments);
+}
+
 void    Server::_kickCommand(std::string params, unsigned short clientIndex)
 {
     std::istringstream				iss(params);
@@ -71,9 +87,11 @@ void    Server::_kickCommand(std::string params, unsigned short clientIndex)
     std::string						token;
 	std::map<int, Client>::iterator	itClient;
     int                             socketClientRemove;
+    std::string                     comments;
 
     while (std::getline(iss, token, ' '))
         tokens.push_back(token);
+    comments = commentsKick(params);
     if (tokens.size() < 2)
     {
         std::cout << ANSI::red <<
@@ -108,7 +126,7 @@ void    Server::_kickCommand(std::string params, unsigned short clientIndex)
                     std::cout << "client a kickear: " << tokens[1] << std::endl;
                     std::string message = ":" + itClient->second.getNick()
                         + " KICK " + tokens[0] + " " + tokens[1] + " "
-                        + ":" + tokens[2];
+                        + ":" + comments;
                     std::cout << "el mensaje es: " << message << std::endl;
                     std::cout << "socket remove: " << socketClientRemove << std::endl;
                     std::map<int, Client>::iterator itClientRemove = this->_clients.find(socketClientRemove);
