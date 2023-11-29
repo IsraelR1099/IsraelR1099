@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/28 14:03:46 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 13:52:32 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,10 +157,6 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
     std::vector<std::string>        nameReply;
 
     std::cout << "Channel: " << this->getName() << " adding client: " << member.getNick() << std::endl;
-/*	params[0] = member.getNick() + "!" + member.getUser() + "@" +
-		member.getHost() + " JOIN " + ":" + this->getName() + "\n";
-    nameReply[0] = "#" + this->getName();
-    nameReply[1] = "1";*/
     if (isOperator)
     {
 		if (this->_passwd == false && getNumClients() <= this->_limit)
@@ -188,14 +184,6 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 			this->getName() << std::endl;
 		}
     }
- /*   for (it = _members.begin(); it != _members.end(); it++)
-    {
-        Client &client = it->second;
-        client.write_buffer(it->second, params[0]);
-        int rc = send(client.getSocketNumber(), params[0].c_str(), params[0].length(), 0);
-        if (rc == -1)
-            std::cout << "Error sending message to client: " << client.getNick() << std::endl;
-    }*/
 }
 
 bool    Channel::isClientInChannel(unsigned short clientIndex)
@@ -257,3 +245,19 @@ void    Channel::removeChannelClient(const Client &client)
         }
     }
 }
+
+void	Channel::prinWelcome(Channel &channel)
+{
+	std::map<int, Client>::iterator	itMembers;
+	std::string						channelName;
+	std::string						operatorFlag;
+	std::string						user;
+	std::string						memberList;
+
+	itMembers = this->_members.begin();
+	while (itMembers != this->_members.end())
+	{
+		if (itMembers->second.getIsRegistered() == true)
+		{
+			operatorFlag = itMembers->second.getIsOperator() ? "@" : "";
+			user = client.getNick() + "!"

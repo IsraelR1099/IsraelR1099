@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:57 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 11:01:18 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:52:36 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 bool    Server::addClientToChannel(Channel &channel, Client &client, unsigned short clientIndex, std::string password)
 {
-    Channel *tmp = _getChannelByName(channel.getName());
+    Channel					*tmp = _getChannelByName(channel.getName());
+	std::map<int, Client>	members;
 
     std::cout << "password: |" << password << "|" << std::endl;
     std::cout << "tmp->getKey(): |" << tmp->getKey() << "|" << std::endl;
@@ -54,12 +55,47 @@ bool    Server::addClientToChannel(Channel &channel, Client &client, unsigned sh
             std::string	prefix = itClient->second.getCustomPrefix("473", channel.getName());
             Server::_message(Reply::ERR_INVITEONLYCHAN, itClient->second, std::vector<std::string>(1, prefix));
         }
-        return false;
+        return (false);
     }
     else
     {
         channel.addClient(client, clientIndex, false);
-        return true;
+		members = tmp->getMembers();
+		std::map<int, Client>::iterator	itMembers = members.begin();
+        std::string memberList;
+        std::string operatorFlag;
+		while (itMembers != members.end())
+		{
+			std::string message;
+			std::string channelName;
+			operatorFlag = itMembers->second.getIsOperator() ? "@" : "";
+			message = client.getNick() + "!" + client.getUser()
+				+ "@" + client.getHost() + " JOIN ";
+			channelName = tmp->getName();
+			if (memberList.empty())
+				memberList = operatorFlag + itMembers->second.getNick();
+			else
+				memberList += " " + operatorFlag + itMembers->second.getNick();
+			std::vector<std::string>    params;
+			params.push_back(message);
+			params.push_back(channelName);
+			Server::_message(Reply::RPL_TOPIC, itMembers->second, params);
+			itMembers++;
+		}
+        std::string                 message3;
+        std::vector<std::string>    params2;
+		std::string	channelName = tmp->getName();
+        params2.push_back(channelName);
+        params2.push_back(memberList);
+		itMembers = members.begin();
+        for (; itMembers != members.end(); itMembers++)
+        {
+            Server::_message(Reply::RPL_NAMREPLY, itMembers->second, params2);
+            Server::_message(Reply::RPL_ENDOFNAMES, itMembers->second,
+                    std::vector<std::string>(1, message3));
+        }
+
+        return (true);
     }
 }
 
@@ -122,8 +158,8 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         {
             if (itMembers->second.getIsRegistered() == true)
             {
-                std::string message;
-                std::string message2;
+				std::string message;
+				std::string message2;
                 operatorFlag = itMembers->second.getIsOperator() ? "@" : "";
                 message = client.getNick() + "!" + client.getUser()
                     + "@" + client.getHost() + " JOIN ";
