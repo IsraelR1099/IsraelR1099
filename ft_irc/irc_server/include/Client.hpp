@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:35:30 by israel            #+#    #+#             */
-/*   Updated: 2023/11/23 14:27:19 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 11:53:48 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ class Client {
         std::string _fullName;
         std::string _host;
         std::string _buffer;
+		std::string	_lineCommand;
         bool        _isRegistered;
         bool        _isAuthorised;
         bool        _isOperator;
@@ -45,6 +46,8 @@ class Client {
         bool                getIsOperator(void);
         std::string	        getName(void);
         std::string         getUser(void) const;
+		std::string			&getBuffer(void);
+		std::string			&getLineCommand(void);
         const std::string	&getNick(void) const;
         std::string         getFullName(void);
         std::string         getHost(void) const;
@@ -56,12 +59,14 @@ class Client {
         void                setIsOperator(bool value);
         void		        setNick(std::string nick);
         void                setUser(std::string user);
+		void				setLineCommand(const std::string &message);
 		std::string			getCustomPrefix(const std::string &code, const std::string channelName) const;
         std::string         getCustomPrefix(const std::string &code);
         std::string         getCustomPrefix(const std::string &code, std::vector<std::string> &params);
 
         // Methods
         void                write_buffer(Client &client, const std::string &message);
+		void				writeIncomplBuffer(Client &client, const std::string &message);
 		void				send_message(void);
 };
 

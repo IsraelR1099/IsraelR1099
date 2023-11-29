@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/28 20:05:25 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:37:31 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,11 @@ int	Server::_acceptClient(int nfds)
 
 int Server::_receiveClient(int i)
 {
-	int         rc;
-	char	    buffer[1024];
-    std::string receivedData;
-    size_t      delimiterPos;
+	int								rc;
+	char							buffer[1024];
+    std::string						receivedData;
+    size_t							delimiterPos;
+	std::map<int, Client>::iterator	itClient = this->_clients.find(i);
 
 	std::memset(buffer, 0, sizeof(buffer));
     rc = recv(this->_poll_fds[i].fd, buffer, sizeof(buffer), 0);
@@ -159,18 +160,33 @@ int Server::_receiveClient(int i)
         return (-1);
     }
     std::cout << "Server: |" << buffer << "|" << std::endl;
-    receivedData = buffer;
-    delimiterPos = receivedData.find("\r\n");
-    while (delimiterPos != std::string::npos)
-    {
-        this->_parseCommand(receivedData.substr(0, delimiterPos), i);
-        receivedData = receivedData.substr(delimiterPos + 2);
-        delimiterPos = receivedData.find("\r\n");
-    }
-    //If there is any remaining data without \r\n, we store it in the buffer
-    if (!receivedData.empty())
-        this->_parseCommand(receivedData, i);
-	//_parseCommand(buffer, i);
+	std::cout << "line command es: |" << itClient->second.getLineCommand() << "|" <<  std::endl;
+	if (itClient != this->_clients.end())
+	{
+		if (!itClient->second.getLineCommand().empty())
+		{
+			itClient->second.setLineCommand(itClient->second.getLineCommand() + buffer);
+		}
+		else
+			itClient->second.setLineCommand(buffer);
+	}
+	else
+		return (-1);
+	delimiterPos = itClient->second.getLineCommand().find("\r\n");
+	while (delimiterPos != std::string::npos)
+	{
+		receivedData = itClient->second.getLineCommand();
+		this->_parseCommand(receivedData.substr(0, delimiterPos), i);
+		itClient->second.setLineCommand(receivedData.substr(delimiterPos + 2));
+		delimiterPos = itClient->second.getLineCommand().find("\r\n");
+	}
+	if (!itClient->second.getLineCommand().empty())
+	{
+		std::cout << "unsaved buffer: |" << itClient->second.getLineCommand() <<
+			"| from client: " << this->_clients[i].getNick() << std::endl;
+		if (itClient != this->_clients.end())
+			this->_clients[i].writeIncomplBuffer(itClient->second, receivedData);
+	}
     return (0);
 }
 

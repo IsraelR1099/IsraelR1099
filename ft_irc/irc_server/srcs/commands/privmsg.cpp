@@ -7,91 +7,99 @@ std::string removeSpaces(std::string str)
 
     for (size_t i = 0; i < str.length(); i++)
     {
-        if (str[i] != ' ')
+        if (str[i] != 32)
             newString.push_back(str[i]);
     }
     return (newString);
 }
 
-void    sendToClient(std::string target, std::string message, std::map<int, Client> &clients, unsigned short clientIndex)
+void    Server::_sendPrivMsgToClient(std::string target, std::string message, unsigned short clientIndex)
 {
-    bool    nicknameNotFound = true;
-    int     rc;
+    bool nicknameNotFound = true;
 
-    for (std::map<int, Client>::iterator it = clients.begin(); it != clients.end(); ++it)
+    for (std::map<int, Client>::iterator it = _clients.begin(); it != _clients.end(); ++it)
     {
         // if nick of client in iter matches client in PRIVMSG
         if (it->second.getNick() == target)
         {
+            std::string fullMessage = ":" + _clients[clientIndex].getNick() + " PRIVMSG " + target + " :" + message;
             nicknameNotFound = false;
-            message += "\n";
-            rc = send(it->second.getSocketNumber(), message.c_str(), message.length(), 0);
-            if (rc < 0)
-                throw Server::ServerError("send() failed");
+            _clients[it->first].write_buffer(_clients[it->first], fullMessage);
         }
     }
     if (nicknameNotFound)
     {
-        rc = send(clients[clientIndex].getSocketNumber(), "No such nickname\n", 17, 0);
-        if (rc < 0)
-            throw Server::ServerError("send() failed");
+        std::string prefix = _clients[clientIndex].getCustomPrefix("default");
+        prefix += " ";
+        prefix += target;
+        Server::_message(Reply::ERR_NOSUCHNICK, _clients[clientIndex], std::vector<std::string>(1, prefix));
     }
 }
 
-void    sendToChannel(std::string target, std::string message, std::map<int, Client> &clients, std::map<int, Channel> &channels, unsigned short clientIndex)
+void Server::_sendPrivMsgToChannel(std::string target, std::string message, unsigned short clientIndex)
 {
-    bool    channelNotFound = true;
-    int     rc;
+    bool channelNameNotFound = true;
 
-    for (std::map<int, Channel>::iterator it = channels.begin(); it != channels.end(); ++it)
+    for (std::map<int, Channel>::iterator it = _channels.begin(); it != _channels.end(); ++it)
     {
         if (it->second.getName().substr(1) == target.substr(1))
         {
-            channelNotFound = false;
+            channelNameNotFound = false;
             std::map<int, Client> members = it->second.getMembers();
-            message += "\r\n";
-            for (std::map<int, Client>::iterator it = members.begin(); it != members.end(); ++it)
+            if (members.find(clientIndex) == members.end())
             {
-                std::cout << "Sending message to " << it->second.getNick() << std::endl;
-                rc = send(it->second.getSocketNumber(), message.c_str(), message.length(), 0);
-                if (rc < 0)
-                    throw Server::ServerError("send() failed");
+                std::string prefix = _clients[clientIndex].getCustomPrefix("default");
+                prefix += " ";
+                prefix += it->second.getName();
+                Server::_message(Reply::ERR_NOTONCHANNEL, _clients[clientIndex], std::vector<std::string>(1, prefix));
+                return ;
             }
+            std::string fullMessage = ":" + _clients[clientIndex].getNick() + " PRIVMSG " + target + " :" + message;
+            for (std::map<int, Client>::iterator it = members.begin(); it != members.end(); ++it)
+                if (it->first != clientIndex)
+                    _clients[it->first].write_buffer(_clients[it->first], fullMessage);
         }
     }
-    if (channelNotFound)
+    if (channelNameNotFound)
     {
-        rc = send(clients[clientIndex].getSocketNumber(), "No such channel\n", 17, 0);
-        if (rc < 0)
-            throw Server::ServerError("send() failed");
+        std::string prefix = _clients[clientIndex].getCustomPrefix("default");
+        prefix += " ";
+        prefix += target;
+        Server::_message(Reply::ERR_NOSUCHCHANNEL, _clients[clientIndex], std::vector<std::string>(1, prefix));
     }
 }
 
 void	Server::_privmsgCommand(std::string params, unsigned short clientIndex)
 {
-    if (!_clients[clientIndex].getIsRegistered())
-    {
-        int rc = send(_clients[clientIndex].getSocketNumber(), "You must register to use this command\n", 39, 0);
-        if (rc < 0)
-            throw Server::ServerError("send() failed");
+    if (_checkRegisteredAndParams(params, clientIndex))
+        return ;
+    size_t colonPos = params.find(":");
+    if (colonPos == std::string::npos) {
+        _sendMessageToClient("Bad format\r\n", clientIndex);
         return ;
     }
-    size_t  colonPos = params.find(':');
-    if (colonPos == std::string::npos)
+    if (params[0] == ':')
     {
-        _sendMessageToClient("Bad format\n", clientIndex);
+        std::string prefix = _clients[clientIndex].getCustomPrefix("default");
+        Server::_message(Reply::ERR_NORECIPIENT, _clients[clientIndex], std::vector<std::string>(1, prefix));
         return ;
     }
+
     std::string targetsString = params.substr(0, colonPos - 1);
     targetsString = removeSpaces(targetsString);
     std::string message = params.substr(colonPos + 1);
     std::vector<std::string> targets = _splitString(targetsString, ',');
 
-    for(size_t i = 0; i < targets.size(); i++)
+    for (std::vector<std::string>::iterator it = targets.begin(); it != targets.end(); it++)
+        std::cout << "target: " << *it << std::endl;
+
+
+
+    for (size_t i = 0; i < targets.size(); i++)
     {
         if (targets[i][0] == '#')
-            sendToChannel(targets[i], message, _clients, _channels, clientIndex);
+            _sendPrivMsgToChannel(targets[i], message, clientIndex);
         else
-            sendToClient(targets[i], message, _clients, clientIndex);
+            _sendPrivMsgToClient(targets[i], message, clientIndex);
     }
 }

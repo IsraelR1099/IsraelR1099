@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/27 21:30:13 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:53:26 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ class	Server
         void        _joinChannel(std::string channelName, unsigned short clientIndex);
         std::vector<std::string>    _getAllClientNicknames(std::map<int, Client>&clients);
         std::vector<std::string>    _splitString(const std::string &str, char delim);
+		void		_sendPrivMsgToChannel(std::string target, std::string message, unsigned short clientIndex);
+        void        _sendPrivMsgToClient(std::string target, std::string message, unsigned short clientIndex);
         void        _sendMessageToClient(const std::string &message, unsigned short clientIndex);
         void        _reply(unsigned short clientIndex, const std::string &message);
 		Channel     *_getChannelByName(const std::string channelName);

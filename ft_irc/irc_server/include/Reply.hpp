@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:27:12 by israel            #+#    #+#             */
-/*   Updated: 2023/11/28 13:23:38 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:55:10 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ namespace   Reply
     static const std::string    RPL_ENDOFNAMES("366");
     static const std::string    ERR_NOSUCHNICK("401");
     static const std::string    ERR_NOSUCHCHANNEL("403");
+    static const std::string    ERR_NORECIPIENT("411");
     static const std::string    ERR_UNKNOWNCOMMAND("421");
     static const std::string    ERR_USERNOTINCHANNEL("441");
     static const std::string    ERR_NOTONCHANNEL("442");
@@ -52,6 +53,7 @@ namespace   Reply
     const std::string   f_RPL_ENDOFNAMES(const std::vector<std::string> &params);
     const std::string   f_ERR_NOSUCHNICK(const std::vector<std::string> &params);
     const std::string   f_ERR_NOSUCHCHANNEL(const std::vector<std::string> &params);
+    const std::string   f_ERR_NORECIPIENT(const std::vector<std::string> &params);
     const std::string   f_ERR_UNKNOWNCOMMAND(const std::vector<std::string> &params);
     const std::string   f_ERR_USERNOTINCHANNEL(const std::vector<std::string> &params);
     const std::string   f_ERR_NOTONCHANNEL(const std::vector<std::string> &params);

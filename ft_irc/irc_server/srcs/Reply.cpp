@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/28 13:29:13 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:55:12 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ const std::string   Reply::f_RPL_ENDOFNAMES(const std::vector<std::string> &para
 const std::string Reply::f_ERR_NOSUCHCHANNEL(const std::vector<std::string> &params)
 {
     return (std::string(params[0] + " :No such channel"));
+}
+
+const std::string Reply::f_ERR_NORECIPIENT(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + " :No recipient given (PRIVMSG)"));
 }
 
 const std::string Reply::f_ERR_UNKNOWNCOMMAND(const std::vector<std::string> &params)
@@ -161,6 +166,7 @@ void    Server::_initReplies(void)
     Server::_replies[Reply::RPL_ENDOFNAMES] = Reply::f_RPL_ENDOFNAMES;
     Server::_replies[Reply::ERR_NOSUCHNICK] = Reply::f_ERR_NOSUCHNICK;
     Server::_replies[Reply::ERR_NOSUCHCHANNEL] = Reply::f_ERR_NOSUCHCHANNEL;
+    Server::_replies[Reply::ERR_NORECIPIENT] = Reply::f_ERR_NORECIPIENT;
     Server::_replies[Reply::ERR_UNKNOWNCOMMAND] = Reply::f_ERR_UNKNOWNCOMMAND;
     Server::_replies[Reply::ERR_USERNOTINCHANNEL] = Reply::f_ERR_USERNOTINCHANNEL;
     Server::_replies[Reply::ERR_USERONCHANNEL] = Reply::f_ERR_USERONCHANNEL;
