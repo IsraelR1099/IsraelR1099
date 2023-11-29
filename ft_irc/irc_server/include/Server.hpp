@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/29 17:47:21 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:01:50 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ class	Server
 
             bool    operator()(const struct pollfd &p) const
             {
-                std::cout << "Comparing " << p.fd << " with " << fdToCompare << std::endl;
                 return (p.fd == fdToCompare);
             }
         };

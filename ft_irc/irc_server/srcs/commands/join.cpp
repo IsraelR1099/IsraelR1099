@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:57 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 18:00:41 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/29 20:52:06 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,41 @@ void	Server::printWelcome(Channel &channel, Client &client)
 
     members = channel.getMembers();
 	itMembers = members.begin();
-	while (itMembers != members.end())
-	{
-		if (itMembers->second.getIsRegistered() == true)
-		{
-			operatorFlag = itMembers->second.getIsOperator() ? "@" : "";
-			user = client.getNick() + "!" + client.getUser()
-                + "@" + client.getHost() + " JOIN ";
-            channelName = channel.getName();
-            if (memberList.empty())
-                memberList = operatorFlag + itMembers->second.getNick();
-            else
-                memberList += " " + operatorFlag + itMembers->second.getNick();
-            topicReply.push_back(user);
-            topicReply.push_back(channelName);
-            Server::_message(Reply::RPL_TOPIC, itMembers->second, topicReply);
+    std::cout << "en printWelcome client socket " << client.getSocketNumber() << std::endl;
+    for (std::map<int, Client>::iterator itClients = _clients.begin(); itClients != _clients.end(); itClients++)
+    {
+        for (itMembers = members.begin(); itMembers != members.end(); itMembers++)
+        {
+            if (itMembers->second.getNick() == itClients->second.getNick())
+            {
+                operatorFlag = itMembers->second.getIsOperator() ? "@" : "";
+                user = client.getNick() + "!" + client.getUser()
+                    + "@" + client.getHost() + " JOIN ";
+                channelName = channel.getName();
+                if (memberList.empty())
+                    memberList = operatorFlag + itMembers->second.getNick();
+                else
+                    memberList += " " + operatorFlag + itMembers->second.getNick();
+                topicReply.push_back(user);
+                topicReply.push_back(channelName);
+                Server::_message(Reply::RPL_TOPIC, itClients->second, topicReply);
+            }
         }
-        itMembers++;
     }
     nameReply.push_back(channelName);
     nameReply.push_back(memberList);
     itMembers = members.begin();
-    while (itMembers != members.end())
+    for (std::map<int, Client>::iterator itClients = _clients.begin(); itClients != _clients.end(); itClients++)
     {
-        Server::_message(Reply::RPL_NAMREPLY, itMembers->second, nameReply);
-        Server::_message(Reply::RPL_ENDOFNAMES, itMembers->second,
-                std::vector<std::string>(1, channelName));
-        itMembers++;
+        for (itMembers = members.begin(); itMembers != members.end(); itMembers++)
+        {
+            if (itMembers->second.getNick() == itClients->second.getNick())
+            {
+                Server::_message(Reply::RPL_NAMREPLY, itClients->second, nameReply);
+                Server::_message(Reply::RPL_ENDOFNAMES, itClients->second,
+                        std::vector<std::string>(1, channelName));
+            }
+        }
     }
 }
 
@@ -141,6 +149,7 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         for (it = _channels.begin(); it != _channels.end(); it++)
         {
             const Channel &channel = it->second;
+                        //this->_removeClient(socketClientRemove);
             if (channel.getName() == tokens[0])
             {
                 channelExists = true;
@@ -160,6 +169,7 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
 			newChannel.incrementNumClients();
 			this->_incrementChannels();
             client.setIsOperator(true);
+            std::cout << "client socket: " << client.getSocketNumber() << std::endl;
             this->printWelcome(newChannel, client);
         }
 /*        itMembers = this->_clients.begin();
