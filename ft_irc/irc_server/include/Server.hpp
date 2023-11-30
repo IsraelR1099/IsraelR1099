@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/29 21:01:50 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 13:09:47 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,19 @@ class	Server
 		// ********************** //
 		// * Private fields. * //
 		// ********************** //
-		bool				        _m_g_run_server;
-		unsigned int		        _m_port;
-		std::string			        m_password;
-		int					        _m_fd_server;
-		struct sockaddr_in	        _server;
+		bool							_m_g_run_server;
+		unsigned int					_m_port;
+		std::string						m_password;
+		int								_m_fd_server;
+		struct sockaddr_in				_server;
 //		struct pollfd	            m_fds[MAX_CLIENTS + 1];
-        std::string                 _cmd_name;
-        std::string                 _cmd_params;
-		size_t					    _numChannels;
-        std::vector<struct pollfd>  _poll_fds;
-		std::map<int, Client>	    _clients;
-        std::map<int, Channel>      _channels;
+        std::string						_cmd_name;
+        std::string						_cmd_params;
+		size_t							_numChannels;
+        std::vector<struct pollfd>		_poll_fds;
+//		std::map<int, struct pollfd>	_poll_fds;
+		std::map<int, Client>			_clients;
+        std::map<int, Channel>			_channels;
         struct PollFDCompare
         {
             int fdToCompare;
@@ -117,7 +118,7 @@ class	Server
 		int		    _acceptClient(int nfds);
 		int         _receiveClient(int i);
 		void		_incrementChannels(void);
-		void		_removeClient(int socket);
+		void		_removeClient(int clientKey);
 		void		printWelcome(Channel &channel, Client &client);
         std::string _getReply(const std::string &message, const std::vector<std::string> &rep);
 		void	    _parseCommand(std::string userInput, unsigned short clientIndex);

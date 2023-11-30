@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/28 20:14:08 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 13:48:34 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ Server::Server(char **argv)
 
 Server::~Server(void)
 {
+	for (std::vector<struct pollfd>::iterator it = this->_poll_fds.begin(); it != this->_poll_fds.end(); it++)
+	{
+		close (it->fd);
+	}
+	this->_poll_fds.clear();
 }
 
 void	Server::setServer(void)
@@ -96,7 +101,8 @@ void	Server::setServer(void)
     std::memset(&server, 0, sizeof(server));
     server.fd = _m_fd_server;
     server.events = POLLIN;
-    this->_poll_fds.push_back(server);
+	this->_poll_fds.push_back(server);
+//	this->_poll_fds.insert(std::make_pair(0, server));
     this->_initReplies();
 }
 
@@ -108,13 +114,16 @@ int Server::launchServer(void)
     nfds = 1;
     while (_m_g_run_server)
     {
+		std::cout << "Waitin on poll()" << std::endl;
         rc = poll(&this->_poll_fds[0], this->_poll_fds.size(), -1);
 		if (rc < 0)
             throw Server::ServerError("poll() failed");
         else if (rc == 0)
             throw Server::ServerError("poll() timed out");
+		else
         if (this->_poll_fds[0].revents == POLLIN)
         {
+			std::cout << "entro en it: " << std::endl;
             if (_acceptClient(nfds) < 0)
             {
                 perror("accept() failed");
@@ -125,30 +134,35 @@ int Server::launchServer(void)
         }
         else
         {
-            std::vector<struct pollfd>::iterator it = this->_poll_fds.begin();
+			std::vector<struct pollfd>::iterator it = this->_poll_fds.begin();
             int i = 0;
-            while (it != this->_poll_fds.end())
-            {
-                if (it->revents == POLLIN)
-                {
-                    if (this->_receiveClient(i) < 0)
-                    {
-                        it = this->_poll_fds.begin();
-                        i = 0;
-                        nfds--;
-                    }
-                }
+			int	error = 0;
+			while (it != this->_poll_fds.end())
+			{
+				if (it->revents == POLLIN)
+				{
+					std::cout << "entro en receive" << std::endl;
+					if (this->_receiveClient(it->fd) < 0)
+					{
+						it = this->_poll_fds.begin();
+						i = 0;
+						nfds--;
+					}
+				}
 				else if (it->revents & POLLHUP)
 				{
-					this->_removeClient(i);
+					this->_removeClient(it->fd);
 					it = this->_poll_fds.begin();
 					i = 0;
 					nfds--;
 					std::cout << ANSI::red << "ctrl detected POLLHUP" << ANSI::reset << std::endl;
+					error++;
+					if (error > 10)
+						exit (1);
 				}
-                it++;
-                i++;
-            }
+				it++;
+				i++;
+			}
         }
 		std::map<int, Client>::iterator	it = _clients.begin();
 		while (it != _clients.end())

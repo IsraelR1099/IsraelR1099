@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/29 12:37:31 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:32:39 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,22 +131,35 @@ int	Server::_acceptClient(int nfds)
     client_fd.fd = new_fd;
     client_fd.events = POLLIN;
     this->_poll_fds.push_back(client_fd);
+//	this->_poll_fds.insert(std::make_pair(nfds, client_fd));
 	Client newClient(new_fd);
-    _clients.insert(std::make_pair(nfds, newClient));
-	_clients[nfds].setHost(oss.str());
+    _clients.insert(std::make_pair(new_fd, newClient));
+	_clients[new_fd].setHost(oss.str());
+	(void)nfds;
    	return (0);
 }
 
 int Server::_receiveClient(int i)
 {
 	int								rc;
+	int								client;
 	char							buffer[1024];
     std::string						receivedData;
     size_t							delimiterPos;
 	std::map<int, Client>::iterator	itClient = this->_clients.find(i);
+	std::vector<struct pollfd>::iterator	itFd = this->_poll_fds.begin();
 
 	std::memset(buffer, 0, sizeof(buffer));
-    rc = recv(this->_poll_fds[i].fd, buffer, sizeof(buffer), 0);
+	client = 0;
+	while (itFd != this->_poll_fds.end())
+	{
+		if (itFd->fd == i)
+			break ;
+		itFd++;
+		client++;
+	}
+	std::cout << "fd en receive :" << this->_poll_fds[client].fd << std::endl;
+    rc = recv(this->_poll_fds[client].fd, buffer, sizeof(buffer), 0);
 	if (rc < 0)
     {
 		throw Server::ServerError("recv() failed");
@@ -160,7 +173,10 @@ int Server::_receiveClient(int i)
         return (-1);
     }
     std::cout << "Server: |" << buffer << "|" << std::endl;
+	std::cout << "sigo" << std::endl;
 	std::cout << "line command es: |" << itClient->second.getLineCommand() << "|" <<  std::endl;
+
+	std::cout << "sigo2" << std::endl;
 	if (itClient != this->_clients.end())
 	{
 		if (!itClient->second.getLineCommand().empty())

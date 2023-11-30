@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 09:48:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/29 20:29:48 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 13:19:28 by irifarac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,9 @@ void	Client::send_message(void)
 	size_t	delimiterPos;
 
     std::cout << "entro en send message" << std::endl;
+	std::cout << "client es: " << this->getNick() << std::endl;
     std::cout << "buffer es: " << this->_buffer << std::endl;
+	std::cout << "socket es : " << this->getSocketNumber() << std::endl;
 	if (!this->_buffer.length())
 		return ;
 	delimiterPos = this->_buffer.find("\r\n");
