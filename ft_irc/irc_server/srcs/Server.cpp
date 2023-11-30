@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/30 13:48:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:01:09 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,10 @@ void	Server::setServer(void)
 	rc = listen(_m_fd_server, 5);
 	if (rc < 0)
 		throw Server::BadFormat("listen() failed");
-	else
-		std::cout << ANSI::bold << ANSI::green <<
-            "Server listening..." << ANSI::reset <<
-            std::endl;
     std::memset(&server, 0, sizeof(server));
     server.fd = _m_fd_server;
     server.events = POLLIN;
 	this->_poll_fds.push_back(server);
-//	this->_poll_fds.insert(std::make_pair(0, server));
     this->_initReplies();
 }
 
@@ -114,7 +109,6 @@ int Server::launchServer(void)
     nfds = 1;
     while (_m_g_run_server)
     {
-		std::cout << "Waitin on poll()" << std::endl;
         rc = poll(&this->_poll_fds[0], this->_poll_fds.size(), -1);
 		if (rc < 0)
             throw Server::ServerError("poll() failed");
@@ -123,10 +117,8 @@ int Server::launchServer(void)
 		else
         if (this->_poll_fds[0].revents == POLLIN)
         {
-			std::cout << "entro en it: " << std::endl;
-            if (_acceptClient(nfds) < 0)
+            if (_acceptClient() < 0)
             {
-                perror("accept() failed");
                 _m_g_run_server = false;
                 throw Server::ServerError("accept() failed");
             }
@@ -141,7 +133,6 @@ int Server::launchServer(void)
 			{
 				if (it->revents == POLLIN)
 				{
-					std::cout << "entro en receive" << std::endl;
 					if (this->_receiveClient(it->fd) < 0)
 					{
 						it = this->_poll_fds.begin();
@@ -155,7 +146,6 @@ int Server::launchServer(void)
 					it = this->_poll_fds.begin();
 					i = 0;
 					nfds--;
-					std::cout << ANSI::red << "ctrl detected POLLHUP" << ANSI::reset << std::endl;
 					error++;
 					if (error > 10)
 						exit (1);
@@ -164,36 +154,13 @@ int Server::launchServer(void)
 				i++;
 			}
         }
-		std::map<int, Client>::iterator	it = _clients.begin();
-		while (it != _clients.end())
-		{
-			Client	&client = it->second;
-            std::cout << ANSI::blue <<
-                "Client: " << client.getNick() << " connected..." <<
-                ANSI::reset << std::endl;
-			client.send_message();
-            it++;
-        }
-        std::vector<struct pollfd>::iterator it2 = this->_poll_fds.begin();
-        while (it2 != _poll_fds.end())
+        std::map<int, Client>::iterator itClients = this->_clients.begin();
+        while (itClients != this->_clients.end())
         {
-            std::cout << "fd: " << it2->fd << std::endl;
-            it2++;
+            Client &client = itClients->second;
+            client.send_message();
+            itClients++;
         }
-        std::map<int, Client>::iterator it3 = _clients.begin();
-        while (it3 != _clients.end())
-        {
-            std::cout << "key client: " << it3->first << std::endl;
-            std::cout << "Client nick en loop: " << it3->second.getNick() << std::endl;
-            it3++;
-        }
-        std::cout << ANSI::blue <<
-            "Server is running..." << ANSI::reset <<
-            std::endl;
-        std::cout << "Number of channels: " <<
-            _channels.size() << std::endl;
-        std::cout << "Number of clients: " <<
-            _clients.size() << std::endl;
     }
 	return (0);
 }

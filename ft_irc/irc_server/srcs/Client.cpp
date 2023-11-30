@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 09:48:38 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/30 13:19:28 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/30 21:49:51 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ Client::Client(int socket)
     _socket = socket;
     _isRegistered = false;
     _isAuthorised = false;
+    _isOperator = false;
 }
 
 // copy operator
@@ -109,7 +110,7 @@ void	Client::setLineCommand(const std::string &message)
 	this->_lineCommand = message;
 }
 
-std::string	&Client::getLineCommand(void)
+const std::string	&Client::getLineCommand(void) const
 {
 	return (this->_lineCommand);
 }
@@ -145,18 +146,12 @@ std::string Client::getHost(void) const
 
 void	Client::write_buffer(Client &client, const std::string &message)
 {
-    std::cout << ANSI::green <<
-        "Sending message to client: " << client.getNick() << " write: " << ANSI::reset << message << std::endl;
 	client._buffer += message + "\r\n";
-    std::cout << ANSI::green <<
-        "Buffer: " << ANSI::reset << client._buffer << std::endl;
 }
 
 void	Client::writeIncomplBuffer(Client &client, const std::string &message)
 {
-	std::cout << "entro en incomplete buffer es: " << client._lineCommand << std::endl;
 	client._lineCommand += message;
-	std::cout << "despues de anyadir es: " << client._lineCommand << std::endl;
 }
 
 std::string	Client::getCustomPrefix(const std::string &code, const std::string channelName) const
@@ -229,20 +224,13 @@ void	Client::send_message(void)
 	int		rc;
 	size_t	delimiterPos;
 
-    std::cout << "entro en send message" << std::endl;
-	std::cout << "client es: " << this->getNick() << std::endl;
-    std::cout << "buffer es: " << this->_buffer << std::endl;
-	std::cout << "socket es : " << this->getSocketNumber() << std::endl;
 	if (!this->_buffer.length())
 		return ;
 	delimiterPos = this->_buffer.find("\r\n");
 	if (delimiterPos == std::string::npos)
 	{
-		std::cout << "no carriage found" << std::endl;
 		return ;
 	}
-    std::cout << ANSI::green <<
-        "Sending message to client in send message: " << ANSI::reset << this->_buffer << std::endl;
 	rc = send(this->_socket, this->_buffer.c_str(), this->_buffer.length(), 0);
 	if (rc < 0)
 		std::cerr << ANSI::red << "send() failed" << ANSI::reset << std::endl;

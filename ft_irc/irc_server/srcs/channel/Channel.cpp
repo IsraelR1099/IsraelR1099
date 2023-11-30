@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 17:42:10 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 21:54:17 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ Channel::Channel(void) : _name("general"), _key(""), _topic("general"), _numClie
 
 Channel::Channel(const std::string &name) : _name(name), _key(""), _numClients(0), _limit(5), _passwd(false), _modeI(false), _modeT(false), _modeK(false), _modeL(false)
 {
-	std::cout << ANSI::green << "Channel: " << _name << " created and n of clients: " <<
-		getNumClients() << ANSI::reset << std::endl;
 }
 
 Channel::Channel(const Channel &src)
@@ -156,23 +154,12 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 	std::map<int, std::string>		params;
     std::vector<std::string>        nameReply;
 
-    std::cout << "Channel: " << this->getName() << " adding client: " << member.getNick() << std::endl;
     if (isOperator)
     {
 		if (this->_passwd == false && getNumClients() <= this->_limit)
 		{
-			std::cout << "Client: " << member.getNick() << " added to: " <<
-					this->getName() << " as operator" << std::endl;
 			_operators.insert(std::make_pair(nfds, member));
 			_members.insert(std::make_pair(nfds, member));
-            std::map<int, Client>::iterator it = this->_members.begin();
-
-            while (it != this->_members.end())
-            {
-                std::cout << "Client: " << it->second.getNick() << std::endl;
-                std::cout << "client socket: " << it->second.getSocketNumber() << std::endl;
-                it++;
-            }
 		}
     }
     else
@@ -180,8 +167,6 @@ void	Channel::addClient(const Client &member, int nfds, bool isOperator)
 		if (this->_key == "" && getNumClients() <= _limit)
 		{
 			_members.insert(std::make_pair(nfds, member));
-			std::cout << "Client: " << member.getNick() << " added to: " <<
-			this->getName() << std::endl;
 		}
     }
 }
@@ -227,6 +212,7 @@ void    Channel::removeChannelClient(const Client &client)
 {
     std::map<int, Client>::iterator itMember;
     std::map<int, Client>::iterator itOperator;
+    std::map<int, Client>::iterator itInvitee;
 
     for (itMember = _members.begin(); itMember != _members.end(); itMember++)
     {
@@ -241,6 +227,14 @@ void    Channel::removeChannelClient(const Client &client)
         if (itOperator->second.getNick() == client.getNick())
         {
             _operators.erase(itOperator);
+            break ;
+        }
+    }
+    for (itInvitee = _invitees.begin(); itInvitee != _invitees.end(); itInvitee++)
+    {
+        if (itInvitee->second.getNick() == client.getNick())
+        {
+            _invitees.erase(itInvitee);
             break ;
         }
     }

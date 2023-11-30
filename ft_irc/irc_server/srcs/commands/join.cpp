@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:09:57 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 20:52:06 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 21:55:42 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,20 @@ void	Server::printWelcome(Channel &channel, Client &client)
 
     members = channel.getMembers();
 	itMembers = members.begin();
-    std::cout << "en printWelcome client socket " << client.getSocketNumber() << std::endl;
+    channelName = channel.getName();
+    memberList = "";
     for (std::map<int, Client>::iterator itClients = _clients.begin(); itClients != _clients.end(); itClients++)
     {
         for (itMembers = members.begin(); itMembers != members.end(); itMembers++)
         {
             if (itMembers->second.getNick() == itClients->second.getNick())
             {
-                operatorFlag = itMembers->second.getIsOperator() ? "@" : "";
+                if (itMembers->second.getIsOperator())
+                    operatorFlag = "@";
+                else
+                    operatorFlag = "";
                 user = client.getNick() + "!" + client.getUser()
                     + "@" + client.getHost() + " JOIN ";
-                channelName = channel.getName();
                 if (memberList.empty())
                     memberList = operatorFlag + itMembers->second.getNick();
                 else
@@ -68,12 +71,6 @@ bool    Server::addClientToChannel(Channel &channel, Client &client, unsigned sh
     Channel					*tmp = _getChannelByName(channel.getName());
 	std::map<int, Client>	members;
 
-    std::cout << "password: |" << password << "|" << std::endl;
-    std::cout << "tmp->getKey(): |" << tmp->getKey() << "|" << std::endl;
-    if (tmp->getKey() == password)
-        std::cout << "son iguales" << std::endl;
-    else
-        std::cout << "son diferentes" << std::endl;
     if (tmp->isClientInChannel(client))
     {
         return false;
@@ -117,7 +114,6 @@ bool    Server::addClientToChannel(Channel &channel, Client &client, unsigned sh
         return (true);
 }
 
-//Check limits, if it's invited and password
 void    Server::_joinChannel(std::string channelName, unsigned short clientIndex)
 {
     bool                                channelExists = false;
@@ -131,7 +127,6 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
 
     while (iss >> token)
         tokens.push_back(token);
-    std::cout << "tenemos " << tokens.size() << " tokens" << std::endl;
     if (tokens.size() > 1)
         password = tokens[1];
     if (itClient != _clients.end())
@@ -149,7 +144,6 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
         for (it = _channels.begin(); it != _channels.end(); it++)
         {
             const Channel &channel = it->second;
-                        //this->_removeClient(socketClientRemove);
             if (channel.getName() == tokens[0])
             {
                 channelExists = true;
@@ -169,46 +163,8 @@ void    Server::_joinChannel(std::string channelName, unsigned short clientIndex
 			newChannel.incrementNumClients();
 			this->_incrementChannels();
             client.setIsOperator(true);
-            std::cout << "client socket: " << client.getSocketNumber() << std::endl;
             this->printWelcome(newChannel, client);
         }
-/*        itMembers = this->_clients.begin();
-        std::string memberList;
-        std::string operatorFlag;
-        while (itMembers != this->_clients.end())
-        {
-            if (itMembers->second.getIsRegistered() == true)
-            {
-				std::string message;
-				std::string message2;
-                operatorFlag = itMembers->second.getIsOperator() ? "@" : "";
-                message = client.getNick() + "!" + client.getUser()
-                    + "@" + client.getHost() + " JOIN ";
-                message2 = tokens[0];
-                if (memberList.empty())
-                    memberList = operatorFlag + itMembers->second.getNick();
-                else
-                    memberList += " " + operatorFlag + itMembers->second.getNick();
-                std::vector<std::string>    params;
-                params.push_back(message);
-                params.push_back(message2);
-                Server::_message(Reply::RPL_TOPIC, itMembers->second, params);
-
-            }
-            itMembers++;
-        }
-        std::string                 message3;
-        std::vector<std::string>    params2;
-        message3 = tokens[0];
-        params2.push_back(message3);
-        params2.push_back(memberList);
-        itMembers = this->_clients.begin();
-        for (; itMembers != this->_clients.end(); itMembers++)
-        {
-            Server::_message(Reply::RPL_NAMREPLY, itMembers->second, params2);
-            Server::_message(Reply::RPL_ENDOFNAMES, itMembers->second,
-                    std::vector<std::sMembertring>(1, message3));
-        }*/
     }
     else
     {
@@ -247,13 +203,10 @@ void    Server::_joinCommand(std::string params, unsigned short clientIndex)
                 "ERR_NOSUCHCHANNEL :No such channel" <<
                 ANSI::reset << std::endl;
                 std::string prefix = _clients[clientIndex].getCustomPrefix("403", params);
-                std::cout << "prefix: " << prefix << std::endl;
                 Server::_message(Reply::ERR_NOSUCHCHANNEL, _clients[clientIndex], std::vector<std::string>(1, prefix));
             }
             else
             {
-                std::cout << ANSI::green << "JOIN: " << channelName <<
-                ANSI::reset << std::endl;
                 _joinChannel(channelName, clientIndex);
             }
             it++;

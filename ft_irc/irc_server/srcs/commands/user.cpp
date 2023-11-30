@@ -50,11 +50,6 @@ void    Server::_userCommand(std::string params, unsigned short clientIndex)
         return ;
     }
     tokens = splitString(params, 32);
-    std::cout << "tokens length: " << tokens.size() << std::endl;
-    for (size_t i = 0; i < tokens.size(); i++)
-    {
-        std::cout << "token " << i << ": " << tokens[i] << std::endl;
-    }
     if (tokens.size() != 4)
     {
         _reply(clientIndex, "Not enough parameters");
@@ -88,7 +83,6 @@ void    Server::_userCommand(std::string params, unsigned short clientIndex)
     _clients[clientIndex].setFullName(tokens[3].substr(1));
     if (_clients[clientIndex].getNick().length() > 0)
         _clients[clientIndex].setIsRegistered(true);
-    std::cout << "full name client: " << _clients[clientIndex].getFullName() << std::endl;
 
     std::map<int, Client>::iterator     itClient = _clients.find(clientIndex);
 

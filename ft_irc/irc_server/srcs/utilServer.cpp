@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:02:56 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/30 13:32:39 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/30 21:52:00 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
     while (std::getline(iss, line, '\n'))
     {
         command.erase(command.find_last_not_of(" \n\r\t") + 1);
-        std::cout << "line: |" << ANSI::red << line << ANSI::reset << "|" << std::endl;
         pos = line.find(" ");
         if (pos != std::string::npos)
         {
@@ -47,7 +46,6 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
         }
         else
             command = line;
-        std::cout << "command: |" << ANSI::red << command << ANSI::reset << "|" << std::endl;
         this->_cmd_name = command;
         this->_cmd_params = params;
         if (command == "CAP")
@@ -56,7 +54,6 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
         }
         else if (command == "PASS")
         {
-            std::cout << "entro en pass" << std::endl;
             _passCommand(params, clientIndex);
         }
         else if (command == "NICK")
@@ -87,7 +84,6 @@ void Server::_parseCommand(std::string userInput, unsigned short clientIndex)
 			this->_quitCommand(params, clientIndex);
         else
         {
-            std::cout << "unknown command is: |" << command << "|" << std::endl;
             _sendMessageToClient("unknown command\r\n", clientIndex);
             break ;
         }
@@ -109,7 +105,7 @@ std::vector<std::string>    Server::_getAllClientNicknames(std::map<int, Client>
     return (nicknames);
 }
 
-int	Server::_acceptClient(int nfds)
+int	Server::_acceptClient(void)
 {
 	int				    new_fd;
     struct sockaddr_in  client_addr;
@@ -131,11 +127,9 @@ int	Server::_acceptClient(int nfds)
     client_fd.fd = new_fd;
     client_fd.events = POLLIN;
     this->_poll_fds.push_back(client_fd);
-//	this->_poll_fds.insert(std::make_pair(nfds, client_fd));
 	Client newClient(new_fd);
     _clients.insert(std::make_pair(new_fd, newClient));
 	_clients[new_fd].setHost(oss.str());
-	(void)nfds;
    	return (0);
 }
 
@@ -149,6 +143,10 @@ int Server::_receiveClient(int i)
 	std::map<int, Client>::iterator	itClient = this->_clients.find(i);
 	std::vector<struct pollfd>::iterator	itFd = this->_poll_fds.begin();
 
+    if (itClient == this->_clients.end())
+    {
+        return (-1);
+    }
 	std::memset(buffer, 0, sizeof(buffer));
 	client = 0;
 	while (itFd != this->_poll_fds.end())
@@ -158,7 +156,10 @@ int Server::_receiveClient(int i)
 		itFd++;
 		client++;
 	}
-	std::cout << "fd en receive :" << this->_poll_fds[client].fd << std::endl;
+    if (client >= (int)this->_poll_fds.size())
+    {
+        return (-1);
+    }
     rc = recv(this->_poll_fds[client].fd, buffer, sizeof(buffer), 0);
 	if (rc < 0)
     {
@@ -166,17 +167,9 @@ int Server::_receiveClient(int i)
     }
 	else if (rc == 0)
     {
-        std::cerr << ANSI::red <<
-            "Server detected ctrl+c from client: " << this->_poll_fds[i].fd <<
-            ANSI::reset << std::endl;
         _removeClient(i);
         return (-1);
     }
-    std::cout << "Server: |" << buffer << "|" << std::endl;
-	std::cout << "sigo" << std::endl;
-	std::cout << "line command es: |" << itClient->second.getLineCommand() << "|" <<  std::endl;
-
-	std::cout << "sigo2" << std::endl;
 	if (itClient != this->_clients.end())
 	{
 		if (!itClient->second.getLineCommand().empty())
@@ -198,8 +191,6 @@ int Server::_receiveClient(int i)
 	}
 	if (!itClient->second.getLineCommand().empty())
 	{
-		std::cout << "unsaved buffer: |" << itClient->second.getLineCommand() <<
-			"| from client: " << this->_clients[i].getNick() << std::endl;
 		if (itClient != this->_clients.end())
 			this->_clients[i].writeIncomplBuffer(itClient->second, receivedData);
 	}

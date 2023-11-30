@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 12:55:12 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/30 21:52:56 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ Server::_message(const std::string &message, Client &client, const std::vector<s
     nick = client.getNick();
 
     (void)code;
-    std::cout << "Message code: " << message << std::endl;
     client.write_buffer(client, message + " " + nick + Server::_getReply(message, rep));
 }
 
@@ -196,7 +195,6 @@ Server::_sendMessageToClient(const std::string &message, unsigned short clientIn
         rc = send(clientSocket, message.c_str(), message.size(), 0);
         if (rc < 0)
         {
-            perror("send() failed");
             throw Server::ServerError("send() failed");
         }
     }

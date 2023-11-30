@@ -4,7 +4,6 @@ void	Server::_passCommand(std::string params, unsigned short clientIndex)
 {
     int rc;
 
-    std::cout << "params en command es |" << params << "|\n";
     if (_clients[clientIndex].getIsAuthorised())
     {
         rc = send(_clients[clientIndex].getSocketNumber(), "You are already authorised\r\n", 28, 0);

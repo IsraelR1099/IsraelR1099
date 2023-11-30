@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:35:30 by israel            #+#    #+#             */
-/*   Updated: 2023/11/30 13:19:30 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/30 20:21:05 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ class Client {
         std::string	        getName(void);
         std::string         getUser(void) const;
 		std::string			&getBuffer(void);
-		std::string			&getLineCommand(void);
+		const std::string	&getLineCommand(void) const;
         const std::string	&getNick(void) const;
         std::string         getFullName(void);
         std::string         getHost(void) const;
