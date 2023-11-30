@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:27:12 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 12:55:10 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:50:32 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ namespace   Reply
     // Reply codes
     static const std::string    RPL_WELCOME("001");
     static const std::string    RPL_CHANNELMODEIS("324");
+    static const std::string    RPL_NOTOPIC("331");
     static const std::string    RPL_TOPIC("332");
 	static const std::string    RPL_TOPICWHOTIME("333");
     static const std::string    RPL_INVITING("341");
@@ -46,6 +47,7 @@ namespace   Reply
     // Reply messages
     const std::string   f_RPL_WELCOME(const std::vector<std::string> &params);
     const std::string   f_RPL_CHANNELMODEIS(const std::vector<std::string> &params);
+    const std::string   f_RPL_NOTOPIC(const std::vector<std::string> &params);
     const std::string   f_RPL_TOPIC(const std::vector<std::string> &params);
     const std::string   f_RPL_TOPICWHOTIME(const std::vector<std::string> &params);
     const std::string   f_RPL_INVITING(const std::vector<std::string> &params);

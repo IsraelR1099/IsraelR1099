@@ -58,7 +58,7 @@ void    Server::_userCommand(std::string params, unsigned short clientIndex)
     // ** CHECK IF USERNAME IS VALID ** //
     for (size_t i = 0; i < tokens[0].length(); i++)
     {
-        if (!isalpha(tokens[0][i]))
+        if (!std::isalpha(tokens[0][i]))
         {
             _reply(clientIndex, "Bad format");
             return ;
@@ -73,7 +73,7 @@ void    Server::_userCommand(std::string params, unsigned short clientIndex)
     }
     for (size_t i = 1; i < tokens[3].length(); i++)
     {
-        if (!isalpha(tokens[3][i]) && tokens[3][i] != 32)
+        if (!std::isalpha(tokens[3][i]) && tokens[3][i] != 32)
         {
             _reply(clientIndex, "Bad format");
             return ;

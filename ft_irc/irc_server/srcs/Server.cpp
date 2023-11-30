@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:49:45 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/30 22:01:09 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 23:40:44 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int Server::launchServer(void)
         {
 			std::vector<struct pollfd>::iterator it = this->_poll_fds.begin();
             int i = 0;
-			int	error = 0;
 			while (it != this->_poll_fds.end())
 			{
 				if (it->revents == POLLIN)
@@ -146,9 +145,6 @@ int Server::launchServer(void)
 					it = this->_poll_fds.begin();
 					i = 0;
 					nfds--;
-					error++;
-					if (error > 10)
-						exit (1);
 				}
 				it++;
 				i++;

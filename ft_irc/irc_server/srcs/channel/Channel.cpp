@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:06:51 by israel            #+#    #+#             */
-/*   Updated: 2023/11/30 21:54:17 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 22:49:35 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ void	Channel::setTopicChanger(std::string topicChanger)
     this->_topicChanger = topicChanger;
 }
 
-std::string	Channel::getTopicChangeTime(void)
+time_t  Channel::getTopicChangeTime(void)
 {
     return (this->_topicChangeTime);
 }
 
-void	Channel::setTopicChangeTime(std::string topicChangeTime)
+void	Channel::setTopicChangeTime(time_t topicChangeTime)
 {
     this->_topicChangeTime = topicChangeTime;
 }

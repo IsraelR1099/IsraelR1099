@@ -6,7 +6,7 @@
 /*   By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:30:28 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/27 13:09:43 by irifarac         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:43:38 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void    Server::_inviteCommand(std::string params, unsigned short clientIndex)
     {
         std::string message = _clients[clientIndex].getNick() + " " + tokens[0] + " " + tokens[1];
         Server::_message(Reply::RPL_INVITING, _clients[clientIndex], std::vector<std::string>(1, message));
-        message = "INVITE " + _clients[clientIndex].getNick() + " " + tokens[1];
+        message = ":" + _clients[clientIndex].getNick() + " INVITE " + tokens[0] + " " + tokens[1];
         _reply(targetIndex, message);
         channel->getInvitees().insert(std::make_pair(targetIndex, _clients[targetIndex]));
     }

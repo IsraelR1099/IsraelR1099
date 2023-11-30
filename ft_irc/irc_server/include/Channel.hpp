@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 17:21:42 by israel            #+#    #+#             */
-/*   Updated: 2023/11/29 17:42:49 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 22:48:43 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ class Channel
         bool                    isClientInvited(const Client &client) const;
         void					removeChannelClient(const Client &client);
 		std::string				getTopicChanger(void);
-        void                    setTopicChanger(std::string);
-        std::string             getTopicChangeTime(void);
-        void                    setTopicChangeTime(std::string);
+        void                    setTopicChanger(std::string topicChanger);
+        time_t                  getTopicChangeTime(void);
+        void                    setTopicChangeTime(time_t time);
 		size_t					getLimit(void);
 		void                    setLimit(size_t limit);
         bool                    getModeT(void);
@@ -62,7 +62,7 @@ class Channel
         std::string             _key;
         std::string             _topic;
 		std::string             _topicChanger;
-        std::string             _topicChangeTime;
+        time_t                  _topicChangeTime;
 		std::map<int, Client>	_members;
         std::map<int, Client>   _operators;
 		std::map<int, Client>   _invitees;

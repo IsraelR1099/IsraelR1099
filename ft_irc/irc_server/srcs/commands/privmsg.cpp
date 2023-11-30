@@ -90,11 +90,6 @@ void	Server::_privmsgCommand(std::string params, unsigned short clientIndex)
     std::string message = params.substr(colonPos + 1);
     std::vector<std::string> targets = _splitString(targetsString, ',');
 
-    for (std::vector<std::string>::iterator it = targets.begin(); it != targets.end(); it++)
-        std::cout << "target: " << *it << std::endl;
-
-
-
     for (size_t i = 0; i < targets.size(); i++)
     {
         if (targets[i][0] == '#')

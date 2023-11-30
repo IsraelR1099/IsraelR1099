@@ -6,7 +6,7 @@
 /*   By: davidbekic <davidbekic@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:29:44 by irifarac          #+#    #+#             */
-/*   Updated: 2023/11/30 21:44:52 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 23:27:50 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # include <sstream>
 # include <algorithm>
 # include <limits.h>
+# include <ctime>
 
 #define MAX_CLIENTS 5
 
@@ -136,8 +137,8 @@ class	Server
         void		_executeModes(Channel &channel, unsigned short clientIndex, std::vector<std::string> modes, std::vector<std::string> args);
 
         //** MODE FUNCS **//
-        void execLimit(unsigned short clientIndex, Channel &channel, char sign, std::string limit);
-        void execOperator(unsigned short clientIndex, Channel &channel, char sign, std::string user);
+        int execLimit(unsigned short clientIndex, Channel &channel, char sign, std::string limit);
+        int execOperator(unsigned short clientIndex, Channel &channel, char sign, std::string user);
 
         // ********************** //
         // * Command methods. * //
@@ -154,6 +155,7 @@ class	Server
         void    _inviteCommand(std::string params, unsigned short clientIndex);
         void    _kickCommand(std::string params, unsigned short clientIndex);
         void    _quitCommand(std::string params, unsigned short clientIndex);
+        void    _partCommand(std::string params, unsigned short clientIndex);
         int     _errorKickCommand(std::vector<std::string> &tokens, unsigned short clientIndex);
         std::vector<std::string>    parseModes(std::string modeString, unsigned short clientIndex);
 };

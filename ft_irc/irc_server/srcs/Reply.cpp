@@ -6,7 +6,7 @@
 /*   By: israel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:34:43 by israel            #+#    #+#             */
-/*   Updated: 2023/11/30 21:52:56 by israel           ###   ########.fr       */
+/*   Updated: 2023/11/30 22:51:23 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ const std::string Reply::f_RPL_WELCOME(const std::vector<std::string> &params)
 const std::string Reply::f_RPL_CHANNELMODEIS(const std::vector<std::string> &params)
 {
     return (std::string(params[0]));
+}
+
+const std::string Reply::f_RPL_NOTOPIC(const std::vector<std::string> &params)
+{
+    return (std::string(params[0] + "No topic is set"));
 }
 
 const std::string Reply::f_ERR_NOSUCHNICK(const std::vector<std::string> &params)
@@ -158,6 +163,7 @@ void    Server::_initReplies(void)
 {
     Server::_replies[Reply::RPL_WELCOME] = Reply::f_RPL_WELCOME;
     Server::_replies[Reply::RPL_CHANNELMODEIS] = Reply::f_RPL_CHANNELMODEIS;
+    Server::_replies[Reply::RPL_NOTOPIC] = Reply::f_RPL_NOTOPIC;
     Server::_replies[Reply::RPL_TOPIC] = Reply::f_RPL_TOPIC;
     Server::_replies[Reply::RPL_TOPICWHOTIME] = Reply::f_RPL_TOPICWHOTIME;
     Server::_replies[Reply::RPL_INVITING] = Reply::f_RPL_INVITING;
