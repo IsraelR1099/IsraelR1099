@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+
+\title{SQL Tutorial}
+\author{I. Rifa}
+
+\begin{document}
+
+\maketitle
+
+\section{tables}
+In order to create a table we use the followed command:
+CREATE TABLE [name] (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+origin TEXT NOT NULL,
+destination TEXT NOT NULL,
+duration INTEGER NOT NULL
+);
+After the words, id, origin, destination, duration, we set the format of this
+column. INTEGER, TEXT, etc. If we say NOT NULL, we say that this column must
+have an entry.
+
+\section{contraints}
+\begin{itemize}
+    \item CHECK : mutable values
+    \item DEFAULT : immutable values
+    \item PRIMARY KEY :
+    \item UNIQUE :
+\end{itemize}
+
+\section{insert}
+In order to inster data inside our created table:
+INSERT INTO [name_table]
+(origin, destination, duration)
+VALUES ("New York", "London", 415);
+\section{select}
+If we wish to see the data inside of our table we use select command:
+SELECT * FROM [name_table];
+If we want to print just some columns of our table we specify:
+SELECT origin, destination FROM [name_table];
+If we want to print just a specific row of our table using the name of the
+column:
+SELECT * FROM [name_table] WHERE id = 3;
+SELECT * FROM [name_table] WHERE origin = "New York";
+SELECT * FROM [name_table] WHERE origin LIKE "%a%";
+SELECT * FROM [name_table] WHERE origin IN ("New York", "Lima");
+SELECT * FROM [name_table] WHERE duration > 500;
+SELECT * FROM [name_table] WHERE duration > 500 AND destination = "Paris";
+
+\section{UPDATE}
+In order to update information already set in our table we use UPDATE command:
+UPDATE [name_table]
+	SET duration = 430
+	WHERE origin = "New York"
+	AND destination = "London";
+
+\section{DELETE}
+If we want to delete a row we use delete command:
+DELETE FROM	[name_table] WHERE destination = "Tokyo";
+
+
+\end{document}
