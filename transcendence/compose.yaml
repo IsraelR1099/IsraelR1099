@@ -1,0 +1,52 @@
+services:
+  nginx:
+    build:
+        context: nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "8080:443"
+    networks:
+        - transcendence-net
+
+  db:
+    image: postgres:16-alpine
+    container_name: db
+    restart: always
+    environment:
+      - POSTGRES_USER=pong
+      - POSTGRES_PASSWORD=pong
+      - POSTGRES_DB=db
+    expose:
+        - "5432"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    networks:
+      - transcendence-net
+
+  back:
+    container_name: back
+    build:
+      context: back
+    volumes:
+      - ./back/src:/srv
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=pong
+      - POSTGRES_PASSWORD=pong
+      - POSTGRES_DB=db
+    restart: always
+    expose:
+      - "8000"
+    networks:
+        - transcendence-net
+    depends_on:
+      - db
+
+
+networks:
+  transcendence-net:
+    name: transcendence-net
+    driver: bridge
