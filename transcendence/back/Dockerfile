@@ -6,8 +6,12 @@ COPY requirements.txt .
 
 RUN apk update && \
     apk add --no-cache vim && \
+    apk add --no-cache netcat-openbsd && \
     pip install -r requirements.txt
 
 COPY src /srv
+COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/bin/sh", "/usr/local/bin/entrypoint.sh"]

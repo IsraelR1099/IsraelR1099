@@ -14,9 +14,9 @@ services:
     container_name: db
     restart: always
     environment:
-      - POSTGRES_USER=pong
-      - POSTGRES_PASSWORD=pong
-      - POSTGRES_DB=db
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
     expose:
         - "5432"
     ports:
@@ -31,12 +31,15 @@ services:
     build:
       context: back
     volumes:
-      - ./back/src:/srv
+      - ./back/src:/srv:Z
     environment:
-      - POSTGRES_HOST=db
-      - POSTGRES_USER=pong
-      - POSTGRES_PASSWORD=pong
-      - POSTGRES_DB=db
+      - POSTGRES_HOST
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - DJANGO_SUPERUSER_USERNAME
+      - DJANGO_SUPERUSER_PASSWORD
+      - DJANGO_SUPERUSER_EMAIL
     restart: always
     expose:
       - "8000"
