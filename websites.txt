@@ -590,4 +590,6 @@ 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
 
 Trascendence
 https://www.youtube.com/watch?v=vzGllw18DkA&ab_channel=freeCodeCamp.org
-6 24
+
+jwt token
+postman
