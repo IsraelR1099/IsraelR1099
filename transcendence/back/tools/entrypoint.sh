@@ -1,5 +1,6 @@
 #!/bin/sh
 
+exec "$@"
 # Check if the database is using PostgreSQL
 if [ "$DBASE" = "postgreSQL" ]
 then
