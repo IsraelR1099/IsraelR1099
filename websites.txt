@@ -594,3 +594,5 @@ https://www.youtube.com/watch?v=vzGllw18DkA&ab_channel=freeCodeCamp.org
 jwt token
 postman
 https://dba.stackexchange.com/questions/135941/designing-a-friendships-database-structure-should-i-use-a-multivalued-column
+
+https://medium.com/analytics-vidhya/add-friends-with-689a2fa4e41d

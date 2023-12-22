@@ -6,4 +6,6 @@
 		<li>Username: {{ user.username }}</li>
 		<li>Email: {{ user.email }}</li>
 	</ul>
+
+	<a href="{% url 'logout' %}">Logout</a>
 {% endblock %}
