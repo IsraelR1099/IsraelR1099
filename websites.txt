@@ -596,3 +596,5 @@ postman
 https://dba.stackexchange.com/questions/135941/designing-a-friendships-database-structure-should-i-use-a-multivalued-column
 
 https://medium.com/analytics-vidhya/add-friends-with-689a2fa4e41d
+
+https://www.youtube.com/watch?v=FrHnjoTqlIY&list=PLgCYzUzKIBE9KUJZJUmnDFYQfVyXYjX6r&index=4&ab_channel=CodingWithMitch

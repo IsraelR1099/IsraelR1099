@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from .models import Users, FriendRequest, FriendList
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -93,3 +95,72 @@ def register_user(request: HttpRequest) -> JsonResponse:
     return (render(request, "user/register.html", {
         "form": form
         }))
+
+@login_required
+def send_friend_request(request, user_id):
+    print(f"Sending friend requests to user {user_id}")
+    user = get_object_or_404(Users, id=user_id)
+    friend_request, created = Friendship_Request.objects.get_or_create(
+            from_user=request.user,
+            to_user=user
+            )
+    if created:
+        print("Friend request sent")
+        return (render(request, "user/profile.html"))
+    else:
+        print("Friend request already sent")
+        data = {
+                "message": "Friend request already sent.",
+                "status": "success",
+                }
+        return (JsonResponse(data))
+#    from_user = request.user
+#    to_user = Users.objects.get_object_or_404(Users, id=user_id)
+#    friend_request, created = Friendship_Request.objects.get_or_create(
+#            requester_id=from_user, addressee_id=to_user)
+#    if created:
+#        data = {
+#                "message": "Friend request sent.",
+#                "status": "success",
+#                }
+#        return (JsonResponse(data))
+#    else:
+#        data = {
+#                "message": "Friend request already sent.",
+#                "status": "success",
+#                }
+#        return (JsonResponse(data))
+
+@login_required
+def accept_friend_request(request, request_id):
+    from_user = get_object_or_404(Users, id=request_id)
+    friend_request = Friendship_Request.objects.filter(
+            from_user=from_user,
+            to_user=request.user
+            ).first()
+    user1 = friend_request.to_user
+    user2 = from_user
+    user1.profile.friends.add(user2.profile)
+    user2.profile.friends.add(user1.profile)
+    friend_request.delete()
+    data = {
+            "message": "Friend request accepted.",
+            "status": "success",
+            }
+    return (JsonResponse(data))
+#    friend_request = Friendship_Request.objects.get(id=request_id)
+#    if friend_request.addressee_id == request.user:
+#        friend_request.addressee_id.friends.add(friend_request.requester_id)
+#        friend_request.requester_id.friends.add(friend_request.addressee_id)
+#        friend_request.delete()
+#        data = {
+#                "message": "Friend request accepted.",
+#                "status": "success",
+#                }
+#        return (JsonResponse(data))
+#    else:
+#        data = {
+#                "message": "You are not authorized to accept this friend request.",
+#                "status": "error",
+#                }
+#        return (JsonResponse(data))
