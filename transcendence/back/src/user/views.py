@@ -1,12 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpRequest, JsonResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
 from .models import Users, FriendRequest, FriendList
-from django.shortcuts import get_object_or_404
+from .forms import RegistrationForm, UsersAuthenticationForm
+
 
 # Create your views here.
 
@@ -16,32 +19,59 @@ def index(request):
         return (HttpResponseRedirect(reverse("login")))
     return (render(request, "user/user.html"))
 
+def get_redirect_if_exists(request):
+    redirect = None
+    if request.GET:
+        if request.GET.get("next"):
+            redirect = str(request.GET.get("next"))
+    return (redirect)
+
 @csrf_exempt
-def login_view(request: HttpRequest) -> JsonResponse:
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        # authenticate user
-        user = authenticate(request, username=username, password=password)
-        # check if authentication successful
-        if user is not None:
-            login(request, user)
-            data = {
-                    "id": user.id,
-                    "username": user.username,
-                    "status": "online",
-                    "created_at": user.date_joined.isoformat(),
-                    "updated_at": user.last_login.isoformat(),
-                    "code": "200",
-                    }
-            return (JsonResponse(data))
+def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
+    context = {}
+    user = request.user
+    if user.is_authenticated:
+        return (redirect("index"))
+    destination = get_redirect_if_exists(request)
+    print(f"Destination: {destination}")
+    if request.POST:
+        form = UsersAuthenticationForm(request.POST)
+        if form.is_valid():
+            email = request.POST["email"].lower()
+            password = request.POST["password"]
+            user = authenticate(email=email, password=password)
+            if user:
+                login(request, user)
+                if destination:
+                    return (redirect(destination))
+                return (redirect("index"))
         else:
-            data =  {
-                    "error": "User does not exist.",
-                    "code": "404",
-                    }
-            return (JsonResponse(data))
-    return (render(request, "user/login.html"))
+            context["login_form"] = form
+    return (render(request, "user/login.html", context))
+#    if request.method == "POST":
+#        username = request.POST.get("username")
+#        password = request.POST.get("password")
+#        # authenticate user
+#        user = authenticate(request, username=username, password=password)
+#        # check if authentication successful
+#        if user is not None:
+#            login(request, user)
+#            data = {
+#                    "id": user.id,
+#                    "username": user.username,
+#                    "status": "online",
+#                    "created_at": user.date_joined.isoformat(),
+#                    "updated_at": user.last_login.isoformat(),
+#                    "code": "200",
+#                    }
+#            return (JsonResponse(data))
+#        else:
+#            data =  {
+#                    "error": "User does not exist.",
+#                    "code": "404",
+#                    }
+#            return (JsonResponse(data))
+#    return (render(request, "user/login.html"))
 
 @login_required
 def logout_view(request: HttpRequest) -> JsonResponse:
@@ -53,48 +83,71 @@ def logout_view(request: HttpRequest) -> JsonResponse:
     return (JsonResponse(data))
 
 @csrf_exempt
-def register_user(request: HttpRequest) -> JsonResponse:
-    form = UserCreationForm()
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
+def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
+    user = request.user
+    if user.is_authenticated:
+        data = {
+                "error": "User already logged in.",
+                "code": "409",
+                }
+        return (JsonResponse(data))
+    context = {}
+    if request.POST:
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get("username")
-            password1 = form.cleaned_data.get("password1")
-            password2 = form.cleaned_data.get("password2")
-            # authenticate user
-            user = authenticate(request, username=username, password=password1)
-            login(request, user)
-            data = {
-                    "id": user.id,
-                    "username": user.username,
-                    "status": "online",
-                    "created_at": user.date_joined.isoformat(),
-                    "updated_at": user.last_login.isoformat(),
-                    "code": "201",
-                    }
-
-            return (JsonResponse(data))
+            email = form.cleaned_data.get("email").lower()
+            raw_password = form.cleaned_data.get("password1")
+            account = authenticate(email=email, password=raw_password)
+            login(request, account)
+            destination = get_redirect_if_exists(request)
+            if destination:
+                return (redirect(destination))
+            return (redirect("index"))
         else:
-            # Check if username is taken
-            if "username" in form.errors:
-                username_errors = form.errors["username"]
-                user_exists_error = "A user with that username already exists." in username_errors
-                data = {
-                        "error": username_errors,
-                        "code": "409",
-                        }
-                return (JsonResponse(data))
-            else:
-                error_message = form.errors.as_json()
-                data = {
-                        "error_message": error_message,
-                        "code": "422",
-                        }
-                return (JsonResponse(data))
-    return (render(request, "user/register.html", {
-        "form": form
-        }))
+            context["registration_form"] = form
+    return (render(request, "user/register.html", context))
+#    form = UserCreationForm()
+#    if request.method == "POST":
+#        form = UserCreationForm(request.POST)
+#        if form.is_valid():
+#            form.save()
+#            username = form.cleaned_data.get("username")
+#            password1 = form.cleaned_data.get("password1")
+#            password2 = form.cleaned_data.get("password2")
+#            # authenticate user
+#            user = authenticate(request, username=username, password=password1)
+#            login(request, user)
+#            data = {
+#                    "id": user.id,
+#                    "username": user.username,
+#                    "status": "online",
+#                    "created_at": user.date_joined.isoformat(),
+#                    "updated_at": user.last_login.isoformat(),
+#                    "code": "201",
+#                    }
+#
+#            return (JsonResponse(data))
+#        else:
+#            # Check if username is taken
+#            if "username" in form.errors:
+#                username_errors = form.errors["username"]
+#                user_exists_error = "A user with that username already exists." in username_errors
+#                data = {
+#                        "error": username_errors,
+#                        "code": "409",
+#                        }
+#                return (JsonResponse(data))
+#            else:
+#                error_message = form.errors.as_json()
+#                data = {
+#                        "error_message": error_message,
+#                        "code": "422",
+#                        }
+#                return (JsonResponse(data))
+#    return (render(request, "user/register.html", {
+#        "form": form
+#        }))
 
 @login_required
 def send_friend_request(request, user_id):
@@ -164,3 +217,42 @@ def accept_friend_request(request, request_id):
 #                "status": "error",
 #                }
 #        return (JsonResponse(data))
+
+def account_view(request, *args, **kwargs):
+    """
+    Logic for viewing user account
+        is_self -> Boolean
+        is_friend -> Boolean
+            -1: NO_REQUEST_SENT
+            0: THEM_SENT_TO_YOU
+            1: YOU_SENT_TO_THEM
+    """
+    context = {}
+    user_id = kwargs.get("user_id")
+    # if user does not exist we return a 404
+    try:
+        account = Users.objects.get(pk=user_id)
+    except Users.DoesNotExist:
+        return (HttpResponse("That user does not exist."))
+    # if user exists we check if they are a friend
+    if account:
+        context['id'] = account.id
+        context['username'] = account.username
+        context['email'] = account.email
+        context['profile_image'] = account.profile_image.url
+        context['hide_email'] = account.hide_email
+
+        # Define template variables
+        is_self = True
+        is_friend = False
+        user = request.user
+        if user.is_authenticated and user != account:
+            is_self = False
+        elif not user.is_authenticated:
+            is_self = False
+
+        context['is_self'] = is_self
+        context['is_friend'] = is_friend
+        context['BASE_URL'] = settings.BASE_URL
+
+        return (render(request, "user/account.html", context))

@@ -18,12 +18,6 @@ fi
 python manage.py makemigrations
 python manage.py migrate
 
-# Create superuser
-DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD python manage.py \
-    createsuperuser --no-input \
-    --username $DJANGO_SUPERUSER_USERNAME \
-    --email $DJANGO_SUPERUSER_EMAIL
-
 # Run the server
 python manage.py runserver 0.0.0.0:8000 2>&1
 

@@ -26,14 +26,21 @@ SECRET_KEY = 'django-insecure-^3mwpr*&go6+nh@jv-dtx)egg^ijuj*$8)4ry_&_3k)qxd61cx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
+
 ALLOWED_HOSTS = []
+
+AUTH_USER_MODEL = 'user.Users'
+AUTHENTICATION_BACKENDS = [
+        'django.contrib.auth.backends.AllowAllUsersModelBackend',
+        ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'user',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -56,7 +63,8 @@ ROOT_URLCONF = 'transcendance.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join( BASE_DIR, 'templates'),
+                 os.path.join( BASE_DIR, 'user', 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,7 +129,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static_cdn')
+        ]
+STATIC_URL = '/static_cdn/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -131,3 +142,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #CSRF settings
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8080', 'https://localhost:8080',
                         'http://127.0.0.1:8080', 'https://127.0.0.1:8080']
+
+# Media settings
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+
+TEMP = os.path.join(BASE_DIR, 'media_cdn/temp')
+
+BASE_DIR = "https://127.0.0.1:8080"
+BASE_URL = "https://127.0.0.1:8080"

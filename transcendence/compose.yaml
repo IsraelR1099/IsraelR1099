@@ -25,6 +25,8 @@ services:
       - ./db:/var/lib/postgresql/data
     networks:
       - transcendence-net
+    stdin_open: true
+    tty: true
 
   back:
     container_name: back

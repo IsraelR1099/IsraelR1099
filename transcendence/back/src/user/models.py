@@ -1,17 +1,56 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-# Create your models here.
 
-class   Users(models.Model):
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
-    birth_date = models.DateField(default = timezone.now)
-    username = models.CharField(max_length=64)
-    password = models.CharField(max_length=64)
-    created_date_time = models.DateField(default = timezone.now)
-    friends = models.ManyToManyField("Users", blank=True)
+class MyUsersManager(BaseUserManager):
+    def create_user(self, email, username, password=None):
+        if not email:
+            raise ValueError("Users must have an email address")
+        if not username:
+            raise ValueError("Users must have a username")
+        user = self.model(
+                email=self.normalize_email(email),
+                username=username,
+                )
+        user.set_password(password)
+        user.save(using=self._db)
+        return (user)
+
+
+def get_profile_image_filepath(self):
+    return (f'profile_images/{self.pk}/{"profile_image.png"}')
+
+def get_default_profile_image():
+    return ("profile_images/default_profile_image.jpg")
+
+class   Users(AbstractBaseUser):
+    first_name          = models.CharField(max_length=64)
+    last_name           = models.CharField(max_length=64)
+    birth_date          = models.DateTimeField(default = timezone.now)
+    username            = models.CharField(max_length=64, unique=True)
+#    password            = models.CharField(max_length=65)
+    email               = models.EmailField(max_length=100, verbose_name="email", unique=True)
+    created_date_time   = models.DateTimeField(verbose_name="date created", auto_now_add=True)
+    last_login          = models.DateTimeField(verbose_name="last login", auto_now=True)
+    is_active           = models.BooleanField(default=True)
+    profile_image       = models.ImageField(max_length=500, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile_image)
+    friends             = models.ManyToManyField("Users", blank=True)
+    hide_email          = models.BooleanField(default=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    objects = MyUsersManager()
+
+    def __str__(self):
+        return (f"{self.username}")
+
+    # This function substrates the name of the image from the user profile image
+    # and sets it as profile_image name
+    def get_profile_image_filename(self):
+        return (str(self.profile_image)[str(self.profile_image).index(f'profile_images/{self.pk}/'):])
 
     def __str__(self):
         return (f"{self.id}: {self.username}")
@@ -20,7 +59,7 @@ class FriendList(models.Model):
     user = models.OneToOneField(
             settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user")
     friends = models.ManyToManyField(
-            settings.AUTH_USER_MODEL, blank=True, related_name="friends")
+            settings.AUTH_USER_MODEL, blank=True, related_name="user_friends")
     def __str__(self):
         return (f"{self.user.username}")
     def add_friend(self, account):
