@@ -4,10 +4,11 @@ from . import views
 
 urlpatterns = [
         path("", views.index, name="index"),
+        path('account/<int:user_id>/', views.account_view, name="view"),
         path("login/", views.login_view, name="login"),
         path("logout/", views.logout_view, name="logout"),
         path("register/", views.register_user, name="register"),
-        path('account/<int:user_id>/', views.account_view, name="view"),
+        path("search/", views.account_search_view, name="search"),
         path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_reset/password_change_done.html'),
         name='password_change_done'),
 

@@ -256,3 +256,25 @@ def account_view(request, *args, **kwargs):
         context['BASE_URL'] = settings.BASE_URL
 
         return (render(request, "user/account.html", context))
+
+def account_search_view(request, *args, **kwargs):
+    context = {}
+    if request.method == "GET":
+        #This search query looks for the q on the url.
+        search_query = request.GET.get("q")
+        if len(search_query) > 0:
+            # We use icontains to not take in consideration upper case and
+            # lower case. filter allows us to search for different queries
+            # inside our db. distinct takes care if there is multiple results
+            # in our search
+            search_results = Users.objects.filter(email__icontains=search_query).filter(
+                    username__icontains=search_query).distinct()
+            # The structure of accounts is the followed:
+            # accounts = [(User1, True(depending if they are friends or not)),
+            # User2, False]
+            accounts = []
+            for account in search_results:
+                accounts.append((account, False))
+            context['accounts'] = accounts
+
+    return (render(request, "user/search_results.html", context))

@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -130,9 +130,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static_cdn')
+        os.path.join(BASE_DIR, 'static'),
+        os.path.join(BASE_DIR, 'media'),
         ]
-STATIC_URL = '/static_cdn/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -144,9 +146,8 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost:8080', 'https://localhost:8080',
                         'http://127.0.0.1:8080', 'https://127.0.0.1:8080']
 
 # Media settings
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+STATIC_ROOT     = os.path.join(BASE_DIR, 'static_cdn')
+MEDIA_ROOT      = os.path.join(BASE_DIR, 'media_cdn')
 
-TEMP = os.path.join(BASE_DIR, 'media_cdn/temp')
-
-BASE_DIR = "https://127.0.0.1:8080"
-BASE_URL = "https://127.0.0.1:8080"
+TEMP            = os.path.join(BASE_DIR, 'media_cdn/temp')
+BASE_URL        = "https://127.0.0.1:8080"

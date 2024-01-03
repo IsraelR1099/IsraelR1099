@@ -30,7 +30,6 @@ class   Users(AbstractBaseUser):
     last_name           = models.CharField(max_length=64)
     birth_date          = models.DateTimeField(default = timezone.now)
     username            = models.CharField(max_length=64, unique=True)
-#    password            = models.CharField(max_length=65)
     email               = models.EmailField(max_length=100, verbose_name="email", unique=True)
     created_date_time   = models.DateTimeField(verbose_name="date created", auto_now_add=True)
     last_login          = models.DateTimeField(verbose_name="last login", auto_now=True)
