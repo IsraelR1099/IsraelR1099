@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from .models import Users, FriendRequest, FriendList
-from .forms import RegistrationForm, UsersAuthenticationForm
+from .forms import RegistrationForm, UsersAuthenticationForm, UsersUpdateForm
 
 
 # Create your views here.
@@ -278,3 +278,47 @@ def account_search_view(request, *args, **kwargs):
             context['accounts'] = accounts
 
     return (render(request, "user/search_results.html", context))
+
+def edit_account_view(request, *arg, **kwargs):
+    if not request.user.is_authenticated:
+        return (redirect("login"))
+    user_id = kwargs.get("user_id")
+    try:
+        user = Users.objects.get(pk=user_id)
+    except Users.DoesNotExist:
+        return (HttpResponse("Something went wrong."))
+    if user.pk != request.user.pk:
+        return (HttpResponse("You cannot edit someone elses profile."))
+    context = {}
+    if request.POST:
+        form = UsersUpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            # We redirect to the same page to see the changes
+            return (redirect("view", user_id=user_id))
+        else:
+            form = UserUpdateForm(request.POST, instance=request.user,
+                                  initial= {
+                                      "id": user.pk,
+                                      "email": user.email,
+                                      "username": user.username,
+                                      "profile_image": user.profile_image,
+                                      "hide_email": user.hide_email,
+                                      })
+            context['form'] = form
+    else:
+        form = UsersUpdateForm(
+                initial= {
+                    "id": user.pk,
+                    "email": user.email,
+                    "username": user.username,
+                    "profile_image": user.profile_image,
+                    "hide_email": user.hide_email,
+                    })
+        context['form'] = form
+    context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
+    return (render(request, "user/edit_account.html", context))
+
+
+
+

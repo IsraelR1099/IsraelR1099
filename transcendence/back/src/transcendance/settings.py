@@ -151,3 +151,5 @@ MEDIA_ROOT      = os.path.join(BASE_DIR, 'media_cdn')
 
 TEMP            = os.path.join(BASE_DIR, 'media_cdn/temp')
 BASE_URL        = "https://127.0.0.1:8080"
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 # 10MB
