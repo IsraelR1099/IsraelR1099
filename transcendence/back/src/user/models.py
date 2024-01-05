@@ -19,8 +19,8 @@ class MyUsersManager(BaseUserManager):
         return (user)
 
 
-def get_profile_image_filepath(self):
-    return (f'profile_images/{self.pk}/{"profile_image.png"}')
+def get_profile_image_filepath(self, filename):
+    return ('profile_images/' + str(self.pk) + '/profile_image.png')
 
 def get_default_profile_image():
     return ("profile_images/default_profile_image.jpg")
@@ -55,10 +55,10 @@ class   Users(AbstractBaseUser):
         return (f"{self.id}: {self.username}")
 
 class FriendList(models.Model):
-    user = models.OneToOneField(
-            settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user")
-    friends = models.ManyToManyField(
-            settings.AUTH_USER_MODEL, blank=True, related_name="user_friends")
+    user        = models.OneToOneField(
+                    settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user")
+    friends     = models.ManyToManyField(
+                    settings.AUTH_USER_MODEL, blank=True, related_name="user_friends")
     def __str__(self):
         return (f"{self.user.username}")
     def add_friend(self, account):

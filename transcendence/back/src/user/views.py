@@ -293,11 +293,13 @@ def edit_account_view(request, *arg, **kwargs):
     if request.POST:
         form = UsersUpdateForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
+            # Delete the old profile image so the name is preserved
+            user.profile_image.delete()
             form.save()
             # We redirect to the same page to see the changes
             return (redirect("view", user_id=user_id))
         else:
-            form = UserUpdateForm(request.POST, instance=request.user,
+            form = UsersUpdateForm(request.POST, instance=request.user,
                                   initial= {
                                       "id": user.pk,
                                       "email": user.email,
@@ -318,7 +320,3 @@ def edit_account_view(request, *arg, **kwargs):
         context['form'] = form
     context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
     return (render(request, "user/edit_account.html", context))
-
-
-
-

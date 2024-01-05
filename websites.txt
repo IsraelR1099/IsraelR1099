@@ -598,3 +598,11 @@ https://dba.stackexchange.com/questions/135941/designing-a-friendships-database-
 https://medium.com/analytics-vidhya/add-friends-with-689a2fa4e41d
 
 https://www.youtube.com/watch?v=FrHnjoTqlIY&list=PLgCYzUzKIBE9KUJZJUmnDFYQfVyXYjX6r&index=4&ab_channel=CodingWithMitch
+
+
+
+Docker problems in MacOs:
+Error response from daemon: cannot stop container: <container_id> tried to kill
+container, but did not receive an exit event.
+Run: killall Docker && open /Applications/Docker.app
+then run docker compose down

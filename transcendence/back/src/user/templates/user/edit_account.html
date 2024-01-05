@@ -102,7 +102,8 @@
 
 	enableImageOverlay()
 
-	function enableImageOverlay(){
+	function enableImageOverlay()
+	{
 		var text = document.getElementById("id_text")
 		text.style.backgroundColor = "#0066ff"
 		text.style.color = "white"
@@ -120,7 +121,7 @@
 		profileImage.style.cursor = "pointer"
 
 		var middleContainer = document.getElementById("id_middle_container")
-		middleContainer.style.transition = ".5s ease"
+//		middleContainer.style.transition = ".5s ease"
 		middleContainer.style.opacity = "0"
 		middleContainer.style.position = "absolute"
 		middleContainer.style.top = "50%"
@@ -148,10 +149,10 @@
 		cropConfirm.classList.remove("flex-row")
 		cropConfirm.classList.remove("justify-content-between")
 		cropConfirm.classList.add("d-none")
-		
 	}
 
-	function disableImageOverlay(){
+	function disableImageOverlay()
+	{
 		var profileImage = document.getElementById("id_profile_image_display")
 		var middleContainer = document.getElementById("id_middle_container")
 		var imageContainer = document.getElementById("id_image_container")
@@ -188,7 +189,8 @@
 		cropConfirm.classList.add("justify-content-between")
 
 		var confirm = document.getElementById("id_confirm")
-		confirm.addEventListener("click", function(event){
+		confirm.addEventListener("click", function(event)
+		{
 			console.log("Sending crop data for processing...")
 			cropImage(
 				imageFile, 
