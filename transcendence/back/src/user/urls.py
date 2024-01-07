@@ -6,6 +6,7 @@ urlpatterns = [
         path("", views.index, name="index"),
         path('account/<int:user_id>/', views.account_view, name="view"),
         path('account/<int:user_id>/edit/', views.edit_account_view, name="edit"),
+        path("friend_request/", views.send_friend_request, name="friend-request"),
         path("login/", views.login_view, name="login"),
         path("logout/", views.logout_view, name="logout"),
         path("register/", views.register_user, name="register"),
@@ -25,6 +26,5 @@ urlpatterns = [
         path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset/password_reset_form.html', html_email_template_name='password_reset/password_reset_email.html', email_template_name='password_reset/password_reset_email.html'), name='password_reset'),
         path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset/password_reset_complete.html'),
      name='password_reset_complete'),
-        path("<int:user_id>/send_friend_request/", views.send_friend_request, name="send_friend_request"),
         path("<int:user_id>/accept_friend_request/", views.accept_friend_request, name="accept_friend_request"),
         ]
