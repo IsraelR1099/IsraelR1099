@@ -606,3 +606,5 @@ Error response from daemon: cannot stop container: <container_id> tried to kill
 container, but did not receive an exit event.
 Run: killall Docker && open /Applications/Docker.app
 then run docker compose down
+
+curl -k -sS -X POST -H "Content-Type:application/json" -d '{"email": "test@test.com", "pass": "hola1"}' https://127.0.0.1:8080/user/login/
