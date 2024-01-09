@@ -45,9 +45,15 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
+		context["id"] = user.id
+		context["user"] = user.email
+		context["username"] = user.username
+		context["status"] = "online"
+		context["created_at"] = user.created_date_time.isoformat()
                 if destination:
                     return (redirect(destination))
-                return (redirect("index"))
+		return (HttResponse(json.dumps(context), content_type="application/json"))
+                #return (redirect("index"))
         else:
             context["login_form"] = form
     return (render(request, "user/login.html", context))
