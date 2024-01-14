@@ -23,7 +23,7 @@ def get_profile_image_filepath(self, filename):
     return ('profile_images/' + str(self.pk) + '/profile_image.png')
 
 def get_default_profile_image():
-    return ("profile_images/default_profile_image.jpg")
+    return ("profile_images/default_profile_image.png")
 
 class   Users(AbstractBaseUser):
     first_name          = models.CharField(max_length=64)

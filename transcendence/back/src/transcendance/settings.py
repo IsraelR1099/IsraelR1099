@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
+import logging
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -92,6 +93,20 @@ DATABASES = {
         'HOST': os.environ.get('POSTGRES_HOST'),
         'PORT': 5432,
     }
+}
+
+LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+                },
+            },
+        'root': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            },
 }
 
 

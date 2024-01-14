@@ -41,7 +41,7 @@
 				{% for field in login_form %}
 				<p>
 				{% for error in field.errors %}
-				<p style="color: red">{{ error }}</p>
+                <p style="color: red">{{ field.label }}: {{ error }}</p>
 				{% endfor %}
 				</p>
 				{% endfor %}

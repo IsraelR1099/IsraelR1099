@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
+import json
+import logging
 
 from .models import Users
 
@@ -37,8 +39,9 @@ class UsersAuthenticationForm(forms.ModelForm):
         if self.is_valid():
             email = self.cleaned_data['email']
             password = self.cleaned_data['password']
+            logging.debug(f"email: |{email}|, password: |{password}|")
             if not authenticate(email=email, password=password):
-                raise forms.ValidationError("Invalid login")
+                raise forms.ValidationError("Invalid email or password")
 
 class UsersUpdateForm(forms.ModelForm):
     class Meta:
