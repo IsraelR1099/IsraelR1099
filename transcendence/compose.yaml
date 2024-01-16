@@ -39,9 +39,7 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - POSTGRES_DB
-      - DJANGO_SUPERUSER_USERNAME
-      - DJANGO_SUPERUSER_PASSWORD
-      - DJANGO_SUPERUSER_EMAIL
+      - POSTGRES_PORT
     restart: always
     expose:
       - "8000"
@@ -50,6 +48,16 @@ services:
     depends_on:
       - db
 
+  frontend:
+    image: nginx:alpine
+    container_name: frontend
+    restart: always
+    ports:
+      - "8081:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    networks:
+      - transcendence-net
 
 networks:
   transcendence-net:
