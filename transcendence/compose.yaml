@@ -40,6 +40,7 @@ services:
       - POSTGRES_PASSWORD
       - POSTGRES_DB
       - POSTGRES_PORT
+      - DBASE
     restart: always
     expose:
       - "8000"

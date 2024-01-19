@@ -134,6 +134,15 @@ Default value: 1m
 This is the maximum size of a client request body. If the size is exceeded,
 Nginx returns a 413 error to the client.
 
+\section{Reverse proxy mechanism}
+\subsection{main directives}
+\begin{itemize}
+	\item proxy_pass: Specifies that the request should be forwarded to
+		the backend server by indicating its location. Syntax:
+		proxy_pass http://hostname:port. You may also refer to upstream blocks
+		proxy_pass http://myblock;
+
+
 \subsection{if/elif/else}
 number = int(input("Number: "))
 if number > 0:
