@@ -30,7 +30,7 @@ DEBUG = True
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'backend']
 
 AUTH_USER_MODEL = 'user.Users'
 AUTHENTICATION_BACKENDS = [
@@ -64,8 +64,8 @@ ROOT_URLCONF = 'transcendance.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join( BASE_DIR, 'templates'),
-                 os.path.join( BASE_DIR, 'user', 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(BASE_DIR, 'user', 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -156,7 +156,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#CSRF settings
+# CSRF settings
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8080', 'https://localhost:8080',
                         'http://127.0.0.1:8080', 'https://127.0.0.1:8080']
 

@@ -74,7 +74,7 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
             context = generate_response("401", error_message=errors)
             return (JsonResponse(context, encoder=DjangoJSONEncoder))
         context = generate_response("401", error_message=errors)
-        return (JsonResponse(context, encoder=DjangoJSONEncoder))
+    return (JsonResponse(context, encoder=DjangoJSONEncoder))
 
 #        else:
 #            context["login_form"] = form

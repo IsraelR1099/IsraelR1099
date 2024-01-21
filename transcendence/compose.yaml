@@ -5,9 +5,11 @@ services:
     container_name: nginx
     restart: always
     ports:
-      - "8080:443"
+      - "443:443"
     networks:
         - transcendence-net
+    volumes:
+      - ./frontend:/usr/share/nginx/html
 
   db:
     image: postgres:16-alpine
