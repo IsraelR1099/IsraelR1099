@@ -611,3 +611,5 @@ curl -k -sS -X POST -H "Content-Type:application/json" -d '{"email": "test@test.
 
 
 https://www.haio.ir/app/uploads/2021/12/Nginx-HTTP-Server-by-Martin-Fjordvald-Clement-Nedelcu-z-lib.org_.pdf
+
+https://www.freecodecamp.org/news/how-to-use-jwt-and-django-rest-framework-to-get-tokens/
