@@ -42,17 +42,13 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     if user.is_authenticated:
         return (redirect("index"))
     destination = get_redirect_if_exists(request)
-    # if request.POST:
     if request.method == "POST":
         try:
             json_data = request.body.decode("utf-8")
             json_data = json.loads(json_data)
             logging.debug("json_data is %s", json_data)
             form = UsersAuthenticationForm(json_data)
-            # form = UsersAuthenticationForm(request.POST)
             if form.is_valid():
-                # email = request.POST["email"].lower()
-                # password = request.POST["password"]
                 email = json_data["email"].lower()
                 password = json_data["password"]
                 logging.debug("email is despues %s", email)
@@ -62,7 +58,6 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                     context = generate_response("200", user=user)
                     if destination:
                         return (redirect(destination))
-                    # return (redirect("index"))
                     return (JsonResponse(context, encoder=DjangoJSONEncoder))
             else:
                 context["login_form"] = form
@@ -75,11 +70,6 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
             return (JsonResponse(context, encoder=DjangoJSONEncoder))
         context = generate_response("401", error_message=errors)
     return (JsonResponse(context, encoder=DjangoJSONEncoder))
-
-#        else:
-#            context["login_form"] = form
-#    return (render(request, "user/login.html", context))
-    # return (render(request, "user/login.html", context))
 
 
 @login_required
@@ -101,13 +91,11 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
         context["error"] = "You are already registered and logged in."
         return (HttpResponse(
             json.dumps(context), content_type="application/json"))
-    # if request.POST:
     if request.method == "POST":
         try:
             json_data = request.body.decode("utf-8")
             json_data = json.loads(json_data)
             form = RegistrationForm(json_data)
-            # form = RegistrationForm(request.POST)
             if form.is_valid():
                 form.save()
                 email = form.cleaned_data.get("email").lower()
@@ -118,21 +106,14 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 if destination:
                     return (redirect(destination))
                 context = generate_response("201", user=account)
-                return (redirect("index"))
-                # return (JsonResponse(context, encoder=DjangoJSONEncoder))
+                return (JsonResponse(context, encoder=DjangoJSONEncoder))
             else:
                 context["registration_form"] = form
         except json.JSONDecodeError:
             errors = {"JSONDecodeError": "Please provide a valid JSON."}
             context = generate_response("401", error_message=errors)
             return (JsonResponse(context, encoder=DjangoJSONEncoder))
-    return (render(request, "user/register.html", context))
-#        else:
-#            errors = {}
-#            for field, field_errors in form.errors.items():
-#                errors[field] = field_errors
-#            context = generate_response("401", error_message=errors)
-#    return (JsonResponse(context, encoder=DjangoJSONEncoder))
+    return (JsonResponse(context, encoder=DjangoJSONEncoder))
 
 
 @login_required

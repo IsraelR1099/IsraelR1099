@@ -14,15 +14,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path,include
+from django.urls import path, include
 from django.conf.urls.static import static
+from rest_framework_simplejwt import views as jwt_views
 from django.conf import settings
 
 urlpatterns = [
     path('user/', include("user.urls")),
+    path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL,
-            document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+            settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(
+            settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

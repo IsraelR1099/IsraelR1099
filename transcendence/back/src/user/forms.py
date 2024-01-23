@@ -6,9 +6,10 @@ import logging
 
 from .models import Users
 
+
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(max_length=64, help_text='Required. Add a valid email address')
-    print(email)
+
     class Meta:
         model = Users
         fields = ("email", "username", "password1", "password2")
@@ -29,8 +30,10 @@ class RegistrationForm(UserCreationForm):
             return username
         raise forms.ValidationError(f"Username {username} is already in use.")
 
+
 class UsersAuthenticationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
     class Meta:
         model = Users
         fields = ('email', 'password')
@@ -42,6 +45,7 @@ class UsersAuthenticationForm(forms.ModelForm):
             logging.debug(f"email: |{email}|, password: |{password}|")
             if not authenticate(email=email, password=password):
                 raise forms.ValidationError("Invalid email or password")
+
 
 class UsersUpdateForm(forms.ModelForm):
     class Meta:

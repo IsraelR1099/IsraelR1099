@@ -20,13 +20,14 @@
 
   <h2>Register form</h2>
   <form id="registerForm">
-      <label for="newUsername">New Username:</label>
-      <input type="text" id="newUsername" name="newUsername" required>
+      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
       <br>
-      <label for="newPassword">New Password:</label>
-      <input type="password" id="newPassword" name="newPassword" required>
+      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
       <br>
-      <button type="submit">Register</button>
+      <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password" required>
+      <br>
+      <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm Password" required>
+        <button type="submit">Register</button>
   </form>
 
   <script src="app.js"></script>

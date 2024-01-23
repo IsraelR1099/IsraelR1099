@@ -1,5 +1,5 @@
+# requirements.txt
 asgiref==3.7.2
-Django==5.0
 loguru==0.7.2
 psycopg==3.1.14
 psycopg-binary==3.1.14
@@ -10,3 +10,16 @@ typing_extensions==4.8.0
 Pillow==10.0.0
 wheel==0.42.0
 setuptools==69.0.3
+
+# Django and Django REST framework
+
+Django==5.0
+djangorestframework==3.14.0
+
+# JWT authentication for Django REST framework
+
+djangorestframework-simplejwt==5.3.1
+
+# Time zone support
+
+pytz==2023.3.post1

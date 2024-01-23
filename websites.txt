@@ -617,3 +617,6 @@ https://www.freecodecamp.org/news/how-to-use-jwt-and-django-rest-framework-to-ge
 
 # django error "No module named 'psycopg_c' "
 https://www.psycopg.org/psycopg3/docs/basic/install.html#binary-installation
+
+# Carriage return error
+sed -i 's/\r//g' [file name]

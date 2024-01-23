@@ -1,6 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
+	const userPage = document.getElementById('userPage');
+	const logoutButton = document.getElementById('logoutButton');
+
+
+	function redirectToUserPage() {
+		loginForm.style.display = 'none';
+		registerForm.style.display = 'none';
+		userPage.style.display = 'block';
+	}
+
+	function handleLogout() {
+		loginForm.style.display = 'block';
+		registerForm.style.display = 'block';
+		userPage.style.display = 'none';
+	}
 
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
@@ -18,35 +33,50 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 		const data = await response.json();
 
-        // Handle the response as needed
-		console.log(data);
+		if (response.ok) {
+			console.log(data);
+			redirectToUserPage();
+		} else {
+			console.error("Login failed", error);
+		}
+
 	} catch (error) {
 		console.error("there was an error", error);
 	}
     });
 
+
     registerForm.addEventListener('submit', async function (event) {
         event.preventDefault();
-        const newUsername = document.getElementById('newUsername').value;
-        const newPassword = document.getElementById('newPassword').value;
+        const email = document.getElementById('inputEmail').value;
+        const username = document.getElementById('inputUsername').value;
+        const password1 = document.getElementById('inputPassword1').value;
+        const password2 = document.getElementById('inputPassword2').value;
 
         // Make a POST request to your Django register endpoint
 	try {
-		const response = await fetch('https://127.0.0.1:8000/api/user/register/', {
+		const response = await fetch('/api/user/register/', {
 		    method: 'POST',
 		    headers: {
 			'Content-Type': 'application/json',
 			'Accept': 'application/json'
 		    },
-		    body: JSON.stringify({ newUsername, newPassword }),
+		    body: JSON.stringify({ email, username, password1, password2 }),
 		});
 
 		const data = await response.json();
 
-        // Handle the response as needed
-		console.log(data);
+		if (response.ok) {
+			console.log(data);
+			redirectToUserPage();
+		}
+
 	} catch (error) {
 		console.error(error);
 	}
     });
+
+	logoutButton.addEventListener('click', function (event) {
+		handleLogout();
+	});
 });
