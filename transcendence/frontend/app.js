@@ -1,50 +1,66 @@
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
-	const userPage = document.getElementById('userPage');
-	const logoutButton = document.getElementById('logoutButton');
 
+    function redirectToUserPage() {
+        // Redirect the user to user.html
+        window.location.href = 'user.html';
+    }
 
-	function redirectToUserPage() {
-		loginForm.style.display = 'none';
-		registerForm.style.display = 'none';
-		userPage.style.display = 'block';
-	}
+    async function loginUser(email, password) {
+        try {
+            const response = await fetch('/api/user/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-	function handleLogout() {
-		loginForm.style.display = 'block';
-		registerForm.style.display = 'block';
-		userPage.style.display = 'none';
-	}
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log(data);
+                redirectToUserPage();
+            } else {
+                console.error("Login failed", data.error);
+            }
+
+        } catch (error) {
+            console.error("There was an error", error);
+        }
+    }
+
+    async function registerUser(email, username, password1, password2) {
+        try {
+            const response = await fetch('/api/user/register/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ email, username, password1, password2 }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log(data);
+                redirectToUserPage();
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        // Make a POST request to your Django login endpoint
-	try {
-		const response = await fetch('/api/user/login/', {
-		    method: 'POST',
-		    headers: {
-			'Content-Type': 'application/json',
-		    },
-		    body: JSON.stringify({ email, password }),
-		});
-		const data = await response.json();
-
-		if (response.ok) {
-			console.log(data);
-			redirectToUserPage();
-		} else {
-			console.error("Login failed", error);
-		}
-
-	} catch (error) {
-		console.error("there was an error", error);
-	}
+        await loginUser(email, password);
     });
-
 
     registerForm.addEventListener('submit', async function (event) {
         event.preventDefault();
@@ -53,30 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const password1 = document.getElementById('inputPassword1').value;
         const password2 = document.getElementById('inputPassword2').value;
 
-        // Make a POST request to your Django register endpoint
-	try {
-		const response = await fetch('/api/user/register/', {
-		    method: 'POST',
-		    headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json'
-		    },
-		    body: JSON.stringify({ email, username, password1, password2 }),
-		});
-
-		const data = await response.json();
-
-		if (response.ok) {
-			console.log(data);
-			redirectToUserPage();
-		}
-
-	} catch (error) {
-		console.error(error);
-	}
+        await registerUser(email, username, password1, password2);
     });
-
-	logoutButton.addEventListener('click', function (event) {
-		handleLogout();
-	});
 });
