@@ -16,6 +16,7 @@ from .forms import RegistrationForm, UsersAuthenticationForm, UsersUpdateForm
 from .utils import get_friend_request_or_false
 from .utils import generate_response
 from .friend_request_status import FriendRequestStatus
+from .tokens import create_jwt_pair_for_user
 
 
 # Create your views here.
@@ -55,6 +56,7 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 user = authenticate(email=email, password=password)
                 if user:
                     login(request, user)
+                    tokens = create_jwt_pair_for_user(user)
                     context = generate_response("200", user=user)
                     if destination:
                         return (redirect(destination))

@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
+	const loginForm = document.getElementById('loginForm');
+	const registerForm = document.getElementById('registerForm');
+	const userPage = document.getElementById('userPage');
 
-    function redirectToUserPage() {
-        // Redirect the user to user.html
-        window.location.href = 'user.html';
-    }
+ 	function redirectToUserPage(data) {
+		localStorage.setItem('userData', JSON.stringify(data));
+        	window.location.href = 'user.html';
+    	}
 
     async function loginUser(email, password) {
         try {
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 console.log(data);
-                redirectToUserPage();
+                redirectToUserPage(data);
             } else {
                 console.error("Login failed", data.error);
             }
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 console.log(data);
-                redirectToUserPage();
+                redirectToUserPage(data);
             }
 
         } catch (error) {

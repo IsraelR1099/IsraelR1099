@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 import logging
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -113,6 +114,13 @@ REST_FRAMEWORK = {
         'DEFAULT_AUTHENTICATION_CLASSES': [
             'rest_framework_simplejwt.authentication.JWTAuthentication',
             ],
+        }
+
+SIMPLE_JWT = {
+        'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+        'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+        'SIGNING_KEY': SECRET_KEY,
+        'AUTH_HEADER_TYPES': ('Bearer',),
         }
 
 # Password validation
