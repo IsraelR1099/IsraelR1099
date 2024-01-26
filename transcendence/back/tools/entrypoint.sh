@@ -7,7 +7,7 @@ then
     # Wait for the database to be ready
     # This is necessary because the database container may not be ready to accept connections when the web container starts
     echo "Waiting for the database to be ready..."
-	/usr/local/bin/wait-for-it.sh $POSTGRES_HOST:$POSTGRES_PORT -t 60
+	/usr/local/bin/wait-for-it.sh $POSTGRES_HOST:$POSTGRES_PORT -t 0
     echo "Database ready"
 fi
 
