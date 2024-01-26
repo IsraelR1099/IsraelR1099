@@ -9,7 +9,7 @@ services:
     networks:
         - transcendence-net
     volumes:
-      - ./frontend:/usr/share/nginx/html
+      - ./front:/usr/share/nginx/html
 
   db:
     image: postgres:16-alpine
@@ -51,14 +51,14 @@ services:
     depends_on:
       - db
 
-  frontend:
+  front:
     image: nginx:alpine
-    container_name: frontend
+    container_name: front
     restart: always
     ports:
       - "8081:80"
     volumes:
-      - ./frontend:/usr/share/nginx/html
+      - ./front:/usr/share/nginx/html
     networks:
       - transcendence-net
 
