@@ -1,5 +1,5 @@
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.aut import get_user_model
+from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
@@ -9,6 +9,8 @@ def create_jwt_pair_for_user(user: User) -> dict:
 
     tokens = {
             "access": str(refresh.access_token),
-            "refresh": str(refresh)
+            "access_expires_at": refresh.access_token['exp'],
+            "refresh": str(refresh),
+            "refresh_expires_at": refresh['exp']
         }
     return (tokens)

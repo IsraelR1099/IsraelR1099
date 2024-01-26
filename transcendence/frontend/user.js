@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				<td>${userData.username}</td>
 				<td>${userData.password}</td>
 				<td>${userData.status}</td>
+				<td>${userData.token_access}</td>
+				<td>${userData.token_refresh}</td>
 			</tr>
 			`;
 			userTable.innerHTML = row;

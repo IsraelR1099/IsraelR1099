@@ -9,7 +9,7 @@ def get_friend_request_or_false(sender, receiver):
         return False
 
 
-def generate_response(status, user=None, error_message=None):
+def generate_response(status, user=None, error_message=None, tokens=None):
     response = {}
 
     # Login
@@ -20,6 +20,19 @@ def generate_response(status, user=None, error_message=None):
             response["username"] = user.username
             response["email"] = user.email
             response["status"] = "online"
+
+            if tokens:
+                access_token = tokens.get("access", "")
+                refresh_token = tokens.get("refresh", "")
+
+                # Access token info
+                if access_token:
+                    response["token_access"] = access_token
+
+                # Refresh token info
+                if refresh_token:
+                    response["token_refresh"] = refresh_token
+
     # Register
     elif status == "201":
         if user:
