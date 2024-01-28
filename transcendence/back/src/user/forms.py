@@ -33,17 +33,18 @@ class RegistrationForm(UserCreationForm):
 
 class UsersAuthenticationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    logging.debug("UsersAuthenticationForm")
 
     class Meta:
         model = Users
-        fields = ('email', 'password')
+        fields = ('username', 'password')
 
     def clean(self):
         if self.is_valid():
-            email = self.cleaned_data['email']
+            username = self.cleaned_data['username']
             password = self.cleaned_data['password']
-            logging.debug(f"email: |{email}|, password: |{password}|")
-            if not authenticate(email=email, password=password):
+            logging.debug(f"username: |{username}|, password: |{password}|")
+            if not authenticate(username=username, password=password):
                 raise forms.ValidationError("Invalid email or password")
 
 

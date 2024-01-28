@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
         	window.location.href = 'user.html';
     	}
 
-    async function loginUser(email, password) {
+    async function loginUser(username, password) {
         try {
             const response = await fetch('/api/user/login/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ username, password }),
             });
 
             const data = await response.json();
@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.ok) {
                 console.log(data);
                 redirectToUserPage(data);
+            } else {
+                console.error("Registration failed", data.error);
             }
 
         } catch (error) {
@@ -57,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
-        const email = document.getElementById('email').value;
+        const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        await loginUser(email, password);
+        await loginUser(username, password);
     });
 
     registerForm.addEventListener('submit', async function (event) {

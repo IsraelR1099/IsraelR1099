@@ -8,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from rest_framework.decorators import api_view
 import json
 import logging
 
@@ -50,20 +52,24 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
             logging.debug("json_data is %s", json_data)
             form = UsersAuthenticationForm(json_data)
             if form.is_valid():
-                email = json_data["email"].lower()
+                username = json_data["username"]
                 password = json_data["password"]
-                user = authenticate(email=email, password=password)
+                logging.debug("username is %s", username)
+                logging.debug("password is %s", password)
+                user = authenticate(username=username, password=password)
                 if user:
                     login(request, user)
                     tokens = create_jwt_pair_for_user(user)
                     logging.debug("tokens %s", tokens)
-                    context = generate_response("200", user=user, tokens=tokens)
+                    context = generate_response(
+                            "200", user=user, tokens=tokens)
                     if destination:
                         return (redirect(destination))
                     return (JsonResponse(context, encoder=DjangoJSONEncoder))
                 else:
                     logging.debug("user is not valid")
             else:
+                logging.debug("form is not valid")
                 context["login_form"] = form
                 errors = {}
                 for field, field_errors in form.errors.items():
@@ -79,12 +85,37 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
 
 @login_required
 @csrf_exempt
+@api_view(["POST"])
 def logout_view(request: HttpRequest) -> JsonResponse:
+    """ Blacklist the refresh token: extract the token from the request
+    object. Refresh token is blacklisted because this token has a longer
+    lifetime than the access token. """
     logout(request)
-    context = {
-        "message": "Logout successful.",
-        "status": "success",
-            }
+    refresh_token = request.data.get("refresh_token")
+    if refresh_token:
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            context = {
+                    "message": "Logout successful.",
+                    "status": "success",
+                    }
+            logging.debug("context is %s", context)
+            return (JsonResponse(context, encoder=DjangoJSONEncoder))
+        except TokenError as e:
+            context = {
+                    "message": "Logout failed.",
+                    "status": "failed",
+                    "error": str(e),
+                    }
+            logging.debug("context is %s", context)
+            return (JsonResponse(context, encoder=DjangoJSONEncoder))
+    else:
+        context = {
+            "message": "Refresh token not provided.",
+            "status": "error",
+                }
+        logging.debug("context is %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder))
 
 
@@ -100,24 +131,29 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
         try:
             json_data = request.body.decode("utf-8")
             json_data = json.loads(json_data)
+            logging.debug("json_data is %s", json_data)
             form = RegistrationForm(json_data)
             if form.is_valid():
                 form.save()
-                email = form.cleaned_data.get("email").lower()
+                username = form.cleaned_data.get("username")
                 raw_password = form.cleaned_data.get("password1")
-                account = authenticate(email=email, password=raw_password)
+                account = authenticate(username=username, password=raw_password)
                 login(request, account)
+                tokens = create_jwt_pair_for_user(account)
                 destination = get_redirect_if_exists(request)
                 if destination:
                     return (redirect(destination))
-                context = generate_response("201", user=account)
+                context = generate_response("201", user=account, tokens=tokens)
                 return (JsonResponse(context, encoder=DjangoJSONEncoder))
             else:
-                context["registration_form"] = form
+                errors = {"error": form.errors}
+                context = generate_response("401", error_message=form.errors)
         except json.JSONDecodeError:
             errors = {"JSONDecodeError": "Please provide a valid JSON."}
             context = generate_response("401", error_message=errors)
+            logging.debug("context is %s", context)
             return (JsonResponse(context, encoder=DjangoJSONEncoder))
+    logging.debug("context before is %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder))
 
 
@@ -261,7 +297,7 @@ def account_view(request, *args, **kwargs):
         context['BASE_URL'] = settings.BASE_URL
         context['request_sent'] = request_sent
         context['friend_requests'] = friend_requests
-        return (render(request, "user/account.html", context))
+    return (render(request, "user/account.html", context))
 
 
 def account_search_view(request, *args, **kwargs):

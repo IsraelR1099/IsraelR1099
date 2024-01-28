@@ -22,8 +22,10 @@ class MyUsersManager(BaseUserManager):
 def get_profile_image_filepath(self, filename):
     return ('profile_images/' + str(self.pk) + '/profile_image.png')
 
+
 def get_default_profile_image():
     return ("profile_images/default_profile_image.png")
+
 
 class   Users(AbstractBaseUser):
     first_name          = models.CharField(max_length=64)
@@ -38,29 +40,29 @@ class   Users(AbstractBaseUser):
     friends             = models.ManyToManyField("Users", blank=True)
     hide_email          = models.BooleanField(default=True)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
 
     objects = MyUsersManager()
 
     def __str__(self):
         return (f"{self.username}")
 
-    # This function substrates the name of the image from the user profile image
-    # and sets it as profile_image name
+    # This function substrates the name of the image from the user profile
+    # image and sets it as profile_image name
     def get_profile_image_filename(self):
         return (str(self.profile_image)[str(self.profile_image).index(f'profile_images/{self.pk}/'):])
 
-    def __str__(self):
-        return (f"{self.id}: {self.username}")
 
 class FriendList(models.Model):
     user        = models.OneToOneField(
                     settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user")
     friends     = models.ManyToManyField(
                     settings.AUTH_USER_MODEL, blank=True, related_name="user_friends")
+
     def __str__(self):
         return (f"{self.user.username}")
+
     def add_friend(self, account):
         """
         Add a new friend.
@@ -79,7 +81,7 @@ class FriendList(models.Model):
         """
         Initiate the action of unfriending someone.
         """
-        remover_friends_list = self # person terminating the friendship
+        remover_friends_list = self  # person terminating the friendship
         # Remove friend from remover friend list
         remover_friends_list.remove_friend(removee)
         # Remove friend from removee friend list
@@ -93,6 +95,7 @@ class FriendList(models.Model):
         if friend in self.friends.all():
             return (True)
         return (False)
+
 
 class FriendRequest(models.Model):
     """
@@ -124,6 +127,7 @@ class FriendRequest(models.Model):
                 sender_friend_list.add_friend(self.receiver)
                 self.is_active = False
                 self.save()
+
     def decline(self):
         """
         Decline a friend request.
@@ -141,4 +145,3 @@ class FriendRequest(models.Model):
         """
         self.is_active = False
         self.save()
-

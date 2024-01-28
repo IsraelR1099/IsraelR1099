@@ -24,9 +24,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	async function logoutUser() {
 		try {
+			const userData = JSON.parse(localStorage.getItem('userData'));
+			if (!userData || !userData.token_access) {
+				console.error('No user data found.');
+				return;
+			}
+
 			const response = await fetch('/api/user/logout/', {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
+				headers: { 'Content-Type': 'application/json',
+					'Accept': 'application/json',
+					'Authorization': `Bearer ${userData.token_access}`,
+				},
+				body: JSON.stringify({
+					refresh_token: userData.token_refresh
+				})
 			});
 
 			if (response.ok) {
