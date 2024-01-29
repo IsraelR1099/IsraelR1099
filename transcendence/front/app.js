@@ -20,7 +20,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
 
-            if (response.ok) {
+			if (data.error) {
+				console.error("Login failed", data.error);
+				alert (data.error['__all__'][0]);
+			}
+			else if (response.ok) {
                 console.log(data);
                 redirectToUserPage(data);
             } else {
