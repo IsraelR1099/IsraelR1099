@@ -1,6 +1,12 @@
 #!/bin/sh
 
-exec "$@"
+delete_migrations() {
+	echo "Deleting migration files..."
+	find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+	find . -path "*/migrations/*.pyc"  -delete
+	echo "Migration files deleted."
+}
+
 # Check if the database is using PostgreSQL
 if [ "$DBASE" = "postgreSQL" ]
 then
@@ -11,9 +17,19 @@ then
     echo "Database ready"
 fi
 
-# Apply database migrations
-python manage.py makemigrations
-python manage.py migrate
+# Check if any migrations are applied
+if [ -z "$(python manage.py showmigrations | grep '[ \]')" ]; then
+	# No migrations are applied so we run migrations and migrate
+	echo "No migrations applied. Running migrations..."
+	# Apply database migrations
+	python manage.py makemigrations
+	python manage.py migrate
+	echo "Migrations applied."
+else
+	# Migrations are applied, so we delete them
+	delete_migrations
+fi
+
 
 # Run the server
 python manage.py runserver 0.0.0.0:8000 2>&1
