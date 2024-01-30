@@ -18,7 +18,8 @@ RUN apk update && \
 COPY src /srv
 COPY ./tools/wait-for-it.sh /usr/local/bin/wait-for-it.sh
 COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./tools/reset_migrations.sh /usr/local/bin/reset_migrations.sh
 
-RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/wait-for-it.sh /usr/local/bin/reset_migrations.sh
 
 ENTRYPOINT ["/bin/sh", "/usr/local/bin/entrypoint.sh"]
