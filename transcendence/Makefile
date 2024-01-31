@@ -2,10 +2,19 @@ RED = \033[1;31m
 GREEN = \033[1;32m
 RESET = \033[0m
 
-all:
+all: reset_migrations
 	@echo "$(GREEN)Starting server...$(RESET)"
 	@sleep 1
 	@docker compose -f compose.yaml up -d --build
+
+reset_migrations:
+	@read -p "Do you want to reset migrations? [yes/no]: " reset_migrations; \
+		if [ "$$reset_migrations" = "yes" ]; then \
+			sed -i '' 's/RESET_MIGRATIONS=.*/RESET_MIGRATIONS=true/' .env; \
+		else \
+			echo "$(RED)Skipping migrations...$(RESET)"; \
+			sed -i '' 's/RESET_MIGRATIONS=.*/RESET_MIGRATIONS=false/' .env; \
+		fi
 
 stop:
 	@echo "$(RED)Stopping server...$(RESET)"

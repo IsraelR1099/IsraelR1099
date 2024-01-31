@@ -11,7 +11,7 @@ then
 fi
 
 # Check if any migrations are applied
-if [ -z "$(python manage.py showmigrations | grep '\[ \]')" ];
+if [ "$(ls user/migrations/000*.py 2>/dev/null | wc -l)" -eq 0 ];
 then
 	# No migrations are applied so we run migrations and migrate
 	echo "No migrations applied. Running migrations..."
@@ -25,7 +25,7 @@ else
 	if [ "$RESET_MIGRATIONS" = "true" ]
 	then
 		echo "Resetting migrations..."
-		./reset_migrations.sh --settings=transcendence.settings --makemigrations
+		/usr/local/bin/reset_migrations.sh --settings=transcendence.settings --makemigrations
 		echo "Migrations reset."
 	fi
 fi
