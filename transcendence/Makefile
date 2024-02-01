@@ -8,13 +8,18 @@ all: reset_migrations
 	@docker compose -f compose.yaml up -d --build
 
 reset_migrations:
-	@read -p "Do you want to reset migrations? [yes/no]: " reset_migrations; \
-		if [ "$$reset_migrations" = "yes" ]; then \
-			sed -i '' 's/RESET_MIGRATIONS=.*/RESET_MIGRATIONS=true/' .env; \
-		else \
-			echo "$(RED)Skipping migrations...$(RESET)"; \
-			sed -i '' 's/RESET_MIGRATIONS=.*/RESET_MIGRATIONS=false/' .env; \
-		fi
+	@if ! grep -q '^RESET_MIGRATIONS=false' .env; then \
+		read -p "Do you want to reset migrations? [yes/no]: " reset_migrations; \
+			if [ $$reset_migrations = "yes" ]; then \
+				sed -i 's/RESET_MIGRATIONS=.*/RESET_MIGRATIONS=true/' .env; \
+			else \
+				echo "$(RED)Skipping migrations...$(RESET)"; \
+				sed -i 's/RESET_MIGRATIONS=.*/RESET_MIGRATIONS=false/' .env; \
+			fi \
+	else \
+		echo "$(RED)Migrations already reset, skippping...$(RESET)"; \
+		sed -i 's/RESET_MIGRATIONS=.*/RESET_MIGRATIONS=false/' .env; \
+	fi
 
 stop:
 	@echo "$(RED)Stopping server...$(RESET)"

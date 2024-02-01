@@ -1,23 +1,20 @@
 #!/bin/sh
 
-SETTINGS=""
+MANAGE_DIR="/srv"
 MAKEMIGRATIONS=false
 
 usage(){
     echo ""
     echo "./reset_migrations.sh"
     echo "\t-h --help"
-    echo "\t--settings=<your settings file>"
     echo "\t--makemigrations, if you need to create migrations"
     echo ""
 }
 
 error_exit() {
-	echo "$1" 1>&2
-	exit 1
+    echo "$1" 1>&2
+    exit 1
 }
-
-MANAGE_DIR="/srv"
 
 while [ "$1" != "" ]; do
     PARAM=`echo $1 | awk -F= '{print $1}'`
@@ -26,9 +23,6 @@ while [ "$1" != "" ]; do
         -h | --help)
             usage
             exit
-            ;;
-        --settings)
-            SETTINGS=$VALUE
             ;;
         --makemigrations)
             MAKEMIGRATIONS=true
@@ -42,15 +36,7 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ -z $SETTINGS ]
-   then
-       usage
-       exit 1
-   fi
-
 echo "Starting ..."
-
-export DJANGO_SETTINGS_MODULE=$SETTINGS
 
 echo ">> Deleting database migrations..."
 echo "DELETE FROM django_migrations;" | python $MANAGE_DIR/manage.py dbshell

@@ -242,7 +242,9 @@ def account_view(request, *args, **kwargs):
     try:
         account = Users.objects.get(pk=user_id)
     except Users.DoesNotExist:
-        return (HttpResponse("That user does not exist."))
+        context['error'] = "User does not exist."
+        return (JsonResponse(context, encoder=DjangoJSONEncoder))
+        # return (HttpResponse("That user does not exist."))
     # if user exists we check if they are a friend
     if account:
         context['id'] = account.id
@@ -265,6 +267,8 @@ def account_view(request, *args, **kwargs):
         request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
         friend_requests = None
         # If user is authenticated we check if they are a friend
+        # If the user is authenticated and the user is not the same as the
+        # account
         if user.is_authenticated and user != account:
             is_self = False
             if friends.filter(pk=user.id):
