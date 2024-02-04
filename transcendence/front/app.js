@@ -26,12 +26,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 			else if (response.ok) {
                 console.log(data);
-                redirectToUserPage(data);
+		await fetchAccountData(data.id, data.token_access, data.token_refresh);
+                //redirectToUserPage(data);
             } else {
                 console.error("Login failed", data.error);
             }
 
         } catch (error) {
+		alert('Login failed');
             console.error("There was an error", error);
         }
     }
@@ -51,7 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 console.log(data);
-                redirectToUserPage(data);
+		await fetchAccountData(data.id, data.token_access, data.token_refresh);
+                //redirectToUserPage(data);
             } else {
                 console.error("Registration failed", data.error);
             }
@@ -60,6 +63,31 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error(error);
         }
     }
+
+	async function fetchAccountData(userId) {
+		try {
+			console.log('User ID:', userId);
+			const response = await fetch(`/api/user/account/${userId}/`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json',
+					'Authorization': `Bearer ${localStorage.getItem('token_access')}`,
+			);
+			
+			const data = await response.json();
+			if (response.ok) {
+				console.log('Account data fetched');
+				redirectToUserPage(data);
+			} else {
+				console.error('Failed to fetch account data');
+			}
+
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();

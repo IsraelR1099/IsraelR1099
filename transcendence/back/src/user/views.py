@@ -242,7 +242,7 @@ def account_view(request, *args, **kwargs):
     try:
         account = Users.objects.get(pk=user_id)
     except Users.DoesNotExist:
-        context['error'] = "User does not exist."
+        context['error'] = "User not found."
         return (JsonResponse(context, encoder=DjangoJSONEncoder))
         # return (HttpResponse("That user does not exist."))
     # if user exists we check if they are a friend
@@ -259,7 +259,7 @@ def account_view(request, *args, **kwargs):
             friend_list = FriendList(user=account)
             friend_list.save()
         friends = friend_list.friends.all()
-        context['friends'] = friends
+        # context['friends'] = friends
         # Define template variables
         is_self = True
         is_friend = False
@@ -300,8 +300,10 @@ def account_view(request, *args, **kwargs):
         context['is_friend'] = is_friend
         context['BASE_URL'] = settings.BASE_URL
         context['request_sent'] = request_sent
-        context['friend_requests'] = friend_requests
-    return (render(request, "user/account.html", context))
+        # context['friend_requests'] = friend_requests
+        logging.debug("context en account view %s", context)
+    return (JsonResponse(context, encoder=DjangoJSONEncoder))
+    # return (render(request, "user/account.html", context))
 
 
 def account_search_view(request, *args, **kwargs):

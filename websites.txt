@@ -620,3 +620,5 @@ https://www.psycopg.org/psycopg3/docs/basic/install.html#binary-installation
 
 # Carriage return error
 sed -i 's/\r//g' [file name]
+
+https://github.com/demon-bixia/Tolk/blob/decfa8900879da8314095cf48bff0666f5da7d99/assets/js/app/silly/router.js#L3

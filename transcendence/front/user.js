@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				<td>${userData.status}</td>
 				<td>${userData.token_access}</td>
 				<td>${userData.token_refresh}</td>
+				<br>
+				<td><img src"${userData.profile_image}" alt="profile image"></td>
 			</tr>
 			`;
 			userTable.innerHTML = row;
