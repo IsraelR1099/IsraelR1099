@@ -51,11 +51,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
 
-            if (response.ok) {
+            if (response.ok)
+			{
                 console.log(data);
-		await fetchAccountData(data.id, data.token_access, data.token_refresh);
+				await fetchAccountData(data.id, data.token_access, data.token_refresh);
                 //redirectToUserPage(data);
-            } else {
+            } else
+			{
                 console.error("Registration failed", data.error);
             }
 
@@ -64,20 +66,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-	async function fetchAccountData(userId) {
+	async function fetchAccountData(userId, token_access, token_refresh) {
 		try {
 			console.log('User ID:', userId);
+			console.log('token access: ', token_access);
 			const response = await fetch(`/api/user/account/${userId}/`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 					'Accept': 'application/json',
-					'Authorization': `Bearer ${localStorage.getItem('token_access')}`,
-			);
-			
+					'Authorization': `Bearer ${token_access}`,
+				},
+			});
+
 			const data = await response.json();
 			if (response.ok) {
 				console.log('Account data fetched');
+				console.log('profile image is:', data.profile_image);
 				redirectToUserPage(data);
 			} else {
 				console.error('Failed to fetch account data');
@@ -87,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			console.error(error);
 		}
 	}
-
 
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();

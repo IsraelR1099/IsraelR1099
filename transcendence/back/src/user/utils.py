@@ -42,6 +42,19 @@ def generate_response(status, user=None, error_message=None, tokens=None):
             response["email"] = user.email
             response["status"] = "online"
             response["created_at"] = user.created_date_time.isoformat()
+
+            if tokens:
+                access_token = tokens.get("access", "")
+                refresh_token = tokens.get("refresh", "")
+
+                # Access token info
+                if access_token:
+                    response["token_access"] = access_token
+
+                # Refresh token info
+                if refresh_token:
+                    response["token_refresh"] = refresh_token
+
     elif status == "401":
         if error_message:
             response["code"] = status
