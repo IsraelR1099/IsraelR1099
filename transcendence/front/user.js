@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				<td>${userData.token_access}</td>
 				<td>${userData.token_refresh}</td>
 				<br>
-				<td><img src"${userData.profile_image}" alt="profile image"></td>
+				<td><img src="data:image/png;base64,${userData.profile_image_base64}" alt="profile image"></td>
 			</tr>
 			`;
 			userTable.innerHTML = row;
@@ -56,10 +56,19 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 
+	function redirectToEditProfile() {
+		window.location.href = 'edit.html';
+	}
+
  	logoutButton.addEventListener('click', async function (event) {
 		event.preventDefault();
 		await logoutUser();
-    });
+	});
+
+	editButton.addEventListener('click', function (event) {
+		event.preventDefault();
+		redirectToEditProfile();
+	});
 
 	handleLoginData();
 });

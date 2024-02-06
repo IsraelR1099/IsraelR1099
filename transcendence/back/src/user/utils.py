@@ -1,3 +1,8 @@
+import base64
+import logging
+import os
+from django.conf import settings
+
 from .models import FriendRequest
 
 
@@ -60,3 +65,18 @@ def generate_response(status, user=None, error_message=None, tokens=None):
             response["code"] = status
             response["error"] = error_message
     return (response)
+
+
+def get_image_as_base64(image_name):
+    """
+    Convert the image at the given path to Base64
+    """
+    image_path = os.path.join(
+            settings.MEDIA_ROOT, 'profile_images', image_name)
+    try:
+        with open(image_path, "rb") as img_file:
+            enconded_string = base64.b64encode(img_file.read()).decode("utf-8")
+        return (enconded_string)
+    except FileNotFoundError:
+        logging.debug(f"File not found: {image_path}")
+        return (None)
