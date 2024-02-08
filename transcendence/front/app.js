@@ -4,7 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	const userPage = document.getElementById('userPage');
 
  	function redirectToUserPage(data) {
-		localStorage.setItem('userData', JSON.stringify(data));
+		let newData = JSON.parse(localStorage.getItem('userData'));
+		const profile_image_base64 = data.profile_image_base64;
+		newData.profile_image_base64 = profile_image_base64;
+		const updatedData = JSON.stringify(newData);
+		localStorage.setItem('userData', updatedData);
         	window.location.href = 'user.html';
     	}
 
@@ -26,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		else if (response.ok) {
 			console.log(data);
-			localStorage.setItem('token_access', data.token_access);
+			localStorage.setItem('userData', JSON.stringify(data));
+			localStorage.setItem('token_access1', JSON.stringify(data.token_access));
 			await fetchAccountData(data.id, data.token_access, data.token_refresh);
                 //redirectToUserPage(data);
 		} else
@@ -56,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (response.ok)
 		{
 			console.log(data);
-			localStorage.setItem('token_access', data.token_access);
+			localStorage.setItem('userData', JSON.stringify(data));
 			await fetchAccountData(data.id, data.token_access, data.token_refresh);
                 //redirectToUserPage(data);
 		} else
@@ -85,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const data = await response.json();
 			if (response.ok) {
 				console.log('Account data fetched');
-				console.log('profile image is:', data.profile_image);
+				console.log('profile image is:', data.profile_image_base64);
 				redirectToUserPage(data);
 			} else {
 				console.error('Failed to fetch account data');

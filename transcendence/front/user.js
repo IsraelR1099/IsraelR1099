@@ -1,3 +1,5 @@
+//<td>${userData.token_access}</td>
+//<td>${userData.token_refresh}</td>
 document.addEventListener('DOMContentLoaded', function () {
 	const logoutButton = document.getElementById('logoutButton');
 	const userTable = document.getElementById('userTable');
@@ -14,8 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				<td>${userData.username}</td>
 				<td>${userData.password}</td>
 				<td>${userData.status}</td>
-				<td>${userData.token_access}</td>
-				<td>${userData.token_refresh}</td>
 				<br>
 				<td><img src="data:image/png;base64,${userData.profile_image_base64}" alt="profile image"></td>
 			</tr>
