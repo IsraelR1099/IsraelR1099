@@ -36,6 +36,12 @@ def index(request):
 
 
 def get_redirect_if_exists(request):
+    """
+    This function checks if in the URL there is a next parameter
+    if so then it returns to the URL to redirect
+    https://example.com/login/?next=/dashboard/
+    """
+
     redirect = None
     if request.GET:
         if request.GET.get("next"):
@@ -50,7 +56,6 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     if user.is_authenticated:
         context["error"] = "You are already logged in."
         return (JsonResponse(context, encoder=DjangoJSONEncoder))
-        # return (redirect("index"))
     destination = get_redirect_if_exists(request)
     if request.method == "POST":
         try:
@@ -60,23 +65,18 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
             if form.is_valid():
                 username = json_data["username"]
                 password = json_data["password"]
-                logging.debug("username is %s", username)
-                logging.debug("password is %s", password)
                 user = authenticate(username=username, password=password)
                 if user:
                     login(request, user)
                     tokens = create_jwt_pair_for_user(user)
-                    logging.debug("tokens %s", tokens)
                     context = generate_response(
                             "200", user=user, tokens=tokens)
                     if destination:
                         return (redirect(destination))
-                    logging.debug("context on exit is %s", context)
                     return (JsonResponse(context, encoder=DjangoJSONEncoder))
                 else:
                     logging.debug("user is not valid")
             else:
-                logging.debug("form is not valid")
                 context["login_form"] = form
                 errors = {}
                 for field, field_errors in form.errors.items():
@@ -86,7 +86,6 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
             context = generate_response("401", error_message=errors)
             return (JsonResponse(context, encoder=DjangoJSONEncoder))
         context = generate_response("401", error_message=errors)
-    logging.debug("context es %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder))
 
 
@@ -124,7 +123,6 @@ def logout_view(request: HttpRequest) -> JsonResponse:
             "message": "Refresh token not provided.",
             "status": "error",
                 }
-        logging.debug("context is %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=401))
 
 
@@ -270,7 +268,6 @@ def edit_account_view(request, *arg, **kwargs):
     if not request.user.is_authenticated:
         context = {"error": "You must be authenticated to edit your profile."}
         return (JsonResponse(context, encoder=DjangoJSONEncoder, status=403))
-        # return (redirect("login"))
     user_id = kwargs.get("user_id")
     context = {}
     try:
