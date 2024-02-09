@@ -261,7 +261,7 @@ def account_view(request, *args, **kwargs):
 
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def edit_account_view(request, *arg, **kwargs):
@@ -278,7 +278,7 @@ def edit_account_view(request, *arg, **kwargs):
     if user.pk != request.user.pk:
         context['error'] = "You cannot edit someone elses profile."
         return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400))
-    if request.method == "POST":
+    if request.method == "PUT":
         json_data = request.body.decode("utf-8")
         json_data = json.loads(json_data)
         form = UsersUpdateForm(json_data, instance=request.user)
