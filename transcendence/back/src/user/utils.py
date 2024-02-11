@@ -1,7 +1,8 @@
+from django.conf import settings
+
 import base64
 import logging
 import os
-from django.conf import settings
 
 from .models import FriendRequest
 

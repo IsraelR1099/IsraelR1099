@@ -214,7 +214,7 @@ def account_view(request, *args, **kwargs):
             friend_list = FriendList(user=account)
             friend_list.save()
         friends = friend_list.friends.all()
-        # context['friends'] = friends
+        context['friends'] = friends
         # Define template variables
         is_self = True
         is_friend = False
@@ -245,6 +245,7 @@ def account_view(request, *args, **kwargs):
                     request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
         elif not user.is_authenticated:
             is_self = False
+        # If you are looking at your own profile
         else:
             try:
                 friend_requests = FriendRequest.objects.filter(receiver=user, is_active=True)
@@ -301,7 +302,7 @@ def edit_account_view(request, *arg, **kwargs):
                                       "profile_image": user.profile_image,
                                       "hide_email": user.hide_email,
                                       })
-            context['errors'] = form.errors
+            context['error'] = form.errors
     else:
         logging.debug("request method is not post")
         form = UsersUpdateForm(
@@ -312,11 +313,10 @@ def edit_account_view(request, *arg, **kwargs):
                     "profile_image": user.profile_image,
                     "hide_email": user.hide_email,
                     })
-        context['errors'] = form.errors
+        context['error'] = form.errors
     context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
     logging.debug("context leaving edit: %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
-    # return (render(request, "user/edit_account.html", context))
 
 
 def account_search_view(request, *args, **kwargs):
@@ -328,7 +328,8 @@ def account_search_view(request, *args, **kwargs):
             # We use icontains to not take in consideration upper case and
             # lower case. filter allows us to search for different queries
             # inside our db. distinct takes care if there is multiple results
-            # in our search
+            # in our search and eliminates them, showing just one result.
+            # We search for username or email
             search_results = Users.objects.filter(
                     email__icontains=search_query).filter(
                     username__icontains=search_query).distinct()
@@ -337,10 +338,20 @@ def account_search_view(request, *args, **kwargs):
             # User2, False]
             accounts = []
             for account in search_results:
-                accounts.append((account, False))
+                account_info = {
+                        "id": account.id,
+                        "username": account.username,
+                        "is_friend": False,
+                        }
+                accounts.append(account_info)
             context['accounts'] = accounts
-
-    return (render(request, "user/search_results.html", context))
+        else:
+            context['error'] = "Please enter a valid search query."
+    else:
+        context['error'] = "Please provide a valid method."
+    logging.debug("context on search is %s", context)
+    return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
+    # return (render(request, "user/search_results.html", context))
 
 
 @login_required

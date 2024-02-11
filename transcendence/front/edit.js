@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			const response = await fetch(`/api/user/account/${userData.id}/edit/`, {
-				method: 'POST',
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
 					'Accept': 'application/json',

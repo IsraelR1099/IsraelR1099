@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+
+<div id="searchResults"></div>
+
+<script>
+	const urlParams = new URLSearchParams(window.location.search);
+	const searchResultsJson = urlParams.get('results');
+	const searchResults = JSON.parse(searchResultsJson);
+
+	const searchResultsContainer = document.getElementById('searchResults');
+	if (searchResults)
+	{
+		searchResults.forEach(account => {
+			const accountElement = document.createElement('div');
+			accountElement.classList.add('account');
+			accountElement.innerHTML = `
+				<h2>${account.username}</h2>
+				<p>${account.id}</p>
+				<p>${account.is_friend ? 'Friend' : 'Not friend'}</p>
+			`;
+			searchResultsContainer.appendChild(accountElement);
+		});
+	}
+	else
+	{
+		const errorMessageElement = document.createElement('p');
+		errorMessageElement.textContent = 'No results found';
+		searchResultsContainer.appendChild(errorMessageElement);
+	}
+</script>
+
+</body>
+</html>
