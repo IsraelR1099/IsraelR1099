@@ -17,10 +17,12 @@ from rest_framework.permissions import IsAuthenticated
 
 import json
 import logging
+import os
 
 from .models import Users, FriendRequest, FriendList
 from .forms import RegistrationForm, UsersAuthenticationForm, UsersUpdateForm
 from .utils import get_friend_request_or_false
+from .utils import process_profile_image, save_image_to_folder
 from .utils import generate_response, get_image_as_base64
 from .friend_request_status import FriendRequestStatus
 from .tokens import create_jwt_pair_for_user
@@ -199,8 +201,9 @@ def account_view(request, *args, **kwargs):
         context['hide_email'] = account.hide_email
 
         if account.profile_image:
-            image_name = "default_profile_image.png"
-            encoded_string = get_image_as_base64(image_name)
+            image_path = os.path.join(
+                    settings.MEDIA_ROOT, str(account.profile_image))
+            encoded_string = get_image_as_base64(image_path)
             if encoded_string:
                 context['profile_image_base64'] = encoded_string
             else:
@@ -214,7 +217,7 @@ def account_view(request, *args, **kwargs):
             friend_list = FriendList(user=account)
             friend_list.save()
         friends = friend_list.friends.all()
-        context['friends'] = friends
+        # context['friends'] = friends
         # Define template variables
         is_self = True
         is_friend = False
@@ -258,11 +261,10 @@ def account_view(request, *args, **kwargs):
         context['request_sent'] = request_sent
         # context['friend_requests'] = friend_requests
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
-    # return (render(request, "user/account.html", context))
 
 
 @csrf_exempt
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'POST'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def edit_account_view(request, *arg, **kwargs):
@@ -279,10 +281,13 @@ def edit_account_view(request, *arg, **kwargs):
     if user.pk != request.user.pk:
         context['error'] = "You cannot edit someone elses profile."
         return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400))
-    if request.method == "PUT":
-        json_data = request.body.decode("utf-8")
-        json_data = json.loads(json_data)
-        form = UsersUpdateForm(json_data, instance=request.user)
+    if request.method == "POST":
+        # json_data = request.body.decode("utf-8")
+        # json_data = json.loads(json_data)
+
+        # Extract and process the profile image
+        form = UsersUpdateForm(
+                request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             logging.debug("form is valid")
             # Delete the old profile image so the name is preserved

@@ -68,12 +68,10 @@ def generate_response(status, user=None, error_message=None, tokens=None):
     return (response)
 
 
-def get_image_as_base64(image_name):
+def get_image_as_base64(image_path):
     """
     Convert the image at the given path to Base64
     """
-    image_path = os.path.join(
-            settings.MEDIA_ROOT, 'profile_images', image_name)
     try:
         with open(image_path, "rb") as img_file:
             enconded_string = base64.b64encode(img_file.read()).decode("utf-8")
@@ -81,3 +79,19 @@ def get_image_as_base64(image_name):
     except FileNotFoundError:
         logging.debug(f"File not found: {image_path}")
         return (None)
+
+
+def process_profile_image(profile_image_data):
+    decoded_image_data = base64.b64decode(profile_image_data)
+    return (decoded_image_data)
+
+
+def save_image_to_folder(image_data, user_id):
+    folder_path = f"media_cdn/profile_images/{user_id}"
+    os.makedirs(folder_path, exist_ok=True)
+    image_path = f"{folder_path}/profile_image.png"
+
+    with open(image_path, "wb") as f:
+        f.write(image_data)
+
+    return (image_path)

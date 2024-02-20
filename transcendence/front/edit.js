@@ -9,8 +9,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const email = document.getElementById('email').value;
 		const username = document.getElementById('username').value;
+		const profileImageInput = document.getElementById('profileImage');
+        const profileImage = profileImageInput.files[0];
 		console.log ('email', email);
 		console.log ('username', username);
+
+		if (!profileImage)
+		{
+			console.error('No profile image selected.');
+			alert('Please select a profile image.');
+			return;
+		}
 
 		try
 		{
@@ -21,14 +30,20 @@ document.addEventListener('DOMContentLoaded', function () {
 				return;
 			}
 
+			//const base64Image = await getBase64(profile_image);
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('username', username);
+            formData.append('profile_image', profileImage);
+
 			const response = await fetch(`/api/user/account/${userData.id}/edit/`, {
-				method: 'PUT',
+				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json',
-					'Accept': 'application/json',
 					'Authorization': `Bearer ${userData.token_access}`,
 				},
-				body: JSON.stringify({ email, username }),
+				//body: JSON.stringify({
+					//email, username, profile_image: base64Image, }),
+                body: formData,
 			});
 
 			const data = await response.json();
@@ -77,5 +92,17 @@ document.addEventListener('DOMContentLoaded', function () {
 		} catch (error) {
 			console.error(error);
 		}
+	}
+
+	function getBase64(file)
+	{
+		return new Promise((resolve, reject) =>
+			{
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result.split(',')[1]);
+				reader.onerror = error => reject(error);
+			}
+		);
 	}
 });

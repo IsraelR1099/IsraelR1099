@@ -20,11 +20,31 @@
 		searchResults.forEach(account => {
 			const accountElement = document.createElement('div');
 			accountElement.classList.add('account');
-			accountElement.innerHTML = `
-				<h2>${account.username}</h2>
-				<p>${account.id}</p>
-				<p>${account.is_friend ? 'Friend' : 'Not friend'}</p>
-			`;
+//			accountElement.innerHTML = `
+//				<h2>${account.username}</h2>
+//				<p>${account.id}</p>
+//				<p>${account.is_friend ? 'Friend' : 'Not friend'}</p>
+//			`;
+
+            const usernameLink = document.createElement('a');
+            usernameLink.textContent = account.username;
+            usernameLink.href = "#";
+            usernameLink.addEventListener('click', function()
+                {
+                    fetchUserInformation(account.id);
+                });
+
+            accountElement.appendChild(usernameLink);
+
+            const userIdParagraph = document.createElement('p');
+            userIdParagraph.textContent = account.id;
+            accountElement.appendChild(userIdParagraph);
+
+            const friendStatusParagraph = document.createElement('p');
+            friendStatusParagraph.textContent = account.is_friend ? 'Friend' : 'Not friend';
+            accountElement.appendChild(friendStatusParagraph);
+
+
 			searchResultsContainer.appendChild(accountElement);
 		});
 	}
@@ -34,6 +54,42 @@
 		errorMessageElement.textContent = 'No results found';
 		searchResultsContainer.appendChild(errorMessageElement);
 	}
+    
+
+    function redirectToUserPage(data)
+    {
+        window.location.href = 'user.html';
+    }
+    async function fetchUserInformation(userId)
+    {
+        try
+        {
+            const response = await fetch(`/api/user/account/${userId}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer
+                    ${localStorage.getItem('token_access1')}`,
+                },
+            });
+
+            const data = await response.json();
+
+            if (response.ok)
+            {
+                redirectToUserPage(data);
+            }
+            else
+            {
+                console.error('Failed to fetcht account', data);
+            }
+        }
+        catch (error)
+        {
+            console.error('Failed to fetch account', error);
+        }
+    }
 </script>
 
 </body>

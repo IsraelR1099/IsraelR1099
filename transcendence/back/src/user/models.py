@@ -36,12 +36,13 @@ class   Users(AbstractBaseUser):
     created_date_time   = models.DateTimeField(verbose_name="date created", auto_now_add=True)
     last_login          = models.DateTimeField(verbose_name="last login", auto_now=True)
     is_active           = models.BooleanField(default=True)
-    profile_image       = models.ImageField(max_length=500, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile_image)
+    profile_image = models.FileField(max_length=500, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile_image)
     friends             = models.ManyToManyField("Users", blank=True)
     hide_email          = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
+    # profile_image       = models.ImageField(max_length=500, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile_image)
 
     objects = MyUsersManager()
 
