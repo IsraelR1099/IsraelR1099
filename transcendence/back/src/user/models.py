@@ -67,6 +67,7 @@ class FriendList(models.Model):
     def add_friend(self, account):
         """
         Add a new friend.
+        If the account is not in our friendlist then we add that friend
         """
         if not account in self.friends.all():
             self.friends.add(account)
@@ -74,6 +75,7 @@ class FriendList(models.Model):
     def remove_friend(self, account):
         """
         Remove a friend.
+        If the account is in our friendlist then we remove them
         """
         if account in self.friends.all():
             self.friends.remove(account)
