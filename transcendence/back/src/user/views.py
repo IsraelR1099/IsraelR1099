@@ -216,6 +216,7 @@ def account_view(request, *args, **kwargs):
         except FriendList.DoesNotExist:
             friend_list = FriendList(user=account)
             friend_list.save()
+        # Friend List of the authenticated user
         friends = friend_list.friends.all()
         # context['friends'] = friends
         # Define template variables
@@ -224,11 +225,12 @@ def account_view(request, *args, **kwargs):
         user = request.user
         request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
         friend_requests = None
-        # If user iso authenticated we check if they are a friend
+        # If user is authenticated we check if they are a friend
         # If the user is authenticated and the user is not the same as the
         # account
         if user.is_authenticated and user != account:
             is_self = False
+            # We check if we are friends on the friend list of the other user
             if friends.filter(pk=user.id):
                 is_friend = True
             else:
@@ -237,6 +239,7 @@ def account_view(request, *args, **kwargs):
                 # FriendRequestStatus.THEM_SENT_TO_YOU
                 if get_friend_request_or_false(sender=account, receiver=user) != False:
                     request_sent = FriendRequestStatus.THEM_SENT_TO_YOU.value
+                    # We get the id/pk of that specific friend request
                     context['pending_friend_request_id'] = get_friend_request_or_false(sender=account, receiver=user).id
                 # Case 2: Request has been sent from YOU to THEM:
                 # FriendRequestStatus.YOU_SENT_TO_THEM
@@ -248,7 +251,8 @@ def account_view(request, *args, **kwargs):
                     request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
         elif not user.is_authenticated:
             is_self = False
-        # If you are looking at your own profile
+        # If you are looking at your own profile we get all the friend requests
+        # that we have set to is_active to true
         else:
             try:
                 friend_requests = FriendRequest.objects.filter(receiver=user, is_active=True)
