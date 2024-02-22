@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <div id="userProfile">
+        <!-- User profile information will be displayed here -->
+    </div>
+
+    <button id="sendFriendRequestButton">Send Friend Request</button>
+
+    <script src="send_friend_request.js" defer></script>
+
+    <script>
+        // Retrieve the user ID from the query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('user_id');
+
+        // Function to fetch user information based on user ID
+        async function fetchUserProfile(userId) {
+            try {
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                const response = await fetch(`/api/user/account/${userId}/`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${userData.token_access}`,
+                        },
+                    }
+                );
+                if (response.ok)
+                {
+                    const data = await response.json();
+                    displayUserProfile(data);
+                }
+                else
+                {
+                    console.error('Error fetching user profile:', response);
+                }
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+            }
+        }
+
+        // Function to display user profile information on the page
+        function displayUserProfile(data) {
+            const userProfileContainer = document.getElementById('userProfile');
+            // Clear any existing content
+            userProfileContainer.innerHTML = '';
+            // Create elements to display user information
+            const usernameHeading = document.createElement('h1');
+            usernameHeading.textContent = data.username;
+            const emailParagraph = document.createElement('p');
+            emailParagraph.textContent = `Email: ${data.email}`;
+            const userIdParagraph = document.createElement('p');
+            userIdParagraph.textContent = `User ID: ${data.id}`;
+            // Append elements to the container
+            userProfileContainer.appendChild(usernameHeading);
+            userProfileContainer.appendChild(emailParagraph);
+            userProfileContainer.appendChild(userIdParagraph);
+            // Additional information can be displayed as needed
+        }
+
+        // Fetch user profile when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchUserProfile(userId);
+        });
+    </script>
+</body>
+</html>
