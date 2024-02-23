@@ -1,16 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
 	const sendFriendRequestButton = document.getElementById('sendFriendRequestButton');
 	sendFriendRequestButton.addEventListener('click', function() {
-		sendFriendRequest(userId);
+		sendFriendRequest(userId, username);
 	});
 });
 
-async function sendFriendRequest(userId)
+async function sendFriendRequest(userId, username)
 {
 	try
 	{
 		const userData = JSON.parse(localStorage.getItem('userData'));
 		console.log('Sending friend request to user', userId);
+		const requestBody = {
+			receiver_user_id: userId,
+			username: username
+		};
 		const response = await fetch(`/api/user/friend_request/`, {
 			method: 'POST',
 			headers: {

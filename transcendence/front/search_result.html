@@ -22,7 +22,7 @@
             usernameLink.textContent = account.username;
             usernameLink.href = "#";
             usernameLink.addEventListener('click', function() {
-                fetchUserInformation(account.id);
+                fetchUserInformation(account.id, account.username);
             });
 
             accountElement.appendChild(usernameLink);
@@ -45,7 +45,7 @@
 		searchResultsContainer.appendChild(errorMessageElement);
 	}
 
-    async function fetchUserInformation(userId)
+    async function fetchUserInformation(userId, username)
     {
         try
         {
@@ -71,7 +71,8 @@
             if (contentType && contentType.includes('application/json'))
             {
                 const userData = await response.json();
-                window.location.href = `user_profile.html?user_id=${userId}`;
+				window.location.href =
+					`user_profile.html?user_id=${userId}&{userName=${username}}`;
             }
             else
             {
