@@ -21,7 +21,7 @@ async function sendFriendRequest(userId, username)
 				'Content-Type': 'application/json',
 				'Authorization': `Bearer ${userData.token_access}`,
 			},
-			body: JSON.stringify({receiver_user_id: userId}),
+			body: JSON.stringify(requestBody),
 		});
 		const data = await response.json();
 		if (response.ok)
