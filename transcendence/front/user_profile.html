@@ -10,7 +10,7 @@
         <!-- User profile information will be displayed here -->
     </div>
 
-    <button id="sendFriendRequestButton" data-username="username_value">Send Friend Request</button>
+    <button id="sendFriendRequestButton" data-username="username">Send Friend Request</button>
 
     <script src="send_friend_request.js" defer></script>
 
@@ -19,6 +19,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('user_id');
 		const username = urlParams.get('username');
+        console.log('username:', username);
 
         // Function to fetch user information based on user ID
         async function fetchUserProfile(userId) {
@@ -63,7 +64,52 @@
             userProfileContainer.appendChild(usernameHeading);
             userProfileContainer.appendChild(emailParagraph);
             userProfileContainer.appendChild(userIdParagraph);
-            // Additional information can be displayed as needed
+
+            // Check if the user is a friend and not the same user
+            if (data.is_friend && !data.is_self)
+            {
+                const friendButton = document.createElement('button');
+                friendButton.textContent = 'Send Message';
+                userProfileContainer.appendChild(friendButton);
+                const removeFriendButton = document.createElement('button');
+                removeFriendButton.textContent = 'Remove Friend';
+                removeFriendButton.addEventListener('click', function() {
+                    handleRemoveFriend(data.id);
+                });
+                userProfileContainer.appendChild(removeFriendButton);
+            }
+        }
+
+        async function handleRemoveFriend(userId)
+        {
+            try
+            {
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                const response = await fetch(`/api/user/friend_remove/`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${userData.token_access}`,
+                        },
+                        body: JSON.stringify({receiver_user_id: userId}),
+                    }
+                );
+
+                if (response.ok)
+                {
+                    alert('Friend removed');
+                    fetchUserProfile(userId);
+                }
+                else
+                {
+                    console.error('Error removing friend:', response);
+                    aler('Error removing friend');
+                }
+            } catch (error) {
+                console.error('Error removing friend:', error);
+                alert('Error removing friend');
+            }
         }
 
         // Fetch user profile when the page loads

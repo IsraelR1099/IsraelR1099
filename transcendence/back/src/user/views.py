@@ -135,7 +135,7 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     user = request.user
     if user.is_authenticated:
         context["error"] = "You are already registered and logged in."
-        return (JsonResponse(context, encoder=DjangoJSONEncoder), 400)
+        return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400)) 
     if request.method == "POST":
         try:
             json_data = request.body.decode("utf-8")
@@ -219,7 +219,15 @@ def account_view(request, *args, **kwargs):
             friend_list.save()
         # Friend List of the authenticated user
         friends = friend_list.friends.all()
-        # context['friends'] = friends
+        serialized_friends = []
+        for friend in friends:
+            serialized_friend = {
+                    "id": friend.id,
+                    "username": friend.username,
+                    }
+            if serialized_friend:
+                serialized_friends.append(serialized_friend)
+        context['friends'] = serialized_friends
         # Define template variables
         is_self = True
         is_friend = False
@@ -264,7 +272,6 @@ def account_view(request, *args, **kwargs):
         context['is_friend'] = is_friend
         context['BASE_URL'] = settings.BASE_URL
         context['request_sent'] = request_sent
-        # context['friend_requests'] = friend_requests
     logging.debug("context in account view is %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
@@ -348,6 +355,27 @@ def account_search_view(request, *args, **kwargs):
             # accounts = [(User1, True(depending if they are friends or not)),
             # User2, False]
             accounts = []
+            user = request.user
+            if user.is_authenticated:
+                # We get all the friends of the user
+                auth_user_friend_list = FriendList.objects.get(user=user)
+                for account in search_results:
+                    accounts.append((account,
+                                     auth_user_friend_list.is_mutual_friend(account)))
+                    context['accounts'] = accounts
+            else:
+                for account in search_results:
+                    account_info = {
+                            "id": account.id,
+                            "username": account.username,
+                            "is_friend": False,
+                            }
+                    accounts.append(account_info)
+                context['accounts'] = accounts
+
+
+
+
             for account in search_results:
                 account_info = {
                         "id": account.id,
@@ -364,56 +392,27 @@ def account_search_view(request, *args, **kwargs):
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
 
-@login_required
-def accept_friend_request(request, request_id):
-    from_user = get_object_or_404(Users, id=request_id)
-    friend_request = Friendship_Request.objects.filter(
-            from_user=from_user,
-            to_user=request.user
-            ).first()
-    user1 = friend_request.to_user
-    user2 = from_user
-    # return (render(request, "user/search_results.html", context))
-    user1.profile.friends.add(user2.profile)
-    user2.profile.friends.add(user1.profile)
-    friend_request.delete()
-    data = {
-            "message": "Friend request accepted.",
-            "status": "success",
-            }
-    return (JsonResponse(data))
-#    friend_request = Friendship_Request.objects.get(id=request_id)
-#    if friend_request.addressee_id == request.user:
-#        friend_request.addressee_id.friends.add(friend_request.requester_id)
-#        friend_request.requester_id.friends.add(friend_request.addressee_id)
-#        friend_request.delete()
-#        data = {
-#                "message": "Friend request accepted.",
-#                "status": "success",
-#                }
-#        return (JsonResponse(data))
-    # return (render(request, "user/search_results.html", context))
-#    else:
-#        data = {
-#                "message": "You are not authorized to accept this friend request.",
-#                "status": "error",
-#                }
-#        return (JsonResponse(data))
-
-
 @csrf_exempt
 @login_required
 def send_friend_request(request, *args, **kwargs):
-    user = request.user
     payload = {}
+    user_id = None
+    username = None
+    user = request.user
     if request.method == "POST" and user.is_authenticated:
         # The receiver_user_id must be sent by the front end
         body_unicode = request.body.decode("utf-8")
         body_data = json.loads(body_unicode)
-        user_id = body_data['receiver_user_id']
-        logging.debug("user_id: %s", user_id)
-        if user_id:
-            receiver = Users.objects.get(pk=user_id)
+        if 'username' in body_data and body_data['username']:
+            username = body_data['username']
+        else:
+            user_id = body_data['receiver_user_id']
+        if user_id or username:
+            if username:
+                logging.debug("using username")
+                receiver = Users.objects.get(username=username)
+            else:
+                receiver = Users.objects.get(pk=user_id)
             try:
                 # Get any friend requests (active and not-active)
                 friend_requests = FriendRequest.objects.filter(
@@ -456,12 +455,174 @@ def friend_requests(request, *args, **kwargs):
         if account == user:
             friend_requests = FriendRequest.objects.filter(receiver=account,
                                                            is_active=True)
-            serialized_friend_requests = serialize('json', friend_requests)
+            serialized_friend_requests = []
+            for request in friend_requests:
+                sender_username = request.sender.username
+                receiver_username = request.receiver.username
+                serialized_data = {
+                        "pk": request.pk,
+                        "sender": sender_username,
+                        "receiver": receiver_username,
+                }
+                serialized_friend_requests.append(serialized_data)
             context['friend_requests'] = serialized_friend_requests
         else:
             context['error'] = "That is not your account."
+            logging.debug("context 1 on friend_requests is %s", context)
             return (JsonResponse(context, encoder=DjangoJSONEncoder, status=401))
     else:
         context['error'] = "You must be authenticated to view friend requests."
+        logging.debug("context 2 on friend_requests is %s", context)
         return (JsonResponse(context, encoder=DjangoJSONEncoder, status=401))
+    logging.debug("context 3 on friend_requests is %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
+
+
+def accept_friend_request(request, *args, **kwargs):
+    user = request.user
+    payload = {}
+    if request.method == "GET" and user.is_authenticated:
+        friend_request_id = kwargs.get("friend_request_id")
+        if friend_request_id:
+            friend_request = FriendRequest.objects.get(pk=friend_request_id)
+            # confirm is the correct request
+            if friend_request.receiver == user:
+                if friend_request:
+                    # Found the request, Not accept it.
+                    friend_request.accept()
+                    payload['response'] = "Friend request accepted."
+                else:
+                    payload['error'] = "Friend request not found."
+            else:
+                payload['error'] = "That is not your request to accept."
+        else:
+            payload['error'] = "Unable to accept that friend request."
+    else:
+        payload['error'] = "You must be authenticated to accept a friend request."
+    logging.debug("payload on accept_friend_request: %s", payload)
+    return (JsonResponse(payload, encoder=DjangoJSONEncoder, status=200))
+
+
+@csrf_exempt
+def remove_friend(request, *args, **kwars):
+    payload = {}
+    user = request.user
+    if request.method == "POST" and user.is_authenticated:
+        # The receiver_user_id must be sent by the front end
+        # the receiver_user_id is the user we are removing from our friend list
+        body_unicode = request.body.decode("utf-8")
+        body_data = json.loads(body_unicode)
+        user_id = body_data.get("receiver_user_id")
+        # user_id = request.POST.get("receiver_user_id")
+        logging.debug("user_id en remove friend is %s", user_id)
+        if user_id:
+            try:
+                removee = Users.objects.get(pk=user_id)
+                friend_list = FriendList.objects.get(user=user)
+                friend_list.unfriend(removee)
+                payload['response'] = "Successfully removed that friend."
+            except Exception as e:
+                payload['error'] = str(e)
+        else:
+            payload['error'] = "Unable to remove that friend."
+    else:
+        payload['error'] = "You must be authenticated to remove a friend."
+    logging.debug("payload on remove_friend: %s", payload)
+    return (JsonResponse(payload, encoder=DjangoJSONEncoder, status=200))
+
+
+def decline_friend_request(request, *args, **kwargs):
+    payload = {}
+    user = request.user
+    if request.method == "GET" and user.is_authenticated:
+        friend_request_id = kwargs.get("friend_request_id")
+        if friend_request_id:
+            friend_request = FriendRequest.objects.get(pk=friend_request_id)
+            # confirm it is the correct request
+            if friend_request.receiver == user:
+                if friend_request:
+                    # Found the request. Now decline it.
+                    friend_request.decline()
+                    payload['response'] = "Friend request declined."
+                else:
+                    payload['error'] = "Friend request not found."
+            else:
+                payload['error'] = "That is not your request to decline."
+        else:
+            payload['error'] = "Unable to decline that friend request."
+    else:
+        payload['error'] = "You must be authenticated to decline a friend request."
+    logging.debug("payload on decline_friend_request: %s", payload)
+    return (JsonResponse(payload, encoder=DjangoJSONEncoder, status=200))
+
+
+@csrf_exempt
+def cancel_friend_request(request, *args, **kwargs):
+    payload = {}
+    user = request.user
+    if request.method == "POST" and user.is_authenticated:
+        body_unicode = request.body.decode("utf-8")
+        body_data = json.loads(body_unicode)
+        user_id = body_data.get("receiver_user_id")
+        if user_id:
+            receiver = Users.objects.get(pk=user_id)
+            try:
+                friend_requests = FriendRequest.objects.filter(sender=user,
+                                                            receiver=receiver,
+                                                              is_active=True)
+            except FriendRequest.DoesNotExist:
+                payload['error'] = "Friend request not found."
+            # There should only be a single active friend request at any given
+            # time.
+            if len(friend_requests) > 1:
+                # This is an error. There should only ever be one active friend
+                # request at a time.
+                for request in friend_requests:
+                    request.cancel()
+                payload['error'] = "Somehow you have more than one request."
+            else:
+                # Found the request. Cancel it.
+                friend_requests.first().cancel()
+                payload['response'] = "Friend request cancelled."
+        else:
+            payload['error'] = "Unable to cancel that friend request."
+    else:
+        payload['error'] = "You must be authenticated to cancel a friend request."
+    logging.debug("payload on cancel_friend_request: %s", payload)
+    return (JsonResponse(payload, encoder=DjangoJSONEncoder, status=200))
+
+
+def friend_list_view(request, *args, **kwargs):
+    context = {}
+    user = request.user
+    if user.is_authenticated:
+        user_id = kwargs.get("user_id")
+        if user_id:
+            try:
+                this_user = Users.objects.get(pk=user_id)
+                context['this_user'] = this_user
+            except Users.DoesNotExist:
+                context['error'] = "That user does not exist."
+            try:
+                friend_list = FriendList.objects.get(user=this_user)
+            except FriendList.DoesNotExist:
+                context['error'] = "Could not find a friend list for this user."
+
+            # Must be friends to view a friends list
+            if user != this_user:
+                if not user in friend_list.friends.all():
+                    context['error'] = "You must be friends to view their friends list."
+
+            friends = []  # [(friend1, True), (friend2, False), ...]
+            auth_user_friend_list = FriendList.objects.get(user=user)
+            for friend in friend_list.friends.all():
+                friends.append(({'friend': friend.username,
+                                 'is_friend:':
+                                 auth_user_friend_list.is_mutual_friend(friend)}))
+            context['friends'] = friends
+        else:
+            context['error'] = "No user id provided."
+    else:
+        context['error'] = "You must be authenticated to view a friends list."
+    logging.debug("context on friend_list_view: %s", context)
+    return JsonResponse(context, encoder=DjangoJSONEncoder, status=200)

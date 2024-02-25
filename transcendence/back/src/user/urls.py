@@ -5,16 +5,22 @@ from . import views
 
 urlpatterns = [
         path("", views.index, name="index"),
-        path('account/<int:user_id>/', views.account_view, name="view"),
-        path('account/<int:user_id>/edit/', views.edit_account_view, name="edit"),
+        path("account/<int:user_id>/", views.account_view, name="view"),
+        path("account/<int:user_id>/edit/", views.edit_account_view, name="edit"),
+        path("friend_list/<int:user_id>/", views.friend_list_view, name="friend-list"),
+        path("friend_remove/", views.remove_friend, name="remove-friend"),
         path("friend_request/", views.send_friend_request, name="friend-request"),
         path("friend_request/<int:user_id>/", views.friend_requests, name="friend-requests"),
+        path("accept_friend_request/<int:friend_request_id>/",
+             views.accept_friend_request, name="accept-friend-request"),
+        path("decline_friend_request/<int:friend_request_id>/",
+             views.decline_friend_request, name="decline-friend-request"),
         path("login/", views.login_view, name="login"),
         path("logout/", views.logout_view, name="logout"),
         path("register/", views.register_user, name="register"),
         path("search/", views.account_search_view, name="search"),
-        path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-        path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+        path("token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),
+        path("token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
 
 
         path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_reset/password_change_done.html'),
