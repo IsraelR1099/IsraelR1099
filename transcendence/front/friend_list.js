@@ -20,10 +20,19 @@ async function fetchFriendList() {
             const friendListData = await response.json();
             // Implement code to display the friend list data
             console.log('Friend List Data:', friendListData);
+            displayFriendList(friendListData);
         } else {
             console.error('Failed to fetch friend list:', response);
         }
     } catch (error) {
         console.error('Error fetching friend list:', error);
     }
+}
+
+function displayFriendList(friendListData)
+{
+    const friends = friendListData.friends;
+    const friendListJson = encodeURIComponent(JSON.stringify(friends));
+    const url = `friend_list.html?friends=${friendListJson}`;
+    window.location.href = url;
 }

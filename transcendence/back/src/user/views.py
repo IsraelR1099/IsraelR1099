@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.serializers import serialize
+from django.db.models.fields.files import FieldFile
+from django.middleware.csrf import get_token
 
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -52,7 +54,14 @@ def get_redirect_if_exists(request):
     return (redirect)
 
 
-@csrf_exempt
+def get_csrf_token(request):
+    """ This function returns the csrf token. """
+    token = get_token(request)
+    logging.debug("token csrf is %s", token)
+    return (JsonResponse({"csrf_token": token}))
+
+
+# @csrf_exempt
 def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     context = {}
     user = request.user
@@ -291,6 +300,7 @@ def edit_account_view(request, *arg, **kwargs):
     except Users.DoesNotExist:
         context['error'] = "User not found."
         return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400))
+
     if user.pk != request.user.pk:
         context['error'] = "You cannot edit someone elses profile."
         return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400))
@@ -360,9 +370,12 @@ def account_search_view(request, *args, **kwargs):
                 # We get all the friends of the user
                 auth_user_friend_list = FriendList.objects.get(user=user)
                 for account in search_results:
-                    accounts.append((account,
-                                     auth_user_friend_list.is_mutual_friend(account)))
-                    context['accounts'] = accounts
+                    accounts.append({
+                        "id": account.id,
+                        "username": account.username,
+                        "is_friend": auth_user_friend_list.is_mutual_friend(account)
+                    })
+                context['accounts'] = accounts
             else:
                 for account in search_results:
                     account_info = {
@@ -372,18 +385,6 @@ def account_search_view(request, *args, **kwargs):
                             }
                     accounts.append(account_info)
                 context['accounts'] = accounts
-
-
-
-
-            for account in search_results:
-                account_info = {
-                        "id": account.id,
-                        "username": account.username,
-                        "is_friend": False,
-                        }
-                accounts.append(account_info)
-            context['accounts'] = accounts
         else:
             context['error'] = "Please enter a valid search query."
     else:
@@ -408,33 +409,36 @@ def send_friend_request(request, *args, **kwargs):
         else:
             user_id = body_data['receiver_user_id']
         if user_id or username:
-            if username:
-                logging.debug("using username")
-                receiver = Users.objects.get(username=username)
-            else:
-                receiver = Users.objects.get(pk=user_id)
             try:
-                # Get any friend requests (active and not-active)
-                friend_requests = FriendRequest.objects.filter(
-                        sender=user, receiver=receiver)
-                # find if any of them are active (pending)
+                if username:
+                    logging.debug("using username")
+                    receiver = Users.objects.get(username=username)
+                else:
+                    receiver = Users.objects.get(pk=user_id)
                 try:
-                    for request in friend_requests:
-                        if request.is_active:
-                            raise Exception(
-                                    "You already sent them a friend request.")
-                    # If none are active create a new friend request
-                    friend_request = FriendRequest(
+                    # Get any friend requests (active and not-active)
+                    friend_requests = FriendRequest.objects.filter(
                             sender=user, receiver=receiver)
+                    # find if any of them are active (pending)
+                    try:
+                        for request in friend_requests:
+                            if request.is_active:
+                                raise Exception(
+                                        "You already sent them a friend request.")
+                        # If none are active create a new friend request
+                        friend_request = FriendRequest(
+                                sender=user, receiver=receiver)
+                        friend_request.save()
+                        payload['response'] = "Friend request sent."
+                    except Exception as e:
+                        payload['response'] = str(e)
+                except FriendRequest.DoesNotExist:
+                    # There are no friend requests so create one.
+                    friend_request = FriendRequest(sender=user, receiver=receiver)
                     friend_request.save()
                     payload['response'] = "Friend request sent."
-                except Exception as e:
-                    payload['response'] = str(e)
-            except FriendRequest.DoesNotExist:
-                # There are no friend requests so create one.
-                friend_request = FriendRequest(sender=user, receiver=receiver)
-                friend_request.save()
-                payload['response'] = "Friend request sent."
+            except Users.DoesNotExist:
+                payload['error'] = "The specified username does not exist."
 
             if payload['response'] == None:
                 payload['error'] = "Something went wrong."
@@ -459,17 +463,38 @@ def friend_requests(request, *args, **kwargs):
             for request in friend_requests:
                 sender_username = request.sender.username
                 receiver_username = request.receiver.username
-                serialized_data = {
-                        "pk": request.pk,
-                        "sender": sender_username,
-                        "receiver": receiver_username,
-                }
+                if request.sender.profile_image:
+                    image_path = os.path.join(
+                            settings.MEDIA_ROOT, str(account.profile_image))
+                    encoded_string = get_image_as_base64(image_path)
+                    if encoded_string:
+                        serialized_data = {
+                                "pk": request.pk,
+                                "sender": sender_username,
+                                "receiver": receiver_username,
+                                "sender_profile_image": encoded_string,
+                        }
+                    else:
+                        serialized_data = {
+                                "pk": request.pk,
+                                "sender": sender_username,
+                                "receiver": receiver_username,
+                                "sender_profile_image": "",
+                        }
+                else:
+                    serialized_data = {
+                            "pk": request.pk,
+                            "sender": sender_username,
+                            "receiver": receiver_username,
+                            "sender_profile_image": "",
+                    }
                 serialized_friend_requests.append(serialized_data)
             context['friend_requests'] = serialized_friend_requests
         else:
             context['error'] = "That is not your account."
             logging.debug("context 1 on friend_requests is %s", context)
-            return (JsonResponse(context, encoder=DjangoJSONEncoder, status=401))
+            return (JsonResponse(
+                context, encoder=DjangoJSONEncoder, status=401))
     else:
         context['error'] = "You must be authenticated to view friend requests."
         logging.debug("context 2 on friend_requests is %s", context)
@@ -566,7 +591,11 @@ def cancel_friend_request(request, *args, **kwargs):
         user_id = body_data.get("receiver_user_id")
         if user_id:
             receiver = Users.objects.get(pk=user_id)
-            try:
+            try:                # for account in search_results:
+                    # accounts.append((account,
+                                    # auth_user_friend_list.is_mutual_friend(account)))
+                    # context['accounts'] = accounts
+
                 friend_requests = FriendRequest.objects.filter(sender=user,
                                                             receiver=receiver,
                                                               is_active=True)
@@ -600,7 +629,36 @@ def friend_list_view(request, *args, **kwargs):
         if user_id:
             try:
                 this_user = Users.objects.get(pk=user_id)
-                context['this_user'] = this_user
+                this_user_dict = []
+                for field in this_user._meta.fields:
+                    username = this_user.username
+                    email = this_user.email
+
+                    if this_user.profile_image:
+                        image_path = os.path.join(
+                                settings.MEDIA_ROOT, str(this_user.profile_image))
+                        encoded_string = get_image_as_base64(image_path)
+                        if encoded_string:
+                            this_user_dict = {
+                                "username": username,
+                                "email": email,
+                                "profile_image": encoded_string,
+                            }
+                        else:
+                            this_user_dict = {
+                                "username": username,
+                                "email": email,
+                                "profile_image": None,
+                            }
+                    else:
+                        this_user_dict = {
+                            "username": username,
+                            "email": email,
+                            "profile_image": None,
+                        }
+                    # if not isinstance(getattr(this_user, field.name), FieldFile):
+                        # this_user_dict[field.name] = getattr(this_user, field.name)
+                context['this_user'] = this_user_dict
             except Users.DoesNotExist:
                 context['error'] = "That user does not exist."
             try:

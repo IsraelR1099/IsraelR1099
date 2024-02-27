@@ -15,6 +15,7 @@ urlpatterns = [
              views.accept_friend_request, name="accept-friend-request"),
         path("decline_friend_request/<int:friend_request_id>/",
              views.decline_friend_request, name="decline-friend-request"),
+        path("get_csrf_token/", views.get_csrf_token, name="get-csrf-token"),
         path("login/", views.login_view, name="login"),
         path("logout/", views.logout_view, name="logout"),
         path("register/", views.register_user, name="register"),

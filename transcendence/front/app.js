@@ -12,38 +12,55 @@ document.addEventListener('DOMContentLoaded', function () {
         	window.location.href = 'user.html';
     	}
 
-	async function loginUser(username, password) {
-		try {
-			const response = await fetch('/api/user/login/', {
-			method: 'POST',
-			headers: {
-			'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ username, password }),
-			});
+    async function fetchCSRFToken() {
+        try {
+            const response = await fetch('/api/user/get_csrf_token/');
+            const data = await response.json();
+            return (data.csrf_token);
+        } catch (error) {
+            console.error('Failed to fetch CSRF token', error);
+        }
+    }
 
- 		const data = await response.json();
+    async function loginUser(username, password) {
+        try {
+            const csrfToken = await fetchCSRFToken();
+            console.log('CSRF token:', csrfToken);
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+            const response = await fetch('/api/user/login/', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+                },
+            body: JSON.stringify({ username, password }),
+            });
 
-		if (data.error) {
-			console.error("Login failed", data.error);
-			alert (data.error['__all__'][0]);
-		}
-		else if (response.ok) {
-			console.log(data);
-			localStorage.setItem('userData', JSON.stringify(data));
-			localStorage.setItem('token_access1', JSON.stringify(data.token_access));
-			await fetchAccountData(data.id, data.token_access, data.token_refresh);
-                //redirectToUserPage(data);
-		} else
-		{
-			console.error("Login failed", data.error);
-		}
+            const data = await response.json();
+
+            if (data.error) {
+                console.error("Login failed", data.error);
+                alert (data.error['__all__'][0]);
+            }
+            else if (response.ok) {
+                console.log(data);
+                localStorage.setItem('userData', JSON.stringify(data));
+                localStorage.setItem('token_access1', JSON.stringify(data.token_access));
+                await fetchAccountData(data.id, data.token_access, data.token_refresh);
+                    //redirectToUserPage(data);
+            } else
+            {
+                console.error("Login failed", data.error);
+            }
         } catch (error)
-	{
-		alert('Login failed');
-		console.error("There was an error", error);
-	}
-	}
+        {
+        alert('Login failed');
+        console.error("There was an error", error);
+        }
+    }
 
     async function registerUser(email, username, password1, password2) {
         try {
