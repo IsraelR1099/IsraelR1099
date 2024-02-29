@@ -95,3 +95,23 @@ def save_image_to_folder(image_data, user_id):
         f.write(image_data)
 
     return (image_path)
+
+
+def serialize_friend_request(request):
+    sender_username = request.sender.username
+    receiver_username = request.receiver.username
+    sender_profile_image = ""
+
+    if request.sender.profile_image:
+        image_path = os.path.join(
+                settings.MEDIA_ROOT, str(request.sender.profile_image))
+        enconded_string = get_image_as_base64(image_path)
+        if enconded_string:
+            sender_profile_image = enconded_string
+
+    return ({
+        "pk": request.pk,
+        "sender": sender_username,
+        "receiver": receiver_username,
+        "sender_profile_image": sender_profile_image,
+        })
