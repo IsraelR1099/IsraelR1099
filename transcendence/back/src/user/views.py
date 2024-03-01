@@ -56,6 +56,14 @@ def get_csrf_token(request):
     logging.debug("token csrf is %s", token)
     return (JsonResponse({"csrf_token": token}))
 
+def get_is_auth(request, *args, **kwargs: HttpRequest) -> JsonResponse:
+    response_data = {}
+    current_user = request.user
+    if current_user.is_authenticated:
+        response_data['status'] = "Online"
+    else:
+        response_data['status'] = "Offline"
+    return (JsonResponse(response_data, encoder=DjangoJSONEncoder))
 
 @csrf_exempt
 def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
