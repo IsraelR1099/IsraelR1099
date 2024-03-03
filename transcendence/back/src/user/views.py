@@ -15,6 +15,9 @@ from rest_framework.decorators import permission_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+from allauth.socialaccount.providers.oauth2.views import OAuth2View
+from allauth.socialaccount.models import SocialApp
+
 
 import json
 import logging
@@ -56,14 +59,23 @@ def get_csrf_token(request):
     logging.debug("token csrf is %s", token)
     return (JsonResponse({"csrf_token": token}))
 
+
 def get_is_auth(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     response_data = {}
     current_user = request.user
     if current_user.is_authenticated:
         response_data['status'] = "Online"
+        response_data['user_id'] = request.user.pk
     else:
         response_data['status'] = "Offline"
     return (JsonResponse(response_data, encoder=DjangoJSONEncoder))
+
+
+def get_google_login_url(request, *args, **kwargs: HttpRequest) -> JsonResponse:
+    google_app = SocialApp.objects.get(provider="google")
+    google_login_url = google_app.get_login_url(request)
+    return (JsonResponse({"google_login_url": google_login_url}))
+
 
 @csrf_exempt
 def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
@@ -148,7 +160,7 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     user = request.user
     if user.is_authenticated:
         context["error"] = "You are already registered and logged in."
-        return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400))
+        return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
     if request.method == "POST":
         try:
             json_data = request.body.decode("utf-8")
@@ -171,17 +183,22 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 return (JsonResponse(
                     context, encoder=DjangoJSONEncoder, status=201))
             else:
-                context = generate_response("401", error_message=form.errors)
+                errors = []
+                for field_errors in form.errors.values():
+                    errors.extend(field_errors)
+                # context = generate_response("401", error_message=errors)
+                context = {"error": errors}
+                return (JsonResponse(context, encoder=DjangoJSONEncoder,
+                                     status=200))
         except json.JSONDecodeError:
-            errors = {"JSONDecodeError": "Please provide a valid JSON."}
+            errors = {"error": "Please provide a valid JSON."}
             context = generate_response("401", error_message=errors)
-            logging.debug("context is %s", context)
             return (JsonResponse(
-                context, encoder=DjangoJSONEncoder, status=401))
+                context, encoder=DjangoJSONEncoder, status=200))
     else:
         context['error'] = "Method not allowed."
     logging.debug("context before is %s", context)
-    return (JsonResponse(context, encoder=DjangoJSONEncoder, status=422))
+    return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
 
 @permission_classes([IsAuthenticated])

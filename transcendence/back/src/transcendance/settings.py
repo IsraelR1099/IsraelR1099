@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
-import logging
-from pathlib import Path
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,11 +33,19 @@ if DEBUG:
 AUTH_USER_MODEL = 'user.Users'
 AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.AllowAllUsersModelBackend',
+        'django.contrib.auth.backends.ModelBackend',
+        'allauth.account.auth_backends.AuthenticationBackend',
         ]
+
 ALLOWED_HOSTS = ["*"]
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Application definition
+
+SITE_ID = 1
 
 INSTALLED_APPS = [
     "django.contrib.auth",
@@ -49,7 +55,32 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework_simplejwt.token_blacklist",
     "user",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 ]
+
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+
+SOCIALACCOUNT_PROVIDERS = {
+        'google': {
+            'APP': {
+                'client_id': 'GOOGLE_CLIENT_ID',
+                'secret': 'GOOGLE_CLIENT_SECRET',
+                'key': '',
+                },
+            'SCOPE': [
+                'profile',
+                'email',
+                ],
+            'AUTH_PARAMS': {
+                'access_type': 'online',
+                },
+            }
+        }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +90,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'transcendance.urls'
@@ -185,4 +217,5 @@ MEDIA_ROOT      = os.path.join(BASE_DIR, 'media_cdn')
 TEMP            = os.path.join(BASE_DIR, 'media_cdn/temp')
 BASE_URL        = "https://127.0.0.1:8080"
 
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 # 10MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB
+

@@ -12,6 +12,7 @@ urlpatterns = [
         path("friend_request/", views.send_friend_request, name="friend-request"),
         path("friend_request/<int:user_id>/", views.friend_requests, name="friend-requests"),
         path("get_is_auth/", views.get_is_auth, name="get-is-auth"),
+        path("get_google_login_url/", views.get_google_login_url, name="get-google-login-url"),
         path("accept_friend_request/<int:friend_request_id>/",
              views.accept_friend_request, name="accept-friend-request"),
         path("decline_friend_request/<int:friend_request_id>/",
@@ -26,10 +27,10 @@ urlpatterns = [
 
 
         path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_reset/password_change_done.html'),
-        name='password_change_done'),
+            name='password_change_done'),
 
         path('password_change/', auth_views.PasswordChangeView.as_view(template_name='password_reset/password_change.html'),
-        name='password_change'),
+            name='password_change'),
 
         path('password_reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset/password_reset_done.html'),
      name='password_reset_done'),

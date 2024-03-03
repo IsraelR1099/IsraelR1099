@@ -114,4 +114,5 @@ def serialize_friend_request(request):
         "sender": sender_username,
         "receiver": receiver_username,
         "sender_profile_image": sender_profile_image,
+        "is_active": request.is_active,
         })

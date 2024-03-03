@@ -20,6 +20,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('user/', include("user.urls")),
+    path("accounts/", include("allauth.urls")),
 ]
 
 if settings.DEBUG:
