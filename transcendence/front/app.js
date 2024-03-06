@@ -138,6 +138,21 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+	// Function to parse URL parameters
+	const getUrlParameter = (name) => {
+		name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+		const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+		const results = regex.exec(location.search);
+		return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+	};
+
+	// Check if the 'code' parameter is present in the URL
+	const authorizationCode = getUrlParameter('code');
+	if (authorizationCode) {
+		// Print the authorization code to the console
+		console.log('Authorization code:', authorizationCode);
+	}
+
 	const oauthButton = document.getElementById('oauthButton');
 	if (oauthButton)
 	{
