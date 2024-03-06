@@ -3,6 +3,28 @@ document.addEventListener('DOMContentLoaded', function () {
 	const registerForm = document.getElementById('registerForm');
 	const userPage = document.getElementById('userPage');
 
+	// Function to parse URL parameters
+	const getUrlParameter = (name) => {
+		name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+		const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+		const results = regex.exec(location.search);
+		return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+	};
+
+	// Check if the 'code' parameter is present in the URL
+	const authorizationCode = getUrlParameter('code');
+	if (authorizationCode) {
+		// Print the authorization code to the console
+		console.log('Authorization code:', authorizationCode);
+	}
+
+	const oauthButton = document.getElementById('oauthButton');
+	if (oauthButton) {
+		oauthButton.addEventListener('click', function() {
+			window.location.href = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6c915676752c78781d78ef577aa18e6826414684bf8409ada6f6f1e3199d23c2&redirect_uri=https%3A%2F%2F127.0.0.1%3A443%2Fdashboard%2F&response_type=code';
+		});
+	}
+
  	function redirectToUserPage(data) {
 		let newData = JSON.parse(localStorage.getItem('userData'));
 		const profile_image_base64 = data.profile_image_base64;
