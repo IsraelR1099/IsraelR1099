@@ -136,3 +136,13 @@ document.addEventListener('DOMContentLoaded', function () {
         await registerUser(email, username, password1, password2);
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+	const oauthButton = document.getElementById('oauthButton');
+	if (oauthButton)
+	{
+		oauthButton.addEventListener('click', function() {
+			window.location.href = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6c915676752c78781d78ef577aa18e6826414684bf8409ada6f6f1e3199d23c2&redirect_uri=https%3A%2F%2F127.0.0.1%3A443%2Fdashboard%2F&response_type=code';
+		});
+	}
+});
