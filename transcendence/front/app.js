@@ -1,7 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
+
 	const loginForm = document.getElementById('loginForm');
 	const registerForm = document.getElementById('registerForm');
 	const userPage = document.getElementById('userPage');
+
+	const oauthButton = document.getElementById('oauthButton');
+	if (oauthButton) {
+		oauthButton.addEventListener('click', function() {
+			window.location.href = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-e874bdccc7b9faba51dfa57e391ee107a6d1eb6f84e62ddd20679af8403c851b&redirect_uri=https%3A%2F%2F127.0.0.01%3A443%2Fprofile&response_type=code';
+		});
+	}
+
+	//Define routes
+
+	const routes = {
+		"/": "index.html",
+		"/profile": "user.html",
+	};
 
 	// Function to parse URL parameters
 	const getUrlParameter = (name) => {
@@ -11,19 +26,44 @@ document.addEventListener('DOMContentLoaded', function () {
 		return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 	};
 
+	authCode();
 	// Check if the 'code' parameter is present in the URL
-	const authorizationCode = getUrlParameter('code');
-	if (authorizationCode) {
-		// Print the authorization code to the console
-		console.log('Authorization code:', authorizationCode);
+	async function authCode()
+	{
+		const authorizationCode = getUrlParameter('code');
+		if (authorizationCode) {
+			// Print the authorization code to the console
+			console.log('Authorization code:', authorizationCode);
+			try
+			{
+				const response = await fetch('/api/user/auth42/', {
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json",
+					},
+					"body": JSON.stringify({ "code": authorizationCode }),
+				});
+				const data = await response.json();
+				console.log(data);
+			}
+			catch (error)
+			{
+				console.error('Failed to authenticate with 42 API', error);
+			}
+			return ;
+		}
+		else {
+			console.log('No authorization code found');
+		}
 	}
 
-	const oauthButton = document.getElementById('oauthButton');
-	if (oauthButton) {
-		oauthButton.addEventListener('click', function() {
-			window.location.href = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6c915676752c78781d78ef577aa18e6826414684bf8409ada6f6f1e3199d23c2&redirect_uri=https%3A%2F%2F127.0.0.1%3A443%2Fdashboard%2F&response_type=code';
-		});
-	}
+	const navigateToRoute = (route) => {
+		const filePath = routes[route];
+		if (filePath) {
+			window.history.pushState({ path: route }, "", route);
+			window.location.href = filePath
+		}
+	};
 
  	function redirectToUserPage(data) {
 		let newData = JSON.parse(localStorage.getItem('userData'));
@@ -31,7 +71,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		newData.profile_image_base64 = profile_image_base64;
 		const updatedData = JSON.stringify(newData);
 		localStorage.setItem('userData', updatedData);
-        	window.location.href = 'user.html';
+		navigateToRoute('/profile');
+        	//window.location.href = 'user.html';
     	}
 
     async function fetchCSRFToken() {
@@ -157,29 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         await registerUser(email, username, password1, password2);
     });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-	// Function to parse URL parameters
-	const getUrlParameter = (name) => {
-		name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-		const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-		const results = regex.exec(location.search);
-		return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-	};
-
-	// Check if the 'code' parameter is present in the URL
-	const authorizationCode = getUrlParameter('code');
-	if (authorizationCode) {
-		// Print the authorization code to the console
-		console.log('Authorization code:', authorizationCode);
-	}
-
-	const oauthButton = document.getElementById('oauthButton');
-	if (oauthButton)
-	{
-		oauthButton.addEventListener('click', function() {
-			window.location.href = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6c915676752c78781d78ef577aa18e6826414684bf8409ada6f6f1e3199d23c2&redirect_uri=https%3A%2F%2F127.0.0.1%3A443%2Fdashboard%2F&response_type=code';
-		});
-	}
+	const initialRoute = window.location.pathname;
+	navigateToRoute(initialRoute);
 });

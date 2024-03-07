@@ -39,8 +39,8 @@ AUTHENTICATION_BACKENDS = [
 
 ALLOWED_HOSTS = ["*"]
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/api/accounts/google/login/?process=login'
+LOGOUT_REDIRECT_URL = '/api/accounts/google/logout/?process=logout'
 
 
 # Application definition
@@ -62,14 +62,14 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
 ]
 
-GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
-GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+CLIENT_ID = os.environ.get("CLIENT_ID")
+CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 
 SOCIALACCOUNT_PROVIDERS = {
         'google': {
             'APP': {
-                'client_id': 'GOOGLE_CLIENT_ID',
-                'secret': 'GOOGLE_CLIENT_SECRET',
+                'client_id': 'CLIENT_ID',
+                'secret': 'CLIENT_SECRET',
                 'key': '',
                 },
             'SCOPE': [
