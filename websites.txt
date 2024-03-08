@@ -632,3 +632,8 @@ https://medium.com/@eng.fadishaar/step-by-step-guide-configuring-nginx-with-http
 
 
 https://www.youtube.com/watch?v=PCJwJpbln6Q&ab_channel=CaosBinario
+https://stackoverflow.com/questions/68227680/having-permissions-issues-with-grafana-7-3-0-on-docker
+
+
+
+Advanced Programming in the UNIX environment third edition
