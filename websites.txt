@@ -637,3 +637,29 @@ https://stackoverflow.com/questions/68227680/having-permissions-issues-with-graf
 
 
 Advanced Programming in the UNIX environment third edition
+
+
+[transcendence problems]
+
+[grafana]
+https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/
+mkdir: cannot create directory '/var/lib/grafana/plugins': Permission denied
+in order to solve this problem we should create the directories with the right permissions, we should create by ourselves the directories before starting the containers. And inside the compose file we should specify the user: "user: "1000" (we can use command id -u to get the user id). Then on the volumes we reference the directories we created with the right permissions $PWD/grafana:/var/lib/grafana.
+
+https://stackoverflow.com/questions/74029504/spring-prometheus-grafana-err-reading-prometheus-post-http-localhost90
+
+[promehteus]
+mkdir: cannot create directory '/prometheus': Permission denied
+We follow the same steps as with grafana, we create the directories with the right permissions and then we reference them in the volumes of the compose file.
+
+[node_exporter]
+mkdir: cannot create directory '/host': Permission denied
+We follow the same steps as with grafana, we create the directories with the right permissions and then we reference them in the volumes of the compose file.
+
+[cadvisor]
+Cadvisor was more difficult to solve, I had to change the version of the image to v0.32.0 and I had to delete the volume /sys, apparently the volume /sys was causing the problem. I also had to create the directories with the right permissions and reference them in the volumes of the compose file.
+
+https://github.com/google/cadvisor/issues/1843
+
+
+

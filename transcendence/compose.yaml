@@ -67,15 +67,29 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     restart: unless-stopped
+    user: "1000"
+    expose:
+      - "3000"
     ports:
       - "3000:3000"
+    environment:
+      - "GF_SERVER_ROOT_URL=http://localhost:8081/grafana/"
+      - "GF_SERVER_HTTP_PORT=3000"
+      - "GF_SERVER_PROTOCOL=http"
+      - "GF_SERVER_DOMAIN=localhost:8081"
+      - "GF_SERVER_SERVE_FROM_SUB_PATH=true"
     volumes:
-      - './grafana_data:/var/lib/grafana'
+      - '$PWD/grafana_data:/var/lib/grafana'
+    networks:
+      - transcendence-net
 
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
     restart: unless-stopped
+    user: "1000"
+    expose:
+      - "9090"
     ports:
       - "9090:9090"
     command:
@@ -83,34 +97,45 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=1y'
       - '--web.enable-lifecycle'
+      - '--web.external-url=http://localhost:8081/prometheus/'
+      - '--web.enable-remote-write-receiver'
+      - '--web.route-prefix=/prometheus/'
     volumes:
-      - './prometheus.yml:/etc/prometheus/prometheus.yml'
-      - './prometheus_data:/prometheus'
+      - '$PWD/prometheus.yml:/etc/prometheus/prometheus.yml'
+      - '$PWD/prometheus_data:/prometheus'
+    networks:
+      - transcendence-net
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
     container_name: node_exporter
     command:
       - '--path.rootfs=/host'
-    network_mode: host
     pid: host
     restart: unless-stopped
+    user: "1000"
     ports:
       - "9100:9100"
     volumes:
-      - './metrics_data:/host:ro,rslave'
+      - '$PWD/metrics_data:/host:ro,rslave'
+    networks:
+      - transcendence-net
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
+    image: google/cadvisor:v0.32.0
     container_name: cadvisor
+    hostname: cadvisor
     restart: unless-stopped
+    user: "1000"
     expose:
-      - "8080"
+      - "8080:8080"
     volumes:
-      - './rootfs:/rootfs:ro'
-      - './var/run:/var/run:rw'
-      - './sys:/sys:ro'
-      - './var/lib/docker/:/var/lib/docker:ro'
+      - '$PWD/cadvisor_data/rootfs:/rootfs:ro'
+      - '$PWD/cadvisor_data/var/run:/var/run:rw'
+      - '$PWD/cadvisor_data/var/lib/docker/:/var/lib/docker:ro'
+      - '$PWD/cadvisor_data/dev/disk:/dev/disk:ro'
+    networks:
+      - transcendence-net
 
 networks:
   transcendence-net:
