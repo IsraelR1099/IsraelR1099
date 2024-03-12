@@ -9,3 +9,5 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 	-subj "/C=/ST=/L=/O=/OU=/CN=/"
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./certs/pong.xyz-key.pem /etc/nginx/certs/pong.xyz-key.pem
+COPY ./certs/pong.xyz.pem /etc/nginx/certs/pong.xyz.pem

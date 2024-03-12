@@ -662,4 +662,7 @@ Cadvisor was more difficult to solve, I had to change the version of the image t
 https://github.com/google/cadvisor/issues/1843
 
 
-
+https://github.com/oktadev/mkcert-nginx-example/blob/main/nginx-default.conf.template
+https://github.com/HugoDF/docker-compose-local-https/blob/master/init.sh
+https://github.com/FiloSottile/mkcert
+https://mindsers.blog/en/post/https-using-nginx-certbot-docker/

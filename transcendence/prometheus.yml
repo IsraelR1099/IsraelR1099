@@ -7,18 +7,21 @@ scrape_configs:
     static_configs:
       - targets: ['prometheus:9090']
 
+  - job_name: 'docker'
+    static_configs:
+      - targets: ['host.docker.internal:9323']
+
   - job_name: 'cadvisor'
     static_configs:
       - targets: ['cadvisor:8080']
 
   - job_name: 'node-exporter'
     static_configs:
-      - targets: ['node-exporter:9100']
-
-  - job_name: 'back'
-    static_configs:
-      - targets: ['back:8000']
+      - targets: ['host.docker.internal:9100']
 
   - job_name: 'nginx'
     static_configs:
       - targets: ['nginx:443']
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true

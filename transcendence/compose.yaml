@@ -10,6 +10,25 @@ services:
         - transcendence-net
     volumes:
       - ./front:/usr/share/nginx/html
+      - ./nginx/certs:/etc/nginx/certs
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - $PWD/certbot/conf/:/etc/letsencrypt/:rw
+
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:0.8.0
+    container_name: nginx-exporter
+    ports:
+      - "9113:9113"
+    command:
+      - -nginx.scrape-uri
+      - http://nginx:443/stub_status
+    networks:
+      - transcendence-net
 
   db:
     image: postgres:16-alpine
