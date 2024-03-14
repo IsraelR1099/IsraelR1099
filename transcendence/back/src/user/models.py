@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db.models import Q
 
 
 class MyUsersManager(BaseUserManager):
@@ -122,6 +123,17 @@ class FriendRequest(models.Model):
         Accept a friend request.
         Update both SENDER and RECEIVER friend lists.
         """
+
+        # Update receiver's friend request status
+        receiver_request = FriendRequest.objects.filter(
+                Q(sender=self.sender, receiver=self.receiver) |
+                Q(sender=self.receiver, receiver=self.sender)
+                ).first()
+        if receiver_request:
+            receiver_request.is_active = False
+            receiver_request.save()
+
+        # Update friend lists
         receiver_friend_list = FriendList.objects.get(user=self.receiver)
         if receiver_friend_list:
             receiver_friend_list.add_friend(self.sender)

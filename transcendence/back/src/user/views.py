@@ -29,6 +29,7 @@ from .forms import RegistrationForm, UsersAuthenticationForm, UsersUpdateForm
 from .utils import get_friend_request_or_false
 from .utils import generate_response, get_image_as_base64
 from .utils import serialize_friend_request
+from .utils import get_user_info
 from .friend_request_status import FriendRequestStatus
 from .tokens import create_jwt_pair_for_user
 
@@ -670,19 +671,29 @@ def auth42(request, *args, **kwargs):
         response_data['error'] = "No code provided."
         return JsonResponse(
                 response_data, encoder=DjangoJSONEncoder, status=200)
-    url = 'https://api.42.fr/oauth/token'
+    url = 'https://api.intra.42.fr/oauth/token'
+    logging.debug("client_id is %s", os.environ.get('CLIENT_ID'))
+    logging.debug("client_secret is %s", os.environ.get('CLIENT_SECRET'))
     data = {
-            "grant_type": "authorization_code",
-            "client_id": os.environ.get("CLIENT_ID"),
-            "client_secret": os.environ.get("CLIENT_SECRET"),
-            "code": code,
-            "redirect_uri": "https://127.0.0.1:443/profile",
+            'grant_type': 'authorization_code',
+            'client_id': os.environ.get('CLIENT_ID'),
+            'client_secret': os.environ.get('CLIENT_SECRET'),
+            'code': code,
+            'redirect_uri': 'https://pong.xyz/profile',
             }
     logging.debug("data on 42auth is %s", data)
     try:
         response = requests.post(url, data=data)
         response.raise_for_status()
         response_data = response.json()
+        token_access = response_data.get('access_token')
+        user_info = get_user_info(token_access)
+        # We should get login, first_name, last_name, email, and image small
+        if user_info:
+            response_data['user_info'] = user_info
+        else:
+            response_data['error'] = "Could not get user info."
+        logging.debug("response_data on 42auth is %s", response_data)
     except requests.exceptions.RequestException as e:
         response_data['error'] = str(e)
     logging.debug("response_data on 42auth is %s", response_data)

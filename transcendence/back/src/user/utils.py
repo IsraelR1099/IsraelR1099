@@ -3,6 +3,7 @@ from django.conf import settings
 import base64
 import logging
 import os
+import requests
 
 from .models import FriendRequest
 
@@ -116,3 +117,39 @@ def serialize_friend_request(request):
         "sender_profile_image": sender_profile_image,
         "is_active": request.is_active,
         })
+
+
+def get_user_info(access_token):
+    url = 'https://api.intra.42.fr/v2/me'
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        user_info = response.json()
+        login = user_info.get('login')
+        first_name = user_info.get('first_name')
+        last_name = user_info.get('last_name')
+        email = user_info.get('email')
+        image = user_info.get('image', {})
+        logging.debug("image: %s", image)
+        small_image_url = None
+        for i in image.keys():
+            logging.debug("i: %s", i)
+            for j in image[i]:
+                logging.debug("j: %s", j)
+                if j == 'small':
+                    small_image_url = image[i][j]
+                    break
+        user_info_dict = {
+            'login': login,
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email,
+            'small_image_url': small_image_url
+        }
+        return user_info_dict
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error getting user info: {e}")
+        return None

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const oauthButton = document.getElementById('oauthButton');
 	if (oauthButton) {
 		oauthButton.addEventListener('click', function() {
-			window.location.href = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-e874bdccc7b9faba51dfa57e391ee107a6d1eb6f84e62ddd20679af8403c851b&redirect_uri=https%3A%2F%2F127.0.0.01%3A443%2Fprofile&response_type=code';
+			window.location.href = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-e874bdccc7b9faba51dfa57e391ee107a6d1eb6f84e62ddd20679af8403c851b&redirect_uri=https%3A%2F%2Fpong.xyz%2Fprofile&response_type=code';
 		});
 	}
 
@@ -44,7 +44,14 @@ document.addEventListener('DOMContentLoaded', function () {
 					"body": JSON.stringify({ "code": authorizationCode }),
 				});
 				const data = await response.json();
-				console.log(data);
+
+				if (response.ok) {
+					console.log('Authenticated with 42 API');
+				}
+				else {
+					console.error('Failed to authenticate with 42 API', data.error);
+					alert(data.error);
+				}
 			}
 			catch (error)
 			{

@@ -1,3 +1,6 @@
+version: '3.8'
+
+
 services:
   nginx:
     build:
@@ -11,13 +14,6 @@ services:
     volumes:
       - ./front:/usr/share/nginx/html
       - ./nginx/certs:/etc/nginx/certs
-
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - $PWD/certbot/conf/:/etc/letsencrypt/:rw
-
 
   nginx-exporter:
     image: nginx/nginx-prometheus-exporter:0.8.0
@@ -136,7 +132,7 @@ services:
     ports:
       - "9100:9100"
     volumes:
-      - '$PWD/metrics_data:/host:ro,rslave'
+      - '/:/host:ro,rslave'
     networks:
       - transcendence-net
 
@@ -149,10 +145,13 @@ services:
     expose:
       - "8080:8080"
     volumes:
-      - '$PWD/cadvisor_data/rootfs:/rootfs:ro'
-      - '$PWD/cadvisor_data/var/run:/var/run:rw'
-      - '$PWD/cadvisor_data/var/lib/docker/:/var/lib/docker:ro'
-      - '$PWD/cadvisor_data/dev/disk:/dev/disk:ro'
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:rw'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+      - '/dev/disk:/dev/disk:ro'
+    devices:
+      - '/dev/kmsg'
+    privileged: true
     networks:
       - transcendence-net
 
