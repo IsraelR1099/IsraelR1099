@@ -55,6 +55,15 @@ class   Users(AbstractBaseUser):
     def get_profile_image_filename(self):
         return (str(self.profile_image)[str(self.profile_image).index(f'profile_images/{self.pk}/'):])
 
+class   OAuth42Users(models.Model):
+    login           = models.CharField(max_length=64, unique=True)
+    first_name      = models.CharField(max_length=64)
+    last_name       = models.CharField(max_length=64)
+    email           = models.EmailField(max_length=100, verbose_name="email", unique=True)
+
+    def __str__(self):
+        return (f"{self.login}")
+
 
 class FriendList(models.Model):
     user        = models.OneToOneField(

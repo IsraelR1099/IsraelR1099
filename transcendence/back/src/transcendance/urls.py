@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path('', include("django_prometheus.urls"),
     path('user/', include("user.urls")),
     path("accounts/", include("allauth.urls")),
 ]
