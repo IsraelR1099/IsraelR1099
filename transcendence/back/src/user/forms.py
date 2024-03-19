@@ -8,6 +8,7 @@ import logging
 import base64
 
 from .models import Users
+from .models import OAuth42Users
 
 
 class RegistrationForm(UserCreationForm):
@@ -32,6 +33,36 @@ class RegistrationForm(UserCreationForm):
         except Exception as e:
             return username
         raise forms.ValidationError(f"Username {username} is already in use.")
+
+
+class UsersAuthentication42Form(UserCreationForm):
+    email = forms.EmailField(max_length=64, help_text='Required. Add a valid email address')
+
+    class Meta:
+        model = OAuth42Users
+        fields = ("email", "login")
+
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        try:
+            user = OAuth42Users.objects.get(email=email)
+        except Exception as e:
+            return (email)
+        raise forms.ValidationError(f"Email {email} is already in use.")
+
+    def clean_login(self):
+        login = self.cleaned_data['login']
+        try:
+            user = OAuth42Users.objects.get(login=login)
+        except Exception as e:
+            return login
+        raise forms.ValidationError(f"Login {login} is already in use.")
+
+    def clean(self):
+        if self.is_valid():
+            login = self.cleaned_data['login']
+            if not authenticate(login=login):
+                raise forms.ValidationError("Invalid login")
 
 
 class UsersAuthenticationForm(forms.ModelForm):

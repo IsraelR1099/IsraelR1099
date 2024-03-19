@@ -666,3 +666,4 @@ https://github.com/oktadev/mkcert-nginx-example/blob/main/nginx-default.conf.tem
 https://github.com/HugoDF/docker-compose-local-https/blob/master/init.sh
 https://github.com/FiloSottile/mkcert
 https://mindsers.blog/en/post/https-using-nginx-certbot-docker/
+https://www.howtoforge.com/how-to-create-locally-trusted-ssl-certificates-with-mkcert-on-ubuntu/

@@ -25,11 +25,15 @@ import os
 import requests
 
 from .models import Users, FriendRequest, FriendList
+from .models import OAuth42Users
 from .forms import RegistrationForm, UsersAuthenticationForm, UsersUpdateForm
+from .forms import UsersAuthentication42Form
 from .utils import get_friend_request_or_false
 from .utils import generate_response, get_image_as_base64
 from .utils import serialize_friend_request
 from .utils import get_user_info
+from .utils import auth_42_user, register_42_user
+from .utils import save_profile_image
 from .friend_request_status import FriendRequestStatus
 from .tokens import create_jwt_pair_for_user
 
@@ -672,8 +676,6 @@ def auth42(request, *args, **kwargs):
         return JsonResponse(
                 response_data, encoder=DjangoJSONEncoder, status=200)
     url = 'https://api.intra.42.fr/oauth/token'
-    logging.debug("client_id is %s", os.environ.get('CLIENT_ID'))
-    logging.debug("client_secret is %s", os.environ.get('CLIENT_SECRET'))
     data = {
             'grant_type': 'authorization_code',
             'client_id': os.environ.get('CLIENT_ID'),
@@ -690,7 +692,20 @@ def auth42(request, *args, **kwargs):
         user_info = get_user_info(token_access)
         # We should get login, first_name, last_name, email, and image small
         if user_info:
-            response_data['user_info'] = user_info
+            try:
+                user = Users.objects.get(username=user_info['username'])
+                bool_user = True
+            except Users.DoesNotExist:
+                bool_user = False
+            if bool_user:
+                logging.debug("user already exists")
+                auth_42_user(request, user_info, user)
+            else:
+                logging.debug("user does not exist")
+                register_42_user(request, user_info)
+            tokens = create_jwt_pair_for_user(user)
+            response_data = generate_response(
+                    "200", user=user, tokens=tokens)
         else:
             response_data['error'] = "Could not get user info."
         logging.debug("response_data on 42auth is %s", response_data)

@@ -2,6 +2,10 @@ global:
   scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
 
+rule_files:
+  - '/etc/prometheus/prometheus_rules/memory.yml'
+  - '/etc/prometheus/prometheus_rules/reboot.yml'
+
 scrape_configs:
   - job_name: 'prometheus'
     static_configs:

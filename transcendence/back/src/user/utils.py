@@ -1,11 +1,15 @@
 from django.conf import settings
+from django.contrib.auth import authenticate, login
 
 import base64
 import logging
 import os
 import requests
+import secrets
+import string
 
 from .models import FriendRequest
+from .forms import UsersAuthenticationForm, RegistrationForm
 
 
 def get_friend_request_or_false(sender, receiver):
@@ -142,14 +146,77 @@ def get_user_info(access_token):
                 if j == 'small':
                     small_image_url = image[i][j]
                     break
+        password = ''.join(secrets.choice(
+            string.ascii_letters + string.digits) for i in range(20))
         user_info_dict = {
-            'login': login,
+            'username': login,
             'first_name': first_name,
             'last_name': last_name,
             'email': email,
-            'small_image_url': small_image_url
+            'password': password,
+            'profile_image': small_image_url
         }
         return user_info_dict
     except requests.exceptions.RequestException as e:
         logging.error(f"Error getting user info: {e}")
         return None
+
+
+def auth_42_user(request, user_info, instance):
+    try:
+        form = UsersAuthenticationForm(
+                user_info)
+        if form.is_valid():
+            username = user_info.get('username')
+            password = user_info.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return user
+            else:
+                return None
+    except Exception as e:
+        logging.error(f"Error authenticating 42 user: {e}")
+        return None
+
+
+def register_42_user(request, user_info):
+    try:
+        user_info['password1'] = user_info['password']
+        user_info['password2'] = user_info['password']
+        form = RegistrationForm(user_info)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return user
+        else:
+            return None
+    except Exception as e:
+        logging.error(f"Error registering 42 user: {e}")
+        return None
+
+    return None
+
+
+def save_profile_image(instance, image_url):
+    try:
+        response = requests.get(image_url)
+        response.raise_for_status()
+
+        folder_path = os.path.join(settings.MEDIA_ROOT, 'profile_image',
+                                   '42', f'{instance.pk}')
+        os.makedirs(folder_path, exist_ok=True)
+        file_path = os.path.join(folder_path, 'profile_image.png')
+
+        with open(file_path, 'wb') as f:
+            f.write(response.content)
+
+        instance.image.name = get_profile_image_filepath_42(
+                instance, 'profile_image.png')
+        instance.save()
+    except Exception as e:
+        logging.error(f"Error saving profile image: {e}")
+
