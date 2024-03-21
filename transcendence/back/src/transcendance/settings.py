@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "rooms",
     "rest_framework_simplejwt.token_blacklist",
     "user",
+    "chat",
     "django.contrib.sites",
     "allauth",
     "allauth.account",
@@ -118,7 +119,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "transcendance.wsgi.application"
-ASGI_APPLICATION = "transcendance.routing.application"
+ASGI_APPLICATION = "transcendance.asgi.application"
 
 
 # Database
@@ -162,6 +163,13 @@ SIMPLE_JWT = {
         'SIGNING_KEY': SECRET_KEY,
         'AUTH_HEADER_TYPES': ('Bearer',),
         }
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

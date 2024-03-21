@@ -10,12 +10,11 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.middleware.csrf import get_token
 
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-from rest_framework.decorators import api_view, authentication_classes
-from rest_framework.decorators import permission_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.decorators import authentication_classes
+from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-from allauth.socialaccount.providers.oauth2.views import OAuth2View
 from allauth.socialaccount.models import SocialApp
 
 
@@ -25,15 +24,12 @@ import os
 import requests
 
 from .models import Users, FriendRequest, FriendList
-from .models import OAuth42Users
 from .forms import RegistrationForm, UsersAuthenticationForm, UsersUpdateForm
-from .forms import UsersAuthentication42Form
 from .utils import get_friend_request_or_false
 from .utils import generate_response, get_image_as_base64
 from .utils import serialize_friend_request
 from .utils import get_user_info
 from .utils import auth_42_user, register_42_user
-from .utils import save_profile_image
 from .friend_request_status import FriendRequestStatus
 from .tokens import create_jwt_pair_for_user
 
@@ -125,38 +121,46 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
 
 @login_required
 @csrf_exempt
-@api_view(["POST"])
 def logout_view(request: HttpRequest) -> JsonResponse:
     """ Blacklist the refresh token: extract the token from the request
     object. Refresh token is blacklisted because this token has a longer
     lifetime than the access token. """
-    logout(request)
-    refresh_token = request.data.get("refresh_token")
-    if refresh_token:
-        try:
-            token = RefreshToken(refresh_token)
-            token.blacklist()
+    if request.method == "POST":
+        json_data = request.body.decode("utf-8")
+        json_data = json.loads(json_data)
+        refresh_token = json_data.get("refresh_token")
+        if refresh_token:
+            try:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+                logout(request)
+                context = {
+                        "message": "Logout successful.",
+                        "status": "success",
+                        }
+                logging.debug("context is %s", context)
+                return (JsonResponse(
+                    context, encoder=DjangoJSONEncoder, status=200))
+            except TokenError as e:
+                context = {
+                        "message": "Logout failed.",
+                        "status": "failed",
+                        "error": str(e),
+                        }
+                logging.debug("context is %s", context)
+                return (JsonResponse(
+                    context, encoder=DjangoJSONEncoder, status=401))
+        else:
             context = {
-                    "message": "Logout successful.",
-                    "status": "success",
+                "message": "Refresh token not provided.",
+                "status": "error",
                     }
-            logging.debug("context is %s", context)
-            return (JsonResponse(
-                context, encoder=DjangoJSONEncoder, status=200))
-        except TokenError as e:
-            context = {
-                    "message": "Logout failed.",
-                    "status": "failed",
-                    "error": str(e),
-                    }
-            logging.debug("context is %s", context)
-            return (JsonResponse(
-                context, encoder=DjangoJSONEncoder, status=401))
     else:
         context = {
-            "message": "Refresh token not provided.",
+            "message": "Method not allowed.",
             "status": "error",
                 }
+    logging.debug("context in logout is %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=401))
 
 
@@ -209,7 +213,6 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
 
 @permission_classes([IsAuthenticated])
 @authentication_classes([JWTAuthentication])
-@api_view(['GET', 'POST'])
 def account_view(request, *args, **kwargs):
     """
     Logic for viewing user account
@@ -309,7 +312,6 @@ def account_view(request, *args, **kwargs):
 
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def edit_account_view(request, *arg, **kwargs):
@@ -329,9 +331,6 @@ def edit_account_view(request, *arg, **kwargs):
         context['error'] = "You cannot edit someone elses profile."
         return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400))
     if request.method == "POST":
-        # json_data = request.body.decode("utf-8")
-        # json_data = json.loads(json_data)
-
         # Extract and process the profile image
         form = UsersUpdateForm(
                 request.POST, request.FILES, instance=request.user)

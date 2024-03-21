@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 				if (response.ok) {
 					console.log('Authenticated with 42 API');
+					localStorage.setItem('userData', JSON.stringify(data));
+					localStorage.setItem('token_access1', JSON.stringify(data.token_access));
+					await fetchAccountData(data.id, data.token_access, data.token_refresh);
 				}
 				else {
 					console.error('Failed to authenticate with 42 API', data.error);

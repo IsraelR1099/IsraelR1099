@@ -14,6 +14,8 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 
 from rooms.routing import websocket_urlpatterns
+from chat.routing import ws_urlpatterns
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'transcendance.settings')
 
@@ -22,7 +24,7 @@ application = ProtocolTypeRouter({
     "https": get_asgi_application(),
     "websocket": AuthMiddlewareStack(
         URLRouter(
-            websocket_urlpatterns
+            ws_urlpatterns
         )
     ),
 })
