@@ -48,6 +48,7 @@ LOGOUT_REDIRECT_URL = '/api/accounts/google/logout/?process=logout'
 SITE_ID = 1
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",

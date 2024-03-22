@@ -667,3 +667,10 @@ https://github.com/HugoDF/docker-compose-local-https/blob/master/init.sh
 https://github.com/FiloSottile/mkcert
 https://mindsers.blog/en/post/https-using-nginx-certbot-docker/
 https://www.howtoforge.com/how-to-create-locally-trusted-ssl-certificates-with-mkcert-on-ubuntu/
+
+
+//daphne configuration
+https://github.com/django/daphne
+//nginx conf
+https://stackoverflow.com/questions/42417919/deploy-to-docker-with-nginx-django-daphne
+

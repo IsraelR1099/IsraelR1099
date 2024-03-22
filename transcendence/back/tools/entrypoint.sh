@@ -32,5 +32,6 @@ fi
 
 # Run the server
 python manage.py runserver 0.0.0.0:8000 2>&1
+daphne -u /tmp/daphne.sock transcendance.asgi:application
 
 exec "$@"
