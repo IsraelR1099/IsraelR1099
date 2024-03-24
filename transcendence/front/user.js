@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	async function logoutUser() {
 		try {
 			const userData = JSON.parse(localStorage.getItem('userData'));
-			if (!userData || !userData.token_access) {
+			if (!userData) {
 				console.error('No user data found.');
 				return;
 			}

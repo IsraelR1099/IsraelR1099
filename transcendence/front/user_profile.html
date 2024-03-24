@@ -30,7 +30,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${userData.token_access}`,
+                            // 'Authorization': `Bearer ${userData.token_access}`,
                         },
                     }
                 );
@@ -90,7 +90,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${userData.token_access}`,
+                            // 'Authorization': `Bearer ${userData.token_access}`,
                         },
                         body: JSON.stringify({receiver_user_id: userId}),
                     }

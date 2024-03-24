@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "channels",
     "rooms",
-    "rest_framework_simplejwt.token_blacklist",
     "user",
     "chat",
     "django.contrib.sites",
@@ -151,19 +150,6 @@ LOGGING = {
             'level': 'DEBUG',
             },
 }
-
-REST_FRAMEWORK = {
-        'DEFAULT_AUTHENTICATION_CLASSES': [
-            'rest_framework_simplejwt.authentication.JWTAuthentication',
-            ],
-        }
-
-SIMPLE_JWT = {
-        'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
-        'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-        'SIGNING_KEY': SECRET_KEY,
-        'AUTH_HEADER_TYPES': ('Bearer',),
-        }
 
 
 CHANNEL_LAYERS = {

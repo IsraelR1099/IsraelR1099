@@ -9,11 +9,11 @@ from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.middleware.csrf import get_token
 
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.decorators import authentication_classes
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated
+# from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+# from rest_framework_simplejwt.authentication import JWTAuthentication
+# from rest_framework.decorators import authentication_classes
+# from rest_framework.decorators import permission_classes
+# from rest_framework.permissions import IsAuthenticated
 
 from allauth.socialaccount.models import SocialApp
 
@@ -31,7 +31,7 @@ from .utils import serialize_friend_request
 from .utils import get_user_info
 from .utils import auth_42_user, register_42_user
 from .friend_request_status import FriendRequestStatus
-from .tokens import create_jwt_pair_for_user
+# from .tokens import create_jwt_pair_for_user
 
 
 @csrf_exempt
@@ -98,9 +98,10 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 user = authenticate(username=username, password=password)
                 if user:
                     login(request, user)
-                    tokens = create_jwt_pair_for_user(user)
-                    context = generate_response(
-                            "200", user=user, tokens=tokens)
+                    # tokens = create_jwt_pair_for_user(user)
+                    # context = generate_response(
+                    #        "200", user=user, tokens=tokens)
+                    context = generate_response("200", user=user)
                     if destination:
                         return (redirect(destination))
                     return (JsonResponse(context, encoder=DjangoJSONEncoder))
@@ -126,35 +127,36 @@ def logout_view(request: HttpRequest) -> JsonResponse:
     object. Refresh token is blacklisted because this token has a longer
     lifetime than the access token. """
     if request.method == "POST":
-        json_data = request.body.decode("utf-8")
-        json_data = json.loads(json_data)
-        refresh_token = json_data.get("refresh_token")
-        if refresh_token:
-            try:
-                token = RefreshToken(refresh_token)
-                token.blacklist()
-                logout(request)
-                context = {
-                        "message": "Logout successful.",
-                        "status": "success",
-                        }
-                logging.debug("context is %s", context)
-                return (JsonResponse(
-                    context, encoder=DjangoJSONEncoder, status=200))
-            except TokenError as e:
-                context = {
-                        "message": "Logout failed.",
-                        "status": "failed",
-                        "error": str(e),
-                        }
-                logging.debug("context is %s", context)
-                return (JsonResponse(
-                    context, encoder=DjangoJSONEncoder, status=401))
-        else:
-            context = {
-                "message": "Refresh token not provided.",
-                "status": "error",
-                    }
+        logout(request)
+        context = {
+                "message": "Logout successful.",
+                "status": "success",
+                }
+        logging.debug("context is %s", context)
+        return (JsonResponse(
+            context, encoder=DjangoJSONEncoder, status=200))
+
+        # json_data = request.body.decode("utf-8")
+        # json_data = json.loads(json_data)
+        # refresh_token = json_data.get("refresh_token")
+        # if refresh_token:
+        # try:
+        # token = RefreshToken(refresh_token)
+        # token.blacklist()
+        # except TokenError as e:
+        # context = {
+        #        "message": "Logout failed.",
+        #        "status": "failed",
+        #        "error": str(e),
+        #        }
+        # logging.debug("context is %s", context)
+        # return (JsonResponse(
+        # context, encoder=DjangoJSONEncoder, status=401))
+        # else:
+        # context = {
+        #  "message": "Refresh token not provided.",
+        #  "status": "error",
+        #     }
     else:
         context = {
             "message": "Method not allowed.",
@@ -184,11 +186,12 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 account = authenticate(
                         username=username, password=raw_password)
                 login(request, account)
-                tokens = create_jwt_pair_for_user(account)
+                # tokens = create_jwt_pair_for_user(account)
                 destination = get_redirect_if_exists(request)
                 if destination:
                     return (redirect(destination))
-                context = generate_response("201", user=account, tokens=tokens)
+                # context = generate_response("201", user=account, tokens=tokens)
+                context = generate_response("201", user=account)
                 logging.debug("context on succes %s", context)
                 return (JsonResponse(
                     context, encoder=DjangoJSONEncoder, status=201))
@@ -211,8 +214,8 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
 
-@permission_classes([IsAuthenticated])
-@authentication_classes([JWTAuthentication])
+# @permission_classes([IsAuthenticated])
+# @authentication_classes([JWTAuthentication])
 def account_view(request, *args, **kwargs):
     """
     Logic for viewing user account
@@ -311,9 +314,9 @@ def account_view(request, *args, **kwargs):
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
 
+# @authentication_classes([JWTAuthentication])
+# @permission_classes([IsAuthenticated])
 @csrf_exempt
-@authentication_classes([JWTAuthentication])
-@permission_classes([IsAuthenticated])
 def edit_account_view(request, *arg, **kwargs):
     context = {}
 
