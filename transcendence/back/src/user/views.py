@@ -683,7 +683,7 @@ def auth42(request, *args, **kwargs):
             'client_id': os.environ.get('CLIENT_ID'),
             'client_secret': os.environ.get('CLIENT_SECRET'),
             'code': code,
-            'redirect_uri': 'https://pong.xyz/profile',
+            'redirect_uri': 'https://pong.xyz/42-auth',
             }
     logging.debug("data on 42auth is %s", data)
     try:
