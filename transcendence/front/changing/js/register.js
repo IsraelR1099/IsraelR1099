@@ -1,3 +1,5 @@
+import { fetchAccountData } from './fetchUser.js';
+
 document.addEventListener('DOMContentLoaded', function() {
 	const registerForm = document.getElementById('registerForm');
 	async function registerUser(email, username, password1, password2) {

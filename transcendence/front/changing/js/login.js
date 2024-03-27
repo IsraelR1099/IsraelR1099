@@ -1,3 +1,5 @@
+import { fetchAccountData } from './fetchUser.js';
+
 document.addEventListener('DOMContentLoaded', function() {
 	const loginForm = document.getElementById('loginForm');
 	async function loginUser(username, password) {
@@ -35,5 +37,5 @@ document.addEventListener('DOMContentLoaded', function() {
 		const username = document.getElementById('username').value;
 		const password = document.getElementById('password').value;
 		await loginUser(username, password);
-	}
+	});
 });

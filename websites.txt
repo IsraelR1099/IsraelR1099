@@ -674,3 +674,7 @@ https://github.com/django/daphne
 //nginx conf
 https://stackoverflow.com/questions/42417919/deploy-to-docker-with-nginx-django-daphne
 
+
+
+###VMWare shared folder problems
+https://communities.vmware.com/t5/VMware-Workstation-Pro/VMware-shared-folder-not-showing-in-mnt-on-Ubuntu-guest/td-p/2918915
