@@ -23,4 +23,13 @@ async function fetchAccountData(userId) {
 	}
 }
 
+function redirectToUserPage(data) {
+	let	newData = JSON.parse(localStorage.getItem('userData'));
+	const profile_image_base64 = data.profile_image_base64;
+	newData.profile_image_base64 = profile_image_base64;
+	const updateData = JSON.stringify(newData);
+	localStorage.setItem('userData', updateData);
+	window.location.href = "../pages/user_profile.html"
+}
+
 export { fetchAccountData };

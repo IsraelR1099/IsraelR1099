@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const loginForm = document.getElementById('loginForm');
 	async function loginUser(username, password) {
 		try {
-			const response = await fetch('/api/user/login', {
+			const response = await fetch('/api/user/login/', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

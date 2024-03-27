@@ -1,3 +1,5 @@
+import { 'fetchAccountData' } from './fetchUser.js';
+
 document.addEventListener('DOMContentLoaded', function() {
 	const oauthButton = document.getElementById('oauthButton');
 	if (oauthButton) {
