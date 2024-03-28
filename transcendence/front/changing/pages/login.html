@@ -4,25 +4,15 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Login</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-		<link rel="stylesheet" href="../css/styles.css">
 	</head>
 	<body>
-		<section class="container">
-			<div class="login-container">
-				<div class="circler circle-one"></div>
-				<div class="form-container">
-					<img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
-					<h1 class="opacity">Login</h1>
-					<form>
-						<input type="text" placeholder="Username" />
-						<input type="password" placeholder="Password" />
-						<button class="opacity">Submit</button>
-					</form>
-				</div>
-				<div class="circler circle-two"></div>
-			</div>
-		</section>
+		<form id="loginForm">
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" required>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+			<button type="submit" id="loginButton">Login</button>
+		</form>
+		<script src="../js/login.js"></script>
 	</body>
 </html>

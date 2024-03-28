@@ -29,7 +29,7 @@ function redirectToUserPage(data) {
 	newData.profile_image_base64 = profile_image_base64;
 	const updateData = JSON.stringify(newData);
 	localStorage.setItem('userData', updateData);
-	window.location.href = "../pages/user_profile.html"
+	window.location.href = '../pages/user_profile.html';
 }
 
 export { fetchAccountData };
