@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		const email = document.getElementById('email').value;
 		const username = document.getElementById('username').value;
-		const profileImageInput = document.getElementById('profileImage').value;
-		const profileImage = profileImageInput.files[0];
-		if (!profileImage) {
+		const profileImageInput = document.getElementById('profileImage');
+		const profile_image = profileImageInput.files[0];
+		if (!profile_image) {
 			return alert('Please select an image');
 		}
 		try {
@@ -21,18 +21,18 @@ document.addEventListener('DOMContentLoaded', function() {
 			const formData = new FormData();
 			formData.append('email', email);
 			formData.append('username', username);
-			formData.append('profileImage', profileImage);
+			formData.append('profile_image', profile_image);
+			console.log("email: ", email);
+			console.log("username: ", username);
 			const response = await fetch(`/api/user/account/${userData.id}/edit/`, {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json',
-					'Accept': 'application/json',
 				},
 				body: formData,
 			});
 			const data = await response.json();
 			if (response.ok) {
-				if (data.errors) {
+				if (data.error) {
 					console.error('Faild to edit profile', data.errors);
 					return alert('Faild to edit profile');
 				}
@@ -45,8 +45,4 @@ document.addEventListener('DOMContentLoaded', function() {
 			alert('Faild to edit profile');
 		}
 	});
-});
-
-document.getElementById('editProfileButton').addEventListener('click', function() {
-	window.location.href = '../pages/edit_profile.html';
 });

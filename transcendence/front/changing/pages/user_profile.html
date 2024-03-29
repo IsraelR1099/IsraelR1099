@@ -56,9 +56,19 @@
 			<button id="editProfileButton">Edit Profile</button>
 			<button id="friendsButton">Friends</button>
 			<button id="friendRequestsButton">Friend Requests</button>
+			<button id="websocketButton">Websocket</button>
 		</div>
 		<script src="../js/displayUserProfile.js"></script>
 		<script src="../js/logout.js"></script>
-		<script src="../js/editProfile.js" type="module"></script>
+		<script>
+			document.getElementById('editProfileButton').addEventListener('click', function() {
+				window.location.href = "editProfile.html";
+			});
+		</script>
+		<script>
+			document.getElementById('websocketButton').addEventListener('click', function() {
+				window.location.href = "websocket.html";
+			});
+		</script>
 	</body>
 </html>
