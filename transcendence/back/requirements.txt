@@ -1,7 +1,5 @@
 # requirements.txt
 asgiref==3.7.2
-channels==4.0.0
-daphne==4.0.0
 loguru==0.7.2
 psycopg==3.1.14
 psycopg-binary==3.1.14
@@ -25,3 +23,8 @@ django-allauth==0.61.0
 
 # Prometheus support
 django-prometheus==2.3.1
+
+# Django channels
+channels==4.0.0
+daphne==4.0.0
+channels-redis==4.0.0

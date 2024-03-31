@@ -78,6 +78,18 @@ services:
     networks:
       - transcendence-net
 
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    expose:
+      - "6379"
+    volumes:
+      - ./redis_data:/data
+    networks:
+      - transcendence-net
+
   grafana:
     image: grafana/grafana:latest
     container_name: grafana

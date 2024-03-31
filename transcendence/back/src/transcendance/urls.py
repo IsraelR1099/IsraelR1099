@@ -21,6 +21,7 @@ from django.conf import settings
 urlpatterns = [
     path('', include("django_prometheus.urls")),
     path('user/', include("user.urls")),
+    path('tictac/', include("tictac.urls")),
     path('rooms/', include("rooms.urls")),
     path("accounts/", include("allauth.urls")),
 ]

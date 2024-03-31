@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "rooms",
     "user",
     "chat",
+    "tictac",
     "django.contrib.sites",
     "allauth",
     "allauth.account",
@@ -122,6 +123,16 @@ WSGI_APPLICATION = "transcendance.wsgi.application"
 ASGI_APPLICATION = "transcendance.asgi.application"
 
 
+# Channels
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis", 6379)],
+        },
+    }
+}
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -149,13 +160,6 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
             },
-}
-
-
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
 }
 
 # Password validation
@@ -209,7 +213,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CSRF settings
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8080', 'https://localhost:8080',
-                        'http://127.0.0.1:8080', 'https://127.0.0.1:8080']
+                        'http://127.0.0.1:8080', 'https://127.0.0.1:8080',
+                        'https://pong.xyz', 'https://www.pong.xyz',
+                        ]
 
 # Media settings
 STATIC_ROOT     = os.path.join(BASE_DIR, 'static_cdn')
