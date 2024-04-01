@@ -15,7 +15,7 @@ async function createRoom() {
 		const data = await response.json();
 		if (response.ok) {
 			console.log("Room created:", data);
-			window.location.href = "../pages/game.html";
+			redirectToGamePage(data);
 		}
 		else {
 			console.error("Failed to create room:", data.error);
@@ -45,7 +45,7 @@ async function joinRoom() {
 		const data = await response.json();
 		if (response.ok) {
 			console.log("Room joined:", data);
-			window.location.href = "../pages/game.html";
+			redirectToGamePage(data);
 		}
 		else {
 			console.error("Failed to join room:", data.error);
@@ -56,4 +56,9 @@ async function joinRoom() {
 		console.error("Failed to join room:", error);
 		alert("Failed to join room");
 	}
+}
+
+function redirectToGamePage(roomInfo) {
+	const queryParams = new URLSearchParams(roomInfo).toString();
+	window.location.href = `../pages/game.html?${queryParams}`;
 }
