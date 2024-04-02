@@ -43,6 +43,8 @@ def home(request):
 
                 game.opponent = username
                 game.save()
+                response_data['room_code'] = room_code
+                response_data['opponent'] = username
             else:
                 game = Game(creator=username, room_code=room_code)
                 game.save()

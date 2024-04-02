@@ -30,6 +30,7 @@ async function createRoom() {
 
 async function joinRoom() {
 	const roomCode = document.getElementById('roomCode').value;
+	console.log('roomCode es ' + roomCode);
 	if (!roomCode) {
 		alert('Please enter a room code');
 		return;
@@ -44,6 +45,11 @@ async function joinRoom() {
 		});
 		const data = await response.json();
 		if (response.ok) {
+			if (data.error) {
+				console.error("Failed to join room:", data.error);
+				alert(data.error);
+				return;
+			}
 			console.log("Room joined:", data);
 			redirectToGamePage(data);
 		}

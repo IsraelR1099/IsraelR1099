@@ -37,16 +37,16 @@ class GameRoom(WebsocketConsumer):
             async_to_sync(self.channel_layer.group_send)(
                     self.room_group_name, {
                         'type': 'run_game',
-                        'message': text_data
+                        'payload': text_data
                     }
             )
         except Exception as e:
             logging.error(f"Error receiving message from websocket: {e}")
 
     def run_game(self, event):
-        data = event['message']
+        data = event['payload']
         data = json.loads(data)
 
         self.send(text_data=json.dumps({
-            'message': data['message']
+            'payload': data['data']
             }))
