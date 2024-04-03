@@ -72,9 +72,12 @@ def play(request, room_code):
     try:
         json_data = request.body.decode('utf-8')
         json_data = json.loads(json_data)
-        username = request.user.username
-        response_data['username'] = username
+        game = Game.objects.get(room_code=room_code)
+        response_data['creator'] = game.creator
+        response_data['opponent'] = game.opponent
         response_data['room_code'] = room_code
+    except Game.DoesNotExist:
+        response_data['error'] = "Game not found"
     except Exception as e:
         error = "Invalid data" + str(e)
         response_data['error'] = error

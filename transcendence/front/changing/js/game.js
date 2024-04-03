@@ -47,12 +47,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	//22:00
 	function	setAnotherUserText(index, value) {
 		console.log('Setting value: ' + value + ' at index: ' + index);
-		if (gameState[parseInt(index)] == '') {
-			gameState[parseInt(index)] = value;
-			elementArray[parseInt(index)].innerHTML = value;
-		} else {
-			alert('You cannot fill this cell');
+		console.log('creator: ' + creator + ' opponent: ' + opponent);
+		let	value2;
+		if (value == creator) {
+			value2 = 'X';
 		}
+		if (value == player) {
+			value2 = 'O';
+		}
+		gameState[parseInt(index)] = value2;
+		elementArray[parseInt(index)].innerHTML = value2;
 	}
 
 	websocket.onopen = function(event) {

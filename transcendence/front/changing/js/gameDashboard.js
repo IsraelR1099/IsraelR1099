@@ -66,5 +66,6 @@ async function joinRoom() {
 
 function redirectToGamePage(roomInfo) {
 	const queryParams = new URLSearchParams(roomInfo).toString();
+	//window.location.href = `./pages/waitingRoom.html?${queryParams}`;
 	window.location.href = `../pages/game.html?${queryParams}`;
 }
