@@ -11,6 +11,8 @@ urlpatterns = [
         path("friend_remove/", views.remove_friend, name="remove-friend"),
         path("friend_request/", views.send_friend_request, name="friend-request"),
         path("friend_request/<int:user_id>/", views.friend_requests, name="friend-requests"),
+        path("match_history/<int:user_id>/", views.get_match_history,
+             name="match-history"),
         path("get_is_auth/", views.get_is_auth, name="get-is-auth"),
         path("get_google_login_url/", views.get_google_login_url, name="get-google-login-url"),
         path("accept_friend_request/<int:friend_request_id>/",
@@ -21,6 +23,7 @@ urlpatterns = [
         path("login/", views.login_view, name="login"),
         path("logout/", views.logout_view, name="logout"),
         path("register/", views.register_user, name="register"),
+        path("save_match/", views.save_match, name="save-match"),
         path("search/", views.account_search_view, name="search"),
 
 

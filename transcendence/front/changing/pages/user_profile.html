@@ -58,9 +58,15 @@
 			<button id="friendRequestsButton">Friend Requests</button>
 			<button id="websocketButton">Websocket</button>
 			<button id="gameDashboardButton">Game</button>
+			<button id="GameHistoryButton">Game History</button>
 		</div>
 		<script src="../js/displayUserProfile.js"></script>
 		<script src="../js/logout.js"></script>
+		<script>
+			document.getElementById('GameHistoryButton').addEventListener('click', function() {
+				window.location.href = "gameHistory.html";
+			});
+		</script>
 		<script>
 			document.getElementById('editProfileButton').addEventListener('click', function() {
 				window.location.href = "editProfile.html";

@@ -39,7 +39,23 @@ def get_profile_image_filepath_42(instance, filename):
     return (os.path.join('profile_image', '42', f'{instance.pk}', filename))
 
 
-class   Users(AbstractBaseUser):
+class MatchHistory(models.Model):
+    OUTCOME_CHOICES = (
+            ('win', 'win'),
+            ('loss', 'loss'),
+            ('draw', 'draw'),
+            )
+    winner = models.ForeignKey(
+            settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="winner")
+    loser = models.ForeignKey(
+            settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="loser")
+    game_type = models.CharField(max_length=64)
+    room_code = models.CharField(max_length=64)
+    result = models.CharField(max_length=4, choices=OUTCOME_CHOICES)
+    date_time = models.DateTimeField(auto_now_add=True)
+
+
+class Users(AbstractBaseUser):
     first_name          = models.CharField(max_length=64)
     last_name           = models.CharField(max_length=64)
     birth_date          = models.DateTimeField(default = timezone.now)
@@ -51,6 +67,7 @@ class   Users(AbstractBaseUser):
     profile_image = models.FileField(max_length=500, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile_image)
     friends             = models.ManyToManyField("Users", blank=True)
     hide_email          = models.BooleanField(default=True)
+    match_history       = models.ManyToManyField("MatchHistory", blank=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []

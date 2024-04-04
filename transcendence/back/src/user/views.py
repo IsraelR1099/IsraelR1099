@@ -9,14 +9,7 @@ from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.middleware.csrf import get_token
 
-# from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-# from rest_framework_simplejwt.authentication import JWTAuthentication
-# from rest_framework.decorators import authentication_classes
-# from rest_framework.decorators import permission_classes
-# from rest_framework.permissions import IsAuthenticated
-
 from allauth.socialaccount.models import SocialApp
-
 
 import json
 import logging
@@ -24,6 +17,7 @@ import os
 import requests
 
 from .models import Users, FriendRequest, FriendList
+from .models import MatchHistory
 from .forms import RegistrationForm, UsersAuthenticationForm, UsersUpdateForm
 from .utils import get_friend_request_or_false
 from .utils import generate_response, get_image_as_base64
@@ -31,7 +25,6 @@ from .utils import serialize_friend_request
 from .utils import get_user_info
 from .utils import auth_42_user, register_42_user
 from .friend_request_status import FriendRequestStatus
-# from .tokens import create_jwt_pair_for_user
 
 
 @csrf_exempt
@@ -98,9 +91,6 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 user = authenticate(username=username, password=password)
                 if user:
                     login(request, user)
-                    # tokens = create_jwt_pair_for_user(user)
-                    # context = generate_response(
-                    #        "200", user=user, tokens=tokens)
                     context = generate_response("200", user=user)
                     if destination:
                         return (redirect(destination))
@@ -135,28 +125,6 @@ def logout_view(request: HttpRequest) -> JsonResponse:
         logging.debug("context is %s", context)
         return (JsonResponse(
             context, encoder=DjangoJSONEncoder, status=200))
-
-        # json_data = request.body.decode("utf-8")
-        # json_data = json.loads(json_data)
-        # refresh_token = json_data.get("refresh_token")
-        # if refresh_token:
-        # try:
-        # token = RefreshToken(refresh_token)
-        # token.blacklist()
-        # except TokenError as e:
-        # context = {
-        #        "message": "Logout failed.",
-        #        "status": "failed",
-        #        "error": str(e),
-        #        }
-        # logging.debug("context is %s", context)
-        # return (JsonResponse(
-        # context, encoder=DjangoJSONEncoder, status=401))
-        # else:
-        # context = {
-        #  "message": "Refresh token not provided.",
-        #  "status": "error",
-        #     }
     else:
         context = {
             "message": "Method not allowed.",
@@ -186,11 +154,9 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 account = authenticate(
                         username=username, password=raw_password)
                 login(request, account)
-                # tokens = create_jwt_pair_for_user(account)
                 destination = get_redirect_if_exists(request)
                 if destination:
                     return (redirect(destination))
-                # context = generate_response("201", user=account, tokens=tokens)
                 context = generate_response("201", user=account)
                 logging.debug("context on succes %s", context)
                 return (JsonResponse(
@@ -199,7 +165,6 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 errors = []
                 for field_errors in form.errors.values():
                     errors.extend(field_errors)
-                # context = generate_response("401", error_message=errors)
                 context = {"error": errors}
                 return (JsonResponse(context, encoder=DjangoJSONEncoder,
                                      status=200))
@@ -214,8 +179,6 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
 
-# @permission_classes([IsAuthenticated])
-# @authentication_classes([JWTAuthentication])
 def account_view(request, *args, **kwargs):
     """
     Logic for viewing user account
@@ -683,7 +646,7 @@ def auth42(request, *args, **kwargs):
             'client_id': os.environ.get('CLIENT_ID'),
             'client_secret': os.environ.get('CLIENT_SECRET'),
             'code': code,
-            'redirect_uri': 'https://pong.xyz/42-auth',
+            'redirect_uri': 'https://pong.xyz/profile',
             }
     logging.debug("data on 42auth is %s", data)
     try:
@@ -705,13 +668,100 @@ def auth42(request, *args, **kwargs):
             else:
                 logging.debug("user does not exist")
                 register_42_user(request, user_info)
-            tokens = create_jwt_pair_for_user(user)
             response_data = generate_response(
-                    "200", user=user, tokens=tokens)
+                    "200", user=user)
         else:
             response_data['error'] = "Could not get user info."
         logging.debug("response_data on 42auth is %s", response_data)
     except requests.exceptions.RequestException as e:
         response_data['error'] = str(e)
     logging.debug("response_data on 42auth is %s", response_data)
+    return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200)
+
+
+@csrf_exempt
+def save_match(request, *args, **kwargs):
+    response_data = {}
+    user = request.user
+    if request.method == "POST" and user.is_authenticated:
+        body_unicode = request.body.decode("utf-8")
+        body_data = json.loads(body_unicode)
+        logging.debug("body_data on save_match is %s", body_data)
+        winner_username = body_data.get("winner")
+        loser_username = body_data.get("loser")
+        room_code = body_data.get("room_code")
+        game_type = body_data.get("game_type")
+
+        if winner_username == "draw" or loser_username == "draw":
+            response_data['error'] = "Cannot save a draw."
+            return JsonResponse(
+                    response_data, encoder=DjangoJSONEncoder, status=200)
+
+        try:
+            winner_user = Users.objects.get(username=winner_username)
+            loser_user = Users.objects.get(username=loser_username)
+
+            winner_match = MatchHistory.objects.create(
+                    winner=winner_user,
+                    loser=loser_user,
+                    room_code=room_code,
+                    game_type=game_type,
+                    result='win'
+                    )
+            loser_match = MatchHistory.objects.create(
+                    winner=winner_user,
+                    loser=loser_user,
+                    room_code=room_code,
+                    game_type=game_type,
+                    result='loss'
+                    )
+            winner_user.match_history.add(winner_match)
+            loser_user.match_history.add(loser_match)
+            response_data['response'] = "Match saved."
+            logging.debug("response_data on save_match is %s", response_data)
+            return JsonResponse(
+                    response_data, encoder=DjangoJSONEncoder, status=200)
+        except Users.DoesNotExist:
+            response_data['error'] = "User does not exist."
+        except Exception as e:
+            response_data['error'] = str(e)
+    else:
+        response_data['error'] = "You must be authenticated to save a match."
+    logging.debug("response_data on save_match down is %s", response_data)
+    return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200)
+
+
+def get_match_history(request, *args, **kwargs):
+    response_data = {}
+    user = request.user
+    if user.is_authenticated:
+        user_id = kwargs.get("user_id")
+        try:
+            this_user = Users.objects.get(pk=user_id)
+            match_history = this_user.match_history.all()
+            serialized_match_history = []
+            for match in match_history:
+                serialized_match = {
+                        "winner": match.winner.username,
+                        "loser": match.loser.username,
+                        "room_code": match.room_code,
+                        "game_type": match.game_type,
+                        "result": match.result,
+                        "date": match.date_time.strftime("%Y-%m-%d %H:%M:%S")
+                        }
+                serialized_match_history.append(serialized_match)
+                response_data['winner'] = match.winner.username
+                response_data['loser'] = match.loser.username
+                response_data['room_code'] = match.room_code
+                response_data['game_type'] = match.game_type
+                response_data['result'] = match.result
+                response_data['date'] = match.date_time.strftime(
+                        "%Y-%m-%d %H:%M:%S")
+        except Users.DoesNotExist:
+            response_data['error'] = "User does not exist."
+        except Exception as e:
+            response_data['error'] = str(e)
+    else:
+        response_data['error'] = "You must be authenticated to view match history."
+    logging.debug("response_data on get_match_history is %s", response_data)
     return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200)
