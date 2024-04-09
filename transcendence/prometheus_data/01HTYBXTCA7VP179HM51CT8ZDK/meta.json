@@ -1,0 +1,17 @@
+{
+	"ulid": "01HTYBXTCA7VP179HM51CT8ZDK",
+	"minTime": 1712299902167,
+	"maxTime": 1712304000000,
+	"stats": {
+		"numSamples": 37254,
+		"numSeries": 1493,
+		"numChunks": 1493
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01HTYBXTCA7VP179HM51CT8ZDK"
+		]
+	},
+	"version": 1
+}
