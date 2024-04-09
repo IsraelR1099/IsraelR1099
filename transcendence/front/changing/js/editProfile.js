@@ -6,15 +6,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	editForm.addEventListener('submit', async function(event) {
 		event.preventDefault();
+		const userData = JSON.parse(localStorage.getItem('userData'));
 		const email = document.getElementById('email').value;
+		if (!email) {
+			email = userData.email;
+		}
 		const username = document.getElementById('username').value;
+		if (!username) {
+			username = userData.username;
+		}
+		if (!email && !username) {
+			return alert('Please enter email or username');
+		}
 		const profileImageInput = document.getElementById('profileImage');
 		const profile_image = profileImageInput.files[0];
 		if (!profile_image) {
 			return alert('Please select an image');
 		}
 		try {
-			const userData = JSON.parse(localStorage.getItem('userData'));
 			if (!userData) {
 				return alert('Please log in');
 			}

@@ -7,6 +7,7 @@ urlpatterns = [
         path("account/<int:user_id>/", views.account_view, name="view"),
         path("account/<int:user_id>/edit/", views.edit_account_view, name="edit"),
         path("auth42/", views.auth42, name="auth42"),
+        path("delete_users_42/", views.delete_users_42, name="delete_users_42"),
         path("friend_list/<int:user_id>/", views.friend_list_view, name="friend-list"),
         path("friend_remove/", views.remove_friend, name="remove-friend"),
         path("friend_request/", views.send_friend_request, name="friend-request"),

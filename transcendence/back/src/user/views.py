@@ -113,18 +113,28 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
 @login_required
 @csrf_exempt
 def logout_view(request: HttpRequest) -> JsonResponse:
-    """ Blacklist the refresh token: extract the token from the request
-    object. Refresh token is blacklisted because this token has a longer
-    lifetime than the access token. """
     if request.method == "POST":
-        logout(request)
-        context = {
-                "message": "Logout successful.",
-                "status": "success",
-                }
-        logging.debug("context is %s", context)
-        return (JsonResponse(
-            context, encoder=DjangoJSONEncoder, status=200))
+        user = request.user
+        logging.debug("email is %s", user.email)
+        user = Users.objects.get(pk=user.pk)
+        user_email = user.email
+        if "42barcelona" in user_email:
+            logout(request)
+            user.delete()
+            context = {
+                    "message": "User deleted.",
+                    "status": "success",
+                    }
+            return (JsonResponse(
+                context, encoder=DjangoJSONEncoder, status=200))
+        else:
+            logout(request)
+            context = {
+                    "message": "Logout successful.",
+                    "status": "success",
+                    }
+            return (JsonResponse(
+                context, encoder=DjangoJSONEncoder, status=200))
     else:
         context = {
             "message": "Method not allowed.",
@@ -179,6 +189,7 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
 
+@login_required
 def account_view(request, *args, **kwargs):
     """
     Logic for viewing user account
@@ -277,9 +288,8 @@ def account_view(request, *args, **kwargs):
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
 
-# @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated])
 @csrf_exempt
+@login_required
 def edit_account_view(request, *arg, **kwargs):
     context = {}
 
@@ -646,7 +656,7 @@ def auth42(request, *args, **kwargs):
             'client_id': os.environ.get('CLIENT_ID'),
             'client_secret': os.environ.get('CLIENT_SECRET'),
             'code': code,
-            'redirect_uri': 'https://pong.xyz/profile',
+            'redirect_uri': 'https://pong.xyz/pages/redirect.html',
             }
     logging.debug("data on 42auth is %s", data)
     try:
@@ -657,19 +667,13 @@ def auth42(request, *args, **kwargs):
         user_info = get_user_info(token_access)
         # We should get login, first_name, last_name, email, and image small
         if user_info:
-            try:
-                user = Users.objects.get(username=user_info['username'])
-                bool_user = True
-            except Users.DoesNotExist:
-                bool_user = False
-            if bool_user:
-                logging.debug("user already exists")
-                auth_42_user(request, user_info, user)
-            else:
-                logging.debug("user does not exist")
-                register_42_user(request, user_info)
-            response_data = generate_response(
-                    "200", user=user)
+            logging.debug("user does not exist")
+            user = register_42_user(request, user_info)
+            if not user:
+                response_data['error'] = "Could not register user."
+                return JsonResponse(
+                        response_data, encoder=DjangoJSONEncoder, status=200)
+            response_data = generate_response("200", user=user)
         else:
             response_data['error'] = "Could not get user info."
         logging.debug("response_data on 42auth is %s", response_data)
@@ -677,6 +681,22 @@ def auth42(request, *args, **kwargs):
         response_data['error'] = str(e)
     logging.debug("response_data on 42auth is %s", response_data)
     return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200)
+
+
+@csrf_exempt
+def delete_users_42(request, *args, **kwargs):
+    if request.method == "POST":
+        users_to_delete = Users.objects.filter(email__icontains="42barcelona")
+        deleted_user_count = users_to_delete.count()
+        users_to_delete.delete()
+        response_data = {
+                "message": f"Deleted {deleted_user_count} users.",
+                "status": "success",
+                }
+        return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200)
+    else:
+        response_data ['error'] = "Method not allowed."
+        return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=405)
 
 
 @csrf_exempt

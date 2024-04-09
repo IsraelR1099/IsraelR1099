@@ -137,12 +137,9 @@ def get_user_info(access_token):
         last_name = user_info.get('last_name')
         email = user_info.get('email')
         image = user_info.get('image', {})
-        logging.debug("image: %s", image)
         small_image_url = None
         for i in image.keys():
-            logging.debug("i: %s", i)
             for j in image[i]:
-                logging.debug("j: %s", j)
                 if j == 'small':
                     small_image_url = image[i][j]
                     break
@@ -156,6 +153,7 @@ def get_user_info(access_token):
             'password': password,
             'profile_image': small_image_url
         }
+        logging.debug("user_info_dict: %s", user_info_dict)
         return user_info_dict
     except requests.exceptions.RequestException as e:
         logging.error(f"Error getting user info: {e}")
@@ -175,6 +173,9 @@ def auth_42_user(request, user_info, instance):
                 return user
             else:
                 return None
+        else:
+            logging.error(f"Error authenticating 42 user: {form.errors}")
+            return None
     except Exception as e:
         logging.error(f"Error authenticating 42 user: {e}")
         return None
