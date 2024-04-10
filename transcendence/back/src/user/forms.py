@@ -86,14 +86,6 @@ class UsersUpdateForm(forms.ModelForm):
         model = Users
         fields = ('username', 'email', 'profile_image', 'hide_email')
 
-    # def __init__(self, *args, **kwargs):
-        # initial = kwargs.get('initial', {})
-        # logging.debug("Initial values in init")
-        # for field_name, field in self.base_fields.items():
-        #    value = initial.get(field_name)
-        #    logging.debug(f"{field_name}: {value}")
-        # super().__init__(*args, **kwargs)
-
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
         logging.debug(f"email in form: {email}")
@@ -114,8 +106,20 @@ class UsersUpdateForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super(UsersUpdateForm, self).save(commit=False)
-        user.username = self.cleaned_data['username']
-        user.email = self.cleaned_data['email']
+        try:
+            existing_user = Users.objects.get(pk=user.pk)
+        except Users.DoesNotExist:
+            raise forms.ValidationError(f"User does not exist.")
+        if 'username' in self.cleaned_data['username']:
+            logging.debug("entering self")
+            user.username = self.cleaned_data['username']
+        else:
+            logging.debug("entering existing_user")
+            user.username = existing_user.username
+        if 'email' in self.cleaned_data['email']:
+            user.username = self.cleaned_data['email']
+        else:
+            user.email = existing_user.email
         user.hide_email = self.cleaned_data['hide_email']
         user.profile_image = self.cleaned_data['profile_image']
         logging.debug(f"Profile image: {self.cleaned_data['profile_image']}")

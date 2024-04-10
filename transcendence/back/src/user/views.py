@@ -308,6 +308,10 @@ def edit_account_view(request, *arg, **kwargs):
         return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400))
     if request.method == "POST":
         # Extract and process the profile image
+        form_data = request.POST
+        logging.debug("form es %s", form_data)
+        logging.debug("email es %s", form_data['email'])
+        logging.debug("username %s", form_data['username'])
         form = UsersUpdateForm(
                 request.POST, request.FILES, instance=request.user)
         if form.is_valid():
