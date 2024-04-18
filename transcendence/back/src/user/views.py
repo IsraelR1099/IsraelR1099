@@ -23,7 +23,9 @@ from .utils import get_friend_request_or_false
 from .utils import generate_response, get_image_as_base64
 from .utils import serialize_friend_request
 from .utils import get_user_info
-from .utils import auth_42_user, register_42_user
+from .utils import register_42_user
+from .friend_utils import get_receiver_by_username, get_receiver_by_id
+from .friend_utils import validate_sender_receiver, create_friend_request
 from .friend_request_status import FriendRequestStatus
 
 
@@ -291,38 +293,42 @@ def account_view(request, *args, **kwargs):
 @csrf_exempt
 @login_required
 def edit_account_view(request, *arg, **kwargs):
-    context = {}
+    response_data = {}
 
     if not request.user.is_authenticated:
-        context = {"error": "You must be authenticated to edit your profile."}
-        return (JsonResponse(context, encoder=DjangoJSONEncoder, status=403))
+        response_data = {"error": "You must be authenticated to edit your profile."}
+        return (JsonResponse(
+            response_data, encoder=DjangoJSONEncoder, status=403))
     user_id = kwargs.get("user_id")
     try:
         user = Users.objects.get(pk=user_id)
     except Users.DoesNotExist:
-        context['error'] = "User not found."
-        return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400))
+        response_data['error'] = "User not found."
+        return (JsonResponse(
+            response_data, encoder=DjangoJSONEncoder, status=400))
 
     if user.pk != request.user.pk:
-        context['error'] = "You cannot edit someone elses profile."
-        return (JsonResponse(context, encoder=DjangoJSONEncoder, status=400))
+        response_data['error'] = "You cannot edit someone elses profile."
+        return (JsonResponse(
+            response_data, encoder=DjangoJSONEncoder, status=400))
     if request.method == "POST":
         # Extract and process the profile image
-        form_data = request.POST
-        logging.debug("form es %s", form_data)
-        logging.debug("email es %s", form_data['email'])
-        logging.debug("username %s", form_data['username'])
+        form_data = request.POST.copy()
+        if not form_data.get('email', ''):
+            form_data['email'] = user.email
+        if not form_data.get('username', ''):
+            form_data['username'] = user.username
         form = UsersUpdateForm(
-                request.POST, request.FILES, instance=request.user)
+                form_data, request.FILES, instance=request.user)
         if form.is_valid():
             logging.debug("form is valid")
             # Delete the old profile image so the name is preserved
             # user.profile_image.delete()
             form.save()
             # We redirect to the same page to see the changes
-            context['success'] = "Profile updated successfully."
+            response_data['success'] = "Profile updated successfully."
             return (JsonResponse(
-                context, encoder=DjangoJSONEncoder, status=200))
+                response_data, encoder=DjangoJSONEncoder, status=200))
         else:
             logging.debug("form is not valid")
             form = UsersUpdateForm(
@@ -332,7 +338,9 @@ def edit_account_view(request, *arg, **kwargs):
                                       "username": user.username,
                                       "profile_image": user.profile_image,
                                       })
-            context['error'] = form.errors
+            error_messages = ", ".join(
+                    [str(errors[0]) for errors in form.errors.values()])
+            response_data['error'] = error_messages
     else:
         logging.debug("request method is not post")
         form = UsersUpdateForm(
@@ -342,10 +350,11 @@ def edit_account_view(request, *arg, **kwargs):
                     "username": user.username,
                     "profile_image": user.profile_image,
                     })
-        context['error'] = form.errors
-    context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
-    logging.debug("context leaving edit: %s", context)
-    return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
+        error_messages = ", ".join(
+                [str(errors[0]) for errors in form.errors.values()])
+        response_data['error'] = error_messages
+    logging.debug("response_data leaving edit: %s", response_data)
+    return (JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200))
 
 
 def account_search_view(request, *args, **kwargs):
@@ -398,67 +407,37 @@ def account_search_view(request, *args, **kwargs):
 @login_required
 def send_friend_request(request, *args, **kwargs):
     payload = {}
-    user_id = None
-    username = None
     user = request.user
+    logging.debug("user on send_friend_request is %s", user)
     if request.method == "POST" and user.is_authenticated:
         # The receiver_user_id must be sent by the front end
-        body_unicode = request.body.decode("utf-8")
-        body_data = json.loads(body_unicode)
+        body_data = json.loads(request.body.decode("utf-8"))
+        logging.debug("body_data on send_friend_request is %s", body_data)
+
         if 'username' in body_data and body_data['username']:
-            username = body_data['username']
+            receiver = get_receiver_by_username(body_data['username'])
         else:
-            user_id = body_data['receiver_user_id']
-        if user_id or username:
+            receiver = get_receiver_by_id(body_data['receiver_user_id'])
+        if receiver:
             try:
-                if username:
-                    receiver = Users.objects.get(username=username)
-                else:
-                    receiver = Users.objects.get(pk=user_id)
-
-                # Check if sender is not the same as receiver
-                if user == receiver:
-                    payload['error'] = "Cannot send friend request to yourself."
-                    return (JsonResponse(payload, encoder=DjangoJSONEncoder,
-                                         status=200))
-                try:
-                    # Get any friend requests (active and not-active)
-                    friend_requests = FriendRequest.objects.filter(
-                            sender=user, receiver=receiver)
-                    # find if any of them are active (pending)
-                    try:
-                        for request in friend_requests:
-                            if request.is_active:
-                                raise Exception(
-                                        "You already sent them a friend request.")
-                        # If none are active create a new friend request
-                        friend_request = FriendRequest(
-                                sender=user, receiver=receiver)
-                        friend_request.save()
-                        payload['response'] = "Friend request sent."
-                    except Exception as e:
-                        payload['error'] = str(e)
-                except FriendRequest.DoesNotExist:
-                    # There are no friend requests so create one.
-                    friend_request = FriendRequest(sender=user, receiver=receiver)
-                    friend_request.save()
-                    payload['response'] = "Friend request sent."
-            except Users.DoesNotExist:
-                payload['error'] = "The specified username does not exist."
-
-            if payload['response'] == None:
-                payload['error'] = "Something went wrong."
+                validate_sender_receiver(user, receiver)
+                create_friend_request(user, receiver)
+                payload['response'] = "Friend request sent."
+            except ValueError as e:
+                payload['error'] = str(e)
         else:
-            payload['error'] = "Unable to sent a friend request."
+            payload['error'] = "The specified user does not exist."
     else:
-        payload['error'] = "You must be authenticated to send a friend request."
+        payload['error'] = "You must be authenticated."
     logging.debug("payload on send_friend_request: %s", payload)
-    return (HttpResponse(json.dumps(payload), content_type="application/json"))
+    return (JsonResponse(payload, encoder=DjangoJSONEncoder, status=200))
 
 
+@login_required
 def friend_requests(request, *args, **kwargs):
     response_data = {}
     current_user = request.user
+    logging.debug("current_user on friend_requests is %s", current_user)
     if current_user.is_authenticated:
         user_id = kwargs.get("user_id")
         account = Users.objects.get(pk=user_id)
@@ -471,9 +450,11 @@ def friend_requests(request, *args, **kwargs):
             response_data['friend_requests'] = serialized_friend_requests
         else:
             response_data['error'] = "That is not your account."
+            logging.debug("response_data 1 on friend_requests is %s", response_data)
             return (JsonResponse(
                 response_data, encoder=DjangoJSONEncoder, status=401))
     else:
+        logging.debug("response_data 2 on friend_requests is %s", response_data)
         response_data['error'] = "You must be authenticated to view friend requests."
         return (JsonResponse(
             response_data, encoder=DjangoJSONEncoder, status=401))
@@ -481,6 +462,7 @@ def friend_requests(request, *args, **kwargs):
     return (JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200))
 
 
+@login_required
 def accept_friend_request(request, *args, **kwargs):
     user = request.user
     payload = {}
@@ -594,6 +576,7 @@ def cancel_friend_request(request, *args, **kwargs):
     return (JsonResponse(payload, encoder=DjangoJSONEncoder, status=200))
 
 
+@login_required
 def friend_list_view(request, *args, **kwargs):
     context = {}
     user = request.user
@@ -649,7 +632,6 @@ def auth42(request, *args, **kwargs):
     body_unicode = request.body.decode("utf-8")
     body_data = json.loads(body_unicode)
     code = body_data.get("code")
-    logging.debug("code is %s", code)
     if not code:
         response_data['error'] = "No code provided."
         return JsonResponse(
@@ -699,23 +681,22 @@ def delete_users_42(request, *args, **kwargs):
                 }
         return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200)
     else:
-        response_data ['error'] = "Method not allowed."
+        response_data['error'] = "Method not allowed."
         return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=405)
 
 
 @csrf_exempt
+@login_required
 def save_match(request, *args, **kwargs):
     response_data = {}
     user = request.user
     if request.method == "POST" and user.is_authenticated:
         body_unicode = request.body.decode("utf-8")
         body_data = json.loads(body_unicode)
-        logging.debug("body_data on save_match is %s", body_data)
         winner_username = body_data.get("winner")
         loser_username = body_data.get("loser")
         room_code = body_data.get("room_code")
         game_type = body_data.get("game_type")
-
         if winner_username == "draw" or loser_username == "draw":
             response_data['error'] = "Cannot save a draw."
             return JsonResponse(
@@ -742,7 +723,6 @@ def save_match(request, *args, **kwargs):
             winner_user.match_history.add(winner_match)
             loser_user.match_history.add(loser_match)
             response_data['response'] = "Match saved."
-            logging.debug("response_data on save_match is %s", response_data)
             return JsonResponse(
                     response_data, encoder=DjangoJSONEncoder, status=200)
         except Users.DoesNotExist:
@@ -751,10 +731,10 @@ def save_match(request, *args, **kwargs):
             response_data['error'] = str(e)
     else:
         response_data['error'] = "You must be authenticated to save a match."
-    logging.debug("response_data on save_match down is %s", response_data)
     return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200)
 
 
+@login_required
 def get_match_history(request, *args, **kwargs):
     response_data = {}
     user = request.user
@@ -787,5 +767,4 @@ def get_match_history(request, *args, **kwargs):
             response_data['error'] = str(e)
     else:
         response_data['error'] = "You must be authenticated to view match history."
-    logging.debug("response_data on get_match_history is %s", response_data)
     return JsonResponse(response_data, encoder=DjangoJSONEncoder, status=200)

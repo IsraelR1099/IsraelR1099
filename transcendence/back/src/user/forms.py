@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
+from django.shortcuts import get_object_or_404
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files.base import ContentFile
 
@@ -8,7 +9,6 @@ import logging
 import base64
 
 from .models import Users
-from .models import OAuth42Users
 
 
 class RegistrationForm(UserCreationForm):
@@ -20,49 +20,22 @@ class RegistrationForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
-        try:
-            user = Users.objects.get(email=email)
-        except Exception as e:
-            return (email)
-        raise forms.ValidationError(f"Email {email} is already in use.")
+        if Users.objects.filter(email=email).exists():
+            raise forms.ValidationError(f"Email {email} is already in use.")
+        return email
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        try:
-            user = Users.objects.get(username=username)
-        except Exception as e:
-            return username
-        raise forms.ValidationError(f"Username {username} is already in use.")
-
-
-class UsersAuthentication42Form(UserCreationForm):
-    email = forms.EmailField(max_length=64, help_text='Required. Add a valid email address')
-
-    class Meta:
-        model = OAuth42Users
-        fields = ("email", "login")
-
-    def clean_email(self):
-        email = self.cleaned_data['email'].lower()
-        try:
-            user = OAuth42Users.objects.get(email=email)
-        except Exception as e:
-            return (email)
-        raise forms.ValidationError(f"Email {email} is already in use.")
-
-    def clean_login(self):
-        login = self.cleaned_data['login']
-        try:
-            user = OAuth42Users.objects.get(login=login)
-        except Exception as e:
-            return login
-        raise forms.ValidationError(f"Login {login} is already in use.")
-
-    def clean(self):
-        if self.is_valid():
-            login = self.cleaned_data['login']
-            if not authenticate(login=login):
-                raise forms.ValidationError("Invalid login")
+        if len(username) < 3:
+            raise forms.ValidationError(
+                    "Username must be at least 3 characters long.")
+        if not username.isalnum():
+            raise forms.ValidationError(
+                    "Username must contain only letters and numbers.")
+        if Users.objects.filter(username=username).exists():
+            raise forms.ValidationError(
+                    f"Username {username} is already in use.")
+        return username
 
 
 class UsersAuthenticationForm(forms.ModelForm):
@@ -84,45 +57,24 @@ class UsersUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Users
-        fields = ('username', 'email', 'profile_image', 'hide_email')
+        fields = (
+                'username',
+                'email',
+                'profile_image',
+                )
 
     def clean_email(self):
-        email = self.cleaned_data['email'].lower()
-        logging.debug(f"email in form: {email}")
-        try:
-            user = Users.objects.get(email=email)
-        except Users.DoesNotExist:
-            return email
-        raise forms.ValidationError(f"Email {email} is already in use.")
+        data = self.cleaned_data['email']
+        qs = Users.objects.exclude(pk=self.instance.pk)\
+            .filter(email=data)
+        if qs.exists():
+            raise forms.ValidationError("Email is already in use")
+        return data
 
     def clean_username(self):
-        username = self.cleaned_data['username']
-        logging.debug(f"username in form: {username}")
-        try:
-            user = Users.objects.get(username=username)
-        except Users.DoesNotExist:
-            return username
-        raise forms.ValidationError(f"Username {username} is already in use.")
-
-    def save(self, commit=True):
-        user = super(UsersUpdateForm, self).save(commit=False)
-        try:
-            existing_user = Users.objects.get(pk=user.pk)
-        except Users.DoesNotExist:
-            raise forms.ValidationError(f"User does not exist.")
-        if 'username' in self.cleaned_data['username']:
-            logging.debug("entering self")
-            user.username = self.cleaned_data['username']
-        else:
-            logging.debug("entering existing_user")
-            user.username = existing_user.username
-        if 'email' in self.cleaned_data['email']:
-            user.username = self.cleaned_data['email']
-        else:
-            user.email = existing_user.email
-        user.hide_email = self.cleaned_data['hide_email']
-        user.profile_image = self.cleaned_data['profile_image']
-        logging.debug(f"Profile image: {self.cleaned_data['profile_image']}")
-        if commit:
-            user.save()
-        return (user)
+        data = self.cleaned_data['username']
+        qs = Users.objects.exclude(pk=self.instance.pk)\
+            .filter(username=data)
+        if qs.exists():
+            raise forms.ValidationError("Username is already in use")
+        return data

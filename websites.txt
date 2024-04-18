@@ -678,3 +678,6 @@ https://stackoverflow.com/questions/42417919/deploy-to-docker-with-nginx-django-
 
 ###VMWare shared folder problems
 https://communities.vmware.com/t5/VMware-Workstation-Pro/VMware-shared-folder-not-showing-in-mnt-on-Ubuntu-guest/td-p/2918915
+
+https://github.com/rancher-sandbox/rancher-desktop/issues/1156
+https://prometheus.io/docs/guides/cadvisor/

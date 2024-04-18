@@ -47,9 +47,18 @@
 		border-radius: 10px;
 		position: relative;
 	}
+
+	.form-container {
+		max-width: 400px;
+		margin: 0 auto;
+	}
     </style>
 	</head>
 	<body>
+		<form id="searchForm">
+			<input type="text" id="searchInput" placeholder="Search for users">
+			<button type="submit">Search</button>
+		</form>
 		<div id="userProfile"></div>
 		<div id="userProfileButtons">
 			<button id="logoutButton">Logout</button>
@@ -62,6 +71,7 @@
 		</div>
 		<script src="../js/displayUserProfile.js"></script>
 		<script src="../js/logout.js"></script>
+		<script src="../js/searchQuery.js"></script>
 		<script>
 			document.getElementById('GameHistoryButton').addEventListener('click', function() {
 				window.location.href = "gameHistory.html";
@@ -80,6 +90,16 @@
 		<script>
 			document.getElementById('gameDashboardButton').addEventListener('click', function() {
 				window.location.href = "gameDashboard.html";
+			});
+		</script>
+		<script>
+			document.getElementById('friendRequestsButton').addEventListener('click', function() {
+				window.location.href = "friendRequests.html";
+			});
+		</script>
+		<script>
+			document.getElementById('friendsButton').addEventListener('click', function() {
+				window.location.href = "friends.html";
 			});
 		</script>
 	</body>

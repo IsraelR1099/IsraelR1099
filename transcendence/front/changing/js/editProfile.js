@@ -8,21 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		const userData = JSON.parse(localStorage.getItem('userData'));
 		const email = document.getElementById('email').value;
-		if (!email) {
-			email = userData.email;
-		}
 		const username = document.getElementById('username').value;
-		if (!username) {
-			username = userData.username;
-		}
 		if (!email && !username) {
 			return alert('Please enter email or username');
 		}
 		const profileImageInput = document.getElementById('profileImage');
 		const profile_image = profileImageInput.files[0];
-		if (!profile_image) {
-			return alert('Please select an image');
-		}
+//		if (!profile_image) {
+//			return alert('Please select an image');
+//		}
 		try {
 			if (!userData) {
 				return alert('Please log in');
@@ -42,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			const data = await response.json();
 			if (response.ok) {
 				if (data.error) {
-					console.error('Faild to edit profile', data.errors);
-					return alert('Faild to edit profile');
+					console.error('Failed to edit profile', data.errors);
+					return alert('Failed to edit profile');
 				}
 				console.log('Profile edited', data);
 				await fetchAccountData(userData.id);

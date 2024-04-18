@@ -200,24 +200,3 @@ def register_42_user(request, user_info):
         return None
 
     return None
-
-
-def save_profile_image(instance, image_url):
-    try:
-        response = requests.get(image_url)
-        response.raise_for_status()
-
-        folder_path = os.path.join(settings.MEDIA_ROOT, 'profile_image',
-                                   '42', f'{instance.pk}')
-        os.makedirs(folder_path, exist_ok=True)
-        file_path = os.path.join(folder_path, 'profile_image.png')
-
-        with open(file_path, 'wb') as f:
-            f.write(response.content)
-
-        instance.image.name = get_profile_image_filepath_42(
-                instance, 'profile_image.png')
-        instance.save()
-    except Exception as e:
-        logging.error(f"Error saving profile image: {e}")
-
