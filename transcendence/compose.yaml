@@ -166,7 +166,6 @@ services:
     container_name: cadvisor
     hostname: cadvisor
     restart: unless-stopped
-    user: "1000"
     expose:
       - "8080:8080"
     volumes:
