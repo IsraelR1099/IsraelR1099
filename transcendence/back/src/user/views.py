@@ -1,7 +1,4 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect, HttpRequest, JsonResponse
-from django.http import HttpResponse
-from django.urls import reverse
+from django.http import HttpRequest, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -32,22 +29,10 @@ from .friend_request_status import FriendRequestStatus
 @csrf_exempt
 def index(request):
     if not request.user.is_authenticated:
-        return (HttpResponseRedirect(reverse("login")))
-    return (render(request, "user/user.html"))
-
-
-def get_redirect_if_exists(request):
-    """
-    This function checks if in the URL there is a next parameter
-    if so then it returns to the URL to redirect
-    https://example.com/login/?next=/dashboard/
-    """
-
-    redirect = None
-    if request.GET:
-        if request.GET.get("next"):
-            redirect = str(request.GET.get("next"))
-    return (redirect)
+        return (JsonResponse(
+            {"error": "You must be authenticated."}, status=401))
+    return (JsonResponse(
+        {"message": "Success"}, status=200))
 
 
 def get_csrf_token(request):
@@ -81,7 +66,6 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     if user.is_authenticated:
         context["error"] = "You are already logged in."
         return (JsonResponse(context, encoder=DjangoJSONEncoder))
-    destination = get_redirect_if_exists(request)
     if request.method == "POST":
         try:
             json_data = request.body.decode("utf-8")
@@ -94,8 +78,6 @@ def login_view(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 if user:
                     login(request, user)
                     context = generate_response("200", user=user)
-                    if destination:
-                        return (redirect(destination))
                     return (JsonResponse(context, encoder=DjangoJSONEncoder))
                 else:
                     logging.debug("user is not valid")
@@ -166,9 +148,6 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 account = authenticate(
                         username=username, password=raw_password)
                 login(request, account)
-                destination = get_redirect_if_exists(request)
-                if destination:
-                    return (redirect(destination))
                 context = generate_response("201", user=account)
                 logging.debug("context on succes %s", context)
                 return (JsonResponse(
