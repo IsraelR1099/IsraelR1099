@@ -18,11 +18,11 @@ from .models import MatchHistory
 from .forms import RegistrationForm, UsersAuthenticationForm, UsersUpdateForm
 from .utils import get_friend_request_or_false
 from .utils import generate_response, get_image_as_base64
-from .utils import serialize_friend_request
 from .utils import get_user_info
 from .utils import register_42_user
 from .friend_utils import get_receiver_by_username, get_receiver_by_id
 from .friend_utils import validate_sender_receiver, create_friend_request
+from .friend_utils import serialize_friend_request
 from .friend_request_status import FriendRequestStatus
 
 
@@ -170,6 +170,19 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
 
+"""     if account.profile_image:
+            image_path = os.path.join(
+                    settings.MEDIA_ROOT, str(account.profile_image))
+            encoded_string = get_image_as_base64(image_path)
+            if encoded_string:
+                context['profile_image_base64'] = encoded_string
+            else:
+                context['profile_image_base64'] = None
+        else:
+            context['profile_image_base64'] = None
+"""
+
+
 @login_required
 def account_view(request, *args, **kwargs):
     """
@@ -194,17 +207,8 @@ def account_view(request, *args, **kwargs):
         context['id'] = account.id
         context['username'] = account.username
         context['email'] = account.email
-
-        if account.profile_image:
-            image_path = os.path.join(
-                    settings.MEDIA_ROOT, str(account.profile_image))
-            encoded_string = get_image_as_base64(image_path)
-            if encoded_string:
-                context['profile_image_base64'] = encoded_string
-            else:
-                context['profile_image_base64'] = None
-        else:
-            context['profile_image_base64'] = None
+        context['profile_image_base64'] = get_image_as_base64(
+                account=account)
 
         try:
             friend_list = FriendList.objects.get(user=account)
@@ -586,7 +590,7 @@ def friend_list_view(request, *args, **kwargs):
                 if friend.profile_image:
                     image_path = os.path.join(
                             settings.MEDIA_ROOT, str(friend.profile_image))
-                    encoded_string = get_image_as_base64(image_path)
+                    encoded_string = get_image_as_base64(image_path=image_path)
                     if encoded_string:
                         image_base64 = encoded_string
                     else:

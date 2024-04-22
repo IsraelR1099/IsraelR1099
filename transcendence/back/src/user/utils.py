@@ -73,13 +73,31 @@ def generate_response(status, user=None, error_message=None, tokens=None):
     return (response)
 
 
-def get_image_as_base64(image_path):
+def get_image_as_base64(account=None, image_path=None):
     """
     Convert the image at the given path to Base64
     """
+
+    logging.debug(f"Account: {account}")
+    logging.debug(f"Image path: {image_path}")
+    if account:
+        logging.debug("I am using account")
+        if account.profile_image:
+            image_path = os.path.join(
+                    settings.MEDIA_ROOT, str(account.profile_image))
+        else:
+            return (None)
+    elif image_path:
+        if not os.path.exists(image_path):
+            logging.debug(f"File not found: {image_path}")
+            return (None)
+    else:
+        raise ValueError("Either account or image_path must be provided")
+
     try:
         with open(image_path, "rb") as img_file:
-            enconded_string = base64.b64encode(img_file.read()).decode("utf-8")
+            enconded_string = base64.b64encode(
+                    img_file.read()).decode("utf-8")
         return (enconded_string)
     except FileNotFoundError:
         logging.debug(f"File not found: {image_path}")
@@ -100,27 +118,6 @@ def save_image_to_folder(image_data, user_id):
         f.write(image_data)
 
     return (image_path)
-
-
-def serialize_friend_request(request):
-    sender_username = request.sender.username
-    receiver_username = request.receiver.username
-    sender_profile_image = ""
-
-    if request.sender.profile_image:
-        image_path = os.path.join(
-                settings.MEDIA_ROOT, str(request.sender.profile_image))
-        enconded_string = get_image_as_base64(image_path)
-        if enconded_string:
-            sender_profile_image = enconded_string
-
-    return ({
-        "pk": request.pk,
-        "sender": sender_username,
-        "receiver": receiver_username,
-        "sender_profile_image": sender_profile_image,
-        "is_active": request.is_active,
-        })
 
 
 def get_user_info(access_token):
