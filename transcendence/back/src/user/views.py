@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.middleware.csrf import get_token
+from django.core.serializers import serialize
 
 from allauth.socialaccount.models import SocialApp
 
@@ -23,6 +24,7 @@ from .utils import register_42_user
 from .friend_utils import get_receiver_by_username, get_receiver_by_id
 from .friend_utils import validate_sender_receiver, create_friend_request
 from .friend_utils import serialize_friend_request
+from .friend_utils import get_serialized_friends, get_friend_request_status
 from .friend_request_status import FriendRequestStatus
 
 
@@ -180,35 +182,6 @@ def register_user(request, *args, **kwargs: HttpRequest) -> JsonResponse:
                 context['profile_image_base64'] = None
         else:
             context['profile_image_base64'] = None
-"""
-
-
-@login_required
-def account_view(request, *args, **kwargs):
-    """
-    Logic for viewing user account
-        is_self -> Boolean
-        is_friend -> Boolean
-            -1: NO_REQUEST_SENT
-            0: THEM_SENT_TO_YOU
-            1: YOU_SENT_TO_THEM
-    """
-
-    context = {}
-    user_id = kwargs.get("user_id")
-    # if user does not exist we return a 404
-    try:
-        account = Users.objects.get(pk=user_id)
-    except Users.DoesNotExist:
-        context['error'] = "User not found."
-        return (JsonResponse(context, encoder=DjangoJSONEncoder, status=404))
-    # if user exists we check if they are a friend
-    if account:
-        context['id'] = account.id
-        context['username'] = account.username
-        context['email'] = account.email
-        context['profile_image_base64'] = get_image_as_base64(
-                account=account)
 
         try:
             friend_list = FriendList.objects.get(user=account)
@@ -225,24 +198,9 @@ def account_view(request, *args, **kwargs):
                     }
             if serialized_friend:
                 serialized_friends.append(serialized_friend)
-        context['friends'] = serialized_friends
-        # Define template variables
-        is_self = True
-        is_friend = False
-        user = request.user
-        request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
-        friend_requests = None
-        # If user is authenticated we check if they are a friend
-        # If the user is authenticated and the user is not the same as the
-        # account
-        if user.is_authenticated and user != account:
-            is_self = False
-            # We check if we are friends on the friend list of the other user
-            if friends.filter(pk=user.id):
-                is_friend = True
-            else:
-                is_friend = False
-                # Case 1: Request has been sent from THEM to YOU:
+
+
+ # Case 1: Request has been sent from THEM to YOU:
                 # FriendRequestStatus.THEM_SENT_TO_YOU
                 if get_friend_request_or_false(sender=account, receiver=user) != False:
                     request_sent = FriendRequestStatus.THEM_SENT_TO_YOU.value
@@ -256,19 +214,70 @@ def account_view(request, *args, **kwargs):
                 # FriendRequestStatus.NO_REQUEST_SENT
                 else:
                     request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
+
+
+"""
+
+
+@login_required
+def account_view(request, *args, **kwargs):
+    """
+    Logic for viewing user account
+        is_self -> Boolean
+        is_friend -> Boolean
+            -1: NO_REQUEST_SENT
+            0: THEM_SENT_TO_YOU
+            1: YOU_SENT_TO_THEM
+    """
+    context = {}
+    user_id = kwargs.get("user_id")
+    # if user does not exist we return a 404
+    try:
+        account = Users.objects.get(pk=user_id)
+    except Users.DoesNotExist:
+        context['error'] = "User not found."
+        return (JsonResponse(context, encoder=DjangoJSONEncoder, status=404))
+    # if user exists we check if they are a friend
+    if account:
+        context['id'] = account.id
+        context['username'] = account.username
+        context['email'] = account.email
+        context['profile_image_base64'] = get_image_as_base64(
+                account=account)
+        context['friends'] = get_serialized_friends(account)
+        # Define template variables
+        is_self = True
+        is_friend = False
+        user = request.user
+        friend_requests = None
+        # If user is authenticated we check if they are a friend
+        # If the user is authenticated and the user is not the same as the
+        # account
+        if user.is_authenticated and user != account:
+            is_self = False
+            # We check if we are friends on the friend list of the other user
+            friends = account.friends.all()
+            if friends.filter(pk=user.id):
+                is_friend = True
+            else:
+                is_friend = False
+                context['request_sent'] = get_friend_request_status(
+                        account=account, user=user)
         elif not user.is_authenticated:
             is_self = False
         # If you are looking at your own profile we get all the friend requests
         # that we have set to is_active to true
         else:
             try:
-                friend_requests = FriendRequest.objects.filter(receiver=user, is_active=True)
-            except:
-                pass
-
+                friend_requests = FriendRequest.objects.filter(
+                        receiver=user, is_active=True)
+                friend_requests_json = serialize('json', friend_requests)
+                friend_requests_dict = json.loads(friend_requests_json)
+            except FriendRequest.DoesNotExist:
+                friend_requests = None
         context['is_self'] = is_self
         context['is_friend'] = is_friend
-        context['request_sent'] = request_sent
+        context['friend_requests'] = friend_requests_dict
     logging.debug("context in account view is %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 

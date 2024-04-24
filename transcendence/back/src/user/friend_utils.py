@@ -2,7 +2,9 @@
 from django.conf import settings
 
 from .models import Users, FriendRequest
-from .utils import get_image_as_base64
+from .models import FriendList
+from .utils import get_image_as_base64, get_friend_request_or_false
+from .friend_request_status import FriendRequestStatus
 
 import os
 
@@ -62,3 +64,39 @@ def serialize_friend_request(request):
         "sender_profile_image": sender_profile_image,
         "is_active": request.is_active
     })
+
+
+def get_serialized_friends(account):
+    try:
+        friend_list = FriendList.objects.get(user=account)
+    except FriendList.DoesNotExist:
+        friend_list = FriendList(user=account)
+        friend_list.save()
+    # Friend list of the authenticated user
+    friends = friend_list.friends.all()
+    serialized_friends = []
+    for friend in friends:
+        serialized_friend = {
+                "id": friend.id,
+                "username": friend.username,
+                }
+        if serialized_friend:
+            serialized_friends.append(serialized_friend)
+    return serialized_friends
+
+
+def get_friend_request_status(account, user):
+    request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
+    # Case 1: Request has been sent from THEM to YOU:
+    # FriendRequestStatus.THEM_SENT_TO_YOU
+    # Case 2: Request has been sent from YOU to THEM:
+    # FriendRequestStatus.YOU_SENT_TO_THEM
+    # Case 3: No request sent:
+    # FriendRequestStatus.NO_REQUEST_SENT
+    if get_friend_request_or_false(sender=account, receiver=user) != False:
+        request_sent = FriendRequestStatus.THEM_SENT_TO_YOU.value
+    elif get_friend_request_or_false(sender=user, receiver=account) != False:
+        request_sent = FriendRequestStatus.YOU_SENT_TO_THEM.value
+    else:
+        request_sent = FriendRequestStatus.NO_REQUEST_SENT.value
+    return request_sent
