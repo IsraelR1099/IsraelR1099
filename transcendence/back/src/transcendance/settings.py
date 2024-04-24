@@ -55,9 +55,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "channels",
+    "corsheaders",
+    "pong",
     "rooms",
     "user",
-    "chat",
     "tictac",
     "django.contrib.sites",
     "allauth",
@@ -89,6 +90,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -216,6 +218,10 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost:8080', 'https://localhost:8080',
                         'http://127.0.0.1:8080', 'https://127.0.0.1:8080',
                         'https://pong.xyz', 'https://www.pong.xyz',
                         ]
+
+# Cors Configuration
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Media settings
 STATIC_ROOT     = os.path.join(BASE_DIR, 'static_cdn')

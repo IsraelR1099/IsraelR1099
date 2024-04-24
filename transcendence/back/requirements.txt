@@ -24,7 +24,10 @@ django-allauth==0.61.0
 # Prometheus support
 django-prometheus==2.3.1
 
-# Django channels
+# Django Channels
 channels==4.0.0
 daphne==4.0.0
 channels-redis==4.0.0
+
+# Django cors
+django-cors-headers==4.3.0
