@@ -278,7 +278,7 @@ def account_view(request, *args, **kwargs):
         context['is_self'] = is_self
         context['is_friend'] = is_friend
         context['friend_requests'] = friend_requests_dict
-    logging.debug("context in account view is %s", context)
+    # logging.debug("context in account view is %s", context)
     return (JsonResponse(context, encoder=DjangoJSONEncoder, status=200))
 
 
@@ -331,7 +331,8 @@ def edit_account_view(request, *arg, **kwargs):
                                       "profile_image": user.profile_image,
                                       })
             error_messages = ", ".join(
-                    [str(errors[0]) for errors in form.errors.values()])
+                 [str(errors[0]) for errors in form.errors.values()])
+            logging.debug("form.errors is %s", form.errors)
             response_data['error'] = error_messages
     else:
         logging.debug("request method is not post")
@@ -634,7 +635,7 @@ def auth42(request, *args, **kwargs):
             'client_id': os.environ.get('CLIENT_ID'),
             'client_secret': os.environ.get('CLIENT_SECRET'),
             'code': code,
-            'redirect_uri': 'https://pong.xyz/pages/redirect.html',
+            'redirect_uri': 'https://pong.xyz/42-auth',
             }
     logging.debug("data on 42auth is %s", data)
     try:

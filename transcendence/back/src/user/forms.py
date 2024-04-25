@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files.base import ContentFile
+from django.core.exceptions import ValidationError
 
 import logging
 import base64
@@ -78,3 +79,14 @@ class UsersUpdateForm(forms.ModelForm):
         if qs.exists():
             raise forms.ValidationError("Username is already in use")
         return data
+
+    def clean_profile_image(self):
+        profile_image = self.cleaned_data.get('profile_image', False)
+        if profile_image:
+            if not profile_image.name.endswith(('.jpg', '.jpeg', '.png')):
+                raise ValidationError("Image file type is not supported")
+        else:
+            raise ValidationError("Image file is not valid")
+        if profile_image.size > (1024*1024):
+            raise ValidationError("Image file size too large (>1MB)")
+        return profile_image
