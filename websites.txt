@@ -681,3 +681,5 @@ https://communities.vmware.com/t5/VMware-Workstation-Pro/VMware-shared-folder-no
 
 https://github.com/rancher-sandbox/rancher-desktop/issues/1156
 https://prometheus.io/docs/guides/cadvisor/
+
+https://github.com/krom/docker-compose-makefile/tree/master
