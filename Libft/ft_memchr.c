@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 14:01:19 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/30 20:40:26 by irifarac         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:13:19 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ void	*ft_memchr(const void *str, int ch, size_t count)
 	while (position < count)
 	{
 		if (new_str[position] == (char)ch)
-		{
 			return ((void *)(str + position));
-		}
 		position++;
 	}
 	return (0);
