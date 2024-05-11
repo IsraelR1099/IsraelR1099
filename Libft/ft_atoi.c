@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:29:09 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/17 12:28:34 by irifarac         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:51:31 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,23 @@
 
 int	ft_atoi(const char *str)
 {
-	int		position;
 	int		number;
 	int		sign;
 
-	position = 0;
 	number = 0;
 	sign = 1;
-	while (((str[position] >= 9) && (str[position] <= 13))
-		|| (str[position] == 32))
-		position++;
-	if ((str[position] == '-') || (str[position] == '+'))
+	while (((*str >= 9) && (*str <= 13)) || *str == 32)
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		if (str[position] == '-')
-		sign = -1;
-		position++;
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
-	while ((str[position] >= 48) && (str[position] <= 57))
-	{	
-		number = number * 10 + str[position] - 48;
-		position++;
+	while (*str >= 48 && *str <= 57)
+	{
+		number = number * 10 + *str - 48;
+		str++;
 	}
 	return (sign * number);
 }
