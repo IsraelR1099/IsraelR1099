@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 13:46:45 by irifarac          #+#    #+#              #
-#    Updated: 2022/02/12 09:37:41 by irifarac         ###   ########.fr        #
+#    Updated: 2024/05/11 18:08:21 by israel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ INCLUDE = libft.h
 $(NAME): $(OBJ) $(INCLUDE)
 	$(CREATION_LIB) $(NAME) $(OBJ)
 	@echo "Compiling"
-	
+
 all: $(NAME)
 
 bonus : $(NAME) $(BONUS_OBJ)
