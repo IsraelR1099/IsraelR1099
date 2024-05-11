@@ -683,3 +683,9 @@ https://github.com/rancher-sandbox/rancher-desktop/issues/1156
 https://prometheus.io/docs/guides/cadvisor/
 
 https://github.com/krom/docker-compose-makefile/tree/master
+
+
+
+
+##TOCTTOU
+https://github.com/davidenetti/TOCTOU_Vulnerability
