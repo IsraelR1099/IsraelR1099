@@ -6,12 +6,16 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 13:53:31 by irifarac          #+#    #+#             */
-/*   Updated: 2022/03/02 10:12:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:56:26 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1
+#endif
 
 # include <stdio.h>
 # include <fcntl.h>
