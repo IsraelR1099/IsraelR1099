@@ -6,7 +6,7 @@
 #    By: irifarac <irifarac@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 13:46:45 by irifarac          #+#    #+#              #
-#    Updated: 2024/05/11 18:08:21 by israel           ###   ########.fr        #
+#    Updated: 2024/05/12 17:57:56 by israel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,4 +84,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re .c.o bonus
+.PHONY: all clean fclean re bonus

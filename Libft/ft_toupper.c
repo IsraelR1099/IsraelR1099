@@ -6,16 +6,16 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 10:27:23 by irifarac          #+#    #+#             */
-/*   Updated: 2022/01/11 10:39:25 by irifarac         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:53:43 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_toupper(int c)
 {
 	if ((c >= 97) && (c <= 122))
-	{
 		return (c - 32);
-	}
 	else
 		return (c);
 }
