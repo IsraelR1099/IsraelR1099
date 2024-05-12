@@ -6,7 +6,7 @@
 /*   By: irifarac <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 20:35:47 by irifarac          #+#    #+#             */
-/*   Updated: 2022/02/02 09:42:24 by irifarac         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:34:29 by israel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	position;
-
-	position = 0;
-	while (s[position] != '\0')
-	{
-		write(fd, &s[position], 1);
-		position++;
-	}
+	if (fd > 1024)
+		return ;
+	while (s && *s)
+		if (write(fd, s++, 1) == -1)
+			return ;
 }
