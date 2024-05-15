@@ -23,3 +23,7 @@ learner at 42 Barcelona, diving deep into the world of programming and technolog
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Vim](https://img.shields.io/badge/VIM-%2311AB00.svg?style=for-the-badge&logo=vim&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
+
+### My Stats <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjI2a25vemM2Zjd3OXRwdzI1ZjNnMXZlNnpsYmd5MDZrdDh3eWlhZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/RVWSqOsgDAq0W3051o/giphy.gif" width="50">
+
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=IsraelR1099&layout=compact)
